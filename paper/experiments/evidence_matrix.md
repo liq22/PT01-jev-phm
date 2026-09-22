@@ -1,42 +1,21 @@
 # Claim–Support Matrix
 
-本表只在形成正式 claim 后使用。它回答：当前理论、实验、分析或原始文献允许论文说到什么程度，以及边界在哪里。
+## Current claims
 
-| Claim ID | Claim text | Strength | Hypothesis provenance | Evidence ID | Evidence type | Run/ref/artifact | Strongest counterexample / alternative | Figure/table | Boundary | Status |
-|---|---|---|---|---|---|---|---|---|---|---|
+### Evidence status at initialization
 
-## Strength
+| Claim | Method location | Existing support | Missing evidence / minimum action | Boundary / competing explanation | Status |
+|---|---|---|---|---|---|
+| Typed decisions stay within the declared closed-set output space | Main §3.1, §4.4; `typed_decisions` | Numerical/interface unit tests | Actual PHM/Qwen export and prediction smoke | Structural property, also true of ordinary classification; not diagnostic correctness or standalone novelty | supported at interface level |
+| Unit calibration estimates the declared unit-uniform objective | Main §3.2, §4.3 | Exact covariance identity; equal-count and duplication tests | Audit whether units/counts match the intended deployment population | Pooled calibration is appropriate for a window-weighted target; equal counts give the same method | analytical identity supported |
+| Unit calibration improves held-out probability quality beyond pooled scaling | Main §4.3, §5 | None; pre-result hypothesis | Required E1 in `jev_goal.md`: identical logits, distinct calibration weighting, paired test-unit NLL | Sample variance or no objective mismatch may eliminate the benefit | planned, unverified |
+| Qwen representation contributes beyond the same numeric state | Main §4.2, §5 | None; pre-result hypothesis | Required E1: numeric/Qwen heads, equal search opportunities and identical downstream calibration | Numeric features may be sufficient; six features may discard key signal information | planned, unverified |
+| Better calibrated probabilities yield useful selective decisions | Main §3.3, §4.4 | Only the model-relative minimum-cost rule | Required E1: held-out coverage/error and fixed scenario cost | Cost depends on probability quality and declared costs; no real maintenance savings established | planned, unverified |
 
-- `hypothesis`: 尚未验证。
-- `weak`: 单一或探索性结果，仍有重要混杂。
-- `moderate`: 多次一致结果，但适用范围或独立确认有限。
-- `strong`: 关键替代解释已被区分，并有独立结果和明确边界支持。
+## Experiment priority
 
-## Hypothesis provenance
+### Required versus optional
 
-- `unknown`: 尚未核对形成时间；新条目默认使用此值。
-- `H0`: 在相关结果之前提出。
-- `H1`: 由探索性结果启发。
-- `H2`: 已由新的独立结果确认。
-- `H3`: 仍是结果后的解释。
+E0 (required execution prerequisite): verified PHMFactory data/labels/units/configuration and one real Qwen embedding batch. E1 (required empirical evidence): one locked two-by-three comparison. No result exists yet.
 
-不得把 H1、H3 或 unknown 倒写成 H0。
-
-## Status
-
-- `missing`
-- `planned`
-- `to_verify`
-- `supported`
-- `partially_supported`
-- `refuted`
-- `blocked`
-
-## Rules
-
-- 正向支持引用 run 时，该 run 必须是 `completed`。
-- 正向支持引用文献时，该文献必须完成全文核验。
-- 直接引用结果文件时填写可理解的文件路径或数据来源；不计算文件 hash。
-- 记录最强反例或竞争解释，以及对象、工况、数据、协议或外部效度边界。
-- 探索性结果可以进入论文，但不得伪装成独立确认。
-- 新结果否定主张时修改主张，不保护原叙事。
+Optional until motivated by a core gap: Qwen fine-tuning, generative output comparisons, additional datasets, RUL, open-set recognition, physical/temporal constraints, and motivation/overview figures. Do not add these to the current run queue. Ordinary accuracy must be identical across the three calibration variants sharing a head; any discrepancy invalidates the run.

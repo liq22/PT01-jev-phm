@@ -1,1 +1,5 @@
 PyYAML==6.0.3
+# Numerical probe tests do not download Qwen or require torch/transformers.
+numpy>=1.26
+scipy>=1.11
+scikit-learn>=1.4
