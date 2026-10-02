@@ -1,6 +1,6 @@
 ---
 name: peer-review
-description: Review a manuscript or selected claim with only the scientific lenses needed, prioritize new independent P0/P1 issues, and stop expanding review when additional lenses no longer change the revision decision.
+description: Review a manuscript or selected claim with only the scientific lenses needed, prioritize new independent P0/P1 issues, and stop after the requested focused review.
 ---
 
 # Peer Review
@@ -61,9 +61,9 @@ quota of personas, sections, standards, checklists, or findings.
 
 8. Return at most three P0/P1 concerns overall and a small number of P2/P3 items.
    Do not manufacture concerns to fill categories.
-9. Stop adding reviewer lenses when consecutive independent lenses no longer find
-   a new P0/P1 issue. Repetition of an existing issue does not count as new
-   information.
+9. Stop after the requested focused pass. Recheck a corrected defect only when
+   a material change requires it; do not add rounds to establish that no new
+   P0/P1 issue remains. Review-only requests do not authorize revision or experiments.
 10. When revision is requested, pass the concerns into the actual revision loop:
 
    ```text
