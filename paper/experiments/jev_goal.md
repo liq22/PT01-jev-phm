@@ -38,7 +38,7 @@ Statistical unit: the verified independent asset/acquisition, not a window or a 
 
 ### Verified project commands and prerequisites
 
-The following CLI parsers and numerical path have been tested locally. The real PHMFactory import/export and Qwen forward pass remain **source-checked but not end-to-end executed**. The environment variables below must point to real inputs resolved in E0; they are not suggested data paths.
+The following CLI parsers and numerical path were tested during the initialization PR, not rerun during the subsequent documentation revision. The real PHMFactory import/export and Qwen forward pass remain **source-checked but not end-to-end executed** in the evidence available here. The environment variables below must point to real inputs resolved in E0; they are not suggested data paths.
 
 ```bash
 # From the PT01-jev-phm checkout:
@@ -90,3 +90,62 @@ A reproducible decrease in held-out unit-weighted NLL versus pooled scaling supp
 Write results back to `paper/experiments/evidence_matrix.md` and the existing research state in `paper/paper.yaml`. Only after actual analysis should the manuscript acquire results and supported empirical contributions. Full publication claims still require adequate data scope and a focused closest-neighbor check of weighted/clustered calibration; no first-ever claim is authorized by this initialization.
 
 Record failures and protocol deviations without deleting runs. Continue independent required work when one dependency blocks; stop when nothing else can run. Use a work branch and PR into `dev`, no force-push and no `master` changes. Report the actual merged revision or why the PR remains open. Do not redesign the paper, add optional experiments, or overwrite failed outputs during execution.
+
+## Source-informed extension design
+
+### E2: Implementation prerequisite, not a command supported by the current CLI
+
+This section is a design handoff prompted by the 23 September source review, not permission to substitute a new protocol into E0/E1. Inspect existing local outputs first; reuse valid E1 artifacts rather than rerunning the same snapshot. Do not claim E1 tests question decomposition. The current `jev_phm.py` has no question-conditioned or factorized-head experiment command, and none is invented here.
+
+Required scientific gap: whether splitting a PHM decision into scoped judgments helps beyond ordinary hierarchy or extra computation. It is required to support that new claim, not to complete the earlier calibration-only experiment.
+
+Before implementation, verify a taxonomy containing healthy plus at least two mutually exclusive fault classes. A healthy/inner-race/outer-race/rolling-element example is illustrative, not an assertion that such a dataset is loaded. A binary taxonomy gives a degenerate conditional-identity problem; do not manufacture categories to avoid this null case. No fault-presence mapping may be inferred merely from file names.
+
+Reuse the original six-feature state first. Supply all label definitions and the same healthy/fault grouping to each language arm. Numerical arms receive the same measured evidence and hierarchy; no equality of pretrained semantic knowledge is claimed. Never place a sample's ground truth, file ID or source dataset identity in the model state.
+
+Freeze the following question templates before reading test predictions, substituting only the verified common taxonomy:
+
+| Judgment | Fixed meaning |
+|---|---|
+| Presence | Using only the observed state and supplied category definitions, is a declared fault present rather than the healthy condition? |
+| Conditional identity | Assuming this observation belongs to one of the supplied fault categories, which fault category best fits? This is a conditional judgment, not evidence that a fault is present. |
+| Flat diagnosis A | Using only the observed state, select the best-fitting category from the complete healthy-plus-fault taxonomy and supplied definitions. |
+| Flat diagnosis B | Which category in the complete supplied taxonomy is most consistent with this observed state? Use the same healthy/fault grouping and definitions. |
+
+The presence and identity queries are independent model evaluations over the same state and do not consume each other's answers. Both run on every test state. Target presence is derived from the training label; the identity head is trained only on faulty training observations. These are diagnosis-derived targets, not observed physical symptoms.
+
+### E2: Minimum comparisons, fitting and estimands
+
+| Arm | Purpose |
+|---|---|
+| Numerical flat | Existing measured-state control; reuse compatible artifacts |
+| Numerical factorized | Same numerical evidence, presence and conditional identity heads, and the same probability composition |
+| Qwen flat | Frozen Qwen conditioned on flat question A and the common definitions |
+| Qwen factorized | Frozen Qwen conditioned on presence/identity questions; proposed composition |
+| Qwen two-question direct | Flat A/B heads; fixed 50/50 average of their class probabilities before final calibration |
+
+Select from the existing C grid using workflow-level tuning-unit NLL. Use one shared C for the two factorized heads, avoiding a larger Cartesian-product search. The two direct heads likewise share one C. Fit every standardizer on the corresponding training observations only. Record head parameter counts and actual token/forward counts; the two-question control matches question evaluations, not necessarily exact time or FLOPs.
+
+First assemble the complete leaf distribution. Use ordinary pooled temperature scaling as the predeclared primary calibration regime for every E2 arm, with the same single scalar T, bounds and calibration units. Keep raw distributions for the without-calibration comparison. Unit-weighted scaling is a secondary analysis only if retaining the separate population-weighting claim; do not choose a calibration regime by its test result. Do not give only the proposed method node-specific temperatures. Recompute any exposed calibrated parent or conditional probability from the final leaf distribution, and retain the uncalibrated factors separately.
+
+Primary endpoint: paired independent-unit-weighted NLL difference between Qwen factorized and Qwen flat. Supporting contrasts are numerical factorized minus numerical flat, and Qwen factorized minus the two-question direct control. Report the same Brier, class metrics, fixed-cost decisions and coverage/error measures as E1. Reuse the declared 2,000 unit-bootstrap draws and seed for conditional paired intervals; report unit counts and do not describe nonsignificance as equivalence. One deterministic frozen-feature fit per candidate is sufficient for this pilot. If future backbone training is introduced, declare its repetition plan before outcomes instead of borrowing this assumption.
+
+The linear arms establish a bounded comparison, not broad superiority. Before claiming practical superiority over mature PHM classifiers, identify and tune a nonlinear numerical/signal baseline using the actual PHMFactory-supported implementation and the same evidence/split. Its command and configuration must be source-checked in the implementation stage; they are unresolved here, not guessed.
+
+### E2: Artifacts, tests and interpretation
+
+Extend the existing implementation and output contract rather than creating a second runner. Retain observed-state fields, query text and candidate definitions, raw presence/identity scores, composed and calibrated leaf probabilities, source units/roles, fitted parameters and selection metrics. Ground-truth test labels are used only for scoring. Save all attempts and failures. A numeric field should not be called an evidence probability without a defined event and target.
+
+Before full execution, test normalization and parent/leaf coherence, healthy-example exclusion from conditional-identity training, both-query evaluation regardless of predicted or true class, absence of sample-label leakage, reuse of the same observed state, and preservation of the declared calibration split. Validate actual CLI commands only after those capabilities exist. Structural tests are not efficacy results.
+
+Interpret a numerical hierarchy gain as evidence for hierarchy unless a language-specific increment is separately supported. If the two-question direct control removes the advantage, do not credit decomposition instead of extra computation. If all numerical methods are poor, investigate the state representation using development data before making language-model claims. Compare matched coverage and fixed scenario costs, not simply lower error obtained by rejecting more cases.
+
+Changing evidence fields or selecting prompts after examining E1 test errors makes the resulting analysis exploratory on those same units. Independent confirmation needs new untouched units; do not silently reuse inspected tests as confirmation. Update the existing evidence matrix and state once valid results exist, not a second claim table.
+
+### Claim-triggered work, not an automatic expansion queue
+
+State enrichment is warranted only when missing evidence threatens the core diagnosis question. Examples are measured sampling rate, preprocessing semantics, spectrum/envelope descriptors, and operating conditions actually available through PHMFactory. RPM and bearing geometry are prerequisites for defect-frequency interpretation, not values for the Agent to invent. Apply the same enrichment to direct, factorized and numerical controls; separate its effect from question design.
+
+No symptom annotation is assumed. Code-derived threshold labels test recovery of a known rule and require that rule as a baseline; they are not independent physical truth. Score-based severity needs genuine ordered targets; RUL needs a suitable degradation task. A low Noul value is not low severity, and low confidence alone does not establish an unseen fault.
+
+An efficiency claim requires end-to-end measurements on matched hardware, precision, batch and output semantics, including preprocessing, repeated question work, calibration, rejection and any expert escalation. No escalation is implemented in the current leaf-or-defer prototype. Do not import Jev's advertised speedups, price advantages or shared-prefix behavior. A generation comparison is optional unless the manuscript actually claims an advantage over generation; when required, include an efficient constrained-output baseline as well as ordinary generation.
