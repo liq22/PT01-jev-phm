@@ -19,6 +19,7 @@ or observed PaperTrace problem.
 4. Implement the smallest change that improves the real workflow.
 5. Run only the affected behavior case or targeted test.
 6. Update documentation only when the user action or maintenance procedure changed.
+7. Lack of a current caller, template TODOs, file age, or context length is not proof of obsolescence. Preserve reusable templates, styles, examples, original notes, and unique scientific guidance; reduce default loading instead of deleting them. Before a lossy deletion, inspect content, dependencies, and history and obtain explicit author approval for the named asset.
 
 ## Output Contract
 
