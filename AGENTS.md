@@ -224,16 +224,24 @@ change. Never repeat validation without an intervening product change.
 2. Select one context card and one primary skill.
 3. Use at most one supporting skill.
 4. Read only the files needed for the direct product change.
-5. Execute in the same turn unless `plan_only` is explicit.
+5. Execute in the same turn unless the request is plan-only or review-only.
+   Those modes remain read-only: return the requested plan or findings without
+   editing files, persisting reports/state, or running new experiments.
 
-Audit skills are explicit-only. Generic requests such as “review”, “optimize”, or
-“continue” should improve the named product, not start a governance audit.
+Use `.agent/PAPER_SKILL_CORE.md` with the selected paper Skill for scientific
+writing and evidence rules. Code-only tasks use direct implementation checks,
+without manuscript reviewers or whole-paper reports.
+
+Audit skills are explicit-only. A review request returns findings; “optimize” or
+“continue” acts on the named product within the requested scope, without starting
+a governance audit.
 
 ## Review stop rule
 
-Review is not a fixed number of personas. Select the lenses required by the paper.
-Track only new independent P0/P1 issues. When consecutive independent lenses add no
-new P0/P1 issue, stop expanding review and enter revision convergence.
+For a requested scientific review or the one final manuscript QA, select only
+the lenses needed by the paper. Stop after that focused pass; recheck a corrected
+defect only when a material change requires it. Review-only work returns findings
+without entering revision. Do not add reviewer rounds to prove no new issue remains.
 
 ## Lightweight logs
 

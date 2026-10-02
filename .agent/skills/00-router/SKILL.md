@@ -41,7 +41,9 @@ if the section's scientific logic is incomplete, use `08-markdown-draft`.
 3. Read only the inputs needed for that change. Read `paper/paper.yaml` only when
    stage, active source, claim state, or a consequential author confirmation
    matters.
-4. Modify the requested product in the same turn unless `plan_only` is explicit.
+4. Modify the requested product in the same turn when execution is requested.
+   Plan-only and review-only requests return a plan or findings without edits, persisted
+   reports/state, or new experiments.
 5. Validate once with the closest direct check:
    - idea initialization: problem kernel, non-duplicate candidates, front-runner,
      closest-prior-art delta, falsifier, kill test, and boundary;
@@ -57,13 +59,14 @@ if the section's scientific logic is incomplete, use `08-markdown-draft`.
    - TeX: compile once.
 6. Report the substantive result and stop.
 
-Generic “review”, “continue”, or “optimize” means improve the named product. It
-does not imply a full audit, formatting pass, repository scan, statistics battery,
-or Python validation.
+A review request returns findings; “continue” or “optimize” improves the named
+product within its requested scope. None implies a full audit, formatting pass,
+repository scan, statistics battery, or Python validation. Use Paper Skill Core
+for paper tasks; code-only tasks do not require manuscript review.
 
 ## Output Contract
 
-Return:
+For an execution task, return:
 
 ```text
 Changed: <substantive product change>
@@ -71,6 +74,9 @@ Result: <direct outcome or scientific decision>
 Validation: <one relevant check>
 Remaining: <one material issue, only when present>
 ```
+
+For review-only or plan-only work, return the requested findings or plan and
+any material limitation without implying that a product was changed.
 
 Do not expose route packets, YAML traces, status matrices, file hashes, or process
 reports.

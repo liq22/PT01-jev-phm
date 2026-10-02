@@ -19,8 +19,9 @@ enables a real decision, not a repository tour or documentation expansion.
    scientific parameters, and common failure behavior.
 5. Mark unsupported intent or runtime behavior as `UNKNOWN` and name the smallest
    test that would resolve it.
-6. Update `MODULE_MAP.md` only when the explanation will be reused or an interface
-   or scientific role changed.
+6. For an authorized documentation update, update `MODULE_MAP.md` only when the
+   explanation will be reused or an interface or scientific role changed. Keep
+   explanation-only and plan-only tasks read-only, including documentation/state.
 7. Validate by one targeted import, test, dry run, or direct code inspection.
 
 ## Output Contract
