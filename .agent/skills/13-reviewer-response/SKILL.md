@@ -55,6 +55,12 @@ Produce:
 - revised claim strength and boundary;
 - one unresolved author decision only when genuinely necessary.
 
+For a formatted response letter, copy the bundled LaTeX asset from
+`.agent/skills/13-reviewer-response/assets/response-letter-latex-template/` to a
+paper working directory. Keep real reviewer text out of the reusable asset.
+`paper/reviews/response_to_reviewers.md` is an optional drafting surface; do not
+maintain duplicate authoritative reply texts.
+
 ## Boundaries
 
 - Do not prioritize response matrices, coverage reports, reviewer ledgers,
