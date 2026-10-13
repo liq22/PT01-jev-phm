@@ -13,3 +13,11 @@ pandas==1.5.3
 h5py==3.13.0
 openpyxl==3.1.5
 tqdm==4.67.1
+PyYAML==6.0.3
+pydantic==2.11.7
+requests==2.32.3
+
+# Local figure generation and optional Markdown-to-PDF preview.
+# The PDF preview also requires a separately installed local Chromium binary.
+matplotlib==3.7.0
+pypandoc_binary==1.15
