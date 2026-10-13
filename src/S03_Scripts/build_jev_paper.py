@@ -85,7 +85,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--draft", type=Path, default=ROOT / "paper/draft/main.md")
     parser.add_argument("--bibliography", type=Path, default=ROOT / "paper/refs/references.bib")
-    parser.add_argument("--out-dir", type=Path, default=ROOT / "paper/build")
+    parser.add_argument("--out-dir", type=Path, default=ROOT / "paper/preview")
     parser.add_argument("--pandoc")
     parser.add_argument("--chromium")
     args = parser.parse_args()

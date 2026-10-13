@@ -114,7 +114,15 @@ def read_evaluation(folder: Path, e2: bool) -> dict[str, Any]:
                 # Do not promote fold-conditioned intervals into repeated-fit uncertainty.
                 delta = {k: v for k, v in delta.items() if k not in ("conditional_ci95", "repetitions", "seed")}
             contrasts[key] = delta
-    return {"config": config, "report": report, "metrics": recomputed,
+    origin = load_json(folder / "provenance.json")
+    data_origin = json.loads(origin["data"])
+    embedding_origin = json.loads(origin["embedding"])
+    # Publish scientific provenance without copying local cache/data-root paths.
+    provenance = {"data": {key: data_origin[key] for key in
+                           ("phmfactory_commit", "window_plan", "channel", "normalization", "original_split", "evaluation_unit_roles")
+                           if key in data_origin},
+                  "embedding_archives": [Path(item["path"]).name for item in embedding_origin.get("archives", [])]}
+    return {"config": config, "report": report, "metrics": recomputed, "provenance": provenance,
             "contrasts": contrasts, "curves": curves, "unit_nll": unit_rows, "test_windows": int(mask.sum()),
             "test_units": len(np.unique(units)), "source": str(folder.relative_to(ROOT))}
 
@@ -211,7 +219,10 @@ def summarize(run_root: Path, figures: Path, tables: Path) -> None:
     for path in sorted((run_root / "embeddings").glob("*.npz")):
         # The archive is canonical; opening just this member never loads hidden arrays.
         with np.load(path, allow_pickle=False) as archive:
-            encoding[path.stem] = json.loads(str(archive["provenance"]))
+            metadata = json.loads(str(archive["provenance"]))
+            encoding[path.stem] = {key: metadata[key] for key in
+                                  ("model", "revision", "dtype", "batch_size", "mapping", "representation", "queries", "load_seconds", "total_seconds")
+                                  if key in metadata}
     figures.mkdir(parents=True, exist_ok=True)
     tables.mkdir(parents=True, exist_ok=True)
     compact = {"run": str(run_root.relative_to(ROOT)), "independent_unit": "physical bearing",
@@ -221,9 +232,9 @@ def summarize(run_root: Path, figures: Path, tables: Path) -> None:
                                       "ece": "10 equal-width confidence bins with equal-bearing weights",
                                       "risk_coverage": "stable saved observation-order ties; equal-bearing window weights"},
                "selection": selection, "encoding": encoding,
-               "evaluations": {name: {**{key: result[key] for key in ("source", "test_windows", "test_units", "metrics", "contrasts")},
+               "evaluations": {name: {**{key: result[key] for key in ("source", "test_windows", "test_units", "metrics", "contrasts", "config", "provenance")},
                                       "heads": {arm: {key: fields[key] for key in
-                                                ("C", "temperatures", "fit_evaluate_seconds", "head_parameters") if key in fields}
+                                                ("C", "tuning", "temperatures", "fit_evaluate_seconds", "head_parameters") if key in fields}
                                                 for arm, fields in result["report"].items() if arm in result["metrics"]}}
                                for name, result in results.items()}}
     write_json(tables / "jev_study_summary.json", compact)

@@ -1,0 +1,44 @@
+{
+  "primary": {
+    "window_size": 2048,
+    "num_window": 147,
+    "C": 0.01,
+    "tune_nll": 2.0189599970321157
+  },
+  "rotation_1": {
+    "window_size": 8192,
+    "num_window": 37,
+    "C": 10.0,
+    "tune_nll": 0.7484620047073283
+  },
+  "rotation_2": {
+    "window_size": 8192,
+    "num_window": 37,
+    "C": 0.1,
+    "tune_nll": 0.8254434416698664
+  },
+  "rotation_3": {
+    "window_size": 8192,
+    "num_window": 37,
+    "C": 100.0,
+    "tune_nll": 0.9823875982700333
+  },
+  "rotation_4": {
+    "window_size": 8192,
+    "num_window": 37,
+    "C": 0.1,
+    "tune_nll": 0.7830543119264515
+  },
+  "rotation_5": {
+    "window_size": 2048,
+    "num_window": 147,
+    "C": 1.0,
+    "tune_nll": 1.823602513479436
+  },
+  "rotation_6": {
+    "window_size": 8192,
+    "num_window": 37,
+    "C": 0.01,
+    "tune_nll": 1.4206435169436398
+  }
+}

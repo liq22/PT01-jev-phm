@@ -1,0 +1,817 @@
+evaluation,arm,calibration,unit,test_windows,nll
+primary_raw_e2,Numerical-flat,raw,Artificial Inner Ring Damage KI07,11760,0.8508981640881965
+primary_raw_e2,Numerical-flat,raw,Artificial Outer Ring Damage KA06,11760,0.9587320911587278
+primary_raw_e2,Numerical-flat,raw,Healthy Bearing K003,11760,2.4987326560238925
+primary_raw_e2,Numerical-flat,raw,Healthy Bearing K004,11760,1.4994963229045055
+primary_raw_e2,Numerical-flat,raw,Real Inner Ring Damage KI04,11760,0.8343524247983403
+primary_raw_e2,Numerical-flat,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.37267245874068283
+primary_raw_e2,Numerical-flat,raw,Real Outer Ring Damage KA15,11760,0.6911378424117193
+primary_raw_e2,Numerical-flat,raw,Real Outer Ring Damage KA30,11760,0.8605750733397319
+primary_raw_e2,Numerical-flat,pooled,Artificial Inner Ring Damage KI07,11760,1.0200025374645518
+primary_raw_e2,Numerical-flat,pooled,Artificial Outer Ring Damage KA06,11760,1.0459791700582661
+primary_raw_e2,Numerical-flat,pooled,Healthy Bearing K003,11760,1.3282350158856628
+primary_raw_e2,Numerical-flat,pooled,Healthy Bearing K004,11760,1.1768110153545464
+primary_raw_e2,Numerical-flat,pooled,Real Inner Ring Damage KI04,11760,0.9750019376381037
+primary_raw_e2,Numerical-flat,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.6721404166399445
+primary_raw_e2,Numerical-flat,pooled,Real Outer Ring Damage KA15,11760,0.9804802905232326
+primary_raw_e2,Numerical-flat,pooled,Real Outer Ring Damage KA30,11760,0.9828023377626406
+primary_raw_e2,Numerical-flat,unit,Artificial Inner Ring Damage KI07,11760,1.0196944835785036
+primary_raw_e2,Numerical-flat,unit,Artificial Outer Ring Damage KA06,11760,1.04578178165499
+primary_raw_e2,Numerical-flat,unit,Healthy Bearing K003,11760,1.3293411862313216
+primary_raw_e2,Numerical-flat,unit,Healthy Bearing K004,11760,1.177164324488312
+primary_raw_e2,Numerical-flat,unit,Real Inner Ring Damage KI04,11760,0.974584882780239
+primary_raw_e2,Numerical-flat,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.6711021498491774
+primary_raw_e2,Numerical-flat,unit,Real Outer Ring Damage KA15,11760,0.9800086018457376
+primary_raw_e2,Numerical-flat,unit,Real Outer Ring Damage KA30,11760,0.9824105565053776
+primary_raw_e2,Numerical-factorized,raw,Artificial Inner Ring Damage KI07,11760,0.8378617631803795
+primary_raw_e2,Numerical-factorized,raw,Artificial Outer Ring Damage KA06,11760,0.9512310966318257
+primary_raw_e2,Numerical-factorized,raw,Healthy Bearing K003,11760,2.394990497692776
+primary_raw_e2,Numerical-factorized,raw,Healthy Bearing K004,11760,1.4890855434238737
+primary_raw_e2,Numerical-factorized,raw,Real Inner Ring Damage KI04,11760,0.8286820774173828
+primary_raw_e2,Numerical-factorized,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.36533509300418054
+primary_raw_e2,Numerical-factorized,raw,Real Outer Ring Damage KA15,11760,0.6973055691701904
+primary_raw_e2,Numerical-factorized,raw,Real Outer Ring Damage KA30,11760,0.8567259943493992
+primary_raw_e2,Numerical-factorized,pooled,Artificial Inner Ring Damage KI07,11760,1.0106885169623978
+primary_raw_e2,Numerical-factorized,pooled,Artificial Outer Ring Damage KA06,11760,1.039419574518297
+primary_raw_e2,Numerical-factorized,pooled,Healthy Bearing K003,11760,1.3329172528955353
+primary_raw_e2,Numerical-factorized,pooled,Healthy Bearing K004,11760,1.1808937810435678
+primary_raw_e2,Numerical-factorized,pooled,Real Inner Ring Damage KI04,11760,0.9670951439964612
+primary_raw_e2,Numerical-factorized,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.665171090332296
+primary_raw_e2,Numerical-factorized,pooled,Real Outer Ring Damage KA15,11760,0.9746352259176696
+primary_raw_e2,Numerical-factorized,pooled,Real Outer Ring Damage KA30,11760,0.9758801656645771
+primary_raw_e2,Numerical-factorized,unit,Artificial Inner Ring Damage KI07,11760,1.0103410094493812
+primary_raw_e2,Numerical-factorized,unit,Artificial Outer Ring Damage KA06,11760,1.0391971558242872
+primary_raw_e2,Numerical-factorized,unit,Healthy Bearing K003,11760,1.3340650513483538
+primary_raw_e2,Numerical-factorized,unit,Healthy Bearing K004,11760,1.1812728655988018
+primary_raw_e2,Numerical-factorized,unit,Real Inner Ring Damage KI04,11760,0.9666512389071974
+primary_raw_e2,Numerical-factorized,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.6641013253100533
+primary_raw_e2,Numerical-factorized,unit,Real Outer Ring Damage KA15,11760,0.974134414854668
+primary_raw_e2,Numerical-factorized,unit,Real Outer Ring Damage KA30,11760,0.975465589587966
+primary_raw_e2,Qwen-flat,raw,Artificial Inner Ring Damage KI07,11760,0.9022689242655397
+primary_raw_e2,Qwen-flat,raw,Artificial Outer Ring Damage KA06,11760,0.9054595793426958
+primary_raw_e2,Qwen-flat,raw,Healthy Bearing K003,11760,3.2889650743577032
+primary_raw_e2,Qwen-flat,raw,Healthy Bearing K004,11760,1.617100423728218
+primary_raw_e2,Qwen-flat,raw,Real Inner Ring Damage KI04,11760,0.5582707122709534
+primary_raw_e2,Qwen-flat,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.31592542237257537
+primary_raw_e2,Qwen-flat,raw,Real Outer Ring Damage KA15,11760,0.6882150322533243
+primary_raw_e2,Qwen-flat,raw,Real Outer Ring Damage KA30,11760,1.5135000894323984
+primary_raw_e2,Qwen-flat,pooled,Artificial Inner Ring Damage KI07,11760,1.0331287661363129
+primary_raw_e2,Qwen-flat,pooled,Artificial Outer Ring Damage KA06,11760,1.032130516669253
+primary_raw_e2,Qwen-flat,pooled,Healthy Bearing K003,11760,1.3154894684814382
+primary_raw_e2,Qwen-flat,pooled,Healthy Bearing K004,11760,1.1495339323319342
+primary_raw_e2,Qwen-flat,pooled,Real Inner Ring Damage KI04,11760,0.951201048192641
+primary_raw_e2,Qwen-flat,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.8771209999594022
+primary_raw_e2,Qwen-flat,pooled,Real Outer Ring Damage KA15,11760,1.0037895746852559
+primary_raw_e2,Qwen-flat,pooled,Real Outer Ring Damage KA30,11760,1.080023393849454
+primary_raw_e2,Qwen-flat,unit,Artificial Inner Ring Damage KI07,11760,1.0328269596340967
+primary_raw_e2,Qwen-flat,unit,Artificial Outer Ring Damage KA06,11760,1.0318267983527032
+primary_raw_e2,Qwen-flat,unit,Healthy Bearing K003,11760,1.316718802774972
+primary_raw_e2,Qwen-flat,unit,Healthy Bearing K004,11760,1.1498204094164415
+primary_raw_e2,Qwen-flat,unit,Real Inner Ring Damage KI04,11760,0.9505220495879807
+primary_raw_e2,Qwen-flat,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.8761092356471782
+primary_raw_e2,Qwen-flat,unit,Real Outer Ring Damage KA15,11760,1.003335377021565
+primary_raw_e2,Qwen-flat,unit,Real Outer Ring Damage KA30,11760,1.0800211543732368
+primary_raw_e2,Qwen-factorized,raw,Artificial Inner Ring Damage KI07,11760,0.8901963842356531
+primary_raw_e2,Qwen-factorized,raw,Artificial Outer Ring Damage KA06,11760,0.9248104441138231
+primary_raw_e2,Qwen-factorized,raw,Healthy Bearing K003,11760,3.230008771695209
+primary_raw_e2,Qwen-factorized,raw,Healthy Bearing K004,11760,1.694990405361824
+primary_raw_e2,Qwen-factorized,raw,Real Inner Ring Damage KI04,11760,0.5510466041715991
+primary_raw_e2,Qwen-factorized,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.35101059363341525
+primary_raw_e2,Qwen-factorized,raw,Real Outer Ring Damage KA15,11760,0.6978847877401027
+primary_raw_e2,Qwen-factorized,raw,Real Outer Ring Damage KA30,11760,1.6031545445922148
+primary_raw_e2,Qwen-factorized,pooled,Artificial Inner Ring Damage KI07,11760,1.0262384004656324
+primary_raw_e2,Qwen-factorized,pooled,Artificial Outer Ring Damage KA06,11760,1.0302533543141248
+primary_raw_e2,Qwen-factorized,pooled,Healthy Bearing K003,11760,1.3166205331026348
+primary_raw_e2,Qwen-factorized,pooled,Healthy Bearing K004,11760,1.1631938784175988
+primary_raw_e2,Qwen-factorized,pooled,Real Inner Ring Damage KI04,11760,0.9295530705550742
+primary_raw_e2,Qwen-factorized,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.8809792379914303
+primary_raw_e2,Qwen-factorized,pooled,Real Outer Ring Damage KA15,11760,1.0008997202770638
+primary_raw_e2,Qwen-factorized,pooled,Real Outer Ring Damage KA30,11760,1.0858632799251011
+primary_raw_e2,Qwen-factorized,unit,Artificial Inner Ring Damage KI07,11760,1.025933474579771
+primary_raw_e2,Qwen-factorized,unit,Artificial Outer Ring Damage KA06,11760,1.029971390455961
+primary_raw_e2,Qwen-factorized,unit,Healthy Bearing K003,11760,1.3177823376299491
+primary_raw_e2,Qwen-factorized,unit,Healthy Bearing K004,11760,1.1635299182858623
+primary_raw_e2,Qwen-factorized,unit,Real Inner Ring Damage KI04,11760,0.9288536962623823
+primary_raw_e2,Qwen-factorized,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.8800671587693081
+primary_raw_e2,Qwen-factorized,unit,Real Outer Ring Damage KA15,11760,1.0004697683740833
+primary_raw_e2,Qwen-factorized,unit,Real Outer Ring Damage KA30,11760,1.0859154893473777
+primary_raw_e2,Qwen-two-question-direct,raw,Artificial Inner Ring Damage KI07,11760,0.8799148840287258
+primary_raw_e2,Qwen-two-question-direct,raw,Artificial Outer Ring Damage KA06,11760,0.8878729327386432
+primary_raw_e2,Qwen-two-question-direct,raw,Healthy Bearing K003,11760,3.307463383832848
+primary_raw_e2,Qwen-two-question-direct,raw,Healthy Bearing K004,11760,1.5744212200199463
+primary_raw_e2,Qwen-two-question-direct,raw,Real Inner Ring Damage KI04,11760,0.531913248242947
+primary_raw_e2,Qwen-two-question-direct,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.32144776860962965
+primary_raw_e2,Qwen-two-question-direct,raw,Real Outer Ring Damage KA15,11760,0.6756069715642822
+primary_raw_e2,Qwen-two-question-direct,raw,Real Outer Ring Damage KA30,11760,1.5331623716855431
+primary_raw_e2,Qwen-two-question-direct,pooled,Artificial Inner Ring Damage KI07,11760,1.0348836836967947
+primary_raw_e2,Qwen-two-question-direct,pooled,Artificial Outer Ring Damage KA06,11760,1.0351286238686965
+primary_raw_e2,Qwen-two-question-direct,pooled,Healthy Bearing K003,11760,1.317044212136087
+primary_raw_e2,Qwen-two-question-direct,pooled,Healthy Bearing K004,11760,1.1473391527604706
+primary_raw_e2,Qwen-two-question-direct,pooled,Real Inner Ring Damage KI04,11760,0.9482083823423619
+primary_raw_e2,Qwen-two-question-direct,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.8817078565764593
+primary_raw_e2,Qwen-two-question-direct,pooled,Real Outer Ring Damage KA15,11760,1.005716771155025
+primary_raw_e2,Qwen-two-question-direct,pooled,Real Outer Ring Damage KA30,11760,1.0840643575087803
+primary_raw_e2,Qwen-two-question-direct,unit,Artificial Inner Ring Damage KI07,11760,1.0345736201023963
+primary_raw_e2,Qwen-two-question-direct,unit,Artificial Outer Ring Damage KA06,11760,1.0348226115284582
+primary_raw_e2,Qwen-two-question-direct,unit,Healthy Bearing K003,11760,1.3183305753195924
+primary_raw_e2,Qwen-two-question-direct,unit,Healthy Bearing K004,11760,1.1476210577166026
+primary_raw_e2,Qwen-two-question-direct,unit,Real Inner Ring Damage KI04,11760,0.9474859217139671
+primary_raw_e2,Qwen-two-question-direct,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.8806805912506752
+primary_raw_e2,Qwen-two-question-direct,unit,Real Outer Ring Damage KA15,11760,1.005251213639884
+primary_raw_e2,Qwen-two-question-direct,unit,Real Outer Ring Damage KA30,11760,1.084082146598154
+primary_raw_e2,Qwen-shared-factorized,raw,Artificial Inner Ring Damage KI07,11760,0.8957055995430832
+primary_raw_e2,Qwen-shared-factorized,raw,Artificial Outer Ring Damage KA06,11760,0.913057864317913
+primary_raw_e2,Qwen-shared-factorized,raw,Healthy Bearing K003,11760,3.002603227357894
+primary_raw_e2,Qwen-shared-factorized,raw,Healthy Bearing K004,11760,1.609346143680721
+primary_raw_e2,Qwen-shared-factorized,raw,Real Inner Ring Damage KI04,11760,0.5636966811584951
+primary_raw_e2,Qwen-shared-factorized,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.3298012888965898
+primary_raw_e2,Qwen-shared-factorized,raw,Real Outer Ring Damage KA15,11760,0.6927259023665298
+primary_raw_e2,Qwen-shared-factorized,raw,Real Outer Ring Damage KA30,11760,1.495161018572225
+primary_raw_e2,Qwen-shared-factorized,pooled,Artificial Inner Ring Damage KI07,11760,1.0198709721818329
+primary_raw_e2,Qwen-shared-factorized,pooled,Artificial Outer Ring Damage KA06,11760,1.0207160727057636
+primary_raw_e2,Qwen-shared-factorized,pooled,Healthy Bearing K003,11760,1.3343939853036144
+primary_raw_e2,Qwen-shared-factorized,pooled,Healthy Bearing K004,11760,1.1614663549677682
+primary_raw_e2,Qwen-shared-factorized,pooled,Real Inner Ring Damage KI04,11760,0.9245850540964122
+primary_raw_e2,Qwen-shared-factorized,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.8426406866376079
+primary_raw_e2,Qwen-shared-factorized,pooled,Real Outer Ring Damage KA15,11760,0.9849126550412373
+primary_raw_e2,Qwen-shared-factorized,pooled,Real Outer Ring Damage KA30,11760,1.082090742039596
+primary_raw_e2,Qwen-shared-factorized,unit,Artificial Inner Ring Damage KI07,11760,1.019572969084141
+primary_raw_e2,Qwen-shared-factorized,unit,Artificial Outer Ring Damage KA06,11760,1.0204266437022187
+primary_raw_e2,Qwen-shared-factorized,unit,Healthy Bearing K003,11760,1.3355433596763646
+primary_raw_e2,Qwen-shared-factorized,unit,Healthy Bearing K004,11760,1.1617710816597318
+primary_raw_e2,Qwen-shared-factorized,unit,Real Inner Ring Damage KI04,11760,0.9239263670135665
+primary_raw_e2,Qwen-shared-factorized,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.8416796887779694
+primary_raw_e2,Qwen-shared-factorized,unit,Real Outer Ring Damage KA15,11760,0.9844617659642618
+primary_raw_e2,Qwen-shared-factorized,unit,Real Outer Ring Damage KA30,11760,1.0821307437091492
+primary_raw_e1,numeric,raw,Artificial Inner Ring Damage KI07,11760,0.8508981640881965
+primary_raw_e1,numeric,raw,Artificial Outer Ring Damage KA06,11760,0.9587320911587278
+primary_raw_e1,numeric,raw,Healthy Bearing K003,11760,2.4987326560238925
+primary_raw_e1,numeric,raw,Healthy Bearing K004,11760,1.4994963229045055
+primary_raw_e1,numeric,raw,Real Inner Ring Damage KI04,11760,0.8343524247983403
+primary_raw_e1,numeric,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.37267245874068283
+primary_raw_e1,numeric,raw,Real Outer Ring Damage KA15,11760,0.6911378424117193
+primary_raw_e1,numeric,raw,Real Outer Ring Damage KA30,11760,0.8605750733397319
+primary_raw_e1,numeric,pooled,Artificial Inner Ring Damage KI07,11760,1.0200025374645518
+primary_raw_e1,numeric,pooled,Artificial Outer Ring Damage KA06,11760,1.0459791700582661
+primary_raw_e1,numeric,pooled,Healthy Bearing K003,11760,1.3282350158856628
+primary_raw_e1,numeric,pooled,Healthy Bearing K004,11760,1.1768110153545464
+primary_raw_e1,numeric,pooled,Real Inner Ring Damage KI04,11760,0.9750019376381037
+primary_raw_e1,numeric,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.6721404166399445
+primary_raw_e1,numeric,pooled,Real Outer Ring Damage KA15,11760,0.9804802905232326
+primary_raw_e1,numeric,pooled,Real Outer Ring Damage KA30,11760,0.9828023377626406
+primary_raw_e1,numeric,unit,Artificial Inner Ring Damage KI07,11760,1.0196944835785036
+primary_raw_e1,numeric,unit,Artificial Outer Ring Damage KA06,11760,1.04578178165499
+primary_raw_e1,numeric,unit,Healthy Bearing K003,11760,1.3293411862313216
+primary_raw_e1,numeric,unit,Healthy Bearing K004,11760,1.177164324488312
+primary_raw_e1,numeric,unit,Real Inner Ring Damage KI04,11760,0.974584882780239
+primary_raw_e1,numeric,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.6711021498491774
+primary_raw_e1,numeric,unit,Real Outer Ring Damage KA15,11760,0.9800086018457376
+primary_raw_e1,numeric,unit,Real Outer Ring Damage KA30,11760,0.9824105565053776
+primary_raw_e1,qwen,raw,Artificial Inner Ring Damage KI07,11760,0.8766244506976416
+primary_raw_e1,qwen,raw,Artificial Outer Ring Damage KA06,11760,0.9019663966603984
+primary_raw_e1,qwen,raw,Healthy Bearing K003,11760,3.4584478394474525
+primary_raw_e1,qwen,raw,Healthy Bearing K004,11760,1.5187065196362695
+primary_raw_e1,qwen,raw,Real Inner Ring Damage KI04,11760,0.530418802751933
+primary_raw_e1,qwen,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.29760461589196296
+primary_raw_e1,qwen,raw,Real Outer Ring Damage KA15,11760,0.727805574652805
+primary_raw_e1,qwen,raw,Real Outer Ring Damage KA30,11760,1.7643439133413
+primary_raw_e1,qwen,pooled,Artificial Inner Ring Damage KI07,11760,1.0261699592766922
+primary_raw_e1,qwen,pooled,Artificial Outer Ring Damage KA06,11760,1.0287536709581588
+primary_raw_e1,qwen,pooled,Healthy Bearing K003,11760,1.3179223179139044
+primary_raw_e1,qwen,pooled,Healthy Bearing K004,11760,1.1323488251220093
+primary_raw_e1,qwen,pooled,Real Inner Ring Damage KI04,11760,0.9422109772353071
+primary_raw_e1,qwen,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.8652946124465676
+primary_raw_e1,qwen,pooled,Real Outer Ring Damage KA15,11760,1.0046252275947847
+primary_raw_e1,qwen,pooled,Real Outer Ring Damage KA30,11760,1.1046061571032926
+primary_raw_e1,qwen,unit,Artificial Inner Ring Damage KI07,11760,1.025832310152908
+primary_raw_e1,qwen,unit,Artificial Outer Ring Damage KA06,11760,1.028432933904384
+primary_raw_e1,qwen,unit,Healthy Bearing K003,11760,1.319193154551412
+primary_raw_e1,qwen,unit,Healthy Bearing K004,11760,1.1325494940941985
+primary_raw_e1,qwen,unit,Real Inner Ring Damage KI04,11760,0.941482948947474
+primary_raw_e1,qwen,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.8642287522702738
+primary_raw_e1,qwen,unit,Real Outer Ring Damage KA15,11760,1.0041778753240478
+primary_raw_e1,qwen,unit,Real Outer Ring Damage KA30,11760,1.1047408106308358
+primary_normalized_e1,numeric,raw,Artificial Inner Ring Damage KI07,11760,0.9508690105233735
+primary_normalized_e1,numeric,raw,Artificial Outer Ring Damage KA06,11760,0.9231751651047494
+primary_normalized_e1,numeric,raw,Healthy Bearing K003,11760,3.0162311745543935
+primary_normalized_e1,numeric,raw,Healthy Bearing K004,11760,2.0816515312486965
+primary_normalized_e1,numeric,raw,Real Inner Ring Damage KI04,11760,0.9037547231176386
+primary_normalized_e1,numeric,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.6442548075726895
+primary_normalized_e1,numeric,raw,Real Outer Ring Damage KA15,11760,0.750266301036207
+primary_normalized_e1,numeric,raw,Real Outer Ring Damage KA30,11760,0.8222801424505195
+primary_normalized_e1,numeric,pooled,Artificial Inner Ring Damage KI07,11760,1.0710466779161993
+primary_normalized_e1,numeric,pooled,Artificial Outer Ring Damage KA06,11760,1.0653440018422664
+primary_normalized_e1,numeric,pooled,Healthy Bearing K003,11760,1.2735398924832448
+primary_normalized_e1,numeric,pooled,Healthy Bearing K004,11760,1.1963815122494146
+primary_normalized_e1,numeric,pooled,Real Inner Ring Damage KI04,11760,1.0593875863977908
+primary_normalized_e1,numeric,pooled,"Real Mixed Damage, IR Dominant KB24",11760,1.011449467385484
+primary_normalized_e1,numeric,pooled,Real Outer Ring Damage KA15,11760,1.0400697445364453
+primary_normalized_e1,numeric,pooled,Real Outer Ring Damage KA30,11760,1.0516042951658688
+primary_normalized_e1,numeric,unit,Artificial Inner Ring Damage KI07,11760,1.0707376544045686
+primary_normalized_e1,numeric,unit,Artificial Outer Ring Damage KA06,11760,1.0649721768362646
+primary_normalized_e1,numeric,unit,Healthy Bearing K003,11760,1.2757139531081547
+primary_normalized_e1,numeric,unit,Healthy Bearing K004,11760,1.1975725141841953
+primary_normalized_e1,numeric,unit,Real Inner Ring Damage KI04,11760,1.0589531720540242
+primary_normalized_e1,numeric,unit,"Real Mixed Damage, IR Dominant KB24",11760,1.0104868220002365
+primary_normalized_e1,numeric,unit,Real Outer Ring Damage KA15,11760,1.0394086823836257
+primary_normalized_e1,numeric,unit,Real Outer Ring Damage KA30,11760,1.0510738427617168
+primary_normalized_e1,qwen,raw,Artificial Inner Ring Damage KI07,11760,0.8422207777016689
+primary_normalized_e1,qwen,raw,Artificial Outer Ring Damage KA06,11760,0.9319878138710754
+primary_normalized_e1,qwen,raw,Healthy Bearing K003,11760,2.0117073286070375
+primary_normalized_e1,qwen,raw,Healthy Bearing K004,11760,2.1633572033246686
+primary_normalized_e1,qwen,raw,Real Inner Ring Damage KI04,11760,0.9057425892650286
+primary_normalized_e1,qwen,raw,"Real Mixed Damage, IR Dominant KB24",11760,0.7871567798456065
+primary_normalized_e1,qwen,raw,Real Outer Ring Damage KA15,11760,0.8304692999153047
+primary_normalized_e1,qwen,raw,Real Outer Ring Damage KA30,11760,0.8521210146047705
+primary_normalized_e1,qwen,pooled,Artificial Inner Ring Damage KI07,11760,0.9376059478916055
+primary_normalized_e1,qwen,pooled,Artificial Outer Ring Damage KA06,11760,0.9775658021438862
+primary_normalized_e1,qwen,pooled,Healthy Bearing K003,11760,1.5149013958725566
+primary_normalized_e1,qwen,pooled,Healthy Bearing K004,11760,1.5893107184440982
+primary_normalized_e1,qwen,pooled,Real Inner Ring Damage KI04,11760,0.9587123971872887
+primary_normalized_e1,qwen,pooled,"Real Mixed Damage, IR Dominant KB24",11760,0.8827277672678402
+primary_normalized_e1,qwen,pooled,Real Outer Ring Damage KA15,11760,0.9215440918643107
+primary_normalized_e1,qwen,pooled,Real Outer Ring Damage KA30,11760,0.9355049740488447
+primary_normalized_e1,qwen,unit,Artificial Inner Ring Damage KI07,11760,0.9372670971503112
+primary_normalized_e1,qwen,unit,Artificial Outer Ring Damage KA06,11760,0.9773529724501981
+primary_normalized_e1,qwen,unit,Healthy Bearing K003,11760,1.5161598212058942
+primary_normalized_e1,qwen,unit,Healthy Bearing K004,11760,1.5907819107022905
+primary_normalized_e1,qwen,unit,Real Inner Ring Damage KI04,11760,0.9584669710378755
+primary_normalized_e1,qwen,unit,"Real Mixed Damage, IR Dominant KB24",11760,0.8823327198247822
+primary_normalized_e1,qwen,unit,Real Outer Ring Damage KA15,11760,0.9211953583021266
+primary_normalized_e1,qwen,unit,Real Outer Ring Damage KA30,11760,0.9351839259750407
+rotation_1_raw_e2,Numerical-flat,raw,Artificial Inner Ring Damage KI01,2960,2.312058762986374
+rotation_1_raw_e2,Numerical-flat,raw,Artificial Inner Ring Damage KI05,2960,0.9602369950763036
+rotation_1_raw_e2,Numerical-flat,raw,Artificial Inner Ring Damage KI08,2960,0.7016521487772502
+rotation_1_raw_e2,Numerical-flat,raw,Artificial Outer Ring Damage KA07,2960,0.5977793836345384
+rotation_1_raw_e2,Numerical-flat,raw,Artificial Outer Ring Damage KA09,2960,0.5303828036294713
+rotation_1_raw_e2,Numerical-flat,raw,Healthy Bearing K005,2960,1.3647318116548044
+rotation_1_raw_e2,Numerical-flat,raw,Real Outer Ring Damage KA04,2960,1.2060165227872606
+rotation_1_raw_e2,Numerical-flat,pooled,Artificial Inner Ring Damage KI01,2960,1.0135008573369462
+rotation_1_raw_e2,Numerical-flat,pooled,Artificial Inner Ring Damage KI05,2960,0.9865242763134142
+rotation_1_raw_e2,Numerical-flat,pooled,Artificial Inner Ring Damage KI08,2960,0.9327090831933644
+rotation_1_raw_e2,Numerical-flat,pooled,Artificial Outer Ring Damage KA07,2960,1.013453750934183
+rotation_1_raw_e2,Numerical-flat,pooled,Artificial Outer Ring Damage KA09,2960,1.0119559124600803
+rotation_1_raw_e2,Numerical-flat,pooled,Healthy Bearing K005,2960,1.0915401437931063
+rotation_1_raw_e2,Numerical-flat,pooled,Real Outer Ring Damage KA04,2960,0.8520990675292566
+rotation_1_raw_e2,Numerical-flat,unit,Artificial Inner Ring Damage KI01,2960,1.0135008573369462
+rotation_1_raw_e2,Numerical-flat,unit,Artificial Inner Ring Damage KI05,2960,0.9865242763134142
+rotation_1_raw_e2,Numerical-flat,unit,Artificial Inner Ring Damage KI08,2960,0.9327090831933644
+rotation_1_raw_e2,Numerical-flat,unit,Artificial Outer Ring Damage KA07,2960,1.013453750934183
+rotation_1_raw_e2,Numerical-flat,unit,Artificial Outer Ring Damage KA09,2960,1.0119559124600803
+rotation_1_raw_e2,Numerical-flat,unit,Healthy Bearing K005,2960,1.0915401437931063
+rotation_1_raw_e2,Numerical-flat,unit,Real Outer Ring Damage KA04,2960,0.8520990675292566
+rotation_1_raw_e2,Numerical-factorized,raw,Artificial Inner Ring Damage KI01,2960,2.43290637062082
+rotation_1_raw_e2,Numerical-factorized,raw,Artificial Inner Ring Damage KI05,2960,0.9470123145453216
+rotation_1_raw_e2,Numerical-factorized,raw,Artificial Inner Ring Damage KI08,2960,0.6988354099991557
+rotation_1_raw_e2,Numerical-factorized,raw,Artificial Outer Ring Damage KA07,2960,0.5722733829315387
+rotation_1_raw_e2,Numerical-factorized,raw,Artificial Outer Ring Damage KA09,2960,0.5166620587105217
+rotation_1_raw_e2,Numerical-factorized,raw,Healthy Bearing K005,2960,1.386026609482937
+rotation_1_raw_e2,Numerical-factorized,raw,Real Outer Ring Damage KA04,2960,1.2002340265738618
+rotation_1_raw_e2,Numerical-factorized,pooled,Artificial Inner Ring Damage KI01,2960,1.0396629296887296
+rotation_1_raw_e2,Numerical-factorized,pooled,Artificial Inner Ring Damage KI05,2960,0.984545149020424
+rotation_1_raw_e2,Numerical-factorized,pooled,Artificial Inner Ring Damage KI08,2960,0.9331868506444628
+rotation_1_raw_e2,Numerical-factorized,pooled,Artificial Outer Ring Damage KA07,2960,1.0085716946342687
+rotation_1_raw_e2,Numerical-factorized,pooled,Artificial Outer Ring Damage KA09,2960,1.0074552437146223
+rotation_1_raw_e2,Numerical-factorized,pooled,Healthy Bearing K005,2960,1.093849148963954
+rotation_1_raw_e2,Numerical-factorized,pooled,Real Outer Ring Damage KA04,2960,0.8552452324432511
+rotation_1_raw_e2,Numerical-factorized,unit,Artificial Inner Ring Damage KI01,2960,1.0396629296887296
+rotation_1_raw_e2,Numerical-factorized,unit,Artificial Inner Ring Damage KI05,2960,0.984545149020424
+rotation_1_raw_e2,Numerical-factorized,unit,Artificial Inner Ring Damage KI08,2960,0.9331868506444628
+rotation_1_raw_e2,Numerical-factorized,unit,Artificial Outer Ring Damage KA07,2960,1.0085716946342687
+rotation_1_raw_e2,Numerical-factorized,unit,Artificial Outer Ring Damage KA09,2960,1.0074552437146223
+rotation_1_raw_e2,Numerical-factorized,unit,Healthy Bearing K005,2960,1.093849148963954
+rotation_1_raw_e2,Numerical-factorized,unit,Real Outer Ring Damage KA04,2960,0.8552452324432511
+rotation_1_raw_e2,Qwen-flat,raw,Artificial Inner Ring Damage KI01,2960,1.0826257571366775
+rotation_1_raw_e2,Qwen-flat,raw,Artificial Inner Ring Damage KI05,2960,1.4783541346469238
+rotation_1_raw_e2,Qwen-flat,raw,Artificial Inner Ring Damage KI08,2960,1.0558691921078769
+rotation_1_raw_e2,Qwen-flat,raw,Artificial Outer Ring Damage KA07,2960,0.6212220852269165
+rotation_1_raw_e2,Qwen-flat,raw,Artificial Outer Ring Damage KA09,2960,0.5183369482260791
+rotation_1_raw_e2,Qwen-flat,raw,Healthy Bearing K005,2960,2.8465928993684737
+rotation_1_raw_e2,Qwen-flat,raw,Real Outer Ring Damage KA04,2960,1.1183495580853584
+rotation_1_raw_e2,Qwen-flat,pooled,Artificial Inner Ring Damage KI01,2960,0.994059861925181
+rotation_1_raw_e2,Qwen-flat,pooled,Artificial Inner Ring Damage KI05,2960,1.1199561127453623
+rotation_1_raw_e2,Qwen-flat,pooled,Artificial Inner Ring Damage KI08,2960,0.9888753599223743
+rotation_1_raw_e2,Qwen-flat,pooled,Artificial Outer Ring Damage KA07,2960,0.8365182442454132
+rotation_1_raw_e2,Qwen-flat,pooled,Artificial Outer Ring Damage KA09,2960,0.776714905743431
+rotation_1_raw_e2,Qwen-flat,pooled,Healthy Bearing K005,2960,1.5300228457826115
+rotation_1_raw_e2,Qwen-flat,pooled,Real Outer Ring Damage KA04,2960,0.9047061953392028
+rotation_1_raw_e2,Qwen-flat,unit,Artificial Inner Ring Damage KI01,2960,0.994059861925181
+rotation_1_raw_e2,Qwen-flat,unit,Artificial Inner Ring Damage KI05,2960,1.1199561127453623
+rotation_1_raw_e2,Qwen-flat,unit,Artificial Inner Ring Damage KI08,2960,0.9888753599223743
+rotation_1_raw_e2,Qwen-flat,unit,Artificial Outer Ring Damage KA07,2960,0.8365182442454132
+rotation_1_raw_e2,Qwen-flat,unit,Artificial Outer Ring Damage KA09,2960,0.776714905743431
+rotation_1_raw_e2,Qwen-flat,unit,Healthy Bearing K005,2960,1.5300228457826115
+rotation_1_raw_e2,Qwen-flat,unit,Real Outer Ring Damage KA04,2960,0.9047061953392028
+rotation_1_raw_e2,Qwen-factorized,raw,Artificial Inner Ring Damage KI01,2960,1.0187150323684788
+rotation_1_raw_e2,Qwen-factorized,raw,Artificial Inner Ring Damage KI05,2960,1.2931538014532271
+rotation_1_raw_e2,Qwen-factorized,raw,Artificial Inner Ring Damage KI08,2960,0.9951476117988779
+rotation_1_raw_e2,Qwen-factorized,raw,Artificial Outer Ring Damage KA07,2960,0.6020755025938228
+rotation_1_raw_e2,Qwen-factorized,raw,Artificial Outer Ring Damage KA09,2960,0.5103043421639656
+rotation_1_raw_e2,Qwen-factorized,raw,Healthy Bearing K005,2960,2.7286307308053486
+rotation_1_raw_e2,Qwen-factorized,raw,Real Outer Ring Damage KA04,2960,1.0909257950915259
+rotation_1_raw_e2,Qwen-factorized,pooled,Artificial Inner Ring Damage KI01,2960,0.9863574027498219
+rotation_1_raw_e2,Qwen-factorized,pooled,Artificial Inner Ring Damage KI05,2960,1.0485783613173483
+rotation_1_raw_e2,Qwen-factorized,pooled,Artificial Inner Ring Damage KI08,2960,0.9747214671769249
+rotation_1_raw_e2,Qwen-factorized,pooled,Artificial Outer Ring Damage KA07,2960,0.8614019396856047
+rotation_1_raw_e2,Qwen-factorized,pooled,Artificial Outer Ring Damage KA09,2960,0.8153533544690079
+rotation_1_raw_e2,Qwen-factorized,pooled,Healthy Bearing K005,2960,1.399410405216467
+rotation_1_raw_e2,Qwen-factorized,pooled,Real Outer Ring Damage KA04,2960,0.903091828527261
+rotation_1_raw_e2,Qwen-factorized,unit,Artificial Inner Ring Damage KI01,2960,0.9863574027498219
+rotation_1_raw_e2,Qwen-factorized,unit,Artificial Inner Ring Damage KI05,2960,1.0485783613173483
+rotation_1_raw_e2,Qwen-factorized,unit,Artificial Inner Ring Damage KI08,2960,0.9747214671769249
+rotation_1_raw_e2,Qwen-factorized,unit,Artificial Outer Ring Damage KA07,2960,0.8614019396856047
+rotation_1_raw_e2,Qwen-factorized,unit,Artificial Outer Ring Damage KA09,2960,0.8153533544690079
+rotation_1_raw_e2,Qwen-factorized,unit,Healthy Bearing K005,2960,1.399410405216467
+rotation_1_raw_e2,Qwen-factorized,unit,Real Outer Ring Damage KA04,2960,0.903091828527261
+rotation_1_raw_e2,Qwen-two-question-direct,raw,Artificial Inner Ring Damage KI01,2960,0.9958112700691493
+rotation_1_raw_e2,Qwen-two-question-direct,raw,Artificial Inner Ring Damage KI05,2960,1.3523616773788558
+rotation_1_raw_e2,Qwen-two-question-direct,raw,Artificial Inner Ring Damage KI08,2960,1.01516003226999
+rotation_1_raw_e2,Qwen-two-question-direct,raw,Artificial Outer Ring Damage KA07,2960,0.5745769617949203
+rotation_1_raw_e2,Qwen-two-question-direct,raw,Artificial Outer Ring Damage KA09,2960,0.4909672452670828
+rotation_1_raw_e2,Qwen-two-question-direct,raw,Healthy Bearing K005,2960,2.553924758950925
+rotation_1_raw_e2,Qwen-two-question-direct,raw,Real Outer Ring Damage KA04,2960,1.078784133900795
+rotation_1_raw_e2,Qwen-two-question-direct,pooled,Artificial Inner Ring Damage KI01,2960,0.9817040922465778
+rotation_1_raw_e2,Qwen-two-question-direct,pooled,Artificial Inner Ring Damage KI05,2960,1.0998179895329194
+rotation_1_raw_e2,Qwen-two-question-direct,pooled,Artificial Inner Ring Damage KI08,2960,0.9932575206936137
+rotation_1_raw_e2,Qwen-two-question-direct,pooled,Artificial Outer Ring Damage KA07,2960,0.8183122815323589
+rotation_1_raw_e2,Qwen-two-question-direct,pooled,Artificial Outer Ring Damage KA09,2960,0.7607562442377411
+rotation_1_raw_e2,Qwen-two-question-direct,pooled,Healthy Bearing K005,2960,1.490157348854967
+rotation_1_raw_e2,Qwen-two-question-direct,pooled,Real Outer Ring Damage KA04,2960,0.8977302443694213
+rotation_1_raw_e2,Qwen-two-question-direct,unit,Artificial Inner Ring Damage KI01,2960,0.9817040922465778
+rotation_1_raw_e2,Qwen-two-question-direct,unit,Artificial Inner Ring Damage KI05,2960,1.0998179895329194
+rotation_1_raw_e2,Qwen-two-question-direct,unit,Artificial Inner Ring Damage KI08,2960,0.9932575206936137
+rotation_1_raw_e2,Qwen-two-question-direct,unit,Artificial Outer Ring Damage KA07,2960,0.8183122815323589
+rotation_1_raw_e2,Qwen-two-question-direct,unit,Artificial Outer Ring Damage KA09,2960,0.7607562442377411
+rotation_1_raw_e2,Qwen-two-question-direct,unit,Healthy Bearing K005,2960,1.490157348854967
+rotation_1_raw_e2,Qwen-two-question-direct,unit,Real Outer Ring Damage KA04,2960,0.8977302443694213
+rotation_1_raw_e2,Qwen-shared-factorized,raw,Artificial Inner Ring Damage KI01,2960,1.0438032275647897
+rotation_1_raw_e2,Qwen-shared-factorized,raw,Artificial Inner Ring Damage KI05,2960,1.4224754523196355
+rotation_1_raw_e2,Qwen-shared-factorized,raw,Artificial Inner Ring Damage KI08,2960,1.0339439129067407
+rotation_1_raw_e2,Qwen-shared-factorized,raw,Artificial Outer Ring Damage KA07,2960,0.6395486924861636
+rotation_1_raw_e2,Qwen-shared-factorized,raw,Artificial Outer Ring Damage KA09,2960,0.5352988547218598
+rotation_1_raw_e2,Qwen-shared-factorized,raw,Healthy Bearing K005,2960,2.817748772158377
+rotation_1_raw_e2,Qwen-shared-factorized,raw,Real Outer Ring Damage KA04,2960,1.0829386074463452
+rotation_1_raw_e2,Qwen-shared-factorized,pooled,Artificial Inner Ring Damage KI01,2960,0.9837368077680317
+rotation_1_raw_e2,Qwen-shared-factorized,pooled,Artificial Inner Ring Damage KI05,2960,1.1131883785932475
+rotation_1_raw_e2,Qwen-shared-factorized,pooled,Artificial Inner Ring Damage KI08,2960,0.9839128668169022
+rotation_1_raw_e2,Qwen-shared-factorized,pooled,Artificial Outer Ring Damage KA07,2960,0.8419197279999645
+rotation_1_raw_e2,Qwen-shared-factorized,pooled,Artificial Outer Ring Damage KA09,2960,0.7826111386049641
+rotation_1_raw_e2,Qwen-shared-factorized,pooled,Healthy Bearing K005,2960,1.5443883853099234
+rotation_1_raw_e2,Qwen-shared-factorized,pooled,Real Outer Ring Damage KA04,2960,0.898276002223535
+rotation_1_raw_e2,Qwen-shared-factorized,unit,Artificial Inner Ring Damage KI01,2960,0.9837368077680317
+rotation_1_raw_e2,Qwen-shared-factorized,unit,Artificial Inner Ring Damage KI05,2960,1.1131883785932475
+rotation_1_raw_e2,Qwen-shared-factorized,unit,Artificial Inner Ring Damage KI08,2960,0.9839128668169022
+rotation_1_raw_e2,Qwen-shared-factorized,unit,Artificial Outer Ring Damage KA07,2960,0.8419197279999645
+rotation_1_raw_e2,Qwen-shared-factorized,unit,Artificial Outer Ring Damage KA09,2960,0.7826111386049641
+rotation_1_raw_e2,Qwen-shared-factorized,unit,Healthy Bearing K005,2960,1.5443883853099234
+rotation_1_raw_e2,Qwen-shared-factorized,unit,Real Outer Ring Damage KA04,2960,0.898276002223535
+rotation_2_raw_e2,Numerical-flat,raw,Artificial Outer Ring Damage KA05,2960,0.7539785932744528
+rotation_2_raw_e2,Numerical-flat,raw,Healthy Bearing K002,2960,4.1111461860054686
+rotation_2_raw_e2,Numerical-flat,raw,Real Inner Ring Damage KI17,2960,0.9192175005593257
+rotation_2_raw_e2,Numerical-flat,raw,"Real Mixed Damage, IR Dominant KB23",2960,0.4426459882287529
+rotation_2_raw_e2,Numerical-flat,raw,Real Outer Ring Damage KA16,2960,1.404120423116317
+rotation_2_raw_e2,Numerical-flat,pooled,Artificial Outer Ring Damage KA05,2960,0.8280610487777096
+rotation_2_raw_e2,Numerical-flat,pooled,Healthy Bearing K002,2960,2.5495174167841608
+rotation_2_raw_e2,Numerical-flat,pooled,Real Inner Ring Damage KI17,2960,0.8988056653608091
+rotation_2_raw_e2,Numerical-flat,pooled,"Real Mixed Damage, IR Dominant KB23",2960,0.561521131029614
+rotation_2_raw_e2,Numerical-flat,pooled,Real Outer Ring Damage KA16,2960,1.0441823488186799
+rotation_2_raw_e2,Numerical-flat,unit,Artificial Outer Ring Damage KA05,2960,0.8280610487777096
+rotation_2_raw_e2,Numerical-flat,unit,Healthy Bearing K002,2960,2.5495174167841608
+rotation_2_raw_e2,Numerical-flat,unit,Real Inner Ring Damage KI17,2960,0.8988056653608091
+rotation_2_raw_e2,Numerical-flat,unit,"Real Mixed Damage, IR Dominant KB23",2960,0.561521131029614
+rotation_2_raw_e2,Numerical-flat,unit,Real Outer Ring Damage KA16,2960,1.0441823488186799
+rotation_2_raw_e2,Numerical-factorized,raw,Artificial Outer Ring Damage KA05,2960,0.6480026939338767
+rotation_2_raw_e2,Numerical-factorized,raw,Healthy Bearing K002,2960,4.859393507797376
+rotation_2_raw_e2,Numerical-factorized,raw,Real Inner Ring Damage KI17,2960,0.8632531348294948
+rotation_2_raw_e2,Numerical-factorized,raw,"Real Mixed Damage, IR Dominant KB23",2960,0.4647272787502328
+rotation_2_raw_e2,Numerical-factorized,raw,Real Outer Ring Damage KA16,2960,1.5181870965623314
+rotation_2_raw_e2,Numerical-factorized,pooled,Artificial Outer Ring Damage KA05,2960,0.7970172389412831
+rotation_2_raw_e2,Numerical-factorized,pooled,Healthy Bearing K002,2960,2.5549906200653503
+rotation_2_raw_e2,Numerical-factorized,pooled,Real Inner Ring Damage KI17,2960,0.8665826853428487
+rotation_2_raw_e2,Numerical-factorized,pooled,"Real Mixed Damage, IR Dominant KB23",2960,0.5929997393408517
+rotation_2_raw_e2,Numerical-factorized,pooled,Real Outer Ring Damage KA16,2960,1.0175911342892983
+rotation_2_raw_e2,Numerical-factorized,unit,Artificial Outer Ring Damage KA05,2960,0.7970172389412831
+rotation_2_raw_e2,Numerical-factorized,unit,Healthy Bearing K002,2960,2.5549906200653503
+rotation_2_raw_e2,Numerical-factorized,unit,Real Inner Ring Damage KI17,2960,0.8665826853428487
+rotation_2_raw_e2,Numerical-factorized,unit,"Real Mixed Damage, IR Dominant KB23",2960,0.5929997393408517
+rotation_2_raw_e2,Numerical-factorized,unit,Real Outer Ring Damage KA16,2960,1.0175911342892983
+rotation_2_raw_e2,Qwen-flat,raw,Artificial Outer Ring Damage KA05,2960,0.7051484735912108
+rotation_2_raw_e2,Qwen-flat,raw,Healthy Bearing K002,2960,2.4838662061767396
+rotation_2_raw_e2,Qwen-flat,raw,Real Inner Ring Damage KI17,2960,0.6937598291755575
+rotation_2_raw_e2,Qwen-flat,raw,"Real Mixed Damage, IR Dominant KB23",2960,0.7682142754181048
+rotation_2_raw_e2,Qwen-flat,raw,Real Outer Ring Damage KA16,2960,1.1176093927685486
+rotation_2_raw_e2,Qwen-flat,pooled,Artificial Outer Ring Damage KA05,2960,0.8226631793726611
+rotation_2_raw_e2,Qwen-flat,pooled,Healthy Bearing K002,2960,1.5517145929749145
+rotation_2_raw_e2,Qwen-flat,pooled,Real Inner Ring Damage KI17,2960,0.791157326173813
+rotation_2_raw_e2,Qwen-flat,pooled,"Real Mixed Damage, IR Dominant KB23",2960,0.8285534577536712
+rotation_2_raw_e2,Qwen-flat,pooled,Real Outer Ring Damage KA16,2960,0.9168693614998549
+rotation_2_raw_e2,Qwen-flat,unit,Artificial Outer Ring Damage KA05,2960,0.8226631793726611
+rotation_2_raw_e2,Qwen-flat,unit,Healthy Bearing K002,2960,1.5517145929749145
+rotation_2_raw_e2,Qwen-flat,unit,Real Inner Ring Damage KI17,2960,0.791157326173813
+rotation_2_raw_e2,Qwen-flat,unit,"Real Mixed Damage, IR Dominant KB23",2960,0.8285534577536712
+rotation_2_raw_e2,Qwen-flat,unit,Real Outer Ring Damage KA16,2960,0.9168693614998549
+rotation_2_raw_e2,Qwen-factorized,raw,Artificial Outer Ring Damage KA05,2960,0.6518637782315875
+rotation_2_raw_e2,Qwen-factorized,raw,Healthy Bearing K002,2960,3.0114336545253177
+rotation_2_raw_e2,Qwen-factorized,raw,Real Inner Ring Damage KI17,2960,0.7306675107655058
+rotation_2_raw_e2,Qwen-factorized,raw,"Real Mixed Damage, IR Dominant KB23",2960,0.8348274858362981
+rotation_2_raw_e2,Qwen-factorized,raw,Real Outer Ring Damage KA16,2960,1.1134102805747284
+rotation_2_raw_e2,Qwen-factorized,pooled,Artificial Outer Ring Damage KA05,2960,0.7406863531000447
+rotation_2_raw_e2,Qwen-factorized,pooled,Healthy Bearing K002,2960,1.9524704436207643
+rotation_2_raw_e2,Qwen-factorized,pooled,Real Inner Ring Damage KI17,2960,0.7736669112643754
+rotation_2_raw_e2,Qwen-factorized,pooled,"Real Mixed Damage, IR Dominant KB23",2960,0.8363900761171084
+rotation_2_raw_e2,Qwen-factorized,pooled,Real Outer Ring Damage KA16,2960,0.9414835529185328
+rotation_2_raw_e2,Qwen-factorized,unit,Artificial Outer Ring Damage KA05,2960,0.7406863531000447
+rotation_2_raw_e2,Qwen-factorized,unit,Healthy Bearing K002,2960,1.9524704436207643
+rotation_2_raw_e2,Qwen-factorized,unit,Real Inner Ring Damage KI17,2960,0.7736669112643754
+rotation_2_raw_e2,Qwen-factorized,unit,"Real Mixed Damage, IR Dominant KB23",2960,0.8363900761171084
+rotation_2_raw_e2,Qwen-factorized,unit,Real Outer Ring Damage KA16,2960,0.9414835529185328
+rotation_2_raw_e2,Qwen-two-question-direct,raw,Artificial Outer Ring Damage KA05,2960,0.6596523796967282
+rotation_2_raw_e2,Qwen-two-question-direct,raw,Healthy Bearing K002,2960,2.5260629271137773
+rotation_2_raw_e2,Qwen-two-question-direct,raw,Real Inner Ring Damage KI17,2960,0.6754309058812739
+rotation_2_raw_e2,Qwen-two-question-direct,raw,"Real Mixed Damage, IR Dominant KB23",2960,0.7799239083104168
+rotation_2_raw_e2,Qwen-two-question-direct,raw,Real Outer Ring Damage KA16,2960,1.0754852852107024
+rotation_2_raw_e2,Qwen-two-question-direct,pooled,Artificial Outer Ring Damage KA05,2960,0.7784877898014164
+rotation_2_raw_e2,Qwen-two-question-direct,pooled,Healthy Bearing K002,2960,1.6988195535418986
+rotation_2_raw_e2,Qwen-two-question-direct,pooled,Real Inner Ring Damage KI17,2960,0.759514272457391
+rotation_2_raw_e2,Qwen-two-question-direct,pooled,"Real Mixed Damage, IR Dominant KB23",2960,0.8160948315828284
+rotation_2_raw_e2,Qwen-two-question-direct,pooled,Real Outer Ring Damage KA16,2960,0.9119232725845112
+rotation_2_raw_e2,Qwen-two-question-direct,unit,Artificial Outer Ring Damage KA05,2960,0.7784877898014164
+rotation_2_raw_e2,Qwen-two-question-direct,unit,Healthy Bearing K002,2960,1.6988195535418986
+rotation_2_raw_e2,Qwen-two-question-direct,unit,Real Inner Ring Damage KI17,2960,0.759514272457391
+rotation_2_raw_e2,Qwen-two-question-direct,unit,"Real Mixed Damage, IR Dominant KB23",2960,0.8160948315828284
+rotation_2_raw_e2,Qwen-two-question-direct,unit,Real Outer Ring Damage KA16,2960,0.9119232725845112
+rotation_2_raw_e2,Qwen-shared-factorized,raw,Artificial Outer Ring Damage KA05,2960,0.7146197713210702
+rotation_2_raw_e2,Qwen-shared-factorized,raw,Healthy Bearing K002,2960,2.4367401988645803
+rotation_2_raw_e2,Qwen-shared-factorized,raw,Real Inner Ring Damage KI17,2960,0.7003310110717704
+rotation_2_raw_e2,Qwen-shared-factorized,raw,"Real Mixed Damage, IR Dominant KB23",2960,0.7789682128980395
+rotation_2_raw_e2,Qwen-shared-factorized,raw,Real Outer Ring Damage KA16,2960,1.0767078049634526
+rotation_2_raw_e2,Qwen-shared-factorized,pooled,Artificial Outer Ring Damage KA05,2960,0.8245376030739986
+rotation_2_raw_e2,Qwen-shared-factorized,pooled,Healthy Bearing K002,2960,1.5572781418317305
+rotation_2_raw_e2,Qwen-shared-factorized,pooled,Real Inner Ring Damage KI17,2960,0.7926596464243696
+rotation_2_raw_e2,Qwen-shared-factorized,pooled,"Real Mixed Damage, IR Dominant KB23",2960,0.829706432733186
+rotation_2_raw_e2,Qwen-shared-factorized,pooled,Real Outer Ring Damage KA16,2960,0.9058659134324367
+rotation_2_raw_e2,Qwen-shared-factorized,unit,Artificial Outer Ring Damage KA05,2960,0.8245376030739986
+rotation_2_raw_e2,Qwen-shared-factorized,unit,Healthy Bearing K002,2960,1.5572781418317305
+rotation_2_raw_e2,Qwen-shared-factorized,unit,Real Inner Ring Damage KI17,2960,0.7926596464243696
+rotation_2_raw_e2,Qwen-shared-factorized,unit,"Real Mixed Damage, IR Dominant KB23",2960,0.829706432733186
+rotation_2_raw_e2,Qwen-shared-factorized,unit,Real Outer Ring Damage KA16,2960,0.9058659134324367
+rotation_3_raw_e2,Numerical-flat,raw,Artificial Inner Ring Damage KI03,2960,0.5182621193970662
+rotation_3_raw_e2,Numerical-flat,raw,Healthy Bearing K001,2960,1.0124321953611455
+rotation_3_raw_e2,Numerical-flat,raw,Real Inner Ring Damage KI18,2960,0.4989956380070708
+rotation_3_raw_e2,Numerical-flat,raw,"Real Mixed Damage, OR Dominant KB27",2960,0.8408390738420611
+rotation_3_raw_e2,Numerical-flat,raw,Real Outer Ring Damage KA22,2960,0.9951889317718121
+rotation_3_raw_e2,Numerical-flat,pooled,Artificial Inner Ring Damage KI03,2960,0.6097868491479638
+rotation_3_raw_e2,Numerical-flat,pooled,Healthy Bearing K001,2960,0.9635683218375685
+rotation_3_raw_e2,Numerical-flat,pooled,Real Inner Ring Damage KI18,2960,0.5922678298899963
+rotation_3_raw_e2,Numerical-flat,pooled,"Real Mixed Damage, OR Dominant KB27",2960,0.8292257893753843
+rotation_3_raw_e2,Numerical-flat,pooled,Real Outer Ring Damage KA22,2960,0.9402095026824632
+rotation_3_raw_e2,Numerical-flat,unit,Artificial Inner Ring Damage KI03,2960,0.6097868491479638
+rotation_3_raw_e2,Numerical-flat,unit,Healthy Bearing K001,2960,0.9635683218375685
+rotation_3_raw_e2,Numerical-flat,unit,Real Inner Ring Damage KI18,2960,0.5922678298899963
+rotation_3_raw_e2,Numerical-flat,unit,"Real Mixed Damage, OR Dominant KB27",2960,0.8292257893753843
+rotation_3_raw_e2,Numerical-flat,unit,Real Outer Ring Damage KA22,2960,0.9402095026824632
+rotation_3_raw_e2,Numerical-factorized,raw,Artificial Inner Ring Damage KI03,2960,0.5355751078297482
+rotation_3_raw_e2,Numerical-factorized,raw,Healthy Bearing K001,2960,1.0065102611886705
+rotation_3_raw_e2,Numerical-factorized,raw,Real Inner Ring Damage KI18,2960,0.5044231018627409
+rotation_3_raw_e2,Numerical-factorized,raw,"Real Mixed Damage, OR Dominant KB27",2960,0.8251422005076585
+rotation_3_raw_e2,Numerical-factorized,raw,Real Outer Ring Damage KA22,2960,0.977727692085728
+rotation_3_raw_e2,Numerical-factorized,pooled,Artificial Inner Ring Damage KI03,2960,0.6208032438996086
+rotation_3_raw_e2,Numerical-factorized,pooled,Healthy Bearing K001,2960,0.9597109467275963
+rotation_3_raw_e2,Numerical-factorized,pooled,Real Inner Ring Damage KI18,2960,0.5945069574062378
+rotation_3_raw_e2,Numerical-factorized,pooled,"Real Mixed Damage, OR Dominant KB27",2960,0.8198161102162176
+rotation_3_raw_e2,Numerical-factorized,pooled,Real Outer Ring Damage KA22,2960,0.931446803986558
+rotation_3_raw_e2,Numerical-factorized,unit,Artificial Inner Ring Damage KI03,2960,0.6208032438996086
+rotation_3_raw_e2,Numerical-factorized,unit,Healthy Bearing K001,2960,0.9597109467275963
+rotation_3_raw_e2,Numerical-factorized,unit,Real Inner Ring Damage KI18,2960,0.5945069574062378
+rotation_3_raw_e2,Numerical-factorized,unit,"Real Mixed Damage, OR Dominant KB27",2960,0.8198161102162176
+rotation_3_raw_e2,Numerical-factorized,unit,Real Outer Ring Damage KA22,2960,0.931446803986558
+rotation_3_raw_e2,Qwen-flat,raw,Artificial Inner Ring Damage KI03,2960,0.7330879732272131
+rotation_3_raw_e2,Qwen-flat,raw,Healthy Bearing K001,2960,1.2438106613870157
+rotation_3_raw_e2,Qwen-flat,raw,Real Inner Ring Damage KI18,2960,0.8192829290111807
+rotation_3_raw_e2,Qwen-flat,raw,"Real Mixed Damage, OR Dominant KB27",2960,1.0404825300972573
+rotation_3_raw_e2,Qwen-flat,raw,Real Outer Ring Damage KA22,2960,1.1706556459646078
+rotation_3_raw_e2,Qwen-flat,pooled,Artificial Inner Ring Damage KI03,2960,0.7725895534321666
+rotation_3_raw_e2,Qwen-flat,pooled,Healthy Bearing K001,2960,1.1448359742933008
+rotation_3_raw_e2,Qwen-flat,pooled,Real Inner Ring Damage KI18,2960,0.8347920606446531
+rotation_3_raw_e2,Qwen-flat,pooled,"Real Mixed Damage, OR Dominant KB27",2960,0.9787613222994715
+rotation_3_raw_e2,Qwen-flat,pooled,Real Outer Ring Damage KA22,2960,1.1002307791091726
+rotation_3_raw_e2,Qwen-flat,unit,Artificial Inner Ring Damage KI03,2960,0.7725895534321666
+rotation_3_raw_e2,Qwen-flat,unit,Healthy Bearing K001,2960,1.1448359742933008
+rotation_3_raw_e2,Qwen-flat,unit,Real Inner Ring Damage KI18,2960,0.8347920606446531
+rotation_3_raw_e2,Qwen-flat,unit,"Real Mixed Damage, OR Dominant KB27",2960,0.9787613222994715
+rotation_3_raw_e2,Qwen-flat,unit,Real Outer Ring Damage KA22,2960,1.1002307791091726
+rotation_3_raw_e2,Qwen-factorized,raw,Artificial Inner Ring Damage KI03,2960,0.7355028492092687
+rotation_3_raw_e2,Qwen-factorized,raw,Healthy Bearing K001,2960,1.0294778246321628
+rotation_3_raw_e2,Qwen-factorized,raw,Real Inner Ring Damage KI18,2960,0.8368442942284051
+rotation_3_raw_e2,Qwen-factorized,raw,"Real Mixed Damage, OR Dominant KB27",2960,1.0538319487596657
+rotation_3_raw_e2,Qwen-factorized,raw,Real Outer Ring Damage KA22,2960,1.2172064133216842
+rotation_3_raw_e2,Qwen-factorized,pooled,Artificial Inner Ring Damage KI03,2960,0.7580914624407431
+rotation_3_raw_e2,Qwen-factorized,pooled,Healthy Bearing K001,2960,1.0074884231325962
+rotation_3_raw_e2,Qwen-factorized,pooled,Real Inner Ring Damage KI18,2960,0.839711486891959
+rotation_3_raw_e2,Qwen-factorized,pooled,"Real Mixed Damage, OR Dominant KB27",2960,1.0112189739365545
+rotation_3_raw_e2,Qwen-factorized,pooled,Real Outer Ring Damage KA22,2960,1.153185389271463
+rotation_3_raw_e2,Qwen-factorized,unit,Artificial Inner Ring Damage KI03,2960,0.7580914624407431
+rotation_3_raw_e2,Qwen-factorized,unit,Healthy Bearing K001,2960,1.0074884231325962
+rotation_3_raw_e2,Qwen-factorized,unit,Real Inner Ring Damage KI18,2960,0.839711486891959
+rotation_3_raw_e2,Qwen-factorized,unit,"Real Mixed Damage, OR Dominant KB27",2960,1.0112189739365545
+rotation_3_raw_e2,Qwen-factorized,unit,Real Outer Ring Damage KA22,2960,1.153185389271463
+rotation_3_raw_e2,Qwen-two-question-direct,raw,Artificial Inner Ring Damage KI03,2960,0.6966485721469671
+rotation_3_raw_e2,Qwen-two-question-direct,raw,Healthy Bearing K001,2960,1.1264505557777658
+rotation_3_raw_e2,Qwen-two-question-direct,raw,Real Inner Ring Damage KI18,2960,0.7647969391185853
+rotation_3_raw_e2,Qwen-two-question-direct,raw,"Real Mixed Damage, OR Dominant KB27",2960,0.9891593518751456
+rotation_3_raw_e2,Qwen-two-question-direct,raw,Real Outer Ring Damage KA22,2960,1.1254377911296203
+rotation_3_raw_e2,Qwen-two-question-direct,pooled,Artificial Inner Ring Damage KI03,2960,0.7069593680469048
+rotation_3_raw_e2,Qwen-two-question-direct,pooled,Healthy Bearing K001,2960,1.1142698803264313
+rotation_3_raw_e2,Qwen-two-question-direct,pooled,Real Inner Ring Damage KI18,2960,0.7713661874151027
+rotation_3_raw_e2,Qwen-two-question-direct,pooled,"Real Mixed Damage, OR Dominant KB27",2960,0.9781906793939598
+rotation_3_raw_e2,Qwen-two-question-direct,pooled,Real Outer Ring Damage KA22,2960,1.1126257871346263
+rotation_3_raw_e2,Qwen-two-question-direct,unit,Artificial Inner Ring Damage KI03,2960,0.7069593680469048
+rotation_3_raw_e2,Qwen-two-question-direct,unit,Healthy Bearing K001,2960,1.1142698803264313
+rotation_3_raw_e2,Qwen-two-question-direct,unit,Real Inner Ring Damage KI18,2960,0.7713661874151027
+rotation_3_raw_e2,Qwen-two-question-direct,unit,"Real Mixed Damage, OR Dominant KB27",2960,0.9781906793939598
+rotation_3_raw_e2,Qwen-two-question-direct,unit,Real Outer Ring Damage KA22,2960,1.1126257871346263
+rotation_3_raw_e2,Qwen-shared-factorized,raw,Artificial Inner Ring Damage KI03,2960,0.7126798101435312
+rotation_3_raw_e2,Qwen-shared-factorized,raw,Healthy Bearing K001,2960,1.247537061845828
+rotation_3_raw_e2,Qwen-shared-factorized,raw,Real Inner Ring Damage KI18,2960,0.8275125447286702
+rotation_3_raw_e2,Qwen-shared-factorized,raw,"Real Mixed Damage, OR Dominant KB27",2960,1.0362170295168651
+rotation_3_raw_e2,Qwen-shared-factorized,raw,Real Outer Ring Damage KA22,2960,1.2100450063039894
+rotation_3_raw_e2,Qwen-shared-factorized,pooled,Artificial Inner Ring Damage KI03,2960,0.7583147943785046
+rotation_3_raw_e2,Qwen-shared-factorized,pooled,Healthy Bearing K001,2960,1.15148273754116
+rotation_3_raw_e2,Qwen-shared-factorized,pooled,Real Inner Ring Damage KI18,2960,0.8415237589615652
+rotation_3_raw_e2,Qwen-shared-factorized,pooled,"Real Mixed Damage, OR Dominant KB27",2960,0.9781971971181884
+rotation_3_raw_e2,Qwen-shared-factorized,pooled,Real Outer Ring Damage KA22,2960,1.1282399580904365
+rotation_3_raw_e2,Qwen-shared-factorized,unit,Artificial Inner Ring Damage KI03,2960,0.7583147943785046
+rotation_3_raw_e2,Qwen-shared-factorized,unit,Healthy Bearing K001,2960,1.15148273754116
+rotation_3_raw_e2,Qwen-shared-factorized,unit,Real Inner Ring Damage KI18,2960,0.8415237589615652
+rotation_3_raw_e2,Qwen-shared-factorized,unit,"Real Mixed Damage, OR Dominant KB27",2960,0.9781971971181884
+rotation_3_raw_e2,Qwen-shared-factorized,unit,Real Outer Ring Damage KA22,2960,1.1282399580904365
+rotation_4_raw_e2,Numerical-flat,raw,Artificial Outer Ring Damage KA01,2960,3.628919711658703
+rotation_4_raw_e2,Numerical-flat,raw,Artificial Outer Ring Damage KA08,2923,0.8959444360804845
+rotation_4_raw_e2,Numerical-flat,raw,Healthy Bearing K006,2960,0.33641349461633363
+rotation_4_raw_e2,Numerical-flat,raw,Real Inner Ring Damage KI14,2960,1.0274413785840921
+rotation_4_raw_e2,Numerical-flat,raw,Real Inner Ring Damage KI16,2960,0.8281590481324829
+rotation_4_raw_e2,Numerical-flat,pooled,Artificial Outer Ring Damage KA01,2960,1.883699667415645
+rotation_4_raw_e2,Numerical-flat,pooled,Artificial Outer Ring Damage KA08,2923,1.0120499292115113
+rotation_4_raw_e2,Numerical-flat,pooled,Healthy Bearing K006,2960,0.6453291181641532
+rotation_4_raw_e2,Numerical-flat,pooled,Real Inner Ring Damage KI14,2960,1.008953724163098
+rotation_4_raw_e2,Numerical-flat,pooled,Real Inner Ring Damage KI16,2960,0.873139612364639
+rotation_4_raw_e2,Numerical-flat,unit,Artificial Outer Ring Damage KA01,2960,1.883699667415645
+rotation_4_raw_e2,Numerical-flat,unit,Artificial Outer Ring Damage KA08,2923,1.0120499292115113
+rotation_4_raw_e2,Numerical-flat,unit,Healthy Bearing K006,2960,0.6453291181641532
+rotation_4_raw_e2,Numerical-flat,unit,Real Inner Ring Damage KI14,2960,1.008953724163098
+rotation_4_raw_e2,Numerical-flat,unit,Real Inner Ring Damage KI16,2960,0.873139612364639
+rotation_4_raw_e2,Numerical-factorized,raw,Artificial Outer Ring Damage KA01,2960,3.714668558707635
+rotation_4_raw_e2,Numerical-factorized,raw,Artificial Outer Ring Damage KA08,2923,0.8883097022048118
+rotation_4_raw_e2,Numerical-factorized,raw,Healthy Bearing K006,2960,0.36759727022016914
+rotation_4_raw_e2,Numerical-factorized,raw,Real Inner Ring Damage KI14,2960,1.0367008929736183
+rotation_4_raw_e2,Numerical-factorized,raw,Real Inner Ring Damage KI16,2960,0.8320103580186385
+rotation_4_raw_e2,Numerical-factorized,pooled,Artificial Outer Ring Damage KA01,2960,1.7784336164338126
+rotation_4_raw_e2,Numerical-factorized,pooled,Artificial Outer Ring Damage KA08,2923,1.0207844445668937
+rotation_4_raw_e2,Numerical-factorized,pooled,Healthy Bearing K006,2960,0.7034387135912972
+rotation_4_raw_e2,Numerical-factorized,pooled,Real Inner Ring Damage KI14,2960,1.0217480320058883
+rotation_4_raw_e2,Numerical-factorized,pooled,Real Inner Ring Damage KI16,2960,0.8921308901852794
+rotation_4_raw_e2,Numerical-factorized,unit,Artificial Outer Ring Damage KA01,2960,1.7784336164338126
+rotation_4_raw_e2,Numerical-factorized,unit,Artificial Outer Ring Damage KA08,2923,1.0207844445668937
+rotation_4_raw_e2,Numerical-factorized,unit,Healthy Bearing K006,2960,0.7034387135912972
+rotation_4_raw_e2,Numerical-factorized,unit,Real Inner Ring Damage KI14,2960,1.0217480320058883
+rotation_4_raw_e2,Numerical-factorized,unit,Real Inner Ring Damage KI16,2960,0.8921308901852794
+rotation_4_raw_e2,Qwen-flat,raw,Artificial Outer Ring Damage KA01,2960,1.650799968757152
+rotation_4_raw_e2,Qwen-flat,raw,Artificial Outer Ring Damage KA08,2923,0.8535006484612502
+rotation_4_raw_e2,Qwen-flat,raw,Healthy Bearing K006,2960,0.7880942196779459
+rotation_4_raw_e2,Qwen-flat,raw,Real Inner Ring Damage KI14,2960,1.0329703311777807
+rotation_4_raw_e2,Qwen-flat,raw,Real Inner Ring Damage KI16,2960,0.8914431578597193
+rotation_4_raw_e2,Qwen-flat,pooled,Artificial Outer Ring Damage KA01,2960,1.2206069178976486
+rotation_4_raw_e2,Qwen-flat,pooled,Artificial Outer Ring Damage KA08,2923,0.9415224210410299
+rotation_4_raw_e2,Qwen-flat,pooled,Healthy Bearing K006,2960,0.902513579075723
+rotation_4_raw_e2,Qwen-flat,pooled,Real Inner Ring Damage KI14,2960,0.9869889956159253
+rotation_4_raw_e2,Qwen-flat,pooled,Real Inner Ring Damage KI16,2960,0.9031303900934986
+rotation_4_raw_e2,Qwen-flat,unit,Artificial Outer Ring Damage KA01,2960,1.2206069178976486
+rotation_4_raw_e2,Qwen-flat,unit,Artificial Outer Ring Damage KA08,2923,0.9415224210410299
+rotation_4_raw_e2,Qwen-flat,unit,Healthy Bearing K006,2960,0.902513579075723
+rotation_4_raw_e2,Qwen-flat,unit,Real Inner Ring Damage KI14,2960,0.9869889956159253
+rotation_4_raw_e2,Qwen-flat,unit,Real Inner Ring Damage KI16,2960,0.9031303900934986
+rotation_4_raw_e2,Qwen-factorized,raw,Artificial Outer Ring Damage KA01,2960,1.9484115878393324
+rotation_4_raw_e2,Qwen-factorized,raw,Artificial Outer Ring Damage KA08,2923,0.8065012704555273
+rotation_4_raw_e2,Qwen-factorized,raw,Healthy Bearing K006,2960,0.7298225950818649
+rotation_4_raw_e2,Qwen-factorized,raw,Real Inner Ring Damage KI14,2960,1.030896614100615
+rotation_4_raw_e2,Qwen-factorized,raw,Real Inner Ring Damage KI16,2960,0.8577848079582301
+rotation_4_raw_e2,Qwen-factorized,pooled,Artificial Outer Ring Damage KA01,2960,1.3586576590010642
+rotation_4_raw_e2,Qwen-factorized,pooled,Artificial Outer Ring Damage KA08,2923,0.9161068528503069
+rotation_4_raw_e2,Qwen-factorized,pooled,Healthy Bearing K006,2960,0.8639142749662257
+rotation_4_raw_e2,Qwen-factorized,pooled,Real Inner Ring Damage KI14,2960,0.9929426621259156
+rotation_4_raw_e2,Qwen-factorized,pooled,Real Inner Ring Damage KI16,2960,0.876264106384163
+rotation_4_raw_e2,Qwen-factorized,unit,Artificial Outer Ring Damage KA01,2960,1.3586576590010642
+rotation_4_raw_e2,Qwen-factorized,unit,Artificial Outer Ring Damage KA08,2923,0.9161068528503069
+rotation_4_raw_e2,Qwen-factorized,unit,Healthy Bearing K006,2960,0.8639142749662257
+rotation_4_raw_e2,Qwen-factorized,unit,Real Inner Ring Damage KI14,2960,0.9929426621259156
+rotation_4_raw_e2,Qwen-factorized,unit,Real Inner Ring Damage KI16,2960,0.876264106384163
+rotation_4_raw_e2,Qwen-two-question-direct,raw,Artificial Outer Ring Damage KA01,2960,1.6290145593533434
+rotation_4_raw_e2,Qwen-two-question-direct,raw,Artificial Outer Ring Damage KA08,2923,0.8059578605669666
+rotation_4_raw_e2,Qwen-two-question-direct,raw,Healthy Bearing K006,2960,0.6956936254155761
+rotation_4_raw_e2,Qwen-two-question-direct,raw,Real Inner Ring Damage KI14,2960,1.000432852012783
+rotation_4_raw_e2,Qwen-two-question-direct,raw,Real Inner Ring Damage KI16,2960,0.8587209597168771
+rotation_4_raw_e2,Qwen-two-question-direct,pooled,Artificial Outer Ring Damage KA01,2960,1.2901430489166428
+rotation_4_raw_e2,Qwen-two-question-direct,pooled,Artificial Outer Ring Damage KA08,2923,0.9023104484866795
+rotation_4_raw_e2,Qwen-two-question-direct,pooled,Healthy Bearing K006,2960,0.8354606749599237
+rotation_4_raw_e2,Qwen-two-question-direct,pooled,Real Inner Ring Damage KI14,2960,0.9756230669311516
+rotation_4_raw_e2,Qwen-two-question-direct,pooled,Real Inner Ring Damage KI16,2960,0.8763747230742113
+rotation_4_raw_e2,Qwen-two-question-direct,unit,Artificial Outer Ring Damage KA01,2960,1.2901430489166428
+rotation_4_raw_e2,Qwen-two-question-direct,unit,Artificial Outer Ring Damage KA08,2923,0.9023104484866795
+rotation_4_raw_e2,Qwen-two-question-direct,unit,Healthy Bearing K006,2960,0.8354606749599237
+rotation_4_raw_e2,Qwen-two-question-direct,unit,Real Inner Ring Damage KI14,2960,0.9756230669311516
+rotation_4_raw_e2,Qwen-two-question-direct,unit,Real Inner Ring Damage KI16,2960,0.8763747230742113
+rotation_4_raw_e2,Qwen-shared-factorized,raw,Artificial Outer Ring Damage KA01,2960,1.7381256123083217
+rotation_4_raw_e2,Qwen-shared-factorized,raw,Artificial Outer Ring Damage KA08,2923,0.8494914085480709
+rotation_4_raw_e2,Qwen-shared-factorized,raw,Healthy Bearing K006,2960,0.7866004719118608
+rotation_4_raw_e2,Qwen-shared-factorized,raw,Real Inner Ring Damage KI14,2960,1.0302058320693412
+rotation_4_raw_e2,Qwen-shared-factorized,raw,Real Inner Ring Damage KI16,2960,0.8761388278262083
+rotation_4_raw_e2,Qwen-shared-factorized,pooled,Artificial Outer Ring Damage KA01,2960,1.2629205408160056
+rotation_4_raw_e2,Qwen-shared-factorized,pooled,Artificial Outer Ring Damage KA08,2923,0.937546293568336
+rotation_4_raw_e2,Qwen-shared-factorized,pooled,Healthy Bearing K006,2960,0.8942672654133832
+rotation_4_raw_e2,Qwen-shared-factorized,pooled,Real Inner Ring Damage KI14,2960,0.9855173568734519
+rotation_4_raw_e2,Qwen-shared-factorized,pooled,Real Inner Ring Damage KI16,2960,0.8940352608190263
+rotation_4_raw_e2,Qwen-shared-factorized,unit,Artificial Outer Ring Damage KA01,2960,1.2629205408160056
+rotation_4_raw_e2,Qwen-shared-factorized,unit,Artificial Outer Ring Damage KA08,2923,0.937546293568336
+rotation_4_raw_e2,Qwen-shared-factorized,unit,Healthy Bearing K006,2960,0.8942672654133832
+rotation_4_raw_e2,Qwen-shared-factorized,unit,Real Inner Ring Damage KI14,2960,0.9855173568734519
+rotation_4_raw_e2,Qwen-shared-factorized,unit,Real Inner Ring Damage KI16,2960,0.8940352608190263
+rotation_5_raw_e2,Numerical-flat,raw,Artificial Inner Ring Damage KI07,11760,1.7098489045844056
+rotation_5_raw_e2,Numerical-flat,raw,Artificial Outer Ring Damage KA03,11760,0.8868830505638945
+rotation_5_raw_e2,Numerical-flat,raw,Artificial Outer Ring Damage KA06,11760,0.6821908965132796
+rotation_5_raw_e2,Numerical-flat,raw,Healthy Bearing K004,11760,2.0475553110207994
+rotation_5_raw_e2,Numerical-flat,raw,Real Inner Ring Damage KI21,11760,0.6383572385998233
+rotation_5_raw_e2,Numerical-flat,pooled,Artificial Inner Ring Damage KI07,11760,1.3060108225636036
+rotation_5_raw_e2,Numerical-flat,pooled,Artificial Outer Ring Damage KA03,11760,0.8393540719746755
+rotation_5_raw_e2,Numerical-flat,pooled,Artificial Outer Ring Damage KA06,11760,0.8729470280858583
+rotation_5_raw_e2,Numerical-flat,pooled,Healthy Bearing K004,11760,1.4479506257200632
+rotation_5_raw_e2,Numerical-flat,pooled,Real Inner Ring Damage KI21,11760,0.7659859450305523
+rotation_5_raw_e2,Numerical-flat,unit,Artificial Inner Ring Damage KI07,11760,1.3060108225636036
+rotation_5_raw_e2,Numerical-flat,unit,Artificial Outer Ring Damage KA03,11760,0.8393540719746755
+rotation_5_raw_e2,Numerical-flat,unit,Artificial Outer Ring Damage KA06,11760,0.8729470280858583
+rotation_5_raw_e2,Numerical-flat,unit,Healthy Bearing K004,11760,1.4479506257200632
+rotation_5_raw_e2,Numerical-flat,unit,Real Inner Ring Damage KI21,11760,0.7659859450305523
+rotation_5_raw_e2,Numerical-factorized,raw,Artificial Inner Ring Damage KI07,11760,1.945477570950997
+rotation_5_raw_e2,Numerical-factorized,raw,Artificial Outer Ring Damage KA03,11760,0.8647892263634396
+rotation_5_raw_e2,Numerical-factorized,raw,Artificial Outer Ring Damage KA06,11760,0.6836837541239225
+rotation_5_raw_e2,Numerical-factorized,raw,Healthy Bearing K004,11760,1.7082627951482436
+rotation_5_raw_e2,Numerical-factorized,raw,Real Inner Ring Damage KI21,11760,0.6005114350020473
+rotation_5_raw_e2,Numerical-factorized,pooled,Artificial Inner Ring Damage KI07,11760,1.3995902564804987
+rotation_5_raw_e2,Numerical-factorized,pooled,Artificial Outer Ring Damage KA03,11760,0.8219009242497237
+rotation_5_raw_e2,Numerical-factorized,pooled,Artificial Outer Ring Damage KA06,11760,0.8757849016914563
+rotation_5_raw_e2,Numerical-factorized,pooled,Healthy Bearing K004,11760,1.3085354509587528
+rotation_5_raw_e2,Numerical-factorized,pooled,Real Inner Ring Damage KI21,11760,0.7320963647843653
+rotation_5_raw_e2,Numerical-factorized,unit,Artificial Inner Ring Damage KI07,11760,1.3995902564804987
+rotation_5_raw_e2,Numerical-factorized,unit,Artificial Outer Ring Damage KA03,11760,0.8219009242497237
+rotation_5_raw_e2,Numerical-factorized,unit,Artificial Outer Ring Damage KA06,11760,0.8757849016914563
+rotation_5_raw_e2,Numerical-factorized,unit,Healthy Bearing K004,11760,1.3085354509587528
+rotation_5_raw_e2,Numerical-factorized,unit,Real Inner Ring Damage KI21,11760,0.7320963647843653
+rotation_5_raw_e2,Qwen-flat,raw,Artificial Inner Ring Damage KI07,11760,1.9517294612173388
+rotation_5_raw_e2,Qwen-flat,raw,Artificial Outer Ring Damage KA03,11760,1.430157734716063
+rotation_5_raw_e2,Qwen-flat,raw,Artificial Outer Ring Damage KA06,11760,0.6374990383836783
+rotation_5_raw_e2,Qwen-flat,raw,Healthy Bearing K004,11760,4.723334624245449
+rotation_5_raw_e2,Qwen-flat,raw,Real Inner Ring Damage KI21,11760,0.5923145263741283
+rotation_5_raw_e2,Qwen-flat,pooled,Artificial Inner Ring Damage KI07,11760,1.557336951555568
+rotation_5_raw_e2,Qwen-flat,pooled,Artificial Outer Ring Damage KA03,11760,1.1459033580340845
+rotation_5_raw_e2,Qwen-flat,pooled,Artificial Outer Ring Damage KA06,11760,0.7253764339714464
+rotation_5_raw_e2,Qwen-flat,pooled,Healthy Bearing K004,11760,3.2728501055236063
+rotation_5_raw_e2,Qwen-flat,pooled,Real Inner Ring Damage KI21,11760,0.6411289947797537
+rotation_5_raw_e2,Qwen-flat,unit,Artificial Inner Ring Damage KI07,11760,1.557336951555568
+rotation_5_raw_e2,Qwen-flat,unit,Artificial Outer Ring Damage KA03,11760,1.1459033580340845
+rotation_5_raw_e2,Qwen-flat,unit,Artificial Outer Ring Damage KA06,11760,0.7253764339714464
+rotation_5_raw_e2,Qwen-flat,unit,Healthy Bearing K004,11760,3.2728501055236063
+rotation_5_raw_e2,Qwen-flat,unit,Real Inner Ring Damage KI21,11760,0.6411289947797537
+rotation_5_raw_e2,Qwen-factorized,raw,Artificial Inner Ring Damage KI07,11760,1.9195078186199297
+rotation_5_raw_e2,Qwen-factorized,raw,Artificial Outer Ring Damage KA03,11760,1.4156060715545262
+rotation_5_raw_e2,Qwen-factorized,raw,Artificial Outer Ring Damage KA06,11760,0.6270197587729496
+rotation_5_raw_e2,Qwen-factorized,raw,Healthy Bearing K004,11760,4.9476442419037845
+rotation_5_raw_e2,Qwen-factorized,raw,Real Inner Ring Damage KI21,11760,0.6225004259260208
+rotation_5_raw_e2,Qwen-factorized,pooled,Artificial Inner Ring Damage KI07,11760,1.5595485953293384
+rotation_5_raw_e2,Qwen-factorized,pooled,Artificial Outer Ring Damage KA03,11760,1.1595970084375307
+rotation_5_raw_e2,Qwen-factorized,pooled,Artificial Outer Ring Damage KA06,11760,0.7071681617327306
+rotation_5_raw_e2,Qwen-factorized,pooled,Healthy Bearing K004,11760,3.526311798223789
+rotation_5_raw_e2,Qwen-factorized,pooled,Real Inner Ring Damage KI21,11760,0.6560542801746954
+rotation_5_raw_e2,Qwen-factorized,unit,Artificial Inner Ring Damage KI07,11760,1.5595485953293384
+rotation_5_raw_e2,Qwen-factorized,unit,Artificial Outer Ring Damage KA03,11760,1.1595970084375307
+rotation_5_raw_e2,Qwen-factorized,unit,Artificial Outer Ring Damage KA06,11760,0.7071681617327306
+rotation_5_raw_e2,Qwen-factorized,unit,Healthy Bearing K004,11760,3.526311798223789
+rotation_5_raw_e2,Qwen-factorized,unit,Real Inner Ring Damage KI21,11760,0.6560542801746954
+rotation_5_raw_e2,Qwen-two-question-direct,raw,Artificial Inner Ring Damage KI07,11760,1.9393983443029006
+rotation_5_raw_e2,Qwen-two-question-direct,raw,Artificial Outer Ring Damage KA03,11760,1.4057930695955205
+rotation_5_raw_e2,Qwen-two-question-direct,raw,Artificial Outer Ring Damage KA06,11760,0.6080913790198907
+rotation_5_raw_e2,Qwen-two-question-direct,raw,Healthy Bearing K004,11760,4.724252442368472
+rotation_5_raw_e2,Qwen-two-question-direct,raw,Real Inner Ring Damage KI21,11760,0.5815725069498684
+rotation_5_raw_e2,Qwen-two-question-direct,pooled,Artificial Inner Ring Damage KI07,11760,1.6278461853237762
+rotation_5_raw_e2,Qwen-two-question-direct,pooled,Artificial Outer Ring Damage KA03,11760,1.1825279083179832
+rotation_5_raw_e2,Qwen-two-question-direct,pooled,Artificial Outer Ring Damage KA06,11760,0.6863194819732675
+rotation_5_raw_e2,Qwen-two-question-direct,pooled,Healthy Bearing K004,11760,3.5659808956716663
+rotation_5_raw_e2,Qwen-two-question-direct,pooled,Real Inner Ring Damage KI21,11760,0.6206728570779934
+rotation_5_raw_e2,Qwen-two-question-direct,unit,Artificial Inner Ring Damage KI07,11760,1.6278461853237762
+rotation_5_raw_e2,Qwen-two-question-direct,unit,Artificial Outer Ring Damage KA03,11760,1.1825279083179832
+rotation_5_raw_e2,Qwen-two-question-direct,unit,Artificial Outer Ring Damage KA06,11760,0.6863194819732675
+rotation_5_raw_e2,Qwen-two-question-direct,unit,Healthy Bearing K004,11760,3.5659808956716663
+rotation_5_raw_e2,Qwen-two-question-direct,unit,Real Inner Ring Damage KI21,11760,0.6206728570779934
+rotation_5_raw_e2,Qwen-shared-factorized,raw,Artificial Inner Ring Damage KI07,11760,1.9563297069462626
+rotation_5_raw_e2,Qwen-shared-factorized,raw,Artificial Outer Ring Damage KA03,11760,1.4280547512085766
+rotation_5_raw_e2,Qwen-shared-factorized,raw,Artificial Outer Ring Damage KA06,11760,0.6365387578864292
+rotation_5_raw_e2,Qwen-shared-factorized,raw,Healthy Bearing K004,11760,4.737926674141829
+rotation_5_raw_e2,Qwen-shared-factorized,raw,Real Inner Ring Damage KI21,11760,0.5918491647824162
+rotation_5_raw_e2,Qwen-shared-factorized,pooled,Artificial Inner Ring Damage KI07,11760,1.575502248841945
+rotation_5_raw_e2,Qwen-shared-factorized,pooled,Artificial Outer Ring Damage KA03,11760,1.1589862845477348
+rotation_5_raw_e2,Qwen-shared-factorized,pooled,Artificial Outer Ring Damage KA06,11760,0.7192172789639397
+rotation_5_raw_e2,Qwen-shared-factorized,pooled,Healthy Bearing K004,11760,3.3428560363649082
+rotation_5_raw_e2,Qwen-shared-factorized,pooled,Real Inner Ring Damage KI21,11760,0.6388098382537958
+rotation_5_raw_e2,Qwen-shared-factorized,unit,Artificial Inner Ring Damage KI07,11760,1.575502248841945
+rotation_5_raw_e2,Qwen-shared-factorized,unit,Artificial Outer Ring Damage KA03,11760,1.1589862845477348
+rotation_5_raw_e2,Qwen-shared-factorized,unit,Artificial Outer Ring Damage KA06,11760,0.7192172789639397
+rotation_5_raw_e2,Qwen-shared-factorized,unit,Healthy Bearing K004,11760,3.3428560363649082
+rotation_5_raw_e2,Qwen-shared-factorized,unit,Real Inner Ring Damage KI21,11760,0.6388098382537958
+rotation_6_raw_e2,Numerical-flat,raw,Healthy Bearing K003,2960,0.340111521157962
+rotation_6_raw_e2,Numerical-flat,raw,Real Inner Ring Damage KI04,2960,0.6526200182100105
+rotation_6_raw_e2,Numerical-flat,raw,"Real Mixed Damage, IR Dominant KB24",2960,1.1619262875812746
+rotation_6_raw_e2,Numerical-flat,raw,Real Outer Ring Damage KA15,2960,0.8438891920598323
+rotation_6_raw_e2,Numerical-flat,raw,Real Outer Ring Damage KA30,2960,1.0463937688665799
+rotation_6_raw_e2,Numerical-flat,pooled,Healthy Bearing K003,2960,0.887834938846771
+rotation_6_raw_e2,Numerical-flat,pooled,Real Inner Ring Damage KI04,2960,0.9502300552581643
+rotation_6_raw_e2,Numerical-flat,pooled,"Real Mixed Damage, IR Dominant KB24",2960,0.9395679593773472
+rotation_6_raw_e2,Numerical-flat,pooled,Real Outer Ring Damage KA15,2960,1.0122702766360983
+rotation_6_raw_e2,Numerical-flat,pooled,Real Outer Ring Damage KA30,2960,1.0141144969058034
+rotation_6_raw_e2,Numerical-flat,unit,Healthy Bearing K003,2960,0.887834938846771
+rotation_6_raw_e2,Numerical-flat,unit,Real Inner Ring Damage KI04,2960,0.9502300552581643
+rotation_6_raw_e2,Numerical-flat,unit,"Real Mixed Damage, IR Dominant KB24",2960,0.9395679593773472
+rotation_6_raw_e2,Numerical-flat,unit,Real Outer Ring Damage KA15,2960,1.0122702766360983
+rotation_6_raw_e2,Numerical-flat,unit,Real Outer Ring Damage KA30,2960,1.0141144969058034
+rotation_6_raw_e2,Numerical-factorized,raw,Healthy Bearing K003,2960,0.3944919539636732
+rotation_6_raw_e2,Numerical-factorized,raw,Real Inner Ring Damage KI04,2960,0.6916680155844281
+rotation_6_raw_e2,Numerical-factorized,raw,"Real Mixed Damage, IR Dominant KB24",2960,1.041597344690067
+rotation_6_raw_e2,Numerical-factorized,raw,Real Outer Ring Damage KA15,2960,0.8268356162852352
+rotation_6_raw_e2,Numerical-factorized,raw,Real Outer Ring Damage KA30,2960,0.9605115990070766
+rotation_6_raw_e2,Numerical-factorized,pooled,Healthy Bearing K003,2960,0.9201165554944617
+rotation_6_raw_e2,Numerical-factorized,pooled,Real Inner Ring Damage KI04,2960,0.9715168496413314
+rotation_6_raw_e2,Numerical-factorized,pooled,"Real Mixed Damage, IR Dominant KB24",2960,0.9411255168960564
+rotation_6_raw_e2,Numerical-factorized,pooled,Real Outer Ring Damage KA15,2960,1.0158630563179474
+rotation_6_raw_e2,Numerical-factorized,pooled,Real Outer Ring Damage KA30,2960,1.0176656325080664
+rotation_6_raw_e2,Numerical-factorized,unit,Healthy Bearing K003,2960,0.9201165554944617
+rotation_6_raw_e2,Numerical-factorized,unit,Real Inner Ring Damage KI04,2960,0.9715168496413314
+rotation_6_raw_e2,Numerical-factorized,unit,"Real Mixed Damage, IR Dominant KB24",2960,0.9411255168960564
+rotation_6_raw_e2,Numerical-factorized,unit,Real Outer Ring Damage KA15,2960,1.0158630563179474
+rotation_6_raw_e2,Numerical-factorized,unit,Real Outer Ring Damage KA30,2960,1.0176656325080664
+rotation_6_raw_e2,Qwen-flat,raw,Healthy Bearing K003,2960,0.5022163128692699
+rotation_6_raw_e2,Qwen-flat,raw,Real Inner Ring Damage KI04,2960,1.165640052326406
+rotation_6_raw_e2,Qwen-flat,raw,"Real Mixed Damage, IR Dominant KB24",2960,0.8830253267112831
+rotation_6_raw_e2,Qwen-flat,raw,Real Outer Ring Damage KA15,2960,0.9652795066759086
+rotation_6_raw_e2,Qwen-flat,raw,Real Outer Ring Damage KA30,2960,1.1966867466613345
+rotation_6_raw_e2,Qwen-flat,pooled,Healthy Bearing K003,2960,0.8734125522887004
+rotation_6_raw_e2,Qwen-flat,pooled,Real Inner Ring Damage KI04,2960,1.0575173996769087
+rotation_6_raw_e2,Qwen-flat,pooled,"Real Mixed Damage, IR Dominant KB24",2960,0.9731140500191034
+rotation_6_raw_e2,Qwen-flat,pooled,Real Outer Ring Damage KA15,2960,0.949074340353675
+rotation_6_raw_e2,Qwen-flat,pooled,Real Outer Ring Damage KA30,2960,1.0625145002021963
+rotation_6_raw_e2,Qwen-flat,unit,Healthy Bearing K003,2960,0.8734125522887004
+rotation_6_raw_e2,Qwen-flat,unit,Real Inner Ring Damage KI04,2960,1.0575173996769087
+rotation_6_raw_e2,Qwen-flat,unit,"Real Mixed Damage, IR Dominant KB24",2960,0.9731140500191034
+rotation_6_raw_e2,Qwen-flat,unit,Real Outer Ring Damage KA15,2960,0.949074340353675
+rotation_6_raw_e2,Qwen-flat,unit,Real Outer Ring Damage KA30,2960,1.0625145002021963
+rotation_6_raw_e2,Qwen-factorized,raw,Healthy Bearing K003,2960,0.43832706643494257
+rotation_6_raw_e2,Qwen-factorized,raw,Real Inner Ring Damage KI04,2960,1.1122266556013147
+rotation_6_raw_e2,Qwen-factorized,raw,"Real Mixed Damage, IR Dominant KB24",2960,0.9050170455772651
+rotation_6_raw_e2,Qwen-factorized,raw,Real Outer Ring Damage KA15,2960,1.0071185840479235
+rotation_6_raw_e2,Qwen-factorized,raw,Real Outer Ring Damage KA30,2960,1.161257747030903
+rotation_6_raw_e2,Qwen-factorized,pooled,Healthy Bearing K003,2960,0.825423441077038
+rotation_6_raw_e2,Qwen-factorized,pooled,Real Inner Ring Damage KI04,2960,1.0339675777410784
+rotation_6_raw_e2,Qwen-factorized,pooled,"Real Mixed Damage, IR Dominant KB24",2960,0.9535714781445488
+rotation_6_raw_e2,Qwen-factorized,pooled,Real Outer Ring Damage KA15,2960,0.9448547801418041
+rotation_6_raw_e2,Qwen-factorized,pooled,Real Outer Ring Damage KA30,2960,1.0482024045791185
+rotation_6_raw_e2,Qwen-factorized,unit,Healthy Bearing K003,2960,0.825423441077038
+rotation_6_raw_e2,Qwen-factorized,unit,Real Inner Ring Damage KI04,2960,1.0339675777410784
+rotation_6_raw_e2,Qwen-factorized,unit,"Real Mixed Damage, IR Dominant KB24",2960,0.9535714781445488
+rotation_6_raw_e2,Qwen-factorized,unit,Real Outer Ring Damage KA15,2960,0.9448547801418041
+rotation_6_raw_e2,Qwen-factorized,unit,Real Outer Ring Damage KA30,2960,1.0482024045791185
+rotation_6_raw_e2,Qwen-two-question-direct,raw,Healthy Bearing K003,2960,0.3835981765732315
+rotation_6_raw_e2,Qwen-two-question-direct,raw,Real Inner Ring Damage KI04,2960,1.1451133503874313
+rotation_6_raw_e2,Qwen-two-question-direct,raw,"Real Mixed Damage, IR Dominant KB24",2960,0.8025757505800106
+rotation_6_raw_e2,Qwen-two-question-direct,raw,Real Outer Ring Damage KA15,2960,0.9297495377426571
+rotation_6_raw_e2,Qwen-two-question-direct,raw,Real Outer Ring Damage KA30,2960,1.1571573683897196
+rotation_6_raw_e2,Qwen-two-question-direct,pooled,Healthy Bearing K003,2960,0.8158759175403414
+rotation_6_raw_e2,Qwen-two-question-direct,pooled,Real Inner Ring Damage KI04,2960,1.0689545284033826
+rotation_6_raw_e2,Qwen-two-question-direct,pooled,"Real Mixed Damage, IR Dominant KB24",2960,0.9499661783939716
+rotation_6_raw_e2,Qwen-two-question-direct,pooled,Real Outer Ring Damage KA15,2960,0.927895404492251
+rotation_6_raw_e2,Qwen-two-question-direct,pooled,Real Outer Ring Damage KA30,2960,1.0714650499338056
+rotation_6_raw_e2,Qwen-two-question-direct,unit,Healthy Bearing K003,2960,0.8158759175403414
+rotation_6_raw_e2,Qwen-two-question-direct,unit,Real Inner Ring Damage KI04,2960,1.0689545284033826
+rotation_6_raw_e2,Qwen-two-question-direct,unit,"Real Mixed Damage, IR Dominant KB24",2960,0.9499661783939716
+rotation_6_raw_e2,Qwen-two-question-direct,unit,Real Outer Ring Damage KA15,2960,0.927895404492251
+rotation_6_raw_e2,Qwen-two-question-direct,unit,Real Outer Ring Damage KA30,2960,1.0714650499338056
+rotation_6_raw_e2,Qwen-shared-factorized,raw,Healthy Bearing K003,2960,0.5104642819717826
+rotation_6_raw_e2,Qwen-shared-factorized,raw,Real Inner Ring Damage KI04,2960,1.1413095751622084
+rotation_6_raw_e2,Qwen-shared-factorized,raw,"Real Mixed Damage, IR Dominant KB24",2960,0.9049121714835984
+rotation_6_raw_e2,Qwen-shared-factorized,raw,Real Outer Ring Damage KA15,2960,0.9553081700142596
+rotation_6_raw_e2,Qwen-shared-factorized,raw,Real Outer Ring Damage KA30,2960,1.1826499964354205
+rotation_6_raw_e2,Qwen-shared-factorized,pooled,Healthy Bearing K003,2960,0.8740496796692516
+rotation_6_raw_e2,Qwen-shared-factorized,pooled,Real Inner Ring Damage KI04,2960,1.0542257620700397
+rotation_6_raw_e2,Qwen-shared-factorized,pooled,"Real Mixed Damage, IR Dominant KB24",2960,0.9746104672178231
+rotation_6_raw_e2,Qwen-shared-factorized,pooled,Real Outer Ring Damage KA15,2960,0.9467475290793358
+rotation_6_raw_e2,Qwen-shared-factorized,pooled,Real Outer Ring Damage KA30,2960,1.061729837508818
+rotation_6_raw_e2,Qwen-shared-factorized,unit,Healthy Bearing K003,2960,0.8740496796692516
+rotation_6_raw_e2,Qwen-shared-factorized,unit,Real Inner Ring Damage KI04,2960,1.0542257620700397
+rotation_6_raw_e2,Qwen-shared-factorized,unit,"Real Mixed Damage, IR Dominant KB24",2960,0.9746104672178231
+rotation_6_raw_e2,Qwen-shared-factorized,unit,Real Outer Ring Damage KA15,2960,0.9467475290793358
+rotation_6_raw_e2,Qwen-shared-factorized,unit,Real Outer Ring Damage KA30,2960,1.061729837508818
