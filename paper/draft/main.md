@@ -1,8 +1,8 @@
-# Question-Conditioned Probability Composition for Bearing Fault Diagnosis
+# Question-Conditioned Probability Composition for Bearing Fault Diagnosis: A Controlled Attribution Study
 
 ## Abstract
 
-**Pending the real-data comparison.** This manuscript evaluates whether independently posed fault-presence and conditional fault-identity questions improve closed-set bearing diagnosis beyond direct classification, ordinary hierarchical parameterization, and an equal-question-count direct ensemble. The study uses a frozen Qwen3-0.6B encoder and supervised heads over the same six measured vibration statistics. Predictions are evaluated on physical bearings held apart from training, tuning, and calibration. The final abstract will state the observed effect and its uncertainty after the saved experiment outputs have been analyzed; no diagnostic benefit is established by the interface or probability factorization alone.
+Typed outputs and coherent probabilities do not establish useful fault diagnosis. We test whether independently posed fault-presence and conditional fault-identity questions improve closed-set probability estimation beyond direct classification, ordinary hierarchy, and two direct questions. A frozen Qwen3-0.6B encoder receives the same six vibration statistics as numerical controls. The study retains 2,559 recordings from 32 Paderborn bearings, covers each recording with parameterized windows, and separates physical bearings across fitting and evaluation roles. On the eight-bearing primary test, question-conditioned factorization has NLL 1.0542 versus 1.0553 for direct Qwen, a paired difference of −0.0011 with conditional 95% interval [−0.0086, 0.0052]. Factorization on the direct Qwen representation has lower point NLL, 1.0463; numerical factorization has the lowest, 1.0183. Lower ECE for the question-conditioned model coexists with higher area under the risk–coverage curve, and all calibrated Qwen methods defer every primary test window at error cost 1 and deferral cost 0.25. Six predeclared bearing rotations show changes of direction rather than a stable increment. These results establish a bounded negative attribution finding: question conditioning has not demonstrated additional diagnostic probability or selective-decision value in this frozen, compact-state setting. They do not prove equivalence, rule out other observations or training regimes, or establish practical superiority over full-signal PHM models.
 
 ## 1. Introduction
 
@@ -22,11 +22,13 @@ These explanations are easy to confound. A second model evaluation can help thro
 
 We ask: **at a fixed observation, label budget, class ontology, and evaluation population, does question-conditioned fault decomposition improve probability quality or selective diagnosis beyond direct prediction, a shared-representation hierarchy, and two direct questions?** The experiment is a controlled attribution study of a frozen language representation. It does not test a fully trained signal model's performance ceiling.
 
-### 1.3 Scope and contribution criterion
+### 1.3 Findings and scope
 
-The study connects a verified bearing-level split, a reproducible signal-state interface, independent diagnostic questions, coherent probability composition, and cost-based deferral. The conditional heads, their label transformation, temperature scaling, and rejection are existing techniques. The scientific contribution must be a supported finding about their interaction on real PHM observations, including a useful negative finding if the controls explain the proposed model's behavior.
+The contribution is an empirical attribution result, rather than a new probability factorization or output type. Under the controlled observation and supervised frozen-backbone setting, question-conditioned composition does not demonstrate an increment beyond direct language prediction, ordinary hierarchy on the same representation, and a fixed two-direct-question ensemble. The primary paired interval includes zero, and the descriptive bearing rotations change direction. This leaves a useful boundary on the transfer of atomic decision interfaces to compact vibration observations.
 
-The scope is single-channel, supervised, closed-set classification on the Paderborn bearing collection. Mixed-damage bearings retain the source's dominant-category assignments; the task does not claim pure damage localization. It excludes remaining useful life, previously unseen fault recognition, causal symptom inference, continual learning, and actual maintenance execution. Empirical contributions are finalized after the core comparison rather than assumed from the architecture.
+The controlled comparisons expose two distinctions relevant to interpreting that result. First, preserving amplitude improves the observed feasibility probability scores independently of question decomposition. Second, a lower ECE can coexist with worse confidence ordering, while calibrated low-cost outputs can simply defer everything. The study provides the corresponding implementation and saved bearing-level outputs so that these effects can be separated without new model inference. Conditional heads, temperature scaling, typed validity, and rejection remain established foundations rather than individual novelty claims.
+
+The scope is single-channel, supervised, closed-set classification on the Paderborn bearing collection. Mixed-damage bearings retain the source's dominant-category assignments; the task does not claim pure damage localization. It excludes remaining useful life, previously unseen fault recognition, causal symptom inference, continual learning, and actual maintenance execution. The negative finding concerns this observation, backbone, fitting regime, and ontology; it is not a claim that diagnostic decomposition is universally ineffective.
 
 ## 2. Related Work
 
@@ -256,19 +258,21 @@ Flat A and B share all category definitions and the healthy/fault grouping suppl
 
 Heads use deterministic `lbfgs`, at most 2,000 iterations, and tolerance $10^{-7}$, with convergence status retained. Each rotation refits training-only standardizers and heads, selects $C$, and fits temperature. Frozen, protocol-compatible hidden states can be reused across role assignments without fitting to their labels. States from a different observation, interval, question, or model revision are not interchangeable.
 
-Pooled final-distribution temperature calibration is primary in E2. Raw and equal-bearing-scaled outputs are secondary analyses. All controls supply complete normalized distributions and the same leaf-or-defer contract. Equal question counts do not imply equal token counts, FLOPs, latency, or parameter counts. We record tokens, padded tokens, forward batches, cache-extraction elapsed time, and fitted-head parameters. FLOPs are not measured, and unequal extraction schedules and warmup conditions do not constitute a matched deployment-latency benchmark.
+The Qwen representation has 1,024 coordinates. Fitted-head parameter counts, including intercepts, are 3,075 for Qwen-flat, 2,050 for each Qwen factorized workflow, and 6,150 for the two-direct-question control. Numerical-flat has 21 parameters and Numerical-factorized 14. These counts make the different capacities and binary reference-logit parameterizations explicit rather than asserting exact model equivalence.
+
+Pooled final-distribution temperature calibration is primary in the decomposition comparison. Raw and equal-bearing-scaled outputs are secondary analyses. All controls supply complete normalized distributions and the same leaf-or-defer contract. Equal question counts do not imply equal token counts, FLOPs, latency, or parameter counts. We record tokens, padded tokens, forward batches, cache-extraction elapsed time, and fitted-head parameters. FLOPs are not measured, and unequal extraction schedules and warmup conditions do not constitute a matched deployment-latency benchmark.
 
 ### 5.5 Metrics and uncertainty
 
 The primary endpoint is the paired bearing-weighted NLL difference, Qwen-factorized minus Qwen-flat; negative values favor factorization. Comparisons with Qwen-shared-factorized and Qwen-two-question-direct distinguish question conditioning from hierarchy and added evaluations. Numerical-factorized minus Numerical-flat tests whether the numerical hierarchy explains the effect's direction.
 
-Multiclass Brier sums over all three classes, $\sum_k(p_k-\mathbb1[y=k])^2$, rather than using a one-component binary convention. Accuracy and Macro-F1 use the same equal-bearing, equal-window weights as NLL. ECE uses maximum probability, ten equal-width bins, and bearing-weighted absolute confidence–accuracy differences within bins. It is descriptive and depends on binning.
+Multiclass Brier sums over all three classes, $\sum_k(p_k-\mathbb1[y=k])^2$, rather than using a one-component binary convention. Accuracy and Macro-F1 use the same equal-bearing, equal-window weights as NLL. ECE uses maximum probability and ten bins: $[0,0.1),[0.1,0.2),\ldots,[0.9,1]$. It sums each bin's probability mass times the absolute difference between its weighted mean confidence and accuracy; empty bins contribute zero. ECE is descriptive and depends on binning.
 
-Risk–coverage curves sort saved maximum probabilities with stable ties, and report weighted accepted-window error against weighted coverage. Fixed-cost outputs include coverage, accepted-sample error when coverage is positive, and realized cost including every deferral's 0.25 charge. Lower selective error from greater rejection is not treated as improvement at matched coverage.
+Risk–coverage curves sort saved maximum probabilities with stable ties, and report weighted accepted-window error against weighted coverage. AURC is the sum of each prefix's risk times its coverage increment, using right endpoints; lower values indicate lower integrated selective error. Fixed-cost outputs include coverage, accepted-sample error when coverage is positive, and realized cost including every deferral's 0.25 charge. Lower selective error from greater rejection is not treated as improvement at matched coverage.
 
 Always deferring is an analytical reference with zero coverage and cost 0.25. A model attaining that cost by rejecting every window has made no accepted diagnosis; cost and coverage must therefore be interpreted jointly.
 
-For the main split, 2,000 paired bootstrap draws resample its eight test bearings using seed 20260922. Each draw uses the same bearings for the compared methods. Intervals condition on the split and fitted models, omitting training and selection variation. Overlapped windows are never bootstrap units. Foldwise differences are separate because fitting data overlap across rotations. Failure to exclude zero is not evidence of equivalence.
+For the main split, 2,000 paired bootstrap draws resample its eight test bearings using seed 20260922. Each draw uses the same bearings for the compared methods. Only Qwen-factorized minus Qwen-flat is the prespecified primary contrast. The other reported 95% intervals are descriptive, unadjusted for multiple comparisons. All intervals condition on the split and fitted models, omitting training and selection variation. Overlapped windows are never bootstrap units. Foldwise differences are separate because fitting data overlap across rotations. Failure to exclude zero is not evidence of equivalence.
 
 ### 5.6 Reproducibility and predeclared interpretation
 
@@ -284,7 +288,7 @@ The exported 2,048-point protocol covers every stored sample in all 2,559 record
 
 ### 6.2 Amplitude-preserving feasibility comparison
 
-The completed amplitude-preserving E1 run uses the selected 2,048-point window on the main split. It evaluates 94,080 test windows from eight bearings, with 11,760 windows per bearing. Its five calibration bearings provide 58,653 windows: four have 11,760 and KA08 has 11,613, reflecting the existing missing record. The numerical and legacy-Qwen heads both select $C=0.01$ on the tuning bearings. Qwen encoding uses frozen bfloat16 weights; this comparison retains the non-question-specific legacy representation rather than the E2 prompts.
+The completed amplitude-preserving feasibility run uses the selected 2,048-point window on the main split. It evaluates 94,080 test windows from eight bearings, with 11,760 windows per bearing. Its five calibration bearings provide 58,653 windows: four have 11,760 and KA08 has 11,613, reflecting the existing missing record. The numerical and legacy-Qwen heads both select $C=0.01$ on the tuning bearings. Qwen encoding uses frozen bfloat16 weights; this comparison retains the non-question-specific legacy representation rather than the fixed diagnostic questions.
 
 | Representation | Calibration | Test NLL | Brier | ECE | Coverage (%) | Cost |
 |---|---|---:|---:|---:|---:|---:|
@@ -303,7 +307,7 @@ The uncalibrated accepted-window error is 50.8125% for numerical and 51.8127% fo
 
 ### 6.3 Standardized-observation feasibility comparison
 
-The completed per-window-standardized E1 run uses the same window intervals, eight test bearings, 94,080 test windows, labels, and role assignments. Both heads again select $C=0.01$. It tests the original observation protocol, including the nearly constant RMS/standard-deviation coordinates and their rescaled finite-precision variation described above.
+The completed per-window-standardized feasibility run uses the same window intervals, eight test bearings, 94,080 test windows, labels, and role assignments. Both heads again select $C=0.01$. It tests the original observation protocol, including the nearly constant RMS/standard-deviation coordinates and their rescaled finite-precision variation described above.
 
 | Representation | Calibration | Test NLL | Brier | ECE | Coverage (%) | Cost |
 |---|---|---:|---:|---:|---:|---:|
@@ -316,15 +320,61 @@ The completed per-window-standardized E1 run uses the same window intervals, eig
 
 Numerical accuracy is 43.1186% and Macro-F1 is 0.3277; legacy-Qwen accuracy is 37.9188% and Macro-F1 is 0.2934. These class metrics remain invariant under temperature scaling. Numerical pooled and equal-bearing temperatures are 8.6600 and 8.5583; the corresponding Qwen temperatures are 1.9971 and 1.9916. Both calibrated representations defer all test windows, attaining the always-defer cost and leaving accepted-sample error undefined.
 
-Equal-bearing minus pooled NLL is $0.000012$ for numerical, with conditional paired 95% interval $[-0.000605,0.000751]$, and $0.000108$ for legacy Qwen, with interval $[-0.000329,0.000581]$. These small, uncertain differences do not establish a weighting advantage. Across the separately frozen E1 protocols, preserving amplitudes reduces pooled test NLL by 0.0734 for numerical and 0.0370 for legacy Qwen. This observed preprocessing contrast supports retaining the distinction between observation and classifier effects; it is not a finding about question decomposition or broader industrial generalization.
+Equal-bearing minus pooled NLL is $0.000012$ for numerical, with conditional paired 95% interval $[-0.000605,0.000751]$, and $0.000108$ for legacy Qwen, with interval $[-0.000329,0.000581]$. These small, uncertain differences do not establish a weighting advantage. Across the separately frozen feasibility protocols, preserving amplitudes reduces pooled test NLL by 0.0734 for numerical and 0.0370 for legacy Qwen. This observed preprocessing contrast supports retaining the distinction between observation and classifier effects; it is not a finding about question decomposition or broader industrial generalization.
 
-**E2 predictive results pending.** Only its valid saved runs will supply decomposition comparisons and descriptive rotations. The E1 findings will not select or revise E2's already frozen protocol.
+### 6.4 Primary decomposition comparison
+
+All six decomposition arms completed under the frozen amplitude-preserving observation and the same 94,080 test windows from eight held-out bearings. Every workflow selects $C=0.01$; calibration acts on each final three-class distribution. The numerical-flat result is the protocol-compatible feasibility result, retained as a shared comparison rather than independent evidence.
+
+| Method | NLL | Brier | Accuracy (%) | Macro-F1 | ECE | AURC |
+|---|---:|---:|---:|---:|---:|---:|
+| Numerical-flat | 1.0227 | 0.6216 | 45.7345 | 0.3484 | 0.1110 | 0.4721 |
+| Numerical-factorized | 1.0183 | 0.6190 | 45.9067 | 0.3496 | 0.1055 | 0.4642 |
+| Qwen-flat | 1.0553 | 0.6386 | 46.4605 | 0.3884 | 0.0760 | 0.4934 |
+| Qwen-shared-factorized | 1.0463 | 0.6334 | 46.3520 | 0.3859 | 0.0639 | 0.4915 |
+| Qwen-factorized | 1.0542 | 0.6387 | 45.9460 | 0.3782 | 0.0650 | 0.5399 |
+| Qwen-two-question-direct | 1.0568 | 0.6397 | 47.2523 | 0.3905 | 0.0854 | 0.5089 |
+
+The primary Qwen-factorized-minus-Qwen-flat NLL difference is −0.001102, with conditional paired 95% interval [−0.008577, 0.005163]. Against the shared-representation factorization, the difference is +0.007866 [−0.001909, 0.018887]; against two direct questions it is −0.002561 [−0.009060, 0.003682]. These intervals do not establish an additional question-conditioning benefit or equivalence. The shared-representation hierarchy has lower point NLL than the question-conditioned model without a second encoding.
+
+Numerical factorization has the lowest primary NLL. Its paired difference from Numerical-flat is −0.004344 [−0.007547, −0.000973]. This secondary, unadjusted conditional interval excludes zero, but describes an ordinary hierarchy on this split and fit; it is neither a language-model contribution nor independent confirmation across populations. The shared-Qwen-hierarchy-minus-flat difference is −0.008968 [−0.021275, 0.002886], retaining uncertainty about that descriptive contrast.
+
+Probability and selection metrics disagree in an informative way. Qwen-factorized has ECE 0.0650 versus Qwen-flat's 0.0760, yet AURC is higher, 0.5399 versus 0.4934. Its Brier and class metrics also do not improve over Qwen-flat. Thus the lower ECE does not establish better confidence ordering or overall diagnostic utility. At the fixed cost threshold, all four calibrated Qwen methods have zero coverage and cost 0.25. Numerical-flat accepts 70 windows and Numerical-factorized 25, both without observed errors among those accepted; their costs are 0.249814 and 0.249934. These almost-complete deferrals are interpreted relative to always deferring, rather than as useful broad diagnostic coverage.
+
+Before final calibration, Qwen-factorized NLL is 1.2429 versus 1.2237 for Qwen-flat, and its cost is 0.3511 versus 0.3311. The tiny favorable calibrated primary point difference therefore does not persist in the uncalibrated comparison. Raw and equal-bearing-calibrated probabilities, class metrics, and risk–coverage curves are retained in the complete result tables rather than used to select a favorable calibration regime.
+
+![Main-split paired bearing NLL differences and pooled-calibration risk–coverage curves from saved predictions. Only Qwen-factorized minus Qwen-flat is the prespecified primary contrast; the other conditional 95% intervals are descriptive and unadjusted for multiplicity. Risk–coverage curves sweep confidence acceptance rather than using the single fixed-cost operating point.](../assets/figures/jev_primary_results.svg)
+
+### 6.5 Split-sensitive attribution
+
+All six predeclared rotations completed. Rotation 5 selects 2,048-point windows; the other five select 8,192 points using their own development bearings. Every method within a rotation shares its selected observation. The paired bearing-weighted NLL differences below are descriptive because fitting and evaluation populations overlap across rotations. Negative values favor question-conditioned factorization.
+
+| Rotation | Window length | Against Qwen-flat | Against shared-representation factorization | Against two direct questions |
+|---|---:|---:|---:|---:|
+| 1 | 8,192 | −0.0231 | −0.0227 | −0.0075 |
+| 2 | 8,192 | +0.0667 | +0.0669 | +0.0560 |
+| 3 | 8,192 | −0.0123 | −0.0176 | +0.0173 |
+| 4 | 8,192 | +0.0106 | +0.0067 | +0.0256 |
+| 5 | 2,048 | +0.0532 | +0.0347 | −0.0149 |
+| 6 | 8,192 | −0.0219 | −0.0211 | −0.0056 |
+
+Each contrast favors factorization in three rotations and disfavors it in three. Against Qwen-flat, differences range from −0.0231 to +0.0667; against two direct questions, from −0.0149 to +0.0560. In rotation 3, factorization improves NLL relative to the flat question while two direct questions perform better than factorization. In rotation 5, factorization improves on two direct questions while being worse than the flat and shared-representation hierarchy. These reversals do not support a stable question-conditioning increment.
+
+Per-bearing values reveal heterogeneous changes. In rotation 2, healthy bearing K002's factorized-minus-flat difference is +0.4008, contributing +0.0802 to the five-bearing mean of +0.0667. In rotation 5, K004's difference is +0.2535, contributing +0.0507 to the mean of +0.0532. In rotation 4, KA01's difference is +0.1381 despite three other bearings having negative differences. These are descriptions of error concentration, not evidence for a physical mechanism or independent replication.
+
+Higher acceptance also need not improve the fixed-cost decision. In rotation 5, Qwen-factorized has 5.1395% coverage and cost 0.2808; Qwen-flat has 4.1446% coverage and cost 0.2739. Both exceed the 0.25 always-defer reference. Thus accepting more windows does not by itself demonstrate useful diagnosis. All rotation probabilities and metrics, including negative results and the numerical hierarchy controls, are retained in the complete saved tables.
+
+![Question-conditioned factorization minus the three Qwen controls in six predeclared bearing rotations. Each rotation shares its development-selected window within the comparison; widths are annotated. Changes of direction describe sensitivity to fitting and held-out populations, not independent repetitions or a pooled significance test.](../assets/figures/jev_rotation_contrasts.svg)
 
 ## 7. Discussion
 
-### 7.1 What would constitute a question-conditioned increment?
+### 7.1 A bounded negative attribution finding
 
-The decisive controls are factorization on the same flat representation and the fixed two-direct-question ensemble. A favorable flat-versus-factorized difference alone leaves hierarchy and extra encoding as explanations. Attribution additionally requires same-observation evidence across held-out bearings and uncertainty warranting the stated scope. Final interpretation will follow the observed controls rather than presume a language-specific mechanism.
+The primary result does not demonstrate a question-conditioning increment. The proposed model's calibrated NLL is close to Qwen-flat with an interval including zero, while the hierarchy on the single flat representation has a better point score. Descriptive rotations change direction against both that hierarchy and two direct questions. Their windows, observations, and selection opportunities are matched within each comparison; a favorable individual split therefore cannot be selected as evidence of a general benefit.
+
+This finding identifies a boundary of the interface transfer. Asking two semantically explicit questions can change the learned representation without improving its diagnostic information or decision behavior. The conditional chain supplies coherent outputs and interpretable event definitions, but these structural properties do not predict generalization to a new bearing. Ordinary numerical hierarchy attains the best primary probability score, and its conditional secondary improvement does not require a language-specific explanation. The experiment leaves open whether other observations, training regimes, or independently annotated physical concepts would change the conclusion.
+
+The bearing-level error concentrations suggest split sensitivity as an important empirical limitation, not a discovered physical mechanism. Healthy-bearing count is small, training populations vary by rotation, and individual bearing losses can determine a fold's mean. The protocol was frozen before these observations; neither feature definitions nor questions were revised to improve these test results. A future explanatory hypothesis based on the observed bearing patterns would be exploratory and would require a separate test.
 
 ### 7.2 Limits of the observation and collection
 
@@ -334,17 +384,21 @@ Few independent healthy bearings and a fixed source taxonomy including mixed dam
 
 ### 7.3 Probability validity and operational meaning
 
-Typed categories and normalized probabilities make outputs consumable but do not provide calibrated risk guarantees. Calibration bearings are few, and temperature can depend on their composition. The mean-bearing target is declared rather than estimated from deployment prevalence. Equal-bearing and pooled calibration therefore answer different estimation questions; favorable behavior here would not make either universally preferable.
+Typed categories and normalized probabilities make outputs consumable but do not provide calibrated risk guarantees. The lower ECE and higher AURC of Qwen-factorized illustrate the difference between probability calibration and rejection ranking. Both calibrated Qwen and normalized-observation predictors can attain cost 0.25 by rejecting all observations. Decisions consequently require coverage and realized error alongside probability metrics.
+
+Calibration bearings are few, and their composition affects the fitted temperature. The mean-bearing target is declared rather than estimated from deployment prevalence. The pooled/equal-bearing comparison shows tiny differences with intervals including zero, under almost equal recording counts. It supplies neither a weighting advantage nor an equivalence result. A meaningful comparison of these targets in a different deployment population would require corresponding independent-unit sampling, not artificial duplication to create a favorable effect.
 
 The rejection cost defines a diagnostic scenario, not a maintenance policy validated with experts or downtime. Deferral is charged without modeling expert accuracy, delay, or intervention. A probability gate is not an engineering interlock. Fault-presence and fault-identity outputs are label-derived judgments, not verified physical explanations.
 
 ## 8. Conclusion
 
-The study formulates a bounded test of independently question-conditioned fault-presence and conditional fault-identity estimation using a frozen small language encoder. Its design separates observation recovery, hierarchy, additional evaluations, calibration, and action cost. The final conclusion will state the real PHM finding supported by these controls. A coherent probability chain or successful build alone does not establish a diagnostic contribution.
+Using 32 physical Paderborn bearings, the study tests whether independent fault-presence and conditional fault-identity questions add probability or selective-decision value to a frozen Qwen3-0.6B representation of six vibration statistics. The primary paired NLL interval includes zero, an ordinary hierarchy on the direct representation has a better point score, and the six predeclared rotations reverse direction. These results do not support a stable question-conditioning increment in the stated setting.
+
+The useful findings are the attribution boundary and the separation of observation, probability quality, and action utility. Preserving amplitude improves the observed feasibility probability scores, lower ECE does not ensure better selective ordering, and low fixed-cost outputs can reflect complete deferral. The code and saved outputs preserve these distinctions for reproduction. Stronger practical or mechanistic claims require richer validated signal evidence and broader independent equipment; they do not follow from typed validity or coherent probability composition.
 
 ## Appendix A. Fixed question meanings
 
-Every E2 prompt begins with this identical definition, including the actual label strings and mixed-damage qualification:
+Every decomposition prompt begins with this identical definition, including the actual label strings and mixed-damage qualification:
 
 > The mutually exclusive classes are healthy, inner-race-dominant, outer-race-dominant. The healthy class is healthy; the defined fault classes are inner-race-dominant, outer-race-dominant. A dominant fault label identifies the predominant annotated damage location and may include mixed damage; it does not assert a pure isolated fault.
 
@@ -357,10 +411,14 @@ The fixed questions below precede the identical state:
 | Presence | Does this vibration window belong to any of the defined fault classes rather than the healthy class? |
 | Conditional identity | Conditional on this vibration window belonging to one of the defined fault classes, which fault class describes it? |
 
-The E1 legacy query is “Represent this vibration window for fault diagnosis.” It lacks the E2 category-conditioned question and is analyzed only as the retained feasibility representation. No prompt contains a sample's answer or identifier. Complete templates, tokenization settings, and class order are saved.
+The feasibility legacy query is “Represent this vibration window for fault diagnosis.” It lacks the category-conditioned diagnostic question and is analyzed only as the retained feasibility representation. No prompt contains a sample's answer or identifier. Complete templates, tokenization settings, and class order are saved.
 
 ## Appendix B. Data and software availability
 
-The implementation and compact summaries are maintained at [PT01-jev-phm](https://github.com/liq22/PT01-jev-phm). PHMFactory/PHM-Vibench is fixed to commit `cdc0669167ca25ac848e34c880875ca39c6aed89` [@phmvibench2026]. Paderborn source data remain subject to the [provider's CC BY-NC 4.0 terms](https://mb.uni-paderborn.de/en/kat/research/bearing-datacenter), distinct from the original paper and code licenses. Large observations and hidden states are stored separately from version-controlled code. Final reproduction instructions will identify the successful run and command. Author identities, funding, conflicts, target journal, and submission declarations remain for author confirmation rather than inference from the repository.
+The implementation and compact summaries are maintained at [PT01-jev-phm](https://github.com/liq22/PT01-jev-phm). PHMFactory/PHM-Vibench is fixed to commit `cdc0669167ca25ac848e34c880875ca39c6aed89` [@phmvibench2026]. Paderborn source data remain subject to the [provider's CC BY-NC 4.0 terms](https://mb.uni-paderborn.de/en/kat/research/bearing-datacenter), distinct from the original paper and code licenses. Large observations and hidden states are stored separately from version-controlled code.
+
+The successful run is `run-20261013-pu-001`. It contains two feasibility evaluations, the primary decomposition comparison, and six bearing rotations under `src/outputs/jev-phm/`. Each evaluation retains `metrics.json`, `predictions.npz`, configuration, and provenance. The [compact study summary](../assets/tables/jev_study_summary.json) retains all evaluation metrics and fitted configuration, while [per-bearing NLL values](../assets/tables/jev_unit_nll.csv) support numerical reconstruction of the paired contrasts. Editable figures are generated by `src/S03_Scripts/plot_jev_results.py` from saved predictions. The [repository reproduction instructions](https://github.com/liq22/PT01-jev-phm#reproduce-the-pu-study) give complete preparation, export, window-selection, encoding, and evaluation commands using `src/S03_Scripts/run_jev_study.py`. Reproduction uses a new output directory, retaining failures and previous results.
+
+The sole authoritative manuscript is Markdown. `src/S03_Scripts/build_jev_paper.py` builds offline HTML and PDF previews without maintaining a second text source. Author identities, funding, conflicts, target journal, and submission declarations require author confirmation and are not inferred from the repository.
 
 ## References
