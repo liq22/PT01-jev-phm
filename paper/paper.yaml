@@ -1,4 +1,4 @@
-# Current research state. Source-informed extension remains a provisional design.
+# Current research state. The authorized real-data protocol is frozen before testing.
 schema_version: 1
 project_name: Jev-PHM
 paper_title: Typed Probabilistic Decisions for Selective Fault Diagnosis
@@ -19,8 +19,8 @@ idea_selection:
   approved_at: TODO
 problem_definition:
   object: Single-channel vibration observations of industrial equipment
-  environment: Closed-set supervised diagnosis; exact dataset and independent units require local verification
-  observation: Existing six-feature PHMFactory state; any evidence enrichment is a separate protocol
+  environment: PU closed-set supervised dominant-category diagnosis on disjoint physical bearings
+  observation: Six features from explicitly selected vibration windows; prospective full-coverage and amplitude-preserving protocols
   task_or_decision: Fault probabilities and explicit cost-based deferral
   failure_or_contradiction: Typed validity does not establish useful diagnosis; composition and evidence changes can confound apparent model gains
   desired_understanding: Whether scoped diagnostic judgments improve decisions beyond flat and factorized numerical and Qwen controls
@@ -30,11 +30,11 @@ research_state:
   strongest_support: Existing objective identity and prior-PR numerical checks; community non-PHM studies motivate comparisons but supply no PHM effect evidence
   favored_explanation: Explicitly scoped judgments and coherent composition may aid the supervised PHM decision; unit calibration remains population-specific
   strongest_competing_explanation: A direct classifier, ordinary numerical hierarchy, or matched-call direct ensemble explains the whole benefit
-  largest_unresolved_uncertainty: Real-data feasibility and a measured increment; question-conditioned extension is not yet implemented
+  largest_unresolved_uncertainty: Whether real Qwen question-conditioned predictions improve on shared-representation hierarchy and matched-call direct controls
   current_novelty_risk: NanoJev already uses Qwen3-0.6B decision heads and atomic judgments with code; hierarchical selective classification and proper scoring are prior art
-  most_informative_next_action: Complete unchanged E0/E1; implement and validate the appended E2 design before claiming a decomposition result
+  most_informative_next_action: Verify the real full-coverage export and Qwen smoke, then execute the frozen E1/E2 and six rotation protocols
   possible_outcomes_and_decisions: Separate valid negative outcomes from infrastructure failure; credit hierarchy or added evidence when those controls explain the gain
-  stopping_condition: Hand off the revised source-backed design and existing executable Goal; no long experiment or claim of efficacy in this revision
+  stopping_condition: Complete valid core comparisons and a full evidence-grounded manuscript, or report the minimum concrete evidence/resource gap without claiming paper completion
 # No empirical contribution is promoted to established or author-approved status.
 main_claims: []
 main_contributions: []
