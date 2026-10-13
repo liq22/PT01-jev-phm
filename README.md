@@ -110,9 +110,9 @@ export CUDA_VISIBLE_DEVICES=''
   --run-root "$JEV_RUN" --experiment e1 --normalization none --protocols primary
 .venv/bin/python src/S03_Scripts/run_jev_study.py evaluate \
   --run-root "$JEV_RUN" --experiment e1 \
-  --normalization per_window_standardization --protocols primary
+  --normalization per_window_standardization --protocols primary --head-workers 3
 .venv/bin/python src/S03_Scripts/run_jev_study.py evaluate \
-  --run-root "$JEV_RUN" --experiment e2 --normalization none
+  --run-root "$JEV_RUN" --experiment e2 --normalization none --head-workers 3
 
 .venv/bin/python src/S03_Scripts/plot_jev_results.py --run-root "$JEV_RUN"
 .venv/bin/python src/S03_Scripts/build_jev_paper.py \
@@ -120,6 +120,8 @@ export CUDA_VISIBLE_DEVICES=''
 ```
 
 The serial embedding command processes every distinct selected geometry and its five named questions. It uses the same source observations, prompts, precision and batch size as separate per-query cache jobs; those jobs may record different elapsed times and hardware use. E1's standardized observation comparison is primary-split only. E2 evaluation runs the primary protocol and all six rotations. Plotting reads saved predictions, checks their metrics and creates editable SVG/PDF figures and CSV/JSON tables; it does not rerun a model. Paper building renders the sole Markdown manuscript into offline HTML/PDF previews under `paper/build`.
+
+`--head-workers 3` fits independent regularization candidates in three isolated CPU processes, preserving their objective and fixed selection rule. Set `OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4` for the recorded per-worker thread budget. The default is serial fitting; any convergence failure aborts either mode.
 
 ### Full coverage and overlap controls
 

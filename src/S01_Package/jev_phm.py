@@ -13,6 +13,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
+from joblib import Parallel, delayed, parallel_backend
 from scipy.optimize import minimize_scalar
 from scipy.special import logsumexp, softmax
 from sklearn.exceptions import ConvergenceWarning
@@ -316,18 +317,30 @@ def predict_head(head: dict, x: np.ndarray) -> np.ndarray:
     return _head_log_probs(head["classifier"], head["scaler"].transform(x))
 
 
+def _head_candidate(train_x, train_y, tune_x, tune_y, tune_weights, c, sample_weight):
+    clf = _fit_classifier(train_x, train_y, c, sample_weight)
+    score = nll(_head_log_probs(clf, tune_x), tune_y, tune_weights)
+    return score, c, clf
+
+
 def select_head(x: np.ndarray, y: np.ndarray, roles: np.ndarray, units: np.ndarray,
-                C_grid: list[float], sample_weight: np.ndarray | None = None) -> tuple[dict, float, list[dict]]:
+                C_grid: list[float], sample_weight: np.ndarray | None = None,
+                workers: int = 1) -> tuple[dict, float, list[dict]]:
     """Select on tune units only; this function never reads test outcomes."""
     train, tune = roles == "train", roles == "tune"
     weights = None if sample_weight is None else np.asarray(sample_weight)[train]
     scaler = StandardScaler().fit(x[train], sample_weight=weights)
     train_x, tune_x = scaler.transform(x[train]), scaler.transform(x[tune])
-    candidates = []
-    for c in C_grid:
-        clf = _fit_classifier(train_x, y[train], c, weights)
-        score = nll(_head_log_probs(clf, tune_x), y[tune], unit_weights(units[tune]))
-        candidates.append((score, c, clf))
+    if workers < 1:
+        raise ValueError("Head worker count must be positive")
+    arguments = [(train_x, y[train], tune_x, y[tune], unit_weights(units[tune]), c, weights) for c in C_grid]
+    # Process isolation preserves the ConvergenceWarning-as-error contract.
+    if workers == 1:
+        candidates = [_head_candidate(*args) for args in arguments]
+    else:
+        with parallel_backend("loky", n_jobs=workers,
+                             inner_max_num_threads=int(os.environ.get("OPENBLAS_NUM_THREADS", "1"))):
+            candidates = Parallel()(delayed(_head_candidate)(*args) for args in arguments)
     _, c, clf = min(candidates, key=lambda row: (row[0], row[1]))
     return {"scaler": scaler, "classifier": clf}, c, [{"nll": s, "C": c} for s, c, _ in candidates]
 
@@ -452,7 +465,16 @@ def _save_head(arrays: dict, prefix: str, head: dict) -> None:
     arrays[prefix+"_n_iter"] = clf.n_iter_
 
 
-def _select_pair(x_a, x_b, data, grid, factorized: bool, healthy_index: int):
+def _pair_candidate(train_a, train_b, y_a, y_b, weights_a, weights_b, tune_a, tune_b,
+                    tune_y, tune_weights, c, factorized: bool, healthy_index: int):
+    clf_a = _fit_classifier(train_a, y_a, c, weights_a)
+    clf_b = _fit_classifier(train_b, y_b, c, weights_b)
+    a, b = _head_log_probs(clf_a, tune_a), _head_log_probs(clf_b, tune_b)
+    logits = compose_log_probs(a, b, healthy_index) if factorized else direct_fusion_logits(a, b)
+    return nll(logits, tune_y, tune_weights), c, clf_a, clf_b
+
+
+def _select_pair(x_a, x_b, data, grid, factorized: bool, healthy_index: int, workers: int = 1):
     train, tune = data["role"] == "train", data["role"] == "tune"
     y, weights = data["y"], _sample_weights(data)
     fault = y != healthy_index
@@ -464,17 +486,19 @@ def _select_pair(x_a, x_b, data, grid, factorized: bool, healthy_index: int):
     scaler_b = StandardScaler().fit(x_b[selected_b], sample_weight=weights[selected_b])
     train_a, tune_a = scaler_a.transform(x_a[train]), scaler_a.transform(x_a[tune])
     train_b, tune_b = scaler_b.transform(x_b[selected_b]), scaler_b.transform(x_b[tune])
-    candidates = []
-    for c in grid:
-        head_a = {"scaler": scaler_a, "classifier": _fit_classifier(train_a, y_a[train], c, weights[train])}
-        head_b = {"scaler": scaler_b, "classifier": _fit_classifier(train_b, y_b, c, weights[selected_b])}
-        a = _head_log_probs(head_a["classifier"], tune_a)
-        b = _head_log_probs(head_b["classifier"], tune_b)
-        z = compose_log_probs(a, b, healthy_index) if factorized else direct_fusion_logits(a, b)
-        score = nll(z, y[tune], unit_weights(data["unit"][tune]))
-        candidates.append((score, c, head_a, head_b))
+    if workers < 1:
+        raise ValueError("Head worker count must be positive")
+    arguments = [(train_a, train_b, y_a[train], y_b, weights[train], weights[selected_b], tune_a, tune_b,
+                  y[tune], unit_weights(data["unit"][tune]), c, factorized, healthy_index) for c in grid]
+    if workers == 1:
+        candidates = [_pair_candidate(*args) for args in arguments]
+    else:
+        with parallel_backend("loky", n_jobs=workers,
+                             inner_max_num_threads=int(os.environ.get("OPENBLAS_NUM_THREADS", "1"))):
+            candidates = Parallel()(delayed(_pair_candidate)(*args) for args in arguments)
     _, c, a, b = min(candidates, key=lambda row: (row[0], row[1]))
-    return a, b, c, [{"nll": s, "C": c} for s, c, _, _ in candidates]
+    return ({"scaler": scaler_a, "classifier": a}, {"scaler": scaler_b, "classifier": b}, c,
+            [{"nll": s, "C": c} for s, c, _, _ in candidates])
 
 
 def run_e2(data: dict, embeddings: dict, config: dict, out: str | Path) -> dict:
@@ -516,12 +540,14 @@ def run_e2(data: dict, embeddings: dict, config: dict, out: str | Path) -> dict:
         began = time.perf_counter()
         prefix = name.replace("-", "_")
         if x_b is None:
-            head, c, tuning = select_head(x_a, data["y"], data["role"], data["unit"], grid, arrays["sample_weight"])
+            head, c, tuning = select_head(x_a, data["y"], data["role"], data["unit"], grid,
+                                        arrays["sample_weight"], workers=config.get("head_workers", 1))
             logits = predict_head(head, x_a)
             _save_head(arrays, prefix, head)
             parameters = head["classifier"].coef_.size + head["classifier"].intercept_.size
         else:
-            a, b, c, tuning = _select_pair(x_a, x_b, data, grid, factorized, healthy_index)
+            a, b, c, tuning = _select_pair(x_a, x_b, data, grid, factorized, healthy_index,
+                                          workers=config.get("head_workers", 1))
             z_a, z_b = predict_head(a, x_a), predict_head(b, x_b)
             logits = compose_log_probs(z_a, z_b, healthy_index) if factorized else direct_fusion_logits(z_a, z_b)
             arrays[prefix+"_branch_a_logits"], arrays[prefix+"_branch_b_logits"] = z_a, z_b
@@ -577,7 +603,8 @@ def run(data, embeddings, config, out):
     for family, x in (("numeric", data["features"]), ("qwen", embeddings["hidden"])):
         if x.ndim != 2 or len(x) != len(data["y"]) or not np.isfinite(x).all():
             raise ValueError(f"Invalid {family} features")
-        head, chosen_c, tuning = select_head(x, data["y"], data["role"], data["unit"], config["C_grid"], arrays["sample_weight"])
+        head, chosen_c, tuning = select_head(x, data["y"], data["role"], data["unit"], config["C_grid"],
+                                            arrays["sample_weight"], workers=config.get("head_workers", 1))
         logits = predict_head(head, x)
         cal, test = masks["cal"], masks["test"]
         temps = {"raw": 1., "pooled": temperature(logits[cal], data["y"][cal]),

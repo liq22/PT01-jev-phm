@@ -407,6 +407,8 @@ def _embedding_archive(run_root: Path, width: int, kind: str, e2: bool) -> dict:
 
 
 def evaluate(args) -> None:
+    if args.head_workers < 1:
+        raise ValueError("Head worker count must be positive")
     run_root = Path(args.run_root).resolve()
     probe = _load_json(run_root / "inputs" / "probe.json")
     selection = _load_json(run_root / "inputs" / "selection.json")
@@ -425,7 +427,8 @@ def evaluate(args) -> None:
         embeddings = _embedding_archive(run_root, width, kind, e2=args.experiment == "e2")
         folder = run_root / "evaluations" / f"{protocol}_{kind}_{args.experiment}"
         config = {**probe, "healthy_index": 0, "protocol": protocol,
-                  "window_selection": selection[protocol], "normalization": kind}
+                  "window_selection": selection[protocol], "normalization": kind,
+                  "head_workers": args.head_workers}
         runner = jev.run_e2 if args.experiment == "e2" else jev.run
         runner(data, embeddings, config, folder)
         print(f"Saved {folder}", flush=True)
@@ -461,6 +464,8 @@ def main() -> None:
     p.add_argument("--experiment", choices=("e1", "e2"), required=True)
     p.add_argument("--normalization", choices=("none", "per_window_standardization"), default="none")
     p.add_argument("--protocols", nargs="+")
+    p.add_argument("--head-workers", type=int, default=1,
+                   help="Independent C candidates fitted in isolated CPU worker processes")
     args = parser.parse_args()
     globals()[args.command](args)
 
