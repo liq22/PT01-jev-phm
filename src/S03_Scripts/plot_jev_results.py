@@ -121,7 +121,10 @@ def read_evaluation(folder: Path, e2: bool) -> dict[str, Any]:
 
 def save_figure(figure: plt.Figure, destination: Path) -> None:
     for suffix in ("svg", "pdf"):
-        figure.savefig(destination.with_suffix(f".{suffix}"))
+        path = destination.with_suffix(f".{suffix}")
+        figure.savefig(path)
+        if suffix == "svg":
+            path.write_text("\n".join(line.rstrip() for line in path.read_text().splitlines()) + "\n")
     plt.close(figure)
 
 
