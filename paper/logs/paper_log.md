@@ -22,6 +22,41 @@ figures use saved predictions; HTML/PDF are derived previews. Author, venue,
 funding, data-use declarations and submission consent remain unconfirmed. The
 bounded manuscript does not claim industrial superiority or submission readiness.
 
+## 13 October 2026: focused Introduction and Related Work revision
+
+The completed study remains the scientific basis. Sections 1 and 2 now begin
+with diagnosis on bearings excluded from fitting, explain what a second
+fault-specific question can add beyond ordinary hierarchy and a second direct
+prediction, and state the two empirical contributions with their observed
+outcomes. The motivation separates signal preprocessing, question conditioning,
+probability estimation and cost-based acceptance instead of treating a typed
+interface as an accuracy claim.
+
+Nearest-prior distinctions are organized around actual inputs, prediction
+structure, supervision and output task: FaultGPT/HCAA, CLSGen/NanoJev,
+conditional and selective hierarchy, CAT, and bearing-level evaluation.
+HCAA remains an architectural reference rather than a matched-score baseline;
+its provenance limitations remain documented in the existing reading matrix.
+No new bibliography entry, method, dataset, prompt, experiment, figure or result
+was added. The existing source-reading scopes were reused; this is not another
+full reading of the 50-work collection.
+
+C1--C3 and their supporting runs are unchanged. Section 1.3 makes the existing
+CTR-001/C1 and CTR-002/C2--C3 relationships explicit in prose; the existing
+claim/support matrix and paper state remain valid. The primary interval is
+conditional, rotations are overlapping refits, and zero primary Qwen coverage
+is not a successful accepted diagnosis. No equivalence, physical mechanism or
+industrial-superiority claim is introduced.
+
+The revised Sections 1--2 render with Pandoc and the existing bibliography using
+citeproc without warnings. Their numerical statements were checked against the
+unchanged Results and claim/support matrix, not newly recomputed. Complete
+checkout retrieval failed because GitHub DNS resolution was unavailable in the
+authoring container. Full repository tests and the canonical full-paper preview
+build were therefore not rerun. The tracked full HTML/PDF still represent the
+pre-revision candidate at ff9db6e and require rebuilding before this editorial
+branch is merged. This leaves a delivery check, not a reason to rerun experiments.
+
 ## Entry template
 
 ### Date
