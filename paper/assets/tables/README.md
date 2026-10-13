@@ -18,7 +18,9 @@ The following files were generated on 13 October 2026 from the saved inputs of
   window plans, train/tune window selections, dependency revisions, and the public
   factory fields and explicit native split adapter used by the study. The code
   commit in `prepared_run_spec` identifies preparation of the inputs; later model
-  and fitting commands are recorded with their own run artifacts.
+  and fitting commands are recorded with their own run artifacts. Its
+  `execution_environment` records the selected package versions and CPU/encoder
+  settings actually used, retaining the original preparation version note.
 
 `file_id` identifies the supplied processed-data H5 key; `source_filename` is the
 relative PU source filename recorded in the frozen inventory. Reproduction must

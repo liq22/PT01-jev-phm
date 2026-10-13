@@ -34,6 +34,7 @@ E2 implements two questions over the same state: whether a fault is present, and
 | Sole current implementation | [src/S01_Package/jev_phm.py](src/S01_Package/jev_phm.py) |
 | Study entrypoint | [src/S03_Scripts/run_jev_study.py](src/S03_Scripts/run_jev_study.py) |
 | Fixed first-run settings | [src/S02_Configs/jev_probe.json](src/S02_Configs/jev_probe.json) |
+| Public frozen cohort, roles and selected windows | [paper/assets/tables/README.md](paper/assets/tables/README.md) |
 
 ### Environment, data and model
 
@@ -49,7 +50,11 @@ python3.10 -m venv .venv
 
 The requirements pin the selected experiment, configuration, figure and preview packages. The current machine reuses PyTorch 2.6.0/CUDA 12.4 through a documented `--system-site-packages` environment; a new checkout can install the same requirements into the clean environment above. Select a PyTorch wheel compatible with the host driver. Local PDF rendering additionally requires a Chromium binary; the existing machine has `/home/user/.cache/ms-playwright/chromium-1208/chrome-linux64/chrome`.
 
+Preparation's original `inputs/environment.txt` records PyYAML 6.0.1. The isolated environment was subsequently aligned to PyYAML 6.0.3, matching both current requirement files, and the public configuration resolver was rechecked. Retain the original preparation record; use the current pinned requirements for reproduction. A complete clean-environment installation has not been independently exercised.
+
 The immutable local source is `/home/user/data/PHMbenchdata/PHM-Vibench`, containing `metadata.xlsx` and `RM_027_PU.h5`. The study uses PU (`Dataset_id=20`), the documented vibration channel at index 2, and physical-bearing groups from `Label_Description`. The three labels are healthy, inner-race-dominant and outer-race-dominant; mixed damage remains disclosed in the manuscript. The factory writes only to an independent H5 copy inside the run cache, never to the original data.
+
+The public [cohort](paper/assets/tables/jev_cohort.csv), [bearing-role assignments](paper/assets/tables/jev_unit_roles.csv) and [protocol snapshot](paper/assets/tables/jev_protocol_20261013.json) identify the exact 2,559-record population, seven splits, label order, window plans, development-only selections and factory contract. A Git checkout contains these compact references, not the processed H5, Excel metadata, weights or saved prediction arrays. Full reproduction requires authorized access to the supplied processed data; a separately downloaded or reprocessed PU copy is not established as numerically identical.
 
 Download the public Qwen weights once into the normal Hugging Face cache, with the fixed revision and no credential token:
 
@@ -82,6 +87,8 @@ export OMP_NUM_THREADS=4
 .venv/bin/python src/S03_Scripts/run_jev_study.py prepare \
   --run-root "$JEV_RUN" \
   --data-root /home/user/data/PHMbenchdata/PHM-Vibench \
+  --factory-config src/S02_Configs/jev_factory.yaml \
+  --probe-config src/S02_Configs/jev_probe.json \
   --window-sizes 2048 4096 8192
 
 .venv/bin/python src/S03_Scripts/run_jev_study.py export \
@@ -92,6 +99,8 @@ export OMP_NUM_THREADS=4
 ```
 
 `select` uses each protocol's train/tune bearings and the numerical flat control to freeze a common window length. It does not use calibration or test labels to choose the window. The primary split and six predeclared bearing rotations share frozen source observations; each protocol independently fits its preprocessing, heads, regularization and temperatures.
+
+`prepare` writes the native manifests, explicit tune/cal roles, validated public factory configuration and the required native split adapter into `inputs/`; no manual field construction is needed. The published protocol snapshot is a reference for the frozen run. Reproduction recomputes selection from train/tune data through `select`, rather than copying a chosen window into a new run after inspecting results.
 
 **Physical GPU 2 is forbidden for every process, including subprocesses.** Inspect physical indices and UUIDs before CUDA execution. On this machine the UUID below identifies physical GPU 0; explicitly restrict visibility to that single permitted device. The implementation checks that it becomes logical `cuda:0` and rejects physical GPU 2.
 
