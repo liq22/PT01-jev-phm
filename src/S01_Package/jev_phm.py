@@ -640,6 +640,10 @@ def main():
         with open(args.out, "xb") as stream:
             np.savez_compressed(stream, **data)
     elif args.command == "embed":
+        destination = Path(args.out)
+        metadata_path = destination.with_suffix(".json")
+        if destination.exists() or metadata_path.exists():
+            raise FileExistsError("Do not overwrite embedding arrays or metadata")
         with np.load(args.data, allow_pickle=False) as archive:
             data = dict(archive)
         check_data(data)
@@ -650,6 +654,9 @@ def main():
         output["provenance"] = np.asarray(json.dumps(metadata, allow_nan=False))
         with open(args.out, "xb") as stream:
             np.savez_compressed(stream, **output)
+        with metadata_path.open("x", encoding="utf-8") as stream:
+            json.dump(metadata, stream, indent=2, allow_nan=False)
+            stream.write("\n")
     else:
         with np.load(args.data, allow_pickle=False) as d, np.load(args.embeddings, allow_pickle=False) as e:
             runner = run_e2 if args.command == "run-e2" else run

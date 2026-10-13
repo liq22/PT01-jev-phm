@@ -88,3 +88,9 @@ Targeted checks: actual coverage, recording weight sums, weighted leaf-loss iden
 Final PR checks: validate_project.py, validate_agent_skills.py --skills-dir .agent/skills, validate_skill_evals.py, and unittest discovery under src/S04_Tests. Check references/figures/preview, actual CI and merge state; merge this work only into dev, without force-push or master changes.
 
 Bounded budget: three numerical candidate exports; up to three selected raw geometries; one normalized primary geometry; one deterministic head search per arm/protocol; seven predeclared bearing protocols. Record real smoke timing before full encoder extraction. Stop extra experimentation when it cannot change attribution or the claim boundary.
+
+### Executed E0 and extraction budget
+
+All three full upstream exports passed actual interval coverage (376,173 / 189,366 / 94,683 windows). The real 128-window, 32-bearing smoke passed frozen Qwen forwards and both E1/E2 evaluation interfaces; its scores are not paper efficacy evidence. Its five-query BF16 extraction used batch 128 and took 5.24 seconds including a 2.90-second model load. Query timings include unequal first-forward warmup and are not deployment latency benchmarks.
+
+The primary development-only selector chose 2,048 points. Parameter-free encoding of that already selected geometry may proceed while other development selectors finish; no test score is inspected until all selections are frozen. Full extraction uses BF16 and batch 256. To reduce wall time without changing observations or learned objectives, independent query/geometry cache jobs may use physical GPUs 0, 1, 3, 4, 5, 6 and 7, each explicitly restricted to its own verified UUID. Physical GPU 2 remains forbidden. Per-job device, batch, tokens and time are retained; parallel cache construction is not claimed as a deployment speedup.

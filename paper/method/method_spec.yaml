@@ -3,51 +3,61 @@ schema_version: 1
 # 方法设计首先回答 failure、竞争解释和可证伪性。
 # 核心机制和决定性比较明确后设为 ready。
 method_id: METH-001
-status: draft  # draft | ready
+status: ready
 
 origin:
   type: direct_problem  # promoted_idea | direct_problem
-  source_idea_id: TODO
+  source_idea_id: Jev-inspired PHM decision interface
 
 # 正式 claim 尚未建立时可以为空。
 supports_claims: []
 
 failure:
-  observed_failure_or_contradiction: TODO
-  why_it_matters: TODO
-  favored_explanation: TODO
-  strongest_competing_explanation: TODO
+  observed_failure_or_contradiction: Coherent typed probabilities alone do not establish diagnostic quality; preprocessing, hierarchy and additional calls can explain apparent improvements.
+  why_it_matters: Probability errors change diagnosis and explicit cost-based deferral on bearings absent from fitting.
+  favored_explanation: Independently scoped questions may change the frozen representation usefully; this is an unconfirmed hypothesis.
+  strongest_competing_explanation: Shared-representation hierarchy or a two-direct-question ensemble explains any increment.
 
 scientific_job:
-  research_question: TODO
-  target_decision: TODO
-  unit_of_analysis: TODO
-  input_object: TODO
-  output_object: TODO
-  operating_regime: TODO
+  research_question: Does question-conditioned fault factorization improve probability quality beyond flat prediction and attribution controls at shared observations and supervision?
+  target_decision: Closed-set diagnosis or deferral at error cost 1 and deferral cost 0.25
+  unit_of_analysis: Physical bearing; window losses are averaged within each bearing
+  input_object: Six measured statistics from PHMFactory vibration-channel windows
+  output_object: Complete healthy, inner-dominant and outer-dominant distribution
+  operating_regime: Frozen Qwen3-0.6B and supervised heads; disjoint train, tune, calibration and test bearings
 
 mechanism:
-  changed_object: TODO
-  minimal_intervention: TODO
+  changed_object: Question-conditioned representation and conditional probability parameterization
+  minimal_intervention: Estimate fault presence on all training samples and conditional identity on faulty training samples, then compose the leaf distribution
   # hypothesis | analysis | proposition
   theory_status: hypothesis
-  assumptions: []
-  testable_implication: TODO
-  expected_signature: TODO
-  rejection_signature: TODO
-  boundary_signature: TODO
+  assumptions:
+    - Source dominant-category labels define mutually exclusive diagnosis categories, including documented mixed damage.
+    - All recordings and conditions from one physical bearing remain in one role.
+    - Both questions receive the same state and taxonomy and never another branch's answer.
+  testable_implication: Question-factorized NLL is lower than flat, shared-representation hierarchy and the fixed two-direct-question ensemble.
+  expected_signature: Paired bearing-level gains persist across the predeclared refitted rotations.
+  rejection_signature: Attribution controls explain the gain, or the question-factorized workflow is worse or unstable.
+  boundary_signature: Benefits depend on split, preprocessing, calibration population or the compact observation state.
 
 # 非模块化方法可以为空；只有存在真实组件时才添加 MC-* 条目。
 components: []
 
 evaluation_contract:
-  decisive_comparison: TODO
-  baseline_fairness: TODO
-  primary_metric: TODO
-  property_metric: TODO
-  boundary_test: TODO
+  decisive_comparison: Qwen-factorized versus Qwen-flat, Qwen-shared-factorized and Qwen-two-question-direct
+  baseline_fairness: Same per-protocol windows, training mass, label budget, C grid and final-leaf calibration; paired heads share C
+  primary_metric: Equal-bearing mean window NLL with paired conditional bearing-bootstrap intervals
+  property_metric: Multiclass-summed Brier, ten-bin ECE, accuracy, Macro-F1, risk-coverage and fixed-cost decisions
+  boundary_test: Numerical hierarchy, original normalization versus amplitude-preserving E1, and six predeclared bearing rotations
 
 implementation_notes:
-  source_modules: []
-  config_paths: []
-  reproducibility_notes: []
+  source_modules:
+    - src/S01_Package/jev_phm.py
+    - src/S03_Scripts/run_jev_study.py
+  config_paths:
+    - src/S02_Configs/jev_factory.yaml
+    - src/S02_Configs/jev_probe.json
+  reproducibility_notes:
+    - Complete protocol and versions are in paper/experiments/jev_goal.md and each run's saved inputs.
+    - Actual upstream intervals must cover each recording; overlap changes neither the independent unit nor per-record training mass.
+    - Physical GPU 2 is forbidden; every encoder process verifies a permitted physical UUID.
