@@ -8,6 +8,8 @@ Investigate Jev-inspired typed probabilistic decisions for PHM with **PHMFactory
 
 The research question is whether explicitly scoped diagnostic judgments and code-owned composition improve probability quality or selective decisions beyond competitive direct predictors. Typing, softmax heads, hierarchical classification and calibration are prior art; NanoJev already implements Qwen3-0.6B decision heads and atomic-judgment workflows. See the [source assessment](paper/refs/reading_matrix.md).
 
+The completed PU attribution study uses 2,559 recordings from 32 physical bearings. The primary question-factorized-minus-flat Qwen NLL is −0.001102 (conditional paired 95% interval [−0.008577, 0.005163]); six refitted rotations give three lower and three higher losses. Every primary calibrated Qwen arm defers all windows at the declared cost. These results support a bounded negative attribution finding, without establishing equivalence or industrial superiority. Read the [English candidate](paper/draft/main.md), [derived PDF preview](paper/preview/jev-phm-preview.pdf) and [saved result summary](paper/assets/tables/jev_study_summary.json).
+
 ## Implementation
 
 ### Shared observations and probability heads
@@ -160,7 +162,7 @@ Large data copies, model weights, feature/embedding arrays, fitted heads and per
 | Frozen Qwen representations, token counts and encoding metadata | `<run-root>/embeddings/` |
 | Fitted heads, probabilities and evaluation summaries | `<run-root>/evaluations/` |
 | Editable result figures and compact tables | `paper/assets/figures/`, `paper/assets/tables/` |
-| Derived manuscript previews | `paper/build/jev-phm-preview.html`, `paper/build/jev-phm-preview.pdf` |
+| Derived manuscript previews | `paper/preview/jev-phm-preview.html`, `paper/preview/jev-phm-preview.pdf` |
 
 For the closest code checks and command reference:
 
