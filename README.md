@@ -40,7 +40,14 @@ E2 implements two questions over the same state: whether a fault is present, and
 
 ### Environment, data and model
 
-Run commands from the repository root. The PHM-Vibench submodule must remain at `cdc0669167ca25ac848e34c880875ca39c6aed89`; the driver rejects a different version. Initialize only this execution dependency:
+Use the `dev` branch, which carries this study, and run commands from the repository root. For a new checkout:
+
+```bash
+git clone --branch dev https://github.com/liq22/PT01-jev-phm.git
+cd PT01-jev-phm
+```
+
+The PHM-Vibench submodule must remain at `cdc0669167ca25ac848e34c880875ca39c6aed89`; the driver rejects a different version. Initialize only this execution dependency:
 
 ```bash
 git submodule update --init external/PHM-Vibench
