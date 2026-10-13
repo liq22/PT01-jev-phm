@@ -301,7 +301,24 @@ Equal-bearing minus pooled NLL is $-0.000171$ for numerical, with conditional pa
 
 The uncalibrated accepted-window error is 50.8125% for numerical and 51.8127% for legacy Qwen, yielding costs above the always-defer reference. Pooled numerical calibration accepts only 70 of the 94,080 windows, with no observed errors among those accepted; equal-bearing calibration accepts 73, also without observed errors. Both calibrated Qwen variants defer every window. Their cost of 0.25 therefore reflects zero diagnostic coverage, and the numerical cost near 0.25 reflects almost complete deferral rather than broad reliable diagnosis.
 
-**Remaining predictive results pending.** The standardized-observation comparison and E2 outputs will be reported only after their valid saved runs complete. The E1 findings above will not select or revise their already frozen protocols.
+### 6.3 Standardized-observation feasibility comparison
+
+The completed per-window-standardized E1 run uses the same window intervals, eight test bearings, 94,080 test windows, labels, and role assignments. Both heads again select $C=0.01$. It tests the original observation protocol, including the nearly constant RMS/standard-deviation coordinates and their rescaled finite-precision variation described above.
+
+| Representation | Calibration | Test NLL | Brier | ECE | Coverage (%) | Cost |
+|---|---|---:|---:|---:|---:|---:|
+| Numerical | None | 1.2616 | 0.7118 | 0.1215 | 2.2704 | 0.2668 |
+| Numerical | Pooled | 1.0961 | 0.6647 | 0.0791 | 0 | 0.2500 |
+| Numerical | Equal-bearing | 1.0961 | 0.6647 | 0.0796 | 0 | 0.2500 |
+| Legacy Qwen | None | 1.1656 | 0.6975 | 0.1349 | 0.0797 | 0.2504 |
+| Legacy Qwen | Pooled | 1.0897 | 0.6618 | 0.0525 | 0 | 0.2500 |
+| Legacy Qwen | Equal-bearing | 1.0898 | 0.6619 | 0.0528 | 0 | 0.2500 |
+
+Numerical accuracy is 43.1186% and Macro-F1 is 0.3277; legacy-Qwen accuracy is 37.9188% and Macro-F1 is 0.2934. These class metrics remain invariant under temperature scaling. Numerical pooled and equal-bearing temperatures are 8.6600 and 8.5583; the corresponding Qwen temperatures are 1.9971 and 1.9916. Both calibrated representations defer all test windows, attaining the always-defer cost and leaving accepted-sample error undefined.
+
+Equal-bearing minus pooled NLL is $0.000012$ for numerical, with conditional paired 95% interval $[-0.000605,0.000751]$, and $0.000108$ for legacy Qwen, with interval $[-0.000329,0.000581]$. These small, uncertain differences do not establish a weighting advantage. Across the separately frozen E1 protocols, preserving amplitudes reduces pooled test NLL by 0.0734 for numerical and 0.0370 for legacy Qwen. This observed preprocessing contrast supports retaining the distinction between observation and classifier effects; it is not a finding about question decomposition or broader industrial generalization.
+
+**E2 predictive results pending.** Only its valid saved runs will supply decomposition comparisons and descriptive rotations. The E1 findings will not select or revise E2's already frozen protocol.
 
 ## 7. Discussion
 
