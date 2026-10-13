@@ -286,10 +286,14 @@ def embed(features, revision: str, device: str, batch_size: int = 8) -> np.ndarr
 
 def _fit_classifier(x: np.ndarray, y: np.ndarray, c: float,
                     sample_weight: np.ndarray | None = None) -> LogisticRegression:
+    began = time.perf_counter()
     with warnings.catch_warnings():
         warnings.simplefilter("error", ConvergenceWarning)
-        return LogisticRegression(C=c, solver="lbfgs", max_iter=2000, tol=1e-7,
-                                  class_weight=None).fit(x, y, sample_weight=sample_weight)
+        classifier = LogisticRegression(C=c, solver="lbfgs", max_iter=2000, tol=1e-7,
+                                        class_weight=None).fit(x, y, sample_weight=sample_weight)
+    print(f"Head C={c:g}, rows={len(y)}, dimensions={x.shape[1]}, "
+          f"iterations={classifier.n_iter_.tolist()}, seconds={time.perf_counter()-began:.2f}", flush=True)
+    return classifier
 
 
 def fit_head(x: np.ndarray, y: np.ndarray, C: float, sample_weight: np.ndarray | None = None) -> dict:
@@ -445,6 +449,7 @@ def _save_head(arrays: dict, prefix: str, head: dict) -> None:
     arrays[prefix+"_scaler_mean"], arrays[prefix+"_scaler_scale"] = scaler.mean_, scaler.scale_
     arrays[prefix+"_coef"], arrays[prefix+"_intercept"] = clf.coef_, clf.intercept_
     arrays[prefix+"_classes"] = clf.classes_
+    arrays[prefix+"_n_iter"] = clf.n_iter_
 
 
 def _select_pair(x_a, x_b, data, grid, factorized: bool, healthy_index: int):
@@ -507,6 +512,7 @@ def run_e2(data: dict, embeddings: dict, config: dict, out: str | Path) -> dict:
     cal, test = data["role"] == "cal", data["role"] == "test"
     report, chosen = {}, {}
     for name, (x_a, x_b, factorized) in workflows.items():
+        print(f"Fitting {name}", flush=True)
         began = time.perf_counter()
         prefix = name.replace("-", "_")
         if x_b is None:
