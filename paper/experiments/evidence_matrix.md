@@ -2,24 +2,25 @@
 
 ## Current claims
 
-### Status after source absorption: 23 September 2026
+### Completed real-data study: 13 October 2026
 
-| Claim | Method location | Existing support | Missing evidence / minimum action | Boundary / competing explanation | Status |
-|---|---|---|---|---|---|
-| Typed decisions stay within the declared closed-set output space | Main Sections 3.1 and 4.3; existing typed_decisions | Interface construction and prior-PR numerical tests | E0 real PHM/Qwen export and prediction smoke | Also true of ordinary classification; not truth, calibration, or standalone novelty | Interface-level support only |
-| Unit calibration matches a declared unit-uniform objective | Main Section 3.2 | Elementary objective identity; prior equal-count/replication tests | E0 verification of units and deployment population | Pooled weighting may be appropriate; equal counts give identical objectives | Analytical identity supported |
-| Unit weighting improves probability quality beyond pooled scaling | Main Section 4.3 | No empirical support | Existing E1 matched-logit contrast | No objective mismatch, limited calibration units, or sampling variation can eliminate benefit | Planned secondary hypothesis |
-| Qwen adds value beyond the same numerical state | Main Section 4.2 | No empirical support | Existing E1; broader utility claims also need a competitive nonlinear numerical baseline | A tuned linear classifier is not a supervised ceiling; representation may omit key evidence | Planned, unverified |
-| Two scoped judgments compose into a normalized leaf distribution | Main Section 4.4 | Probability factorization, with explicit hypothetical conditioning | E2 implementation and targeted numerical/interface tests | Normalization is elementary and does not establish prediction quality; plain hierarchy has the same property | Design only; not implemented |
-| Question-conditioned decomposition improves held-out decisions | Main Sections 4.4 and 5.2 | Community non-PHM studies motivate a test, not support this claim | E2 flat/factorized numerical and Qwen comparisons plus same-question-count direct control | Ordinary hierarchy, extra computation, prompt definitions or supervision may explain any apparent gain | Design-only pre-result hypothesis |
-| Calibrated probabilities support useful deferral | Main Sections 3.3 and 5.3 | Model-relative cost rule only | E1 and, if implemented, E2 fixed-cost and matched-coverage evaluation | Rejection is not unknown-fault recognition, a safety guarantee or demonstrated maintenance savings | Planned, unverified |
+| Claim ID | Finding | Strength | Evidence ID | Run/ref/artifact | Boundary | Status |
+|---|---|---|---|---|---|---|
+| TODO | Typed decisions remain in the declared closed-set output space | strong | E1 | src/S04_Tests/test_jev.py; RUN-001; main Sections 3.1 and 4.3 | Construction also holds for ordinary classification; not truth, calibration or standalone novelty | supported |
+| TODO | Unit calibration implements the declared unit-uniform objective | strong | E2 | Main Section 3.2; src/S01_Package/jev_phm.py; paper/assets/tables/jev_unit_roles.csv | Elementary identity; deployment prevalence unknown; equal counts give identical objectives | supported |
+| C3 | No established equal-bearing calibration increment in the four E1 comparisons | moderate | E3 | RUN-003; RUN-004; paper/assets/tables/jev_study_summary.json | Point differences within 0.00018 NLL and all conditional intervals include zero; five nearly equal-sized calibration bearings; no equivalence claim | supported |
+| C1 | No primary Qwen probability advantage over the same numerical state | moderate | E4 | RUN-005; paper/assets/tables/jev_metrics.csv; main Section 6 | Numerical-factorized NLL 1.018337594 is below every Qwen arm; linear compact-state controls are not a mature PHM ceiling; broader superiority needs tuned application baselines | supported |
+| TODO | Conditional judgments compose into a normalized leaf distribution | strong | E5 | src/S04_Tests/test_jev.py; RUN-001; RUN-005; main Section 4.3 | Established mathematics and verified construction, not probability-quality evidence or new physical-concept supervision | supported |
+| C1 | Stable question-conditioned increment is not established | moderate | E6 | RUN-005; paper/assets/tables/jev_study_summary.json; paper/assets/tables/jev_unit_nll.csv | Primary delta -0.001102028, conditional interval [-0.008577209, 0.005163370]; factor-minus-shared +0.007865619; rotations three gains/three losses for each Qwen control; no equivalence or independent-rotation claim | supported |
+| C2 | Probability/decision gap and unsupported useful primary Qwen coverage | moderate | E7 | RUN-005; paper/assets/tables/jev_metrics.csv; main Sections 3.3 and 6 | Primary Qwen coverage 0/cost 0.25; rotation 5 factor cost 0.280825 at 5.1395% coverage; lower ECE coexists with worse AURC; no maintenance benefit | supported |
+| C3 | Amplitude restoration is a separate pooled-calibrated observation effect | moderate | E8 | RUN-003; RUN-004; paper/assets/tables/jev_study_summary.json; main Section 6 | Pooled E1 NLL decreases 0.073421307 numerical and 0.036992668 legacy Qwen at identical windows/roles; one primary split, not decomposition evidence | supported |
 
 ## Execution boundary
 
 ### Required versus conditional
 
-E0 and E1 remain the existing executable-path handoff in [jev_goal.md](jev_goal.md), subject to their unresolved real-data and model prerequisites. Their configuration and code are not changed by this revision. No new PHM or Qwen result is added.
+E0, both E1 protocols and all seven E2 protocols completed under [jev_goal.md](jev_goal.md). Saved-logit analysis checks report agreement before generating figures. Exact cohort, roles, frozen protocol, compact metrics and per-bearing NLL are versioned in paper/assets/tables; detailed arrays and attempts remain in the existing local run directory.
 
-E2 is required only to support the newly designed decomposition claim, and is **not executable by the present CLI**. Its design and implementation prerequisites are appended to the same Goal rather than creating a second run system. Do not use E1 results to claim E2 was tested.
+E2 is implemented in the sole existing model module and study entrypoint. The empirical contribution is the completed controlled attribution and decision-boundary finding, rather than a new probability factorization or a promised diagnostic gain. E1 is not decomposition evidence. All primary intervals condition on the fitted heads and split; secondary intervals are descriptive and unadjusted for multiplicity. Refitted rotations are not six independent replications.
 
 State enrichment, physical-symptom supervision, Score/RUL, coarse-label fallback, unseen classes, extra datasets, and generative speed comparisons remain conditional. A gain over all classical or industrial methods cannot be asserted from the current linear-only control. Existing analytical identities and synthetic tests do not count as real-data effect evidence.

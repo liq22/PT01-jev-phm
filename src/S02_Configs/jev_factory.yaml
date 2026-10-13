@@ -1,0 +1,49 @@
+pipeline: Pipeline_01_Fault_Diagnosis
+base_configs:
+  environment: ../../external/PHM-Vibench/configs/base/environment/base.yaml
+  data: ../../external/PHM-Vibench/configs/base/data/base_classification.yaml
+  model: ../../external/PHM-Vibench/configs/base/model/global_average_linear.yaml
+  task: ../../external/PHM-Vibench/configs/base/task/classification.yaml
+  trainer: ../../external/PHM-Vibench/configs/base/trainer/default_single_gpu.yaml
+environment:
+  project: jev-phm-pu
+  seed: 20260922
+  output_dir: src/outputs/jev-phm
+  notes: Frozen PU physical-bearing study; factory supplies observations only.
+data:
+  factory_name: default
+  data_dir: /home/user/data/PHMbenchdata/PHM-Vibench
+  metadata_file: metadata.xlsx
+  use_cache: true
+  cache_dir: src/outputs/jev-phm/cache
+  normalization: none
+  window_size: 4096
+  window_sampling_strategy: evenly_spaced
+  num_window: 74
+  batch_size: 256
+  num_workers: 0
+  pin_memory: false
+  dtype: float32
+  split:
+    strategy: grouped_metadata
+    group_key: Label_Description
+    stratify_key: Label
+    seed: 20260922
+    test_policy: partition
+    fractions: {train: 0.5, val: 0.25, test: 0.25}
+    manifest_path: src/outputs/jev-phm/inputs/primary/native_split.json
+model:
+  input_dim: 1
+  num_classes: 3
+  device: cpu
+task:
+  type: Default_task
+  name: Default_task
+  target_system_id: [20]
+  num_workers: 0
+  pin_memory: false
+trainer:
+  num_epochs: 1
+  devices: 1
+  device: cpu
+  test_after_fit: false

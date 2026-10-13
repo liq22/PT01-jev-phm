@@ -1,7 +1,7 @@
-# Current research state. Source-informed extension remains a provisional design.
+# Current research state after the frozen real-data attribution study.
 schema_version: 1
 project_name: Jev-PHM
-paper_title: Typed Probabilistic Decisions for Selective Fault Diagnosis
+paper_title: "Question-Conditioned Probability Composition for Bearing Fault Diagnosis: A Controlled Attribution Study"
 short_title: Jev-PHM
 language: English
 paper_stage: markdown_draft
@@ -19,26 +19,58 @@ idea_selection:
   approved_at: TODO
 problem_definition:
   object: Single-channel vibration observations of industrial equipment
-  environment: Closed-set supervised diagnosis; exact dataset and independent units require local verification
-  observation: Existing six-feature PHMFactory state; any evidence enrichment is a separate protocol
+  environment: PU closed-set supervised dominant-category diagnosis on disjoint physical bearings
+  observation: Six features from explicitly selected vibration windows; prospective full-coverage and amplitude-preserving protocols
   task_or_decision: Fault probabilities and explicit cost-based deferral
   failure_or_contradiction: Typed validity does not establish useful diagnosis; composition and evidence changes can confound apparent model gains
   desired_understanding: Whether scoped diagnostic judgments improve decisions beyond flat and factorized numerical and Qwen controls
 research_state:
   central_question: Does question-conditioned decomposition provide useful PHM probabilities beyond direct prediction at comparable evidence, supervision and computation?
   current_claim_at_risk: The proposed PHM workflow provides an increment beyond ordinary hierarchy, calibration or additional model evaluations
-  strongest_support: Existing objective identity and prior-PR numerical checks; community non-PHM studies motivate comparisons but supply no PHM effect evidence
-  favored_explanation: Explicitly scoped judgments and coherent composition may aid the supervised PHM decision; unit calibration remains population-specific
-  strongest_competing_explanation: A direct classifier, ordinary numerical hierarchy, or matched-call direct ensemble explains the whole benefit
-  largest_unresolved_uncertainty: Real-data feasibility and a measured increment; question-conditioned extension is not yet implemented
+  strongest_support: All nine saved evaluations completed; primary question-factorized minus flat NLL is -0.001102 with conditional interval [-0.008577, 0.005163]; six rotations reverse direction three times each
+  favored_explanation: The measured increment depends on bearing allocation and probability parameterization; no linguistic or physical mechanism has been established
+  strongest_competing_explanation: Ordinary hierarchy and additional direct questions remain sufficient competing explanations; shared-Qwen hierarchy has lower primary point NLL than question factorization
+  largest_unresolved_uncertainty: External validity beyond these compact states, prompts, backbone and one physical-bearing collection
   current_novelty_risk: NanoJev already uses Qwen3-0.6B decision heads and atomic judgments with code; hierarchical selective classification and proper scoring are prior art
-  most_informative_next_action: Complete unchanged E0/E1; implement and validate the appended E2 design before claiming a decomposition result
-  possible_outcomes_and_decisions: Separate valid negative outcomes from infrastructure failure; credit hierarchy or added evidence when those controls explain the gain
-  stopping_condition: Hand off the revised source-backed design and existing executable Goal; no long experiment or claim of efficacy in this revision
-# No empirical contribution is promoted to established or author-approved status.
-main_claims: []
-main_contributions: []
-required_experiments: []
+  most_informative_next_action: Complete author review of the bounded attribution manuscript; any broader advantage claim requires a prospectively frozen test on additional independent equipment
+  possible_outcomes_and_decisions: Retain the valid negative attribution result and separate input restoration, calibration and ordinary hierarchy from question conditioning
+  stopping_condition: Valid core comparisons, evidence-grounded full Markdown candidate and readable preview, reproducible artifacts and final PR checks; author and submission approvals remain pending
+main_claims:
+  - claim_id: C1
+    statement: The frozen question-conditioned workflow has no established primary NLL increment over direct Qwen prediction or the required attribution controls; rotation differences change sign.
+    status: supported_bounded_negative_finding
+    evidence: paper/assets/tables/jev_study_summary.json
+    boundary: One PU cohort and compact six-statistic state; nonsignificance does not establish equivalence, and rotations are not independent replications.
+  - claim_id: C2
+    statement: Probability and decision metrics disagree in the primary comparison; every calibrated Qwen arm defers all test windows at the declared cost.
+    status: supported_observation
+    evidence: paper/assets/tables/jev_metrics.csv
+    boundary: Scenario error cost 1 and deferral cost 0.25; no safety, maintenance or expert-transfer benefit is established.
+  - claim_id: C3
+    statement: Shared amplitude preservation lowers pooled E1 NLL for both representations, while all four equal-bearing-minus-pooled calibration intervals include zero.
+    status: supported_conditional_observation
+    evidence: paper/assets/tables/jev_study_summary.json
+    boundary: This is a preprocessing/calibration result on the primary split, not question-decomposition evidence or equivalence of weighting schemes.
+main_contributions:
+  - contribution_id: CTR-001
+    statement: A controlled physical-bearing attribution result separates diagnostic question conditioning from ordinary hierarchy and a fixed equal-question-count direct ensemble, and locates the unsupported stable-increment claim.
+    supporting_claims: [C1]
+  - contribution_id: CTR-002
+    statement: An empirical boundary connects preprocessing and probability quality to cost-based diagnostic coverage, showing why valid typed composition and lower ECE do not establish useful selective diagnosis here.
+    supporting_claims: [C2, C3]
+required_experiments:
+  - experiment_id: E0
+    status: completed
+    supports_claims: [C3]
+    output: src/outputs/jev-phm/run-20261013-pu-001/exports
+  - experiment_id: E1
+    status: completed
+    supports_claims: [C2, C3]
+    output: src/outputs/jev-phm/run-20261013-pu-001/evaluations/primary_raw_e1
+  - experiment_id: E2
+    status: completed
+    supports_claims: [C1, C2]
+    output: src/outputs/jev-phm/run-20261013-pu-001/evaluations
 artifacts:
   method_spec: paper/method/method_spec.yaml
   figures: paper/assets/figures/

@@ -1,3 +1,6 @@
 [submodule "external/aris"]
 	path = external/aris
 	url = https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep.git
+[submodule "external/PHM-Vibench"]
+	path = external/PHM-Vibench
+	url = https://github.com/PHMbench/PHM-Vibench.git

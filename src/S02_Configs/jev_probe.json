@@ -2,5 +2,10 @@
   "C_grid": [0.01, 0.1, 1.0, 10.0, 100.0],
   "reject_cost": 0.25,
   "bootstrap_seed": 20260922,
-  "bootstrap_repetitions": 2000
+  "bootstrap_repetitions": 2000,
+  "split_seed": 20260922,
+  "healthy_index": 0,
+  "window_candidates": [2048, 4096, 8192],
+  "coverage_max_stride": null,
+  "training_record_weight": 64.0
 }
