@@ -2,6 +2,36 @@
 
 只记录能够改变研究判断的信息。Git 负责代码历史；本文件不记录 hash、文件清单、命令流水账或普通执行过程。
 
+## 13 October 2026: completed attribution and stopping decision
+
+The H0 question-conditioned increment was tested using the frozen primary split
+and six refitted rotations. Primary pooled NLL is 1.054200184 for question
+factorization and 1.055302213 for flat Qwen, giving -0.001102028 with conditional
+paired 95% interval [-0.008577209, 0.005163370]. Shared-representation hierarchy
+has the lower point NLL, 1.046334565. Each question-factorized contrast with flat,
+shared hierarchy and two direct questions changes direction across rotations
+(three lower / three higher NLL). This establishes neither a stable increment nor
+equivalence. Rotations are descriptive within one collection.
+
+All four primary calibrated Qwen arms defer every window at cost 0.25. The
+question-factorized ECE is lower than flat's, while its Brier and AURC are higher.
+Thus this instance separates probability validity, calibration summaries,
+confidence ranking and useful decision coverage. The small primary numerical
+hierarchy reduction has a conditional secondary interval below zero; it is not
+an independently confirmed new method effect.
+
+The H1 input revision retains a separate result: amplitude preservation lowers
+pooled E1 NLL for both representations. All four E1 unit-minus-pooled intervals
+include zero. Neither result is credited to question decomposition. Explanations
+involving lost signal structure, calibration composition or semantic question
+quality remain H3 unless directly tested. There is no H2 external confirmation.
+
+Decision: retain the bounded negative attribution and decision-boundary findings,
+complete the manuscript and reproducible artifacts, and stop within-test
+development. A broader advantage claim would require a prospectively frozen
+evaluation on additional independent equipment and appropriate application
+baselines. More correlated windows do not supply that evidence.
+
 ## 13 October 2026: first real-data probability result
 
 H0: question-conditioned factorization may improve bearing-level probability

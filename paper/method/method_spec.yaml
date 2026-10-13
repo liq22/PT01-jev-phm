@@ -10,12 +10,12 @@ origin:
   source_idea_id: Jev-inspired PHM decision interface
 
 # 正式 claim 尚未建立时可以为空。
-supports_claims: []
+supports_claims: [C1, C2, C3]
 
 failure:
   observed_failure_or_contradiction: Coherent typed probabilities alone do not establish diagnostic quality; preprocessing, hierarchy and additional calls can explain apparent improvements.
   why_it_matters: Probability errors change diagnosis and explicit cost-based deferral on bearings absent from fitting.
-  favored_explanation: Independently scoped questions may change the frozen representation usefully; this is an unconfirmed hypothesis.
+  favored_explanation: The predeclared useful-question hypothesis is not established by the completed primary comparison; observed rotation effects change direction, and no physical or linguistic mechanism is identified.
   strongest_competing_explanation: Shared-representation hierarchy or a two-direct-question ensemble explains any increment.
 
 scientific_job:

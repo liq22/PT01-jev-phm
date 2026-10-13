@@ -2,6 +2,26 @@
 
 只记录能够改变论文主张、定位、证据边界或修订决策的信息。不复制 Git 历史，不维护审计链。
 
+## 13 October 2026: evidence-grounded attribution candidate
+
+The paper's contribution changes from a proposed question-conditioned diagnostic
+increment to a measured attribution result and its boundary. The completed
+primary comparison does not establish the increment; six refitted rotations
+change direction. Lower ECE does not supply better selective ranking, and every
+primary calibrated Qwen workflow has zero coverage at the declared cost.
+
+The question hypothesis remains H0; the amplitude-preserving observation revision
+is H1 from pre-performance feature inspection. Interpretation of error
+concentration or missing signal structure remains H3. No new independent
+collection provides H2 confirmation. Established typing, classification heads,
+conditional probability, temperature scaling and rejection remain prior art.
+
+The sole English Markdown manuscript reports these findings, explicit costs,
+conditional uncertainty and actual physical-bearing units. Tables and editable
+figures use saved predictions; HTML/PDF are derived previews. Author, venue,
+funding, data-use declarations and submission consent remain unconfirmed. The
+bounded manuscript does not claim industrial superiority or submission readiness.
+
 ## Entry template
 
 ### Date
