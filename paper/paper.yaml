@@ -1,7 +1,7 @@
-# Current research state. The specific calibration hypothesis is provisional.
+# Current research state. Source-informed extension remains a provisional design.
 schema_version: 1
 project_name: Jev-PHM
-paper_title: Typed, Unit-Calibrated Small Language Models for Selective Fault Diagnosis
+paper_title: Typed Probabilistic Decisions for Selective Fault Diagnosis
 short_title: Jev-PHM
 language: English
 paper_stage: markdown_draft
@@ -20,22 +20,22 @@ idea_selection:
 problem_definition:
   object: Single-channel vibration observations of industrial equipment
   environment: Closed-set supervised diagnosis; exact dataset and independent units require local verification
-  observation: Six deterministic features from PHMFactory windows
-  task_or_decision: Categorical fault probabilities and explicit cost-based deferral
-  failure_or_contradiction: Window counts can weight calibration differently from a declared unit-uniform population
-  desired_understanding: Whether unit-calibrated Qwen decisions improve on pooled calibration and competitive numeric controls
+  observation: Existing six-feature PHMFactory state; any evidence enrichment is a separate protocol
+  task_or_decision: Fault probabilities and explicit cost-based deferral
+  failure_or_contradiction: Typed validity does not establish useful diagnosis; composition and evidence changes can confound apparent model gains
+  desired_understanding: Whether scoped diagnostic judgments improve decisions beyond flat and factorized numerical and Qwen controls
 research_state:
-  central_question: Does a typed Qwen3-0.6B decision layer provide useful unit-population probabilities beyond a calibrated numeric classifier?
-  current_claim_at_risk: Unit-weighted calibration yields a meaningful held-out increment beyond ordinary temperature scaling
-  strongest_support: Elementary objective identity and nine numerical/interface tests; no real PHM or Qwen evidence
-  favored_explanation: Calibration weighting matters when unit counts and losses covary under a unit-uniform target
-  strongest_competing_explanation: Ordinary calibration is sufficient and Qwen adds no value beyond the numeric state
-  largest_unresolved_uncertainty: Real-data feasibility and effect on independently held-out units
-  current_novelty_risk: Typing, classification heads, calibration, selective prediction, and PHM calibration are existing work
-  most_informative_next_action: Execute E0 then the locked two-by-three comparison in paper/experiments/jev_goal.md
-  possible_outcomes_and_decisions: Positive evidence supports a population-specific claim; null or negative evidence narrows the claim without result-driven reruns
-  stopping_condition: Deliver the first valid paired comparison and update claims; no unmotivated experiment expansion
-# No empirical claim or author-approved contribution is recorded as established.
+  central_question: Does question-conditioned decomposition provide useful PHM probabilities beyond direct prediction at comparable evidence, supervision and computation?
+  current_claim_at_risk: The proposed PHM workflow provides an increment beyond ordinary hierarchy, calibration or additional model evaluations
+  strongest_support: Existing objective identity and prior-PR numerical checks; community non-PHM studies motivate comparisons but supply no PHM effect evidence
+  favored_explanation: Explicitly scoped judgments and coherent composition may aid the supervised PHM decision; unit calibration remains population-specific
+  strongest_competing_explanation: A direct classifier, ordinary numerical hierarchy, or matched-call direct ensemble explains the whole benefit
+  largest_unresolved_uncertainty: Real-data feasibility and a measured increment; question-conditioned extension is not yet implemented
+  current_novelty_risk: NanoJev already uses Qwen3-0.6B decision heads and atomic judgments with code; hierarchical selective classification and proper scoring are prior art
+  most_informative_next_action: Complete unchanged E0/E1; implement and validate the appended E2 design before claiming a decomposition result
+  possible_outcomes_and_decisions: Separate valid negative outcomes from infrastructure failure; credit hierarchy or added evidence when those controls explain the gain
+  stopping_condition: Hand off the revised source-backed design and existing executable Goal; no long experiment or claim of efficacy in this revision
+# No empirical contribution is promoted to established or author-approved status.
 main_claims: []
 main_contributions: []
 required_experiments: []

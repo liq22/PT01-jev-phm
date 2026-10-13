@@ -2,40 +2,45 @@
 
 ## Research question
 
-### Typed decisions, tested rather than assumed
+### Decisions from verified evidence
 
-Apply the public Jev idea of state-to-typed-probabilistic decisions to closed-set fault diagnosis. The first probe uses **PHMFactory + Qwen/Qwen3-0.6B**, not proprietary Jev weights, RLCD, or an external Jev API.
+Investigate Jev-inspired typed probabilistic decisions for PHM with **PHMFactory + Qwen/Qwen3-0.6B**. This project does not use proprietary Jev weights, its API, or a reproduced RLCD algorithm.
 
-The candidate PHM adaptation fits temperature calibration with equal weight per verified independent unit. Compare it against ordinary pooled calibration **on identical logits**, and compare Qwen against a tuned classifier receiving the same six numeric features. These are hypotheses, not demonstrated improvements. CAT and CLSGen already establish important calibration and language-model-head prior art; see the [source assessment](paper/refs/reading_matrix.md).
+The research question is whether explicitly scoped diagnostic judgments and code-owned composition improve probability quality or selective decisions beyond competitive direct predictors. Typing, softmax heads, hierarchical classification and calibration are prior art; NanoJev already implements Qwen3-0.6B decision heads and atomic-judgment workflows. See the [source assessment](paper/refs/reading_matrix.md).
 
-## Current implementation
+## Implementation and design
 
-### One minimal path
+### Implemented starting point
 
 ```text
-PHMFactory windows -> six deterministic features -> frozen Qwen3 embedding
--> tuned logistic head -> raw / pooled / unit temperature
--> categorical probabilities -> diagnosis or deferral
+PHMFactory windows -> six deterministic features -> frozen Qwen representation
+-> tuned logistic head -> raw / pooled / unit calibration -> diagnosis or deferral
 ```
 
-The numeric control bypasses Qwen and shares the downstream implementation. Positive scalar temperature cannot change class argmax. The first probe is single-channel, closed-set classification; it makes no RUL, open-set, causal explanation, or operational safety claim.
+The numerical control bypasses Qwen and shares the downstream implementation. This existing E0/E1 path is unchanged. Positive scalar temperature cannot change ordinary class argmax. Unit-weighted calibration is a secondary population-specific hypothesis, not Jev's defining mechanism or an established performance gain.
 
-### Files to use
+### Designed extension, not yet implemented
+
+For a verified healthy-plus-fault taxonomy, ask two questions over the same state: whether a fault is present, and which fault fits under the explicit assumption that one is present. Code combines the resulting fault probability and conditional identity distribution into one leaf distribution. This is conventional conditional factorization applied to a question-conditioned PHM design, not a new probability theorem.
+
+The current CLI does **not** implement these question-conditioned heads or the E2 comparisons. They are specified in [main Section 4.4](paper/draft/main.md) and the appended [E2 Goal design](paper/experiments/jev_goal.md). Do not report them as runnable, validated, or effective.
+
+## Files and execution
+
+### Primary products
 
 | Product | Location |
 |---|---|
-| Unique manuscript, including problem formulation and method | [paper/draft/main.md](paper/draft/main.md) |
-| Existing research state | [paper/paper.yaml](paper/paper.yaml) |
-| Existing contribution/evidence mapping | [paper/experiments/evidence_matrix.md](paper/experiments/evidence_matrix.md) |
-| Local execution Goal | [paper/experiments/jev_goal.md](paper/experiments/jev_goal.md) |
-| Sole probe implementation | [src/S01_Package/jev_phm.py](src/S01_Package/jev_phm.py) |
-| Fixed first-run search and decision settings | [src/S02_Configs/jev_probe.json](src/S02_Configs/jev_probe.json) |
+| Unique manuscript | [paper/draft/main.md](paper/draft/main.md) |
+| Current research state | [paper/paper.yaml](paper/paper.yaml) |
+| Contribution/evidence mapping | [paper/experiments/evidence_matrix.md](paper/experiments/evidence_matrix.md) |
+| Existing E0/E1 commands and design-only E2 | [paper/experiments/jev_goal.md](paper/experiments/jev_goal.md) |
+| Sole current implementation | [src/S01_Package/jev_phm.py](src/S01_Package/jev_phm.py) |
+| Fixed first-run settings | [src/S02_Configs/jev_probe.json](src/S02_Configs/jev_probe.json) |
 
-## Run and validate
+### Existing lightweight checks
 
-### Lightweight checks
-
-Use an isolated environment compatible with the existing PHMFactory installation:
+Use an isolated environment compatible with the PHMFactory installation:
 
 ```bash
 python -m pip install -r src/S02_Configs/jev_requirements.txt
@@ -43,23 +48,15 @@ python -m unittest discover -s src/S04_Tests -p test_jev.py -v
 python src/S01_Package/jev_phm.py --help
 ```
 
-The nine numerical/interface tests passed locally using synthetic fixtures. They do **not** establish real Qwen inference, real PHMFactory data integration, or method effectiveness. The complete inherited PaperTrace suite has not been run in the local authoring environment; the PR's existing CI remains a separate check.
+PR #1 reports nine synthetic numerical/interface tests. This documentation revision does not rerun or upgrade those checks into real PHM evidence. Follow the Goal to verify local data, labels, independent units, PHMFactory configuration and an immutable Qwen weight revision before actual inference.
 
-### Real experiment prerequisites
+### Manuscript preview
 
-Follow the Goal to locate the actual PHMFactory configuration and metadata, verify labels and independent units, and resolve an immutable Qwen revision. No dataset path or label mapping is supplied as a guess. The adapter uses the inspected upstream `build_data(args_data, args_task)` at commit `cdc0669167ca25ac848e34c880875ca39c6aed89`; it does not duplicate a loader or silently change a split.
-
-The commands are `export`, `embed`, and `run`. Their parsers and numerical path are tested; data export and model forward pass still require local end-to-end validation. Preserve failed runs, do not select experiments for positive outcomes, and do not commit large or sensitive raw artifacts.
-
-## Manuscript and project boundary
-
-### Evidence before conclusions
-
-The draft contains Introduction, Related Work, Motivation, Contributions, formulation, method, and the minimal experimental protocol. It deliberately has no Results section. A manuscript preview can be built from the repository root with installed Pandoc:
+From the repository root with Pandoc installed:
 
 ```bash
 pandoc paper/draft/main.md --citeproc --bibliography paper/refs/references.bib \
   --mathjax --standalone --metadata title="Jev-PHM draft" -o /tmp/jev-phm.html
 ```
 
-The target venue is unselected; no venue was invented or downgraded. The original PaperTrace agent framework is retained; see [AGENTS.md](AGENTS.md) and [paper/README.md](paper/README.md). Work on a branch and use a PR into `dev`; do not modify `master` or force-push.
+The revised manuscript was built successfully with citeproc and MathJax during this revision. No Results section or empirical gain is asserted. The target venue and author approval gates remain unselected/unapproved. The original PaperTrace framework is retained; work through a branch and PR into `dev`, without modifying `master` or force-pushing.

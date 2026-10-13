@@ -2,20 +2,24 @@
 
 ## Current claims
 
-### Evidence status at initialization
+### Status after source absorption: 23 September 2026
 
 | Claim | Method location | Existing support | Missing evidence / minimum action | Boundary / competing explanation | Status |
 |---|---|---|---|---|---|
-| Typed decisions stay within the declared closed-set output space | Main §3.1, §4.4; `typed_decisions` | Numerical/interface unit tests | Actual PHM/Qwen export and prediction smoke | Structural property, also true of ordinary classification; not diagnostic correctness or standalone novelty | supported at interface level |
-| Unit calibration estimates the declared unit-uniform objective | Main §3.2, §4.3 | Exact covariance identity; equal-count and duplication tests | Audit whether units/counts match the intended deployment population | Pooled calibration is appropriate for a window-weighted target; equal counts give the same method | analytical identity supported |
-| Unit calibration improves held-out probability quality beyond pooled scaling | Main §4.3, §5 | None; pre-result hypothesis | Required E1 in `jev_goal.md`: identical logits, distinct calibration weighting, paired test-unit NLL | Sample variance or no objective mismatch may eliminate the benefit | planned, unverified |
-| Qwen representation contributes beyond the same numeric state | Main §4.2, §5 | None; pre-result hypothesis | Required E1: numeric/Qwen heads, equal search opportunities and identical downstream calibration | Numeric features may be sufficient; six features may discard key signal information | planned, unverified |
-| Better calibrated probabilities yield useful selective decisions | Main §3.3, §4.4 | Only the model-relative minimum-cost rule | Required E1: held-out coverage/error and fixed scenario cost | Cost depends on probability quality and declared costs; no real maintenance savings established | planned, unverified |
+| Typed decisions stay within the declared closed-set output space | Main Sections 3.1 and 4.3; existing typed_decisions | Interface construction and prior-PR numerical tests | E0 real PHM/Qwen export and prediction smoke | Also true of ordinary classification; not truth, calibration, or standalone novelty | Interface-level support only |
+| Unit calibration matches a declared unit-uniform objective | Main Section 3.2 | Elementary objective identity; prior equal-count/replication tests | E0 verification of units and deployment population | Pooled weighting may be appropriate; equal counts give identical objectives | Analytical identity supported |
+| Unit weighting improves probability quality beyond pooled scaling | Main Section 4.3 | No empirical support | Existing E1 matched-logit contrast | No objective mismatch, limited calibration units, or sampling variation can eliminate benefit | Planned secondary hypothesis |
+| Qwen adds value beyond the same numerical state | Main Section 4.2 | No empirical support | Existing E1; broader utility claims also need a competitive nonlinear numerical baseline | A tuned linear classifier is not a supervised ceiling; representation may omit key evidence | Planned, unverified |
+| Two scoped judgments compose into a normalized leaf distribution | Main Section 4.4 | Probability factorization, with explicit hypothetical conditioning | E2 implementation and targeted numerical/interface tests | Normalization is elementary and does not establish prediction quality; plain hierarchy has the same property | Design only; not implemented |
+| Question-conditioned decomposition improves held-out decisions | Main Sections 4.4 and 5.2 | Community non-PHM studies motivate a test, not support this claim | E2 flat/factorized numerical and Qwen comparisons plus same-question-count direct control | Ordinary hierarchy, extra computation, prompt definitions or supervision may explain any apparent gain | Design-only pre-result hypothesis |
+| Calibrated probabilities support useful deferral | Main Sections 3.3 and 5.3 | Model-relative cost rule only | E1 and, if implemented, E2 fixed-cost and matched-coverage evaluation | Rejection is not unknown-fault recognition, a safety guarantee or demonstrated maintenance savings | Planned, unverified |
 
-## Experiment priority
+## Execution boundary
 
-### Required versus optional
+### Required versus conditional
 
-E0 (required execution prerequisite): verified PHMFactory data/labels/units/configuration and one real Qwen embedding batch. E1 (required empirical evidence): one locked two-by-three comparison. No result exists yet.
+E0 and E1 remain the existing executable-path handoff in [jev_goal.md](jev_goal.md), subject to their unresolved real-data and model prerequisites. Their configuration and code are not changed by this revision. No new PHM or Qwen result is added.
 
-Optional until motivated by a core gap: Qwen fine-tuning, generative output comparisons, additional datasets, RUL, open-set recognition, physical/temporal constraints, and motivation/overview figures. Do not add these to the current run queue. Ordinary accuracy must be identical across the three calibration variants sharing a head; any discrepancy invalidates the run.
+E2 is required only to support the newly designed decomposition claim, and is **not executable by the present CLI**. Its design and implementation prerequisites are appended to the same Goal rather than creating a second run system. Do not use E1 results to claim E2 was tested.
+
+State enrichment, physical-symptom supervision, Score/RUL, coarse-label fallback, unseen classes, extra datasets, and generative speed comparisons remain conditional. A gain over all classical or industrial methods cannot be asserted from the current linear-only control. Existing analytical identities and synthetic tests do not count as real-data effect evidence.
