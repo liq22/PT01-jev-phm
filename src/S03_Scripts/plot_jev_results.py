@@ -156,7 +156,7 @@ def method_figure(destination: Path) -> None:
 
 
 def primary_figure(result: dict[str, Any], destination: Path) -> None:
-    figure, axes = plt.subplots(1, 2, figsize=(10.6, 3.5), gridspec_kw={"width_ratios": [1.12, 1]})
+    figure, axes = plt.subplots(2, 1, figsize=(7.2, 7.0), gridspec_kw={"height_ratios": [1, 1.15]})
     contrasts = [result["contrasts"][f"{a}_minus_{b}"] for a, b in PAIRS]
     labels = ["Question-factorized − flat", "Question-factorized − shared hierarchy",
               "Question-factorized − two direct", "Numerical hierarchy − numerical flat", "Shared hierarchy − flat"]
@@ -168,7 +168,7 @@ def primary_figure(result: dict[str, Any], destination: Path) -> None:
     axes[0].set(yticks=range(len(labels)), yticklabels=labels, xlabel="Paired bearing-weighted ΔNLL (nats)",
                 title="(a) Primary held-out contrast")
     axes[0].invert_yaxis()
-    axes[0].tick_params(axis="y", labelsize=8)
+    axes[0].tick_params(axis="y", labelsize=9)
     for index, arm in enumerate(ARMS):
         curve = result["curves"][arm]["pooled"]
         # All prefixes use saved probabilities; no interpolation changes the risk definition.
@@ -176,8 +176,8 @@ def primary_figure(result: dict[str, Any], destination: Path) -> None:
                      linewidth=1.2, linestyle="--" if "Numerical" in arm else "-")
     axes[1].set(xlim=(0, 1), ylim=(0, 1), xlabel="Bearing-weighted coverage", ylabel="Accepted-window error rate",
                 title="(b) Primary risk–coverage")
-    axes[1].legend(fontsize=6.8, frameon=False, loc="upper right")
-    figure.tight_layout(w_pad=2.4)
+    axes[1].legend(fontsize=9, frameon=False, loc="upper right")
+    figure.tight_layout(h_pad=2.6)
     save_figure(figure, destination)
 
 
