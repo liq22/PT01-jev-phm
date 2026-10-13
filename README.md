@@ -132,7 +132,7 @@ export CUDA_VISIBLE_DEVICES=''
   --chromium /home/user/.cache/ms-playwright/chromium-1208/chrome-linux64/chrome
 ```
 
-The serial embedding command processes every distinct selected geometry and its five named questions. It uses the same source observations, prompts, precision and batch size as separate per-query cache jobs; those jobs may record different elapsed times and hardware use. E1's standardized observation comparison is primary-split only. E2 evaluation runs the primary protocol and all six rotations. Plotting reads saved predictions, checks their metrics and creates editable SVG/PDF figures and CSV/JSON tables; it does not rerun a model. Paper building renders the sole Markdown manuscript into offline HTML/PDF previews under `paper/build`.
+The serial embedding command processes every distinct selected geometry and its five named questions. It uses the same source observations, prompts, precision and batch size as separate per-query cache jobs; those jobs may record different elapsed times and hardware use. E1's standardized observation comparison is primary-split only. E2 evaluation runs the primary protocol and all six rotations. Plotting reads saved predictions, checks their metrics and creates editable SVG/PDF figures and CSV/JSON tables; it does not rerun a model. Paper building renders the sole Markdown manuscript into offline HTML/PDF previews under `paper/preview`.
 
 `--head-workers 3` fits independent regularization candidates in three isolated CPU processes, preserving their objective and fixed selection rule. Set `OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4` for the recorded per-worker thread budget. The default is serial fitting; any convergence failure aborts either mode.
 
