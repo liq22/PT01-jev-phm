@@ -7,7 +7,7 @@ status: ready
 
 origin:
   type: direct_problem  # promoted_idea | direct_problem
-  source_idea_id: Jev-inspired PHM decision interface
+  source_idea_id: TODO  # Direct problem; no separate approved IDEA identifier.
 
 # 正式 claim 尚未建立时可以为空。
 supports_claims: [C1, C2, C3]
