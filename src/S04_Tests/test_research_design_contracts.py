@@ -15,13 +15,14 @@ if str(SCRIPTS) not in sys.path:
 from papertrace_validation.figures import validate_figure_arguments  # noqa: E402
 from papertrace_validation.methods import validate_method_design  # noqa: E402
 from papertrace_validation.model import Reporter  # noqa: E402
+from papertrace_validation.project import validate_paper_state  # noqa: E402
 
 
 class ResearchDesignContractTests(unittest.TestCase):
     def test_template_method_and_figure_contracts_validate(self) -> None:
-        paper = yaml.safe_load((ROOT / "paper/paper.yaml").read_text(encoding="utf-8"))
         reporter = Reporter(ROOT)
-        validate_method_design(ROOT, reporter, paper, set())
+        paper, claim_ids = validate_paper_state(ROOT, reporter)
+        validate_method_design(ROOT, reporter, paper, claim_ids)
         validate_figure_arguments(ROOT, reporter)
         self.assertEqual([], reporter.errors)
 
