@@ -235,6 +235,54 @@ class JevFactorizationTests(unittest.TestCase):
                                           weights=weights[roles == "train"]))
         np.testing.assert_allclose(jev.predict_head(head, x), jev.predict_head(changed, x))
 
+    def test_parallel_head_selection_preserves_serial_objective_and_candidate_order(self):
+        x = np.random.default_rng(23).normal(size=(36, 3))
+        y = np.tile(np.repeat([0, 1, 2], 3), 4)
+        roles = np.repeat(jev.ROLES, 9)
+        units = np.array([f"{role}_{i//3}" for role in jev.ROLES for i in range(9)])
+        weights = np.linspace(1., 3., len(y))
+        grid = [1., .1]  # Ordered outputs must retain the supplied candidate order.
+        data = {"y": y, "role": roles, "unit": units, "sample_weight": weights,
+                "labels": np.array(["inner", "healthy", "outer"])}
+        second_x = np.cos(x)
+
+        def compare_tuning(first, second):
+            self.assertEqual([row["C"] for row in first], grid)
+            self.assertEqual([row["C"] for row in second], grid)
+            np.testing.assert_allclose([row["nll"] for row in first],
+                                       [row["nll"] for row in second], atol=1e-12, rtol=1e-12)
+
+        with patch.dict(jev.os.environ, {"OPENBLAS_NUM_THREADS": "1"}):
+            serial, serial_C, serial_tuning = jev.select_head(
+                x, y, roles, units, grid, weights, workers=1)
+            parallel, parallel_C, parallel_tuning = jev.select_head(
+                x, y, roles, units, grid, weights, workers=2)
+            self.assertEqual(serial_C, parallel_C)
+            compare_tuning(serial_tuning, parallel_tuning)
+            np.testing.assert_allclose(jev.predict_head(serial, x),
+                                       jev.predict_head(parallel, x), atol=1e-12, rtol=1e-12)
+            for factorized in (True, False):
+                with self.subTest(factorized=factorized):
+                    serial_a, serial_b, serial_C, serial_tuning = jev._select_pair(
+                        x, second_x, data, grid, factorized, healthy_index=1, workers=1)
+                    parallel_a, parallel_b, parallel_C, parallel_tuning = jev._select_pair(
+                        x, second_x, data, grid, factorized, healthy_index=1, workers=2)
+                    self.assertEqual(serial_C, parallel_C)
+                    compare_tuning(serial_tuning, parallel_tuning)
+                    z_serial = (jev.predict_head(serial_a, x), jev.predict_head(serial_b, second_x))
+                    z_parallel = (jev.predict_head(parallel_a, x), jev.predict_head(parallel_b, second_x))
+                    combine = (lambda a, b: jev.compose_log_probs(a, b, 1)) if factorized else jev.direct_fusion_logits
+                    np.testing.assert_allclose(combine(*z_serial), combine(*z_parallel),
+                                               atol=1e-12, rtol=1e-12)
+            _, tied_C, tied_tuning = jev.select_head(
+                np.zeros_like(x), y, roles, units, grid, workers=2)
+            self.assertEqual(tied_C, .1)
+            self.assertEqual([row["C"] for row in tied_tuning], grid)
+            with self.assertRaises(ValueError):
+                jev.select_head(x, y, roles, units, grid, weights, workers=0)
+            with self.assertRaises(ValueError):
+                jev._select_pair(x, second_x, data, grid, True, 1, workers=0)
+
     def test_all_question_inputs_share_observation_and_complete_class_definitions(self):
         features = np.array([[.123, .456, .789, 1.234, 2.345, 3.456],
                              [.123, .456, .789, 1.234, 2.345, 3.456]])

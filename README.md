@@ -76,6 +76,8 @@ JEV_RUN=src/outputs/jev-phm/run-20261013-pu-reproduce-001
 export CUDA_VISIBLE_DEVICES=''
 export HF_HUB_OFFLINE=1
 export HF_HUB_DISABLE_IMPLICIT_TOKEN=1
+export OPENBLAS_NUM_THREADS=4
+export OMP_NUM_THREADS=4
 
 .venv/bin/python src/S03_Scripts/run_jev_study.py prepare \
   --run-root "$JEV_RUN" \
