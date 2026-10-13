@@ -44,7 +44,7 @@ Question text changes the contextual representation even when the numerical stat
 
 ### 2.3 Hierarchical estimation, calibration, and rejection
 
-Conditional softmax probabilities and their pathwise negative log likelihood are established hierarchical parameterizations [@valmadre2022]. Valmadre also reports conditions in which flat softmax outperforms top-down classifiers, motivating a competitive flat control. Goren et al. calibrate leaf probabilities, aggregate them up a hierarchy, and select predictions of varying specificity [@goren2024]. Our output remains a leaf label or deferral for every method; only the proposed method is not given an easier coarse-answer task.
+Conditional softmax probabilities and their pathwise negative log likelihood are established hierarchical parameterizations [@valmadre2022]. Valmadre also reports conditions in which flat softmax outperforms top-down classifiers, motivating a competitive flat control. Goren et al. calibrate leaf probabilities, aggregate them up a hierarchy, and select predictions of varying specificity [@goren2024]. All our methods estimate the same leaf ontology and return a leaf label or deferral. Coarse-node answers do not count as successful leaf diagnoses.
 
 Temperature scaling is standard post-hoc calibration [@guo2017]. CAT applies calibration to a 1D-CNN teacher-student domain-adaptation workflow and uses calibrated probabilities in target pseudo-labeling [@forest2024cat]. Our calibration holds supervised logits fixed, fits one scalar on separate bearings, and compares pooled-window with equal-bearing objectives as a secondary population-weighting question. It does not claim adaptation to an unlabeled target domain.
 
@@ -120,16 +120,18 @@ Qwen/Qwen3-0.6B is fixed to revision `c1899de289a04d12100db370d81485cdf75e47ca`.
 
 The flat question asks which complete class describes the window. The presence question asks whether any defined fault applies rather than health. The identity question asks which fault applies **conditional on membership in the defined fault set**. Both latter questions read the same observation and neither sees the other's answer. They are evaluated for every test window, including healthy ones. Independent evaluation is an interface constraint, not a statistical independence assumption.
 
-Each representation is standardized using training observations only. A regularized logistic head supplies class scores. Numerical controls standardize the same six values without Qwen. The direct language model is a supervised frozen-encoder probe, not zero-shot diagnosis or end-to-end language-model adaptation.
+Each representation is standardized using its training observations and window weights only. The conditional-identity standardizer uses faulty training observations, matching that head's fit population. A regularized logistic head supplies class scores. Numerical controls standardize the same six values without Qwen. The direct language model is a supervised frozen-encoder probe, not zero-shot diagnosis or end-to-end language-model adaptation.
 
 ### 4.3 Presence, conditional identity, and leaf probabilities
 
-Let $F=\{I,O\}$. A binary presence head estimates $r(s)$ and a fault-only categorical head estimates $u(s)$:
+Let the ordered fault set be $F=(I,O)$. A binary presence head estimates $r(s)$ and a fault-only head estimates $u(s)$:
 
 $$
 r(s)=\sigma(w_r^\top h_{q_r}(s)+b_r),\qquad
-u(s)=\operatorname{softmax}(W_uh_{q_u}(s)+b_u).
+u(s)=\operatorname{softmax}\!\begin{pmatrix}0\\w_u^\top h_{q_u}(s)+b_u\end{pmatrix}.
 $$
+
+Both branches use the implemented binary logistic parameterization: one learned coefficient vector and intercept, with a zero reference logit. For identity, $I$ is the reference class and $O$ the non-reference class. Equivalently, its coefficient matrix has a zero row and $w_u^\top$ as the learned row; its penalty includes only $w_u$. The three-class flat head instead learns a three-row multinomial coefficient matrix. These parameterizations have different regularization geometry even when they share $C$.
 
 Code forms the complete distribution:
 
@@ -138,6 +140,8 @@ p(H\mid s)=1-r(s),\qquad p(k\mid s)=r(s)u_k(s),\quad k\in F,\qquad\sum_{k\in F}u
 $$
 
 The components sum to one by construction. This is conditional factorization, not multiplication of unrelated marginal probabilities. Coherence alone does not establish correctness.
+
+![Independent fault-presence and conditional fault-identity questions consume the same six measured vibration statistics. Diagnosis-derived supervision trains the heads; code composes a coherent leaf distribution, calibrates it, and applies an explicit diagnosis/deferral cost rule. The branches are not independently measured physical concepts.](../assets/figures/jev_method.svg)
 
 Presence supervision is $\mathbb 1[y\in F]$. Identity supervision uses only faulty training examples and their original fault labels. Healthy examples have no fabricated identity label. Both targets are transformations of the same diagnosis; no physical concept supervision is added.
 
@@ -157,7 +161,7 @@ $$
 \mathcal L_C=
 \sum_{i\in\mathrm{train}}w_i\ell_{\mathrm{presence},i}
 +\sum_{i\in\mathrm{train}:y_i\in F}w_i\ell_{\mathrm{identity},i}
-+\frac{\lVert w_r\rVert^2+\lVert W_u\rVert_F^2}{2C}.
++\frac{\lVert w_r\rVert^2+\lVert w_u\rVert^2}{2C}.
 $$
 
 Intercepts are unpenalized and class balancing is disabled. The data-fit part equals weighted leaf NLL because
@@ -252,7 +256,7 @@ Flat A and B share all category definitions and the healthy/fault grouping suppl
 
 Heads use deterministic `lbfgs`, at most 2,000 iterations, and tolerance $10^{-7}$, with convergence status retained. Each rotation refits training-only standardizers and heads, selects $C$, and fits temperature. Frozen, protocol-compatible hidden states can be reused across role assignments without fitting to their labels. States from a different observation, interval, question, or model revision are not interchangeable.
 
-Pooled final-distribution temperature calibration is primary in E2. Raw and equal-bearing-scaled outputs are secondary analyses. All controls supply complete normalized distributions and the same leaf-or-defer contract. Equal question counts match evaluations, not tokens, FLOPs, latency, or parameter counts. These quantities are recorded rather than assumed equal.
+Pooled final-distribution temperature calibration is primary in E2. Raw and equal-bearing-scaled outputs are secondary analyses. All controls supply complete normalized distributions and the same leaf-or-defer contract. Equal question counts do not imply equal token counts, FLOPs, latency, or parameter counts. We record tokens, padded tokens, forward batches, cache-extraction elapsed time, and fitted-head parameters. FLOPs are not measured, and unequal extraction schedules and warmup conditions do not constitute a matched deployment-latency benchmark.
 
 ### 5.5 Metrics and uncertainty
 
@@ -266,13 +270,17 @@ For the main split, 2,000 paired bootstrap draws resample its eight test bearing
 
 ### 5.6 Reproducibility and predeclared interpretation
 
-Artifacts retain grouped roles, actual intervals, observations and weights, queries, dependency and model versions, fitted standardizers and heads, tuning values, temperatures, raw factors, final probabilities, per-bearing losses, and failures. Figures and additional cost analyses read saved predictions without rerunning Qwen. Encoding records sequence lengths, tokens, forward batches, precision, hardware, and elapsed work. These measurements describe resources; no proprietary Jev speed ratio or end-to-end maintenance speed claim is imported.
+Artifacts retain grouped roles, actual intervals, observations and weights, queries, dependency and model versions, fitted standardizers and heads, tuning values, temperatures, raw factors, final probabilities, per-bearing losses, and failures. Figures and additional cost analyses read saved predictions without rerunning Qwen. Encoding records sequence lengths, tokens, padded tokens, forward batches, precision, hardware, and cache-extraction elapsed time. These describe actual resource use without estimating FLOPs or establishing deployment latency; no proprietary Jev speed ratio or end-to-end maintenance speed claim is imported.
 
 A numerical hierarchy gain supports a hierarchy explanation. A gain retained by Qwen-shared-factorized does not establish that two diagnostic questions are necessary. A gain matched by two direct questions is compatible with extra calls or prompt diversity. A gain following amplitude restoration belongs to the observation revision unless within-protocol controls isolate an additional effect. Zero and negative results remain findings. Interface or infrastructure failure is separated from a completed comparison.
 
 ## 6. Results
 
-**Real-data results pending.** Only valid saved outputs will populate this section. Tables will distinguish feasibility observations, the primary calibrated comparison, raw and population-weighting checks, per-bearing uncertainty, and the six descriptive rotations. Window geometry and protocol counts above are dataset facts rather than predictive performance.
+### 6.1 Observation and coverage verification
+
+The exported 2,048-point protocol covers every stored sample in all 2,559 recordings, yielding 376,173 windows. Actual adjacent start gaps range from 1,697 to 2,035 samples, corresponding to overlaps of 13–351 samples. In the per-window-standardized export, RMS and standard deviation both have mean 0.9999999972 and across-window standard deviation $6.58\times10^{-7}$, with values ranging from 0.99999442 to 1.00000485. They are nearly constant rather than exactly constant: training standardization rescales the remaining finite-precision variation, so these observations do not establish an exactly reduced-dimensional state. The amplitude-preserving export remains a separately frozen comparison. These are input and coverage measurements, not diagnostic-performance results.
+
+**Predictive results pending.** Valid saved outputs will supply feasibility comparisons, the primary calibrated contrast, raw and population-weighting checks, per-bearing uncertainty, and descriptive rotations. Window geometry and protocol counts are not predictive performance.
 
 ## 7. Discussion
 
@@ -298,7 +306,11 @@ The study formulates a bounded test of independently question-conditioned fault-
 
 ## Appendix A. Fixed question meanings
 
-All E2 prompts begin with the same definitions: the mutually exclusive classes are healthy, inner-ring-dominant, and outer-ring-dominant; health is the healthy class and the other two are the defined faults. The fixed questions below precede the identical state:
+Every E2 prompt begins with this identical definition, including the actual label strings and mixed-damage qualification:
+
+> The mutually exclusive classes are healthy, inner-race-dominant, outer-race-dominant. The healthy class is healthy; the defined fault classes are inner-race-dominant, outer-race-dominant. A dominant fault label identifies the predominant annotated damage location and may include mixed damage; it does not assert a pure isolated fault.
+
+The fixed questions below precede the identical state:
 
 | Query | Question |
 |---|---|

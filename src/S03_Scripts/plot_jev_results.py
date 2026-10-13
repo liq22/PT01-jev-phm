@@ -70,7 +70,7 @@ def read_evaluation(folder: Path, e2: bool) -> dict[str, Any]:
     """Recalculate held-out metrics and paired contrasts without fitting."""
     report, config = load_json(folder / "metrics.json"), load_json(folder / "config.json")
     arms = ARMS if e2 else ("numeric", "qwen")
-    recomputed, curves, logits = {}, {}, {}
+    recomputed, curves, logits, unit_rows = {}, {}, {}, []
     with np.load(folder / "predictions.npz", allow_pickle=False) as archive:
         mask = archive["role"] == "test"
         y, units = archive["y"][mask], archive["unit"][mask]
@@ -89,6 +89,16 @@ def read_evaluation(folder: Path, e2: bool) -> dict[str, Any]:
                     check_same(array, archive[f"{prefix}_{variant}_rc_{key}"],
                                f"{folder.name}/{arm}/{variant}/risk_coverage/{key}")
                 recomputed[arm][variant], curves[arm][variant], logits[arm][variant] = values, curve, z
+                unit_losses = []
+                for unit in np.unique(units):
+                    selected = units == unit
+                    count = int(selected.sum())
+                    loss = jev.nll(z[selected], y[selected], np.full(count, 1.0 / count))
+                    unit_losses.append(loss)
+                    unit_rows.append({"arm": arm, "calibration": variant, "unit": str(unit),
+                                      "test_windows": count, "nll": loss})
+                check_same(float(np.mean(unit_losses)), values["nll"],
+                           f"{folder.name}/{arm}/{variant}/mean_unit_nll")
         pairs = PAIRS if e2 else tuple((arm, arm) for arm in arms)
         contrasts = {}
         for a, b in pairs:
@@ -105,7 +115,7 @@ def read_evaluation(folder: Path, e2: bool) -> dict[str, Any]:
                 delta = {k: v for k, v in delta.items() if k not in ("conditional_ci95", "repetitions", "seed")}
             contrasts[key] = delta
     return {"config": config, "report": report, "metrics": recomputed,
-            "contrasts": contrasts, "curves": curves, "test_windows": int(mask.sum()),
+            "contrasts": contrasts, "curves": curves, "unit_nll": unit_rows, "test_windows": int(mask.sum()),
             "test_units": len(np.unique(units)), "source": str(folder.relative_to(ROOT))}
 
 
@@ -193,7 +203,11 @@ def summarize(run_root: Path, figures: Path, tables: Path) -> None:
     if results["primary_raw_e2"]["test_units"] != 8:
         raise ValueError("Primary analysis requires the frozen eight-bearing test population")
     selection = load_json(run_root / "inputs/selection.json")
-    encoding = {path.stem: load_json(path) for path in sorted((run_root / "embeddings").glob("*.json"))}
+    encoding = {}
+    for path in sorted((run_root / "embeddings").glob("*.npz")):
+        # The archive is canonical; opening just this member never loads hidden arrays.
+        with np.load(path, allow_pickle=False) as archive:
+            encoding[path.stem] = json.loads(str(archive["provenance"]))
     figures.mkdir(parents=True, exist_ok=True)
     tables.mkdir(parents=True, exist_ok=True)
     compact = {"run": str(run_root.relative_to(ROOT)), "independent_unit": "physical bearing",
@@ -222,6 +236,11 @@ def summarize(run_root: Path, figures: Path, tables: Path) -> None:
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
+    unit_rows = [{"evaluation": name, **row} for name, result in results.items() for row in result["unit_nll"]]
+    with (tables / "jev_unit_nll.csv").open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(unit_rows[0]))
+        writer.writeheader()
+        writer.writerows(unit_rows)
     encoding_rows = []
     for archive, metadata in encoding.items():
         for query, fields in metadata["queries"].items():
