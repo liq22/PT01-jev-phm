@@ -198,6 +198,11 @@ def prepare(args) -> None:
         raise ValueError("PU sampling rates differ from the declared 64 kHz")
     window_sizes = args.window_sizes or probe["window_candidates"]
     stride = args.max_stride if args.max_stride is not None else probe["coverage_max_stride"]
+    if len(set(window_sizes)) != len(window_sizes):
+        raise ValueError("Window candidate lengths must be unique")
+    if probe["training_record_weight"] != 64.:
+        raise ValueError("This frozen study fixes the source-record training weight at 64")
+    probe.update({"window_candidates": window_sizes, "coverage_max_stride": stride})
     plans = {str(w): resolve_window_plan(lengths, w, stride) for w in window_sizes}
     _write_json(inputs / "inventory.json", inventory)
     _write_json(inputs / "window_plans.json", plans)
@@ -349,6 +354,16 @@ def embed(args) -> None:
         widths = [args.window_size]
     if args.queries:
         names = tuple(args.queries)
+    if len(widths) > 1:
+        # Each model load gets a fresh process: the core deliberately rejects
+        # changing device visibility after CUDA has already been initialized.
+        for width in widths:
+            command = [sys.executable, str(Path(__file__).resolve()), "embed", "--run-root", str(run_root),
+                       "--window-size", str(width), "--normalization", args.normalization,
+                       "--device", args.device, "--dtype", args.dtype, "--batch-size", str(args.batch_size),
+                       "--gpu-uuid", args.gpu_uuid, "--queries", *names]
+            subprocess.run(command, check=True)
+        return
     for width in widths:
         kind = "raw" if args.normalization == "none" else "normalized"
         data = _load_npz(run_root / "exports" / f"w{width}_{kind}.npz")
