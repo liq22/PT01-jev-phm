@@ -235,7 +235,7 @@ Recordings and windows inherit their bearing's role. PHMFactory's validation rol
 
 Six additional rotations provide a descriptive check across the healthy bearings. Each is tested once, the next in the frozen circular order calibrates, the following tunes, and the other three train. Each fault class is divided into six frozen test buckets of sizes 3, 2, 2, 2, 2, and 2. In a rotation, two remaining fault bearings calibrate, the next tunes, and the rest train. Every rotation repeats its own window and head selection using development bearings.
 
-These rotations reuse the collection with overlapping fitting assignments. They are not independent confirmations or untouched external datasets. The protocol is not revised between rotations based on their test outcomes. Foldwise differences and their range describe split sensitivity rather than six independent training seeds.
+The first rotation has 17 training and seven test bearings; rotations 2–6 have 19 training and five test bearings. Each has three tuning and five calibration bearings. These rotations reuse the collection with overlapping fitting assignments and different training sizes and held-out compositions. They are not independent confirmations or pure perturbations of a fixed test set. The protocol is not revised between rotations based on test outcomes. Foldwise differences and their range describe this combined split sensitivity rather than six independent training seeds.
 
 ### 5.4 Comparison arms and fitting
 
@@ -266,6 +266,8 @@ Multiclass Brier sums over all three classes, $\sum_k(p_k-\mathbb1[y=k])^2$, rat
 
 Risk–coverage curves sort saved maximum probabilities with stable ties, and report weighted accepted-window error against weighted coverage. Fixed-cost outputs include coverage, accepted-sample error when coverage is positive, and realized cost including every deferral's 0.25 charge. Lower selective error from greater rejection is not treated as improvement at matched coverage.
 
+Always deferring is an analytical reference with zero coverage and cost 0.25. A model attaining that cost by rejecting every window has made no accepted diagnosis; cost and coverage must therefore be interpreted jointly.
+
 For the main split, 2,000 paired bootstrap draws resample its eight test bearings using seed 20260922. Each draw uses the same bearings for the compared methods. Intervals condition on the split and fitted models, omitting training and selection variation. Overlapped windows are never bootstrap units. Foldwise differences are separate because fitting data overlap across rotations. Failure to exclude zero is not evidence of equivalence.
 
 ### 5.6 Reproducibility and predeclared interpretation
@@ -280,7 +282,26 @@ A numerical hierarchy gain supports a hierarchy explanation. A gain retained by 
 
 The exported 2,048-point protocol covers every stored sample in all 2,559 recordings, yielding 376,173 windows. Actual adjacent start gaps range from 1,697 to 2,035 samples, corresponding to overlaps of 13–351 samples. In the per-window-standardized export, RMS and standard deviation both have mean 0.9999999972 and across-window standard deviation $6.58\times10^{-7}$, with values ranging from 0.99999442 to 1.00000485. They are nearly constant rather than exactly constant: training standardization rescales the remaining finite-precision variation, so these observations do not establish an exactly reduced-dimensional state. The amplitude-preserving export remains a separately frozen comparison. These are input and coverage measurements, not diagnostic-performance results.
 
-**Predictive results pending.** Valid saved outputs will supply feasibility comparisons, the primary calibrated contrast, raw and population-weighting checks, per-bearing uncertainty, and descriptive rotations. Window geometry and protocol counts are not predictive performance.
+### 6.2 Amplitude-preserving feasibility comparison
+
+The completed amplitude-preserving E1 run uses the selected 2,048-point window on the main split. It evaluates 94,080 test windows from eight bearings, with 11,760 windows per bearing. Its five calibration bearings provide 58,653 windows: four have 11,760 and KA08 has 11,613, reflecting the existing missing record. The numerical and legacy-Qwen heads both select $C=0.01$ on the tuning bearings. Qwen encoding uses frozen bfloat16 weights; this comparison retains the non-question-specific legacy representation rather than the E2 prompts.
+
+| Representation | Calibration | Test NLL | Brier | ECE | Coverage (%) | Cost |
+|---|---|---:|---:|---:|---:|---:|
+| Numerical | None | 1.0708 | 0.6555 | 0.1208 | 13.5406 | 0.2850 |
+| Numerical | Pooled | 1.0227 | 0.6216 | 0.1110 | 0.0744 | 0.2498 |
+| Numerical | Equal-bearing | 1.0225 | 0.6215 | 0.1105 | 0.0776 | 0.2498 |
+| Legacy Qwen | None | 1.2595 | 0.7145 | 0.2008 | 35.8578 | 0.3461 |
+| Legacy Qwen | Pooled | 1.0527 | 0.6370 | 0.0818 | 0 | 0.2500 |
+| Legacy Qwen | Equal-bearing | 1.0526 | 0.6369 | 0.0816 | 0 | 0.2500 |
+
+All values use equal-bearing evaluation weights; Brier sums the three class components. Numerical accuracy is 45.7345% and Macro-F1 is 0.3484; legacy-Qwen accuracy is 47.4596% and Macro-F1 is 0.4086. Each pair of class metrics is unchanged across its temperature variants, as required by global positive scaling. The pooled temperatures are 4.4970 for numerical and 7.2199 for Qwen; equal-bearing temperatures are 4.4776 and 7.1820. Pooled calibration lowers observed test NLL in both representations, while the calibrated legacy-Qwen NLL remains higher than its numerical counterpart. This is representation/calibration evidence, not a decomposition result.
+
+Equal-bearing minus pooled NLL is $-0.000171$ for numerical, with conditional paired 95% interval $[-0.000557,0.000270]$, and $-0.000162$ for legacy Qwen, with interval $[-0.000597,0.000319]$. Both intervals include zero; these data do not establish an advantage or equivalence. The calibration counts differ only by one recording, so this collection provides little contrast between the two weighting populations.
+
+The uncalibrated accepted-window error is 50.8125% for numerical and 51.8127% for legacy Qwen, yielding costs above the always-defer reference. Pooled numerical calibration accepts only 70 of the 94,080 windows, with no observed errors among those accepted; equal-bearing calibration accepts 73, also without observed errors. Both calibrated Qwen variants defer every window. Their cost of 0.25 therefore reflects zero diagnostic coverage, and the numerical cost near 0.25 reflects almost complete deferral rather than broad reliable diagnosis.
+
+**Remaining predictive results pending.** The standardized-observation comparison and E2 outputs will be reported only after their valid saved runs complete. The E1 findings above will not select or revise their already frozen protocols.
 
 ## 7. Discussion
 
