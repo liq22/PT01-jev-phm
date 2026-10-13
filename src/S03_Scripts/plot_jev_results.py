@@ -127,27 +127,28 @@ def save_figure(figure: plt.Figure, destination: Path) -> None:
 
 def method_figure(destination: Path) -> None:
     """A formal vector diagram of the implemented information and action flow."""
-    figure, ax = plt.subplots(figsize=(11.6, 3.25))
-    ax.set(xlim=(0, 12.4), ylim=(0, 3.5))
+    figure = plt.figure(figsize=(7.2, 3.15))
+    ax = figure.add_axes((.01, .03, .98, .96))
+    ax.set(xlim=(0, 10.7), ylim=(0, 3.6))
     ax.axis("off")
-    boxes = [(0.1, 1.15, 2.0, 1.2, "Observed vibration\nSix measured statistics\nShared input state s"),
-             (2.75, 2.05, 3.1, 1.1, "Fault presence question\nFrozen Qwen + binary head\nr = P(fault | s)"),
-             (2.75, 0.35, 3.1, 1.1, "Conditional identity question\nFrozen Qwen + fault-only head\nu = P(type | fault, s)"),
-             (6.6, 1.15, 2.65, 1.2, "Code-owned composition\np(H) = 1 − r\np(k) = r uₖ for each fault k"),
-             (9.8, 1.15, 2.4, 1.2, "Cost-based decision\nCalibrated leaf distribution\nDiagnosis or deferral")]
+    boxes = [(0.1, 1.35, 1.6, 1.2, "Vibration\nwindow\nSix statistics\nShared state s"),
+             (2.2, 2.2, 2.55, 1.2, "Fault presence\nFrozen Qwen\nBinary head\nr = P(fault | s)"),
+             (2.2, 0.55, 2.55, 1.2, "Conditional fault type\nFrozen Qwen\nFault-only head\nu = P(type | fault, s)"),
+             (5.45, 1.35, 2.35, 1.2, "Code composition\np(H) = 1 − r\np(k) = r uₖ, k ∈ F"),
+             (8.45, 1.35, 2.1, 1.2, "Calibrate leaf p\nApply cost rule\nDiagnose / defer")]
     for x, y, width, height, label in boxes:
-        color = "#e7f0f5" if x in (2.75, 6.6) else "#f3f3f3"
+        color = "#e7f0f5" if x in (2.2, 5.45) else "#f3f3f3"
         ax.add_patch(FancyBboxPatch((x, y), width, height, boxstyle="round,pad=0.02,rounding_size=0.06",
                                     facecolor=color, edgecolor="#43515c", linewidth=0.8))
         ax.text(x + width / 2, y + height / 2, label, ha="center", va="center", fontsize=9)
-    for start, end in (((2.1, 1.85), (2.75, 2.6)), ((2.1, 1.65), (2.75, .9)),
-                       ((5.85, 2.6), (6.6, 1.85)), ((5.85, .9), (6.6, 1.65)),
-                       ((9.25, 1.75), (9.8, 1.75))):
+    for start, end in (((1.7, 2.05), (2.2, 2.8)), ((1.7, 1.85), (2.2, 1.15)),
+                       ((4.75, 2.8), (5.45, 2.05)), ((4.75, 1.15), (5.45, 1.85)),
+                       ((7.8, 1.95), (8.45, 1.95))):
         ax.add_patch(FancyArrowPatch(start, end, arrowstyle="-|>", mutation_scale=12,
                                      linewidth=1, color="#43515c"))
-    ax.text(4.3, 1.72, "No answer exchange", ha="center", fontsize=8, color="#43515c")
-    ax.text(6.2, .03, "Branches use diagnosis-derived supervision; they are not independently measured physical concepts.",
-            ha="center", fontsize=8)
+    ax.text(3.475, 1.94, "No answer exchange", ha="center", fontsize=9, color="#43515c")
+    ax.text(5.35, .08, "Diagnosis-derived labels, not independently measured physical-concept supervision.",
+            ha="center", fontsize=9)
     save_figure(figure, destination)
 
 

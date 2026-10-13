@@ -1,0 +1,225 @@
+protocol,physical_unit,raw_label,class_index,class_name,role,source_record_count
+primary,Healthy Bearing K001,0.0,0,healthy,tune,80
+primary,Healthy Bearing K002,0.0,0,healthy,train,80
+primary,Healthy Bearing K003,0.0,0,healthy,test,80
+primary,Healthy Bearing K004,0.0,0,healthy,test,80
+primary,Healthy Bearing K005,0.0,0,healthy,train,80
+primary,Healthy Bearing K006,0.0,0,healthy,cal,80
+primary,Artificial Outer Ring Damage KA01,2.0,2,outer-race-dominant,tune,80
+primary,Artificial Outer Ring Damage KA03,2.0,2,outer-race-dominant,cal,80
+primary,Real Outer Ring Damage KA04,2.0,2,outer-race-dominant,train,80
+primary,Artificial Outer Ring Damage KA05,2.0,2,outer-race-dominant,train,80
+primary,Artificial Outer Ring Damage KA06,2.0,2,outer-race-dominant,test,80
+primary,Artificial Outer Ring Damage KA07,2.0,2,outer-race-dominant,train,80
+primary,Artificial Outer Ring Damage KA08,2.0,2,outer-race-dominant,cal,79
+primary,Artificial Outer Ring Damage KA09,2.0,2,outer-race-dominant,train,80
+primary,Real Outer Ring Damage KA15,2.0,2,outer-race-dominant,test,80
+primary,Real Outer Ring Damage KA16,2.0,2,outer-race-dominant,train,80
+primary,Real Outer Ring Damage KA22,2.0,2,outer-race-dominant,train,80
+primary,Real Outer Ring Damage KA30,2.0,2,outer-race-dominant,test,80
+primary,"Real Mixed Damage, IR Dominant KB23",1.0,1,inner-race-dominant,train,80
+primary,"Real Mixed Damage, IR Dominant KB24",1.0,1,inner-race-dominant,test,80
+primary,"Real Mixed Damage, OR Dominant KB27",2.0,2,outer-race-dominant,train,80
+primary,Artificial Inner Ring Damage KI01,1.0,1,inner-race-dominant,train,80
+primary,Artificial Inner Ring Damage KI03,1.0,1,inner-race-dominant,train,80
+primary,Real Inner Ring Damage KI04,1.0,1,inner-race-dominant,test,80
+primary,Artificial Inner Ring Damage KI05,1.0,1,inner-race-dominant,train,80
+primary,Artificial Inner Ring Damage KI07,1.0,1,inner-race-dominant,test,80
+primary,Artificial Inner Ring Damage KI08,1.0,1,inner-race-dominant,train,80
+primary,Real Inner Ring Damage KI14,1.0,1,inner-race-dominant,cal,80
+primary,Real Inner Ring Damage KI16,1.0,1,inner-race-dominant,tune,80
+primary,Real Inner Ring Damage KI17,1.0,1,inner-race-dominant,train,80
+primary,Real Inner Ring Damage KI18,1.0,1,inner-race-dominant,train,80
+primary,Real Inner Ring Damage KI21,1.0,1,inner-race-dominant,cal,80
+rotation_1,Healthy Bearing K001,0.0,0,healthy,tune,80
+rotation_1,Healthy Bearing K002,0.0,0,healthy,cal,80
+rotation_1,Healthy Bearing K003,0.0,0,healthy,train,80
+rotation_1,Healthy Bearing K004,0.0,0,healthy,train,80
+rotation_1,Healthy Bearing K005,0.0,0,healthy,test,80
+rotation_1,Healthy Bearing K006,0.0,0,healthy,train,80
+rotation_1,Artificial Outer Ring Damage KA01,2.0,2,outer-race-dominant,train,80
+rotation_1,Artificial Outer Ring Damage KA03,2.0,2,outer-race-dominant,train,80
+rotation_1,Real Outer Ring Damage KA04,2.0,2,outer-race-dominant,test,80
+rotation_1,Artificial Outer Ring Damage KA05,2.0,2,outer-race-dominant,cal,80
+rotation_1,Artificial Outer Ring Damage KA06,2.0,2,outer-race-dominant,train,80
+rotation_1,Artificial Outer Ring Damage KA07,2.0,2,outer-race-dominant,test,80
+rotation_1,Artificial Outer Ring Damage KA08,2.0,2,outer-race-dominant,train,79
+rotation_1,Artificial Outer Ring Damage KA09,2.0,2,outer-race-dominant,test,80
+rotation_1,Real Outer Ring Damage KA15,2.0,2,outer-race-dominant,train,80
+rotation_1,Real Outer Ring Damage KA16,2.0,2,outer-race-dominant,cal,80
+rotation_1,Real Outer Ring Damage KA22,2.0,2,outer-race-dominant,tune,80
+rotation_1,Real Outer Ring Damage KA30,2.0,2,outer-race-dominant,train,80
+rotation_1,"Real Mixed Damage, IR Dominant KB23",1.0,1,inner-race-dominant,cal,80
+rotation_1,"Real Mixed Damage, IR Dominant KB24",1.0,1,inner-race-dominant,train,80
+rotation_1,"Real Mixed Damage, OR Dominant KB27",2.0,2,outer-race-dominant,train,80
+rotation_1,Artificial Inner Ring Damage KI01,1.0,1,inner-race-dominant,test,80
+rotation_1,Artificial Inner Ring Damage KI03,1.0,1,inner-race-dominant,tune,80
+rotation_1,Real Inner Ring Damage KI04,1.0,1,inner-race-dominant,train,80
+rotation_1,Artificial Inner Ring Damage KI05,1.0,1,inner-race-dominant,test,80
+rotation_1,Artificial Inner Ring Damage KI07,1.0,1,inner-race-dominant,train,80
+rotation_1,Artificial Inner Ring Damage KI08,1.0,1,inner-race-dominant,test,80
+rotation_1,Real Inner Ring Damage KI14,1.0,1,inner-race-dominant,train,80
+rotation_1,Real Inner Ring Damage KI16,1.0,1,inner-race-dominant,train,80
+rotation_1,Real Inner Ring Damage KI17,1.0,1,inner-race-dominant,cal,80
+rotation_1,Real Inner Ring Damage KI18,1.0,1,inner-race-dominant,train,80
+rotation_1,Real Inner Ring Damage KI21,1.0,1,inner-race-dominant,train,80
+rotation_2,Healthy Bearing K001,0.0,0,healthy,cal,80
+rotation_2,Healthy Bearing K002,0.0,0,healthy,test,80
+rotation_2,Healthy Bearing K003,0.0,0,healthy,train,80
+rotation_2,Healthy Bearing K004,0.0,0,healthy,train,80
+rotation_2,Healthy Bearing K005,0.0,0,healthy,train,80
+rotation_2,Healthy Bearing K006,0.0,0,healthy,tune,80
+rotation_2,Artificial Outer Ring Damage KA01,2.0,2,outer-race-dominant,train,80
+rotation_2,Artificial Outer Ring Damage KA03,2.0,2,outer-race-dominant,train,80
+rotation_2,Real Outer Ring Damage KA04,2.0,2,outer-race-dominant,cal,80
+rotation_2,Artificial Outer Ring Damage KA05,2.0,2,outer-race-dominant,test,80
+rotation_2,Artificial Outer Ring Damage KA06,2.0,2,outer-race-dominant,train,80
+rotation_2,Artificial Outer Ring Damage KA07,2.0,2,outer-race-dominant,cal,80
+rotation_2,Artificial Outer Ring Damage KA08,2.0,2,outer-race-dominant,train,79
+rotation_2,Artificial Outer Ring Damage KA09,2.0,2,outer-race-dominant,tune,80
+rotation_2,Real Outer Ring Damage KA15,2.0,2,outer-race-dominant,train,80
+rotation_2,Real Outer Ring Damage KA16,2.0,2,outer-race-dominant,test,80
+rotation_2,Real Outer Ring Damage KA22,2.0,2,outer-race-dominant,train,80
+rotation_2,Real Outer Ring Damage KA30,2.0,2,outer-race-dominant,train,80
+rotation_2,"Real Mixed Damage, IR Dominant KB23",1.0,1,inner-race-dominant,test,80
+rotation_2,"Real Mixed Damage, IR Dominant KB24",1.0,1,inner-race-dominant,train,80
+rotation_2,"Real Mixed Damage, OR Dominant KB27",2.0,2,outer-race-dominant,train,80
+rotation_2,Artificial Inner Ring Damage KI01,1.0,1,inner-race-dominant,cal,80
+rotation_2,Artificial Inner Ring Damage KI03,1.0,1,inner-race-dominant,train,80
+rotation_2,Real Inner Ring Damage KI04,1.0,1,inner-race-dominant,train,80
+rotation_2,Artificial Inner Ring Damage KI05,1.0,1,inner-race-dominant,tune,80
+rotation_2,Artificial Inner Ring Damage KI07,1.0,1,inner-race-dominant,train,80
+rotation_2,Artificial Inner Ring Damage KI08,1.0,1,inner-race-dominant,cal,80
+rotation_2,Real Inner Ring Damage KI14,1.0,1,inner-race-dominant,train,80
+rotation_2,Real Inner Ring Damage KI16,1.0,1,inner-race-dominant,train,80
+rotation_2,Real Inner Ring Damage KI17,1.0,1,inner-race-dominant,test,80
+rotation_2,Real Inner Ring Damage KI18,1.0,1,inner-race-dominant,train,80
+rotation_2,Real Inner Ring Damage KI21,1.0,1,inner-race-dominant,train,80
+rotation_3,Healthy Bearing K001,0.0,0,healthy,test,80
+rotation_3,Healthy Bearing K002,0.0,0,healthy,train,80
+rotation_3,Healthy Bearing K003,0.0,0,healthy,train,80
+rotation_3,Healthy Bearing K004,0.0,0,healthy,tune,80
+rotation_3,Healthy Bearing K005,0.0,0,healthy,train,80
+rotation_3,Healthy Bearing K006,0.0,0,healthy,cal,80
+rotation_3,Artificial Outer Ring Damage KA01,2.0,2,outer-race-dominant,train,80
+rotation_3,Artificial Outer Ring Damage KA03,2.0,2,outer-race-dominant,train,80
+rotation_3,Real Outer Ring Damage KA04,2.0,2,outer-race-dominant,cal,80
+rotation_3,Artificial Outer Ring Damage KA05,2.0,2,outer-race-dominant,train,80
+rotation_3,Artificial Outer Ring Damage KA06,2.0,2,outer-race-dominant,train,80
+rotation_3,Artificial Outer Ring Damage KA07,2.0,2,outer-race-dominant,cal,80
+rotation_3,Artificial Outer Ring Damage KA08,2.0,2,outer-race-dominant,train,79
+rotation_3,Artificial Outer Ring Damage KA09,2.0,2,outer-race-dominant,tune,80
+rotation_3,Real Outer Ring Damage KA15,2.0,2,outer-race-dominant,train,80
+rotation_3,Real Outer Ring Damage KA16,2.0,2,outer-race-dominant,train,80
+rotation_3,Real Outer Ring Damage KA22,2.0,2,outer-race-dominant,test,80
+rotation_3,Real Outer Ring Damage KA30,2.0,2,outer-race-dominant,train,80
+rotation_3,"Real Mixed Damage, IR Dominant KB23",1.0,1,inner-race-dominant,train,80
+rotation_3,"Real Mixed Damage, IR Dominant KB24",1.0,1,inner-race-dominant,train,80
+rotation_3,"Real Mixed Damage, OR Dominant KB27",2.0,2,outer-race-dominant,test,80
+rotation_3,Artificial Inner Ring Damage KI01,1.0,1,inner-race-dominant,cal,80
+rotation_3,Artificial Inner Ring Damage KI03,1.0,1,inner-race-dominant,test,80
+rotation_3,Real Inner Ring Damage KI04,1.0,1,inner-race-dominant,train,80
+rotation_3,Artificial Inner Ring Damage KI05,1.0,1,inner-race-dominant,tune,80
+rotation_3,Artificial Inner Ring Damage KI07,1.0,1,inner-race-dominant,train,80
+rotation_3,Artificial Inner Ring Damage KI08,1.0,1,inner-race-dominant,cal,80
+rotation_3,Real Inner Ring Damage KI14,1.0,1,inner-race-dominant,train,80
+rotation_3,Real Inner Ring Damage KI16,1.0,1,inner-race-dominant,train,80
+rotation_3,Real Inner Ring Damage KI17,1.0,1,inner-race-dominant,train,80
+rotation_3,Real Inner Ring Damage KI18,1.0,1,inner-race-dominant,test,80
+rotation_3,Real Inner Ring Damage KI21,1.0,1,inner-race-dominant,train,80
+rotation_4,Healthy Bearing K001,0.0,0,healthy,train,80
+rotation_4,Healthy Bearing K002,0.0,0,healthy,train,80
+rotation_4,Healthy Bearing K003,0.0,0,healthy,tune,80
+rotation_4,Healthy Bearing K004,0.0,0,healthy,cal,80
+rotation_4,Healthy Bearing K005,0.0,0,healthy,train,80
+rotation_4,Healthy Bearing K006,0.0,0,healthy,test,80
+rotation_4,Artificial Outer Ring Damage KA01,2.0,2,outer-race-dominant,test,80
+rotation_4,Artificial Outer Ring Damage KA03,2.0,2,outer-race-dominant,train,80
+rotation_4,Real Outer Ring Damage KA04,2.0,2,outer-race-dominant,cal,80
+rotation_4,Artificial Outer Ring Damage KA05,2.0,2,outer-race-dominant,train,80
+rotation_4,Artificial Outer Ring Damage KA06,2.0,2,outer-race-dominant,train,80
+rotation_4,Artificial Outer Ring Damage KA07,2.0,2,outer-race-dominant,cal,80
+rotation_4,Artificial Outer Ring Damage KA08,2.0,2,outer-race-dominant,test,79
+rotation_4,Artificial Outer Ring Damage KA09,2.0,2,outer-race-dominant,tune,80
+rotation_4,Real Outer Ring Damage KA15,2.0,2,outer-race-dominant,train,80
+rotation_4,Real Outer Ring Damage KA16,2.0,2,outer-race-dominant,train,80
+rotation_4,Real Outer Ring Damage KA22,2.0,2,outer-race-dominant,train,80
+rotation_4,Real Outer Ring Damage KA30,2.0,2,outer-race-dominant,train,80
+rotation_4,"Real Mixed Damage, IR Dominant KB23",1.0,1,inner-race-dominant,train,80
+rotation_4,"Real Mixed Damage, IR Dominant KB24",1.0,1,inner-race-dominant,train,80
+rotation_4,"Real Mixed Damage, OR Dominant KB27",2.0,2,outer-race-dominant,train,80
+rotation_4,Artificial Inner Ring Damage KI01,1.0,1,inner-race-dominant,cal,80
+rotation_4,Artificial Inner Ring Damage KI03,1.0,1,inner-race-dominant,train,80
+rotation_4,Real Inner Ring Damage KI04,1.0,1,inner-race-dominant,train,80
+rotation_4,Artificial Inner Ring Damage KI05,1.0,1,inner-race-dominant,tune,80
+rotation_4,Artificial Inner Ring Damage KI07,1.0,1,inner-race-dominant,train,80
+rotation_4,Artificial Inner Ring Damage KI08,1.0,1,inner-race-dominant,cal,80
+rotation_4,Real Inner Ring Damage KI14,1.0,1,inner-race-dominant,test,80
+rotation_4,Real Inner Ring Damage KI16,1.0,1,inner-race-dominant,test,80
+rotation_4,Real Inner Ring Damage KI17,1.0,1,inner-race-dominant,train,80
+rotation_4,Real Inner Ring Damage KI18,1.0,1,inner-race-dominant,train,80
+rotation_4,Real Inner Ring Damage KI21,1.0,1,inner-race-dominant,train,80
+rotation_5,Healthy Bearing K001,0.0,0,healthy,train,80
+rotation_5,Healthy Bearing K002,0.0,0,healthy,train,80
+rotation_5,Healthy Bearing K003,0.0,0,healthy,cal,80
+rotation_5,Healthy Bearing K004,0.0,0,healthy,test,80
+rotation_5,Healthy Bearing K005,0.0,0,healthy,tune,80
+rotation_5,Healthy Bearing K006,0.0,0,healthy,train,80
+rotation_5,Artificial Outer Ring Damage KA01,2.0,2,outer-race-dominant,train,80
+rotation_5,Artificial Outer Ring Damage KA03,2.0,2,outer-race-dominant,test,80
+rotation_5,Real Outer Ring Damage KA04,2.0,2,outer-race-dominant,cal,80
+rotation_5,Artificial Outer Ring Damage KA05,2.0,2,outer-race-dominant,train,80
+rotation_5,Artificial Outer Ring Damage KA06,2.0,2,outer-race-dominant,test,80
+rotation_5,Artificial Outer Ring Damage KA07,2.0,2,outer-race-dominant,cal,80
+rotation_5,Artificial Outer Ring Damage KA08,2.0,2,outer-race-dominant,train,79
+rotation_5,Artificial Outer Ring Damage KA09,2.0,2,outer-race-dominant,tune,80
+rotation_5,Real Outer Ring Damage KA15,2.0,2,outer-race-dominant,train,80
+rotation_5,Real Outer Ring Damage KA16,2.0,2,outer-race-dominant,train,80
+rotation_5,Real Outer Ring Damage KA22,2.0,2,outer-race-dominant,train,80
+rotation_5,Real Outer Ring Damage KA30,2.0,2,outer-race-dominant,train,80
+rotation_5,"Real Mixed Damage, IR Dominant KB23",1.0,1,inner-race-dominant,train,80
+rotation_5,"Real Mixed Damage, IR Dominant KB24",1.0,1,inner-race-dominant,train,80
+rotation_5,"Real Mixed Damage, OR Dominant KB27",2.0,2,outer-race-dominant,train,80
+rotation_5,Artificial Inner Ring Damage KI01,1.0,1,inner-race-dominant,cal,80
+rotation_5,Artificial Inner Ring Damage KI03,1.0,1,inner-race-dominant,train,80
+rotation_5,Real Inner Ring Damage KI04,1.0,1,inner-race-dominant,train,80
+rotation_5,Artificial Inner Ring Damage KI05,1.0,1,inner-race-dominant,tune,80
+rotation_5,Artificial Inner Ring Damage KI07,1.0,1,inner-race-dominant,test,80
+rotation_5,Artificial Inner Ring Damage KI08,1.0,1,inner-race-dominant,cal,80
+rotation_5,Real Inner Ring Damage KI14,1.0,1,inner-race-dominant,train,80
+rotation_5,Real Inner Ring Damage KI16,1.0,1,inner-race-dominant,train,80
+rotation_5,Real Inner Ring Damage KI17,1.0,1,inner-race-dominant,train,80
+rotation_5,Real Inner Ring Damage KI18,1.0,1,inner-race-dominant,train,80
+rotation_5,Real Inner Ring Damage KI21,1.0,1,inner-race-dominant,test,80
+rotation_6,Healthy Bearing K001,0.0,0,healthy,train,80
+rotation_6,Healthy Bearing K002,0.0,0,healthy,tune,80
+rotation_6,Healthy Bearing K003,0.0,0,healthy,test,80
+rotation_6,Healthy Bearing K004,0.0,0,healthy,train,80
+rotation_6,Healthy Bearing K005,0.0,0,healthy,cal,80
+rotation_6,Healthy Bearing K006,0.0,0,healthy,train,80
+rotation_6,Artificial Outer Ring Damage KA01,2.0,2,outer-race-dominant,train,80
+rotation_6,Artificial Outer Ring Damage KA03,2.0,2,outer-race-dominant,train,80
+rotation_6,Real Outer Ring Damage KA04,2.0,2,outer-race-dominant,cal,80
+rotation_6,Artificial Outer Ring Damage KA05,2.0,2,outer-race-dominant,train,80
+rotation_6,Artificial Outer Ring Damage KA06,2.0,2,outer-race-dominant,train,80
+rotation_6,Artificial Outer Ring Damage KA07,2.0,2,outer-race-dominant,cal,80
+rotation_6,Artificial Outer Ring Damage KA08,2.0,2,outer-race-dominant,train,79
+rotation_6,Artificial Outer Ring Damage KA09,2.0,2,outer-race-dominant,tune,80
+rotation_6,Real Outer Ring Damage KA15,2.0,2,outer-race-dominant,test,80
+rotation_6,Real Outer Ring Damage KA16,2.0,2,outer-race-dominant,train,80
+rotation_6,Real Outer Ring Damage KA22,2.0,2,outer-race-dominant,train,80
+rotation_6,Real Outer Ring Damage KA30,2.0,2,outer-race-dominant,test,80
+rotation_6,"Real Mixed Damage, IR Dominant KB23",1.0,1,inner-race-dominant,train,80
+rotation_6,"Real Mixed Damage, IR Dominant KB24",1.0,1,inner-race-dominant,test,80
+rotation_6,"Real Mixed Damage, OR Dominant KB27",2.0,2,outer-race-dominant,train,80
+rotation_6,Artificial Inner Ring Damage KI01,1.0,1,inner-race-dominant,cal,80
+rotation_6,Artificial Inner Ring Damage KI03,1.0,1,inner-race-dominant,train,80
+rotation_6,Real Inner Ring Damage KI04,1.0,1,inner-race-dominant,test,80
+rotation_6,Artificial Inner Ring Damage KI05,1.0,1,inner-race-dominant,tune,80
+rotation_6,Artificial Inner Ring Damage KI07,1.0,1,inner-race-dominant,train,80
+rotation_6,Artificial Inner Ring Damage KI08,1.0,1,inner-race-dominant,cal,80
+rotation_6,Real Inner Ring Damage KI14,1.0,1,inner-race-dominant,train,80
+rotation_6,Real Inner Ring Damage KI16,1.0,1,inner-race-dominant,train,80
+rotation_6,Real Inner Ring Damage KI17,1.0,1,inner-race-dominant,train,80
+rotation_6,Real Inner Ring Damage KI18,1.0,1,inner-race-dominant,train,80
+rotation_6,Real Inner Ring Damage KI21,1.0,1,inner-race-dominant,train,80
