@@ -1,0 +1,6 @@
+charset-normalizer==3.5.2
+pillow==12.3.0
+pypdf==6.20.1
+pypdfium2==5.14.0
+reportlab==5.0.1
+typing_extensions==4.16.0
