@@ -138,11 +138,11 @@ $$
 
 The initial readout is a dot product, not an additional mixture, retrieval system, or generated explanation. One signal encoding supports all candidates; no dataset-specific classifier rows are fitted. Candidate embeddings can be precomputed for a fixed model and candidate definitions. Reordering distinct candidates reorders the probability vector, whereas duplicating an alias would incorrectly change its normalization and is disallowed. Changing the candidate set changes the conditional classification task and need not preserve calibration.
 
-The signal adapter must be fixed from source development data before testing. Token-budget control does not justify undocumented downsampling, aliasing, removal of transients, or fabricated speed/geometry metadata. Six temporal statistics remain a pilot ablation, not a assumed sufficient representation. PHMFactory owns reading and sampling; any prospective signal adapter must preserve the existing data boundary rather than introduce a second loader.
+The signal adapter must be fixed from source development data before testing. Token-budget control does not justify undocumented downsampling, aliasing, fabricated sample rates, or discarding transients without evaluation. HSE supplies relevant prior input-alignment work, not a new component claimed here [@hse2025]. The first implementation must document patch duration, channel handling, amplitude normalization, and any anti-alias filtering. These settings have not been selected or executed for the proposed method. The six pilot statistics remain a distinct baseline, not a substitute for that signal-interface validation.
 
-### 4.2 Learning from the annotated event
+### 4.2 Supervision at the recorded label granularity
 
-For a verified deterministic map in Section 3.2, the probability of an observed source annotation is the sum over its disjoint fine states. The loss is
+For a justified deterministic coarsening, the probability of observing $y_d$ is the sum over its preimage, giving
 
 $$
 \ell_d(\Theta;x,y_d)=
