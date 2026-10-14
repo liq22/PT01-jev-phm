@@ -1,0 +1,17 @@
+{
+  "project_paper_curator": {
+    "total_references": 10,
+    "selected_unique_papers": 10,
+    "downloaded_unique_papers": 10,
+    "project_pdfs": 10,
+    "missing_unique_papers": 0,
+    "missing_references": 0,
+    "conflicts": [],
+    "checks": [
+      "positive identity checks bound to SHA256",
+      "existing columns and untouched rows retained",
+      "same-name different-content files preserved",
+      "managed Markdown blocks preserve surrounding text"
+    ]
+  }
+}

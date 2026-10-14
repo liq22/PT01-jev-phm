@@ -4,11 +4,11 @@
 
 ### 1.1 状态与文件版本分开
 
-核验日期：2026-10-13。保留上一版 01–20 编号，便于对应下载文件。分组依据为出版社、会议论文集、arXiv 作者声明或作者/实验室主页；arXiv 是文件托管渠道，不等于未录用。未检索到录用记录只表示本轮未核验，不等于作者未获录用。
+题录核验日期：2026-10-13；全文获取与归档日期：2026-10-14。保留上一版 01–20 编号，便于对应下载文件。分组依据为出版社、会议论文集、arXiv 作者声明或作者/实验室主页；arXiv 是文件托管渠道，不等于未录用。未检索到录用记录只表示本轮未核验，不等于作者未获录用。
 
 A 组 13 项有正式期刊/会议记录或明确会议录用声明；B 组 1 项由作者公开列为期刊论文，但正式出版信息仍待核；C 组 6 项仅核验到预印本或技术报告。第 09 项改为优先阅读同团队的相关期刊论文；旧预印本不是自动认定的期刊终稿。版本关系不能靠相同模型名推断。
 
-本轮核验的是题录、发表状态、原始摘要及可获得的方法说明，不声称逐篇完整阅读、下载 PDF 或复现结果。某些出版社完整页面访问失败，使用了其公开索引和作者一手页面；相应限制列于备注。
+2026-10-13 的工作核验了题录、发表状态、原始摘要及可获得的方法说明，没有声称逐篇完整阅读、下载 PDF 或复现结果。2026-10-14 的实际全文获取与核验见第 6 节；下载及前两页身份核验不等于全文精读。某些出版社完整页面访问失败，使用了其公开索引和作者一手页面；相应限制列于备注。
 
 ## 2. A｜已发表或会议录用明确（13 项）
 
@@ -71,3 +71,50 @@ Qwen 文献退到“实现实例与对照”的位置。下一步方法定义维
 引用有正式记录的工作时优先正式题录和 DOI；公开 PDF 可以来自作者 arXiv。对第 09 项，期刊文章与旧预印本暂按相关工作沿革处理，不宣称逐字终稿对应。UniFault 保留作者报告的期刊归属和未核验字段。不将 20 项全部塞入当前已完成候选稿的 bibliography。
 
 本文件是用户要求的聚焦下载清单，并非替代 50 篇 [reading_matrix.md](reading_matrix.md)。新建的理由是保留原 01–20 下载编号与逐项出版/文件版本状态，避免重排已有 50 篇学习记录。没有新实验、已验证性能或“首个”结论。
+
+## 6. 实际全文获取与归档（2026-10-14）
+
+### 6.1 18 篇已取得，2 篇仍缺失
+
+20 项中实际取得并通过 PDF 结构与身份核验的独立论文为 **18 篇**：17 篇本轮下载，HSE 复用本机已有正式版。未取得第 09、10 项。**10 份许可允许的原样 PDF 已纳入公开论文库，另 8 份只保留本地**；公开库的 10 篇统计不是完整清单的下载数量。
+
+全部版本、完整作者、发表题录、许可来源及逐文件核验结果见 [获取记录](../library/jev-generalist-20/references.json)。[公开论文库说明](../library/README.md)包含依赖和复现命令；完整本地库位于 `.venv/paper-curator/library/jev-generalist-20/`，其中 `INDEX.md` 提供实际文件入口，父目录的 `manifest.csv` 和 `missing.csv` 记录全部 20 项。公开库没有忽略规则；本地受限全文沿用 `.venv/` 的现有忽略规则。
+
+| 编号 | 实际文件版本 | 页数 | 保存状态／入口 |
+|---|---|---:|---|
+| 01 | arXiv 2610.09937v1 | 58 | [公开 PDF](../library/jev-generalist-20/R01_2026_Where_Can_a_Decision_Model_Diagnose_HVAC_Faults_Reasoning_Demand_Physical_Representation_and_Robustness_Under_Shift.pdf)；CC BY-NC-ND 4.0 |
+| 02 | arXiv 2508.07662v1 | 14 | [公开 PDF](../library/jev-generalist-20/R02_2025_GLiClass_Generalist_Lightweight_Model_for_Sequence_Classification_Tasks.pdf)；CC BY-NC-ND 4.0 |
+| 03 | arXiv 2504.01373v2（2025） | 16 | [公开 PDF](../library/jev-generalist-20/R03_2025_UniFault_A_Fault_Diagnosis_Foundation_Model_from_Bearing_Data.pdf)；CC BY 4.0；不标为 TII 终稿 |
+| 04 | arXiv 2605.04528v1 | 18 | 仅本地；[固定版本来源](https://arxiv.org/abs/2605.04528v1) |
+| 05 | Information Fusion 正式版 | 15 | 复用本地文件；保留全部权利，未公开转载 |
+| 06 | Engineering 63（2026）正式版 | 17 | [公开 PDF](../library/jev-generalist-20/R06_2026_PHMGPT_A_Large_Language_Model_for_Prognostics_and_Health_Management.pdf)；CC BY-NC-ND 4.0 |
+| 07 | arXiv 2409.07482v2（2025） | 26 | [公开 PDF](../library/jev-generalist-20/R07_2025_VSLLaVA_a_pipeline_of_large_multimodal_foundation_model_for_industrial_vibration_signal_analysis.pdf)；CC BY-NC-SA 4.0；非期刊终稿 |
+| 08 | arXiv 2502.15481v1 | 11 | 仅本地；[固定版本来源](https://arxiv.org/abs/2502.15481v1) |
+| 09 | 未取得可核验全文 | — | [正式入口](https://doi.org/10.1016/j.engappai.2025.113131)；[同题 SSRN 稿](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5404598)的 PDF 返回 403，仍未核验 |
+| 10 | 未取得可核验全文 | — | [正式入口](https://doi.org/10.1016/j.aei.2025.103208)；需合法机构访问或作者稿 |
+| 11 | Technologies 正式版 | 23 | [公开 PDF](../library/jev-generalist-20/R11_2026_PGA_LLM_A_Probability_Guided_Alignment_Large_Language_Model_Framework_for_Fault_Diagnosis.pdf)；CC BY 4.0 |
+| 12 | AI 正式版 | 23 | [公开 PDF](../library/jev-generalist-20/R12_2026_A_Multi_Stage_Post_Training_Framework_for_Domain_Specific_Language_Models_in_Fault_Diagnosis.pdf)；CC BY 4.0 |
+| 13 | arXiv 2505.09388v1 | 35 | 仅本地；[固定版本来源](https://arxiv.org/abs/2505.09388v1) |
+| 14 | arXiv 2506.05176v3 | 14 | 仅本地；[固定版本来源](https://arxiv.org/abs/2506.05176v3) |
+| 15 | arXiv 2404.05961v2 | 28 | [公开 PDF](../library/jev-generalist-20/R15_2024_LLM2Vec_Large_Language_Models_Are_Secretly_Powerful_Text_Encoders.pdf)；CC BY 4.0；COLM 已发表，文件仍标 arXiv 版本 |
+| 16 | ICML／PMLR 正式版 | 16 | [公开 PDF](../library/jev-generalist-20/R16_2021_Learning_Transferable_Visual_Models_From_Natural_Language_Supervision.pdf)；CC BY 4.0 |
+| 17 | NeurIPS 2024 正式版 | 43 | 仅本地；[正式来源](https://proceedings.neurips.cc/paper_files/paper/2024/hash/fe248e22b241ae5a9adf11493c8c12bc-Abstract-Conference.html)；第三方公开转载许可未确认 |
+| 18 | Findings of ACL 2023 正式版 | 15 | [公开 PDF](../library/jev-generalist-20/R18_2023_Distilling_Step_by_Step_Outperforming_Larger_Language_Models_with_Less_Training_Data_and_Smaller_Model_Sizes.pdf)；CC BY 4.0 |
+| 19 | NeurIPS 2024 正式版 | 30 | 仅本地；[正式来源](https://proceedings.neurips.cc/paper_files/paper/2024/hash/6ed5bf446f59e2c6646d23058c86424b-Abstract-Conference.html)；第三方公开转载许可未确认 |
+| 20 | arXiv 2509.22267v5（2026） | 40 | 仅本地；[固定版本来源](https://arxiv.org/abs/2509.22267v5)；未取得出版社终稿 |
+
+### 6.2 实际核验发现与边界
+
+- UniFault v2 的实际作者名单包含 Edward，而作者主页的 TII 2026 清单未列此人。文件作者与主页题录分别保存；接受稿身份、IEEE DOI及正式作者名单仍待核。
+- VSLLaVA 下载稿的题名和年份为 arXiv v2 的实际信息，与 2026 年期刊题录分别记录；官方 arXiv 记录关联了正式 DOI，但不据此声称两个文件逐字相同。
+- 第 09 项找到同题、同六名作者的 SSRN 5404598，比旧 FD-LLM 预印本更接近所列期刊论文；仍因全文交付返回 403而未完成 PDF 核验。旧 arXiv 2412.01218 没有被下载为该项替代文件。
+- 第 20 项固定至 v5，实际稿件描述四个数据集；不混用早期预印本的三个数据集描述，也不标成出版社终稿。
+- Qwen 文中模型权重的 Apache 2.0 声明不作为论文 PDF 的转载许可。第 04、08、13、14、20 项的 arXiv 分发许可未提供本仓库的公开转载授权；NeurIPS 两篇正式 PDF 的第三方转载许可也未确认，因此全部保留本地。
+
+### 6.3 核验方法与剩余获取条件
+
+使用原 ZIP 技能的 `verify_pdf.py`、`archive_papers.py --dry-run` 和正式归档。18 份可用文件均通过 PDF 签名、严格解析、前两页题名／作者匹配及 PDFium 全页页数／尺寸核验；另检查了可见 DOI或可靠原始页面与文件的关联。保留文件 SHA256用于版本识别与去重，没有新增其他哈希台账。原技能的 18 项隔离回归测试通过。
+
+机构通道已获本任务授权，但当前执行环境没有图形登录会话，也没有提供本任务专用的已认证浏览器端点，因此没有声称已尝试机构订阅下载或证明机构无权限。第 09、10 项的最小剩余条件是可用的正常机构登录通道，或可合法取得且身份核验一致的作者全文。认证、验证码或访问限制不通过脚本绕过。
+
+本轮不新增实验、方法有效性结论或全文精读记录，也不将 20 项自动加入正文 bibliography。
