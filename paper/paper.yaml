@@ -1,7 +1,7 @@
-# Current research state after the frozen real-data attribution study.
+# Current manuscript distinguishes a proposed general method from its completed pilot.
 schema_version: 1
 project_name: Jev-PHM
-paper_title: "Question-Conditioned Probability Composition for Bearing Fault Diagnosis: A Controlled Attribution Study"
+paper_title: "Jev-PHM: Non-Generative Fault Diagnosis Across Datasets with Heterogeneous Annotations"
 short_title: Jev-PHM
 language: English
 paper_stage: markdown_draft
@@ -18,46 +18,57 @@ idea_selection:
   approved_by: []
   approved_at: TODO
 problem_definition:
-  object: Single-channel vibration observations of industrial equipment
-  environment: PU closed-set supervised dominant-category diagnosis on disjoint physical bearings
-  observation: Six features from explicitly selected vibration windows; prospective full-coverage and amplitude-preserving protocols
-  task_or_decision: Fault probabilities and explicit cost-based deferral
-  failure_or_contradiction: Typed validity does not establish useful diagnosis; composition and evidence changes can confound apparent model gains
-  desired_understanding: Whether scoped diagnostic judgments improve decisions beyond flat and factorized numerical and Qwen controls
+  object: Vibration-based single-label fault diagnosis with semantically defined candidates
+  environment: Proposed source-only cross-dataset transfer; completed pilot is PU bearing-disjoint classification only
+  observation: Proposed bounded signal tokens and measurement metadata; existing pilot uses six temporal statistics
+  task_or_decision: Candidate probabilities and explicit diagnosis-or-defer action
+  failure_or_contradiction: Measurement shifts and incompatible label granularity are not resolved by removing response generation
+  desired_understanding: When annotation-compatible supervision supports target diagnostic distinctions, and how readout changes the error-latency relation
 research_state:
-  central_question: Does question-conditioned decomposition provide useful PHM probabilities beyond direct prediction at comparable evidence, supervision and computation?
-  current_claim_at_risk: The proposed PHM workflow provides an increment beyond ordinary hierarchy, calibration or additional model evaluations
-  strongest_support: All nine saved evaluations completed; primary question-factorized minus flat NLL is -0.001102 with conditional interval [-0.008577, 0.005163]; six rotations reverse direction three times each
-  favored_explanation: The measured increment depends on bearing allocation and probability parameterization; no linguistic or physical mechanism has been established
-  strongest_competing_explanation: Ordinary hierarchy and additional direct questions remain sufficient competing explanations; shared-Qwen hierarchy has lower primary point NLL than question factorization
-  largest_unresolved_uncertainty: External validity beyond these compact states, prompts, backbone and one physical-bearing collection
-  current_novelty_risk: NanoJev already uses Qwen3-0.6B decision heads and atomic judgments with code; hierarchical selective classification and proper scoring are prior art
-  most_informative_next_action: Complete author review of the bounded attribution manuscript; any broader advantage claim requires a prospectively frozen test on additional independent equipment
-  possible_outcomes_and_decisions: Retain the valid negative attribution result and separate input restoration, calibration and ordinary hierarchy from question conditioning
-  stopping_condition: Valid core comparisons, evidence-grounded full Markdown candidate and readable preview, reproducible artifacts and final PR checks; author and submission approvals remain pending
+  central_question: Under measurement shift and verified source annotation coarsening, when does compatible supervision improve excluded-dataset NLL or classification error; independently, how does non-generative readout change the error-latency frontier at fixed information and source-only selection?
+  current_claim_at_risk: The proposed semantic method adds a PHM-specific increment beyond conventional semantic matching and justified coarse-label learning
+  strongest_support: Completed PU pilot remains negative; manuscript now includes a self-contained coarsening non-identifiability example, not a new guarantee or target-transfer result
+  favored_explanation: Semantically correct supervision may avoid false fine labels; benefits require informative source distinctions and transferable signal relationships
+  strongest_competing_explanation: Common label mapping or an ordinary semantic matcher explains any benefit; reduced decoding alone explains any latency change
+  largest_unresolved_uncertainty: Native cross-dataset annotation compatibility and empirical benefit of the unimplemented semantic method
+  current_novelty_risk: GLiClass includes shared semantic readout; YOTOnet studies target-free diagnosis; Cour and Fotakis establish partial/coarse-label foundations; no first-ever claim
+  most_informative_next_action: Verify a native source/target fault vocabulary and implement the smallest compatible-label comparison in the existing runtime, then use the pending comparisons in manuscript Section 7
+  possible_outcomes_and_decisions: Preserve C1-C3 as pilot-only; reject semantic-supervision claims if labels are already exact or controls explain gains; report negative transfer and latency-accuracy tradeoffs
+  stopping_condition: Scientific-question, terminology, notation and manuscript revision complete; general-method validation and venue/author decisions remain pending
 main_claims:
   - claim_id: C1
-    statement: The frozen question-conditioned workflow has no established primary NLL increment over direct Qwen prediction or the required attribution controls; rotation differences change sign.
+    statement: The frozen pilot has no established primary NLL increment over direct Qwen or its attribution controls; rotation differences change sign.
     status: supported_bounded_negative_finding
     evidence: paper/assets/tables/jev_study_summary.json
-    boundary: One PU cohort and compact six-statistic state; nonsignificance does not establish equivalence, and rotations are not independent replications.
+    boundary: One PU cohort and six-statistic state; not a test of the proposed semantic method, equivalence, or cross-dataset transfer.
   - claim_id: C2
-    statement: Probability and decision metrics disagree in the primary comparison; every calibrated Qwen arm defers all test windows at the declared cost.
+    statement: Pilot probability and decision metrics disagree; every calibrated primary Qwen arm defers all test windows at the declared cost.
     status: supported_observation
     evidence: paper/assets/tables/jev_metrics.csv
-    boundary: Scenario error cost 1 and deferral cost 0.25; no safety, maintenance or expert-transfer benefit is established.
+    boundary: Error cost 1 and deferral cost 0.25; no safety, maintenance, or expert-transfer benefit.
   - claim_id: C3
-    statement: Shared amplitude preservation lowers pooled E1 NLL for both representations, while all four equal-bearing-minus-pooled calibration intervals include zero.
+    statement: Shared amplitude preservation lowers pooled pilot E1 NLL for both representations; all four equal-bearing-minus-pooled calibration intervals include zero.
     status: supported_conditional_observation
     evidence: paper/assets/tables/jev_study_summary.json
-    boundary: This is a preprocessing/calibration result on the primary split, not question-decomposition evidence or equivalence of weighting schemes.
+    boundary: Primary-split preprocessing/calibration observation, not semantic learning or equivalence of weighting schemes.
+  - claim_id: C4
+    statement: Verified annotation-compatible source supervision improves excluded-dataset diagnostic NLL or error beyond conventional semantic controls.
+    status: hypothesis_pending_validation
+    evidence: paper/draft/main.md
+    boundary: No native cross-dataset mapping or experiment yet; coarse supervision alone cannot identify all finer states.
+  - claim_id: C5
+    statement: Direct semantic readout provides a favorable diagnostic error-latency relation across compatible backbone instances.
+    status: hypothesis_pending_validation
+    evidence: paper/draft/main.md
+    boundary: Mathematical zero-response-token and scoring-cost properties are not measured end-to-end benefits or validated backbone portability.
 main_contributions:
   - contribution_id: CTR-001
-    statement: A controlled physical-bearing attribution result separates diagnostic question conditioning from ordinary hierarchy and a fixed equal-question-count direct ensemble, and locates the unsupported stable-increment claim.
+    statement: Completed pilot attribution separates diagnostic question conditioning from ordinary hierarchy and another direct question, with a bounded negative result.
     supporting_claims: [C1]
   - contribution_id: CTR-002
-    statement: An empirical boundary connects preprocessing and probability quality to cost-based diagnostic coverage, showing why valid typed composition and lower ECE do not establish useful selective diagnosis here.
+    statement: Completed pilot observation distinguishes preprocessing, probability quality and cost-based acceptance; coherent typing or lower ECE does not establish useful diagnosis here.
     supporting_claims: [C2, C3]
+# C4-C5 remain hypotheses, not established empirical contributions.
 required_experiments:
   - experiment_id: E0
     status: completed
