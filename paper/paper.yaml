@@ -1,4 +1,4 @@
-# Current manuscript distinguishes a proposed general method from its completed pilot.
+# Project metadata and claim index. Current judgments and unique next action: paper/STATUS.md.
 schema_version: 1
 project_name: Jev-PHM
 paper_title: "Jev-PHM: Non-Generative Fault Diagnosis Across Datasets with Heterogeneous Annotations"
@@ -25,16 +25,16 @@ problem_definition:
   failure_or_contradiction: Measurement shifts and incompatible label granularity are not resolved by removing response generation
   desired_understanding: When annotation-compatible supervision supports target diagnostic distinctions, and how readout changes the error-latency relation
 research_state:
-  central_question: Under measurement shift and verified source annotation coarsening, when does compatible supervision improve excluded-dataset NLL or classification error; independently, how does non-generative readout change the error-latency frontier at fixed information and source-only selection?
-  current_claim_at_risk: The proposed semantic method adds a PHM-specific increment beyond conventional semantic matching and justified coarse-label learning
-  strongest_support: Completed PU pilot remains negative; manuscript now includes a self-contained coarsening non-identifiability example, not a new guarantee or target-transfer result
-  favored_explanation: Semantically correct supervision may avoid false fine labels; benefits require informative source distinctions and transferable signal relationships
-  strongest_competing_explanation: Common label mapping or an ordinary semantic matcher explains any benefit; reduced decoding alone explains any latency change
-  largest_unresolved_uncertainty: Native cross-dataset annotation compatibility and empirical benefit of the unimplemented semantic method
-  current_novelty_risk: GLiClass includes shared semantic readout; YOTOnet studies target-free diagnosis; Cour and Fotakis establish partial/coarse-label foundations; no first-ever claim
-  most_informative_next_action: Verify a native source/target fault vocabulary and implement the smallest compatible-label comparison in the existing runtime, then use the pending comparisons in manuscript Section 7
-  possible_outcomes_and_decisions: Preserve C1-C3 as pilot-only; reject semantic-supervision claims if labels are already exact or controls explain gains; report negative transfer and latency-accuracy tradeoffs
-  stopping_condition: Scientific-question, terminology, notation and manuscript revision complete; general-method validation and venue/author decisions remain pending
+  central_question: See paper/STATUS.md A for the current scientific focus; the manuscript retains C4 transfer and C5 readout questions.
+  current_claim_at_risk: See paper/STATUS.md B; C4 requires a valid native annotation map before its performance comparison.
+  strongest_support: Native PU metadata supplies a scoped mapping counterexample; complete proof and original-source details are linked in paper/STATUS.md B.
+  favored_explanation: See paper/STATUS.md A; component location alone discards dominance used by the actual source annotation.
+  strongest_competing_explanation: See paper/STATUS.md A; a refined or explicitly dominant-location task may be valid but does not automatically demonstrate coarse-label learning.
+  largest_unresolved_uncertainty: See paper/STATUS.md E for the unfinished CWRU local metadata and native semantic qualification.
+  current_novelty_risk: Shared semantic readout and coarse-label foundations are prior art; the native counterexample is an applicability result, not demonstrated method superiority.
+  most_informative_next_action: Follow the single bounded action in paper/STATUS.md E; do not restart completed E0/E1/E2.
+  possible_outcomes_and_decisions: See paper/STATUS.md E; no parallel Goal or new run queue is introduced.
+  stopping_condition: See paper/STATUS.md E; current empirical improvements remain untested and submission approvals remain pending.
 main_claims:
   - claim_id: C1
     statement: The frozen pilot has no established primary NLL increment over direct Qwen or its attribution controls; rotation differences change sign.
@@ -54,8 +54,8 @@ main_claims:
   - claim_id: C4
     statement: Verified annotation-compatible source supervision improves excluded-dataset diagnostic NLL or error beyond conventional semantic controls.
     status: hypothesis_pending_validation
-    evidence: paper/draft/main.md
-    boundary: No native cross-dataset mapping or experiment yet; coarse supervision alone cannot identify all finer states.
+    evidence: paper/method/native_annotation_compatibility.md
+    boundary: Native PU mixed/dominant records refute pure-site and undifferentiated-both deterministic mappings; this is not a C4 performance test. CWRU local semantics remain UNKNOWN.
   - claim_id: C5
     statement: Direct semantic readout provides a favorable diagnostic error-latency relation across compatible backbone instances.
     status: hypothesis_pending_validation
