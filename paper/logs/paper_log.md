@@ -55,6 +55,64 @@ requires full-text comparison and a verified common fault ontology in actual
 PHMFactory sources before updating the existing execution Goal. Unrelated
 draft PR #4 and the earlier narrative draft PR #6 are outside this change.
 
+## 14 October 2026: scientific questions and a single general-method manuscript
+
+The author requests direct scientific refinement following the backbone-independent
+direction merged in PR #7. That proposed direction now enters the sole manuscript,
+not a parallel full draft. The two questions concern annotation-compatible transfer
+under measurement shift and the error–latency relation of direct candidate readout.
+Framework construction and naming a particular pretrained model are implementation
+objectives, not scientific questions.
+
+Title, Abstract, Introduction, Related Work, general formulation, Method,
+Discussion and Conclusion are revised accordingly. The earlier pilot protocol and
+all tabulated numerical findings remain explicitly labeled as a completed pilot;
+its original prediction equations, feature definitions, weight scale and calibration
+identity move to Appendix C. Literal experimental prompts, data, source intervals,
+model revision, fitted results and figure assets are not modified. Existing figures
+are captioned as pilot figures rather than diagrams of the proposed semantic method.
+The complete preceding candidate remains available at ff9db6e without creating an
+alternative active manuscript.
+
+Terminology distinguishes measured signals from the pilot statistics, deterministic
+annotation coarsening from partial/mixed labels, target-free transfer from adaptation,
+and a backbone-independent method from universal pretrained weights. Action costs
+use Lambda, regularization uses C_reg, embedding width uses d_h, pilot fault
+probability uses r, and training-score tau is separate from post-hoc temperature T.
+These notation changes do not change executable configuration keys or estimates.
+The source definition of ordinary (not excess) kurtosis and literal race-label
+strings are retained.
+
+GLiClass's separate encoders/shared scorer and YOTOnet's excluded-dataset setting
+are established close work. Cour and Fotakis supply partial/coarse-label foundations.
+The new simple non-identifiability example is not promoted to a new theorem, and
+cross-source posterior equality is not assumed. Exact scopes and version/access
+limits are appended to the existing focused source list. Eight relevant citations
+are added to the manuscript bibliography; no quota or new full-text claim for all
+50 earlier works is introduced.
+
+C1–C3 and E0/E1/E2 retain their completed-pilot meanings. C4–C5 are pending semantic
+transfer and readout hypotheses. No native cross-dataset mapping, new training,
+Qwen inference, matched latency experiment, or general-method performance is
+reported. The old pilot's H0 is preserved; the new questions were formulated after
+the pilot and cannot be retroactively treated as its confirmatory hypotheses.
+
+Validation uses the revised full text and existing bibliography in Pandoc/citeproc
+with MathML. Original graphical assets and full execution checkout were not locally
+available: GitHub DNS resolution failed. The generated text preview therefore is
+not a regenerated embedded-figure PDF. The tracked full HTML/PDF remain the prior
+pilot previews. The earlier 87-test report is historical, not rerun here; there is
+no new runtime change. Refresh the canonical previews and run applicable local
+checks in the complete checkout before using the new source as a final submission
+package. No workflow permissions or experimental protocols are changed.
+
+The next scientific dependency is a verified native fault-annotation correspondence
+and a minimal matched experiment in the existing runtime. Actual method novelty,
+transfer improvement and measured latency gains remain unresolved. Target venue,
+authors, funding and submission approval are still unconfirmed. PR #4 and PR #6
+remain outside this scientific change; no force-push or master modification is
+permitted.
+
 ## Entry template
 
 ### Date

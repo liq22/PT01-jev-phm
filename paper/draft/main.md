@@ -1,196 +1,174 @@
-# Question-Conditioned Probability Composition for Bearing Fault Diagnosis: A Controlled Attribution Study
+# Jev-PHM: Non-Generative Fault Diagnosis Across Datasets with Heterogeneous Annotations
 
 ## Abstract
 
-Typed outputs and coherent probabilities do not establish useful fault diagnosis. We test whether independently posed fault-presence and conditional fault-identity questions improve closed-set probability estimation beyond direct classification, ordinary hierarchy, and two direct questions. A frozen Qwen3-0.6B encoder receives the same six vibration statistics as numerical controls. The study retains 2,559 recordings from 32 Paderborn bearings, covers each recording with parameterized windows, and separates physical bearings across fitting and evaluation roles. After common pooled-window temperature calibration, the eight-bearing primary test gives question-conditioned factorization NLL 1.0542 versus 1.0553 for direct Qwen, a paired difference of −0.0011 with conditional 95% interval [−0.0086, 0.0052]. Factorization on the direct Qwen representation has lower point NLL, 1.0463; numerical factorization has the lowest, 1.0183. Lower ECE for the question-conditioned model coexists with higher area under the risk–coverage curve, and all calibrated Qwen methods defer every primary test window at error cost 1 and deferral cost 0.25. Six predeclared bearing rotations show changes of direction rather than a stable increment. These results establish a bounded negative attribution finding: question conditioning has not demonstrated additional diagnostic probability or selective-decision value in this frozen, compact-state setting. They do not prove equivalence, rule out other observations or training regimes, or establish practical superiority over full-signal PHM models.
+Cross-dataset fault diagnosis requires transferring signal information without silently changing what the diagnostic labels mean. Generating a class name is not essential to this task, but removing response decoding does not resolve either measurement shift or incompatible supervision. We formulate Jev-PHM as a backbone-independent method for non-generative prediction over semantic fault candidates. The proposed method uses a bounded signal representation, shared candidate scoring, and supervision that distinguishes exact labels from verified coarsenings. Two questions guide the study: when can compatible supervision preserve distinctions on an excluded dataset, and how does direct probability readout change the diagnostic error–latency trade-off relative to label generation? A simple identifiability example shows why coarse fault labels alone cannot determine finer fault probabilities. The formulation is accompanied by a completed, narrower pilot on 2,559 recordings from 32 Paderborn bearings. With six temporal statistics and a frozen Qwen3-0.6B encoder, question-factorized minus direct-prediction negative log-likelihood is −0.00110, with conditional 95% interval [−0.00858, 0.00516]. Six refitted rotations change direction, and every primary calibrated Qwen method defers all observations at the stated cost. These results bound the earlier question-decomposition approach; they do not validate the new semantic scorer, cross-dataset transfer, or reduced latency. The methodological formulation and the completed pilot are therefore reported at their respective levels of support.
 
 ## 1. Introduction
 
-### 1.1 From diagnostic evidence to bounded decisions
+### 1.1 Diagnosis across measurements and label definitions
 
-Fault diagnosis turns sensor observations into claims about equipment condition. A maintenance application may then accept a diagnosis or request further examination. These operations require different semantics: a measured signal statistic is evidence, a class probability is an estimate about condition, and deferral is an action under a declared cost. A fluent explanation does not establish any of these quantities. This distinction matters when adapting language models to industrial diagnosis, where observations may be indirect, faults may be heterogeneous, and confidence can fail on equipment absent from training.
+Within prognostics and health management (PHM), a fault classifier deployed on another machine or dataset encounters more than a new distribution of vibration amplitudes. Sampling, sensor configuration, operating conditions, and the definition of the target fault can all change. A label denoting predominantly inner-ring damage need not mean an isolated inner-ring defect, and a coarse bearing-fault label does not identify a particular damaged component. Physical-bearing separation is also necessary when recordings from one bearing recur across operating conditions [@lessmeier2016; @vieira2026]. A shared model must preserve these distinctions rather than treat dataset-specific class numbers as interchangeable targets.
 
-Vision-language systems such as FaultGPT connect diagnostic questions to time-frequency representations [@chen2025faultgpt]. Such systems broaden the diagnostic interface, but their question-answering output and input evidence differ from a fixed-ontology probability estimator. For a bounded diagnosis, software can expose a complete distribution over allowed fault categories and use an explicit action rule. A distribution can be internally valid while its predictions remain inaccurate or poorly calibrated; evaluation must address both properties separately.
+Existing fault-diagnosis models address important parts of this problem. Heterogeneous Signal Embedding (HSE) addresses heterogeneous signal inputs [@hse2025]. UniFault learns representations from multiple bearing datasets and evaluates downstream adaptation, whereas YOTOnet evaluates transfer to excluded datasets under a unified fault vocabulary [@unifault2025; @yoto2026]. These settings distinguish representation reuse, target-data adaptation, and target-free transfer. None is synonymous with applying the same software separately to several datasets.
 
-Jev's public interface motivates state-conditioned typed decisions and code-owned composition [@typesafe2026jev; @typesafe_skill2026]. NanoJev already realizes small language-model decision heads and local judgments followed by code planning [@nanojev2026]. We adopt this interface idea, using the open Qwen3-0.6B backbone [@qwen2025], without reproducing proprietary Jev weights, its parallel sampler, or Reinforcement Learning for Calibrated Decisions. The research question concerns a measured PHM increment rather than the novelty of a softmax head or typed output.
+Language-based diagnosis introduces a second design choice. FaultGPT produces diagnostic answers from time-frequency representations, while HCAA uses a language-model arbitrator after a preliminary probabilistic diagnosis [@chen2025faultgpt; @wu2025trustworthy]. A fixed-category diagnosis can instead return class probabilities directly. This avoids response-token decoding and answer parsing by construction, but does not imply lower end-to-end latency than every numerical model, higher diagnostic accuracy, or calibrated probabilities.
 
-### 1.2 Why decomposition requires attribution
+### 1.2 Scientific questions and motivation
 
-Consider three allowed outcomes: healthy, inner-ring-dominant damage, and outer-ring-dominant damage. One classifier can estimate their probabilities directly. Another can ask whether a fault is present and, conditional on a fault, which fault category applies. The second construction is a standard conditional probability factorization. It supplies no additional signal observation and no additional physical annotation. Its possible benefit must arise from the representation induced by the questions, the statistical parameterization, or the resulting learning bias.
+The first scientific question concerns supervision rather than framework construction: **under measurement shift and source labels with different but verifiably compatible granularity, when does learning their annotated events reduce fault-classification error or negative log-likelihood on an entirely excluded dataset, compared with learning a common coarse vocabulary or using only exact source labels?** The conditions are consequential. If the sources never distinguish two fault states, a normalized distribution does not identify their individual probabilities. If their annotations describe different physical events, no relabeling rule can make them equivalent without additional assumptions.
 
-These explanations are easy to confound. A second model evaluation can help through ensembling. A hierarchy can help without a language model. Restoring amplitudes lost to preprocessing can improve diagnosis without changing the questions. More windows can improve measurement coverage without adding independent equipment. Post-hoc calibration can change probability quality and fixed-cost acceptance while leaving the predicted class unchanged. Comparing only a composed language predictor with a single uncalibrated numerical classifier cannot distinguish these mechanisms.
+The second question concerns a computational–statistical relation: **at fixed signal information, candidate definitions, and source-only model selection, how does replacing label generation with direct semantic-candidate scoring change the error–latency frontier as the signal-token budget and candidate-set size vary?** The comparison must include the shortest valid generated label, not only a lengthy explanation. A fast predictor that rejects all observations does not establish useful diagnostic throughput. The two questions are independent: annotation compatibility can affect transfer even without language generation, while changing the readout can affect computation even when every label is exact.
 
-We ask: **at a fixed observation, label budget, class ontology, and evaluation population, does question-conditioned fault decomposition improve probability quality or selective diagnosis beyond direct prediction, a shared-representation hierarchy, and two direct questions?** The experiment is a controlled attribution study of a frozen language representation. It does not test a fully trained signal model's performance ceiling.
+Jev's typed-decision interface motivates the separation of diagnostic probability estimation from response generation [@typesafe2026jev; @typesafe_skill2026]. GLiClass already studies generalist direct classification, and NanoJev already uses small pretrained backbones with question- and candidate-conditioned decision heads [@gliclass2025; @nanojev2026]. Jev-PHM therefore does not claim to invent direct classification, candidate scoring, or a small-model interface. Its candidate methodological increment is a PHM-specific treatment of annotation compatibility in shared semantic decision learning, evaluated separately from the computational effect of readout. The method is not defined by one backbone family. An individual model uses one trained checkpoint across datasets; a different backbone requires a separate instantiation and training configuration.
 
-### 1.3 Findings and scope
+### 1.3 Contributions and current support
 
-The contribution is an empirical attribution result, rather than a new probability factorization or output type. Under the controlled observation and supervised frozen-backbone setting, question-conditioned composition does not demonstrate an increment beyond direct language prediction, ordinary hierarchy on the same representation, and a fixed two-direct-question ensemble. The primary paired interval includes zero, and the descriptive bearing rotations change direction. This leaves a useful boundary on the transfer of atomic decision interfaces to compact vibration observations.
+We provide a formulation and learning rule for semantic fault-candidate prediction that preserve exact and coarsened source annotations without inventing fine labels. The formulation states the conditions under which the compatible-label objective is an observed-event likelihood and gives an explicit non-identifiability example. This is a proposed use of established semantic classification and coarse-label learning, not a new general consistency theorem. Its incremental cross-dataset benefit remains an empirical hypothesis.
 
-The controlled comparisons expose two distinctions relevant to interpreting that result. First, preserving amplitude improves pooled-calibrated feasibility NLL independently of question decomposition. Second, a lower ECE can coexist with worse confidence ordering, while calibrated low-cost outputs can simply defer everything. The study provides the corresponding implementation and saved bearing-level outputs so that these effects can be separated without new model inference. Conditional heads, temperature scaling, typed validity, and rejection remain established foundations rather than individual novelty claims.
+The completed empirical contribution is a controlled pilot separating diagnostic question conditioning from ordinary hierarchy and an additional direct prediction. Six comparison arms receive the same six temporal statistics. The primary paired interval includes zero, a hierarchy on the direct language representation has a lower point loss, and all three Qwen contrasts reverse direction across six rotations. Lower expected calibration error (ECE) also coexists with a higher area under the risk–coverage curve (AURC), and every calibrated primary Qwen arm rejects every test window. These observations support a bounded negative finding for the pilot, not the effectiveness of the proposed semantic method.
 
-The scope is single-channel, supervised, closed-set classification on the Paderborn bearing collection. Mixed-damage bearings retain the source's dominant-category assignments; the task does not claim pure damage localization. It excludes remaining useful life, previously unseen fault recognition, causal symptom inference, continual learning, and actual maintenance execution. The negative finding concerns this observation, backbone, fitting regime, and ontology; it is not a claim that diagnostic decomposition is universally ineffective.
+The manuscript consequently separates a general methodological formulation from its existing pilot. Cross-dataset transfer, backbone portability, and the error–latency relation require the specific comparisons stated in Section 7. The first scope is single-label fault diagnosis over a declared, complete candidate set, not remaining useful life prediction, multi-label fault localization, unseen-fault detection, or validated maintenance execution.
 
 ## 2. Related Work
 
-### 2.1 Language and probability models for industrial diagnosis
+### 2.1 Transferable fault representations and diagnostic interfaces
 
-FaultGPT combines vision-language modeling and diagnostic instruction supervision over time-frequency evidence [@chen2025faultgpt]. Wu's HCAA combines a preliminary probabilistic engine, numerical features and diagnostic images with a Qwen2.5-VL-32B arbitrator, followed by calibration [@wu2025trustworthy]. The arbitrator receives the preliminary diagnosis: this sequential review differs from two questions that never consume one another's answers. HCAA is a close probabilistic/LLM diagnostic reference, but its experimental provenance and evidence conditions do not support a matched comparison with our bearing study.
+HSE targets heterogeneity in signal representation [@hse2025]. The inspected UniFault preprint describes heterogeneous-data harmonization and self-supervised pretraining followed by a target-task adapter [@unifault2025]. Target adaptation is not evidence for target-free classification. YOTOnet's methods and experiments specify a shared inner-race/outer-race label space and exclude datasets during fitting; its optional target-labeled adaptation is a separate experiment [@yoto2026]. Our question additionally concerns compatible differences in source annotation granularity. Neither new names for existing labels nor adding a semantic output head alone establishes an increment over these approaches.
 
-CLSGen trains classification and explanation-generation heads jointly, using LoRA adaptation of Llama-3.1-8B and generated explanation supervision [@yoon2026clsgen]. Our backbone remains frozen and produces no explanation tokens. Adding a discriminative head to a language model is therefore established, while preserving generative behavior is outside our experiment. Published classification or ranking results under different inputs, supervision, and splits are not treated as baselines here.
+FaultGPT uses vision-language instruction supervision, and HCAA supplies a preliminary diagnosis, features, and diagnostic images to an arbitrator [@chen2025faultgpt; @wu2025trustworthy]. Their outputs and supervision differ from shared non-generative candidate prediction; their published scores are not same-protocol baselines. CLSGen jointly trains classification and explanation-generation heads, whereas the completed pilot uses a frozen encoder [@yoon2026clsgen]. A discriminative language-model head is established prior art.
 
-### 2.2 Decision interfaces and question-conditioned representations
+### 2.2 Non-generative semantic prediction
 
-The official TypeSafe guidance assigns semantic judgments to the model and calculations, composition, and execution to code [@typesafe_skill2026]. NanoJev uses Qwen3-0.6B, candidate-conditioned heads, and complete decision distributions. Its maze interface combines independent local traversability questions with a code planner [@nanojev2026]. Our fixed PHM ontology and supervised fault heads do not establish a new general-purpose candidate interface. Batching separate sequences also does not reproduce a shared-prefix parallel sampler.
+CLIP learns compatibility between observations and textual category descriptions; the general semantic-readout principle is not specific to fault diagnosis [@radford2021]. GLiClass includes joint and separate text/label encoders and a shared scoring operation, with classification and throughput experiments [@gliclass2025]. Its existing bi-encoder design directly limits any claim that precomputing candidates and scoring them after one observation encoding is a new architecture. The proposed method must instead demonstrate a PHM increment beyond the same semantic matcher trained with justified conventional supervision.
 
-Question text changes the contextual representation even when the numerical state is unchanged. This makes a direct language predictor, a hierarchy on that same representation, and a two-direct-question ensemble necessary controls. We estimate whether the particular diagnostic question conditioning adds value; we do not presume that linguistic decomposition universally recovers missing signal information.
+NanoJev documents direct probability heads and atomic judgments combined by code [@nanojev2026]. An original study of heating, ventilation, and air-conditioning systems also reports using Jev for fault diagnosis [@jung2026]. Its reported HVAC setting motivates a prior-work comparison, not a same-protocol score for cross-dataset vibration classification. These works preclude a broad claim to be the first Jev-based fault-diagnosis framework. Neither vendor interfaces nor community results establish the new model's calibration, latency, or transfer performance.
 
-### 2.3 Hierarchical estimation, calibration, and rejection
+### 2.3 Partial labels, coarsened labels, and incompatible faults
 
-Conditional softmax probabilities and their pathwise negative log likelihood are established hierarchical parameterizations [@valmadre2022]. Valmadre also reports conditions in which flat softmax outperforms top-down classifiers, motivating a competitive flat control. Goren et al. calibrate leaf probabilities, aggregate them up a hierarchy, and select predictions of varying specificity [@goren2024]. All our methods estimate the same leaf ontology and return a leaf label or deferral. Coarse-node answers do not count as successful leaf diagnoses.
+Partial-label learning supplies a set containing one correct class and studies when that ambiguity can be resolved [@cour2011]. Coarse-label learning instead formalizes observations induced by partitions of a finer label space and requires sufficient information preservation for recovery [@fotakis2021]. We use the latter interpretation only for a verified deterministic annotation partition. We do not reproduce Cour et al.'s convex surrogate or inherit Fotakis et al.'s statistical-query guarantee for a neural empirical optimizer under domain shift.
 
-Temperature scaling is standard post-hoc calibration [@guo2017]. CAT applies calibration to a 1D-CNN teacher-student domain-adaptation workflow and uses calibrated probabilities in target pseudo-labeling [@forest2024cat]. Our calibration holds supervised logits fixed, fits one scalar on separate bearings, and compares pooled-window with equal-bearing objectives as a secondary population-weighting question. It does not claim adaptation to an unlabeled target domain.
+A mixed-damage observation is not uncertainty about which single pure defect occurred. Likewise, a dominant-damage annotation need not be a coarsening of pure single-fault labels. These distinctions decide whether source targets can share a probability space at all. The proposed contribution, if validated, would be the effect of preserving genuine PHM annotation semantics during transfer, not the invention of a set-likelihood expression. Fault-presence and fault-identity targets derived from a single diagnosis are also not independently measured physical concepts of the kind supervised in concept bottleneck models [@koh2020].
 
-Cost-based rejection and risk–coverage evaluation are established [@chow1970; @geifman2017]. Probability calibration and confidence ranking have different objectives [@cattelan2024]. Lower expected calibration error does not itself prove better accepted-sample risk or safe operation. Likewise, the two label-derived branches are not independently annotated physical concepts comparable to a concept bottleneck [@koh2020].
+### 2.4 Calibration, selective prediction, and independent evaluation
 
-### 2.4 Evaluation on independent bearings
+Temperature scaling, conditional classifiers, and rejection are established methods [@guo2017; @valmadre2022; @chow1970; @geifman2017]. Hierarchical selective classification can vary prediction specificity, but all comparisons here must use the same requested label granularity [@goren2024]. A coarse answer cannot be credited as a correct fine diagnosis only for the proposed method. CAT combines calibration with teacher–student domain adaptation in fault diagnosis, rather than the pilot's fixed-classifier post-hoc calibration [@forest2024cat].
 
-The Paderborn release documents physical bearings, damage characteristics, operating conditions, and sensor measurements [@lessmeier2016]. Bearing-level separation is essential when the intended test population contains bearings absent from model fitting. Vieira et al. show how leakage through repeated measurements and limited bearing diversity can distort fault-diagnosis evaluation [@vieira2026]. We preserve the physical bearing across every recording and operating condition, use separate bearings for tuning and calibration, and treat windows as repeated measurements rather than independent replications.
+Probability losses, binned calibration error, and confidence ordering evaluate different properties [@gneiting2007; @cattelan2024]. Their joint reporting is especially important when low scenario cost can be obtained by always deferring. Physical-unit grouping follows the Paderborn dataset's bearing identities and the concerns established in bearing-level evaluation research [@lessmeier2016; @vieira2026]. More overlapping windows do not create more independent equipment, and target adaptation must not be mislabeled as generalization.
 
-## 3. Problem Formulation
+## 3. Problem Formulation and Notation
 
-### 3.1 Observations, labels, and independent units
+### 3.1 Observations, source annotations, and target exclusion
 
-Let bearing $b$ provide recordings indexed by $j$, with vibration windows $x_{bji}$ and a label $y_{bji}$ in the mutually exclusive ontology $\mathcal Y=\{H,I,O\}$. Here $H$ is healthy, while $I$ and $O$ are the source's inner-ring-dominant and outer-ring-dominant categories. All recordings from a bearing belong to one of four roles: training, tuning, calibration, or test. No bearing crosses roles within an experiment.
+An observation is a vibration window $x\in\mathbb R^{n\times C_x}$ and its available measurement metadata $m$. The positive integers $n$ and $C_x$ denote time samples and measured channels. Dataset $d$ supplies an annotation $y_d$ whose meaning is established from its documentation, not from its numerical code. A canonical finite set $\mathcal Y=\{1,\ldots,K\}$ contains mutually exclusive diagnostic states, and $\mathcal C\subseteq\mathcal Y$ is the declared candidate set for a particular classification task. Candidate descriptions are $t_k$, with $k\in\mathcal C$. Aliases for one event are not additional classes.
 
-The observed state $s(x)\in\mathbb R^6$ is computed from one vibration channel. Every comparison receives the same state in its protocol. Global category definitions are allowed context; a sample's label, bearing or file identifier, operating-condition identifier, and partition role are excluded. The output is
+The initial closed-set assumption is that the true state belongs to $\mathcal C$. Removing a state from the denominator is justified only by the declared task population, not by absence of its annotation in one dataset. Missing labels are not known negative classes. A target dataset is excluded from task-specific training, preprocessing fits, prompt refinement from its samples, checkpoint selection, calibration, and threshold selection. Public class definitions may specify the task; target observations may not tune it. Unknown pretraining exposure is disclosed rather than equated with demonstrated target exclusion.
+
+A *backbone-independent method* has a common mathematical interface across compatible backbone families. It does not imply transferable weights between architectures. *Cross-dataset generalization* means evaluation on a dataset excluded as above. *Adaptation* means use of target data for updates or selection and is reported separately. *Non-generative readout* means no autoregressive response-token decoding at diagnosis time; a causal-attention backbone may still be used.
+
+| Term or symbol | Definition and scope | Distinction |
+|---|---|---|
+| $x,m$ | Measured signal and available metadata | Not a predicted equipment condition |
+| $s(x)\in\mathbb R^6$ | Six temporal statistics used only in the pilot | Not a sufficient signal representation |
+| $\mathcal C,t_k$ | Closed-set candidates and their descriptions | Not dataset-specific class IDs |
+| $S_d(y_d)$ | Fine states compatible with a verified coarse annotation | Not simultaneously present defects |
+| $h,e_k\in\mathbb R^{d_h}$ | Signal and candidate representations | $d_h$ is embedding width, not fault probability |
+| $p_\Theta,\widetilde p_T$ | Model probabilities before/after post-hoc temperature scaling | Maximum probability is a score, not a safety guarantee |
+| $\tau,T$ | Training score scale and post-hoc calibration temperature | Neither is inference latency |
+| $\Lambda,c_{\mathrm{def}}$ | Action-cost matrix and deferral cost | Separate from regularization parameter $C_{\mathrm{reg}}$ |
+| Acceptance coverage | Weighted fraction of accepted diagnoses | Not a prediction-set coverage guarantee |
+
+### 3.2 What annotation compatibility means
+
+For the likelihood case, dataset $d$ has a known deterministic map $g_d:\mathcal C\to\mathcal L_d$ from diagnostic states to its annotation vocabulary. Define
 
 $$
-p(x)\in\Delta^2,\qquad a(x)\in\{H,I,O,\bot\},
+S_d(y_d)=\{k\in\mathcal C:g_d(k)=y_d\}.
 $$
 
-where $\bot$ means defer. Maximum class probability is a predictive score whose quality is evaluated, not a verified safety confidence.
+These sets form a disjoint partition of the relevant candidate population. An exact annotation is a singleton. A coarse annotation denotes the union of its compatible states. The source map is used to interpret supervision, not as a dataset-ID input to the predictor. If the annotator chooses among overlapping descriptions using an unmodeled selection mechanism, or a set only weakly contains the true label, this deterministic likelihood interpretation does not hold. Such data require a stated alternative weak-supervision model and are excluded from the initial likelihood experiment rather than silently repaired.
 
-### 3.2 Probability quality and evaluation population
+Canonicalization does not assert that conditional signal–fault relationships are invariant across sources. Generalization still depends on the measured signals, training coverage, and model assumptions. In particular, pooling label mappings from unrelated conditional distributions does not by itself identify target fault probabilities.
 
-The primary population gives equal weight to test bearings and then equal weight to their exported windows. For $B$ test bearings with $n_b$ windows each,
+### 3.3 Risk, acceptance, and evaluation units
+
+Negative log-likelihood (NLL), measured with natural logarithms in nats, is the main probability endpoint. For $B$ test bearings with $n_b$ exported windows each,
 
 $$
 R_{\mathrm{unit}}(p)=\frac1B\sum_{b=1}^{B}\frac1{n_b}\sum_{i=1}^{n_b}-\log p(y_{bi}\mid x_{bi}).
 $$
 
-This estimand is a mean window loss within a mean bearing. It does not imply independent overlapped windows or a measured industrial deployment prevalence. Log loss and multiclass Brier are proper scoring rules [@gneiting2007], but finite-sample optimization does not guarantee calibration or shifted-domain reliability.
+Here $i$ flattens recordings and windows within a bearing. This is an equal-bearing mean of window losses, not a claim that windows are independent. A fine-label test requires independently available fine ground truth; evaluation against a coarse label can assess only its corresponding event probability. Risk–coverage curves, binned ECE, and realized action cost are separate endpoints, not synonyms for general reliability.
 
-For calibration bearing $b$, let $L_b(T)$ be its mean NLL under temperature $T$. Pooled-window calibration minimizes $\sum_b n_bL_b(T)/\sum_b n_b$, whereas equal-bearing calibration minimizes $B^{-1}\sum_bL_b(T)$. With covariance using divisor $B$,
-
-$$
-R_{\mathrm{window}}(T)-R_{\mathrm{unit}}(T)
-=\frac{\operatorname{Cov}_b(n_b,L_b(T))}{\bar n}.
-$$
-
-This elementary identity describes different weighting targets. Equal window counts make the objectives identical; replicating all windows within one bearing leaves its equal-bearing objective unchanged. Neither property predicts held-out improvement. Pooled calibration is the primary common calibration opportunity in the decomposition experiment; equal-bearing calibration remains a separate secondary question.
-
-### 3.3 Diagnosis and deferral costs
-
-For a declared action-cost matrix $C$, the model-relative action minimizes expected cost:
+For a fixed action-cost matrix $\Lambda$, the action is
 
 $$
-a^*(x)=\arg\min_{a\in\mathcal Y\cup\{\bot\}}\sum_{k\in\mathcal Y}C_{ak}p_k(x).
+a^*(x)=\arg\min_{a\in\mathcal C\cup\{\bot\}}\sum_{k\in\mathcal C}\Lambda_{ak}\,\widetilde p_T(k\mid x).
 $$
 
-We use zero cost for a correct diagnosis, one for an error, and $c=0.25$ for deferral. The action accepts the maximum-probability class when $1-\max_kp_k(x)<c$ and defers on equality. These normalized costs define an experiment, not measured maintenance economics. Deferral does not add a fault category, assume an infallible expert, or implement a physical intervention.
+The pilot uses correct-diagnosis cost zero, error cost one, and $c_{\mathrm{def}}=0.25$ for deferral. It accepts only when $1-\max_k\widetilde p_T(k\mid x)<c_{\mathrm{def}}$, and defers on a tie. These are normalized experimental costs, not maintenance economics. A deferred observation is not an unknown-fault prediction and has no accepted-sample error.
 
-## 4. Method
+## 4. Proposed Semantic Decision Method
 
-### 4.1 Reproducible vibration states
+### 4.1 Bounded signal encoding and shared candidate scoring
 
-PHMFactory owns the reader, preprocessing, window construction, and grouped train/validation/test assignment. A narrow adapter selects the verified vibration channel and consumes returned windows with their source intervals. Validation bearings are divided into separate tuning and calibration roles. Raw data and canonical metadata remain unchanged.
-
-For a finite window $x=(x_1,\ldots,x_W)$, the state contains RMS amplitude, population standard deviation, mean absolute amplitude, peak-to-peak amplitude, crest factor, and standardized fourth moment:
+This section specifies the new method; the completed experiments in Sections 5–6 evaluate the earlier compact-state pilot, not this implementation. Let $E_\phi$ map $(x,m)$ to $L\le M$ signal tokens, already projected to the selected backbone's input width. Let $f_\theta$ denote that backbone, $P$ its stated pooling/projection operation, and $G_\psi$ the candidate-description encoder. All trainable parameters belong to $\Theta=(\phi,\theta,\psi)$, including those of the projections. Then
 
 $$
-s(x)=\left(\sqrt{\overline{x^2}},\sqrt{\overline{(x-\bar x)^2}},\overline{|x|},\max x-\min x,
-\frac{\max|x|}{\sqrt{\overline{x^2}}},\overline{\left(\frac{x-\bar x}{\operatorname{std}(x)}\right)^4}\right).
+Z=E_\phi(x,m),\qquad h=P(f_\theta(Z))\in\mathbb R^{d_h},\qquad e_k=G_\psi(t_k)\in\mathbb R^{d_h},
 $$
 
-The corresponding ratio is set to zero for zero RMS or zero standard deviation. The fourth moment is ordinary kurtosis, not excess kurtosis. Text serialization uses a fixed feature order and eight significant digits. The language model calculates no signal value. These temporal statistics are a feasibility representation; they do not encode a spectrum, defect frequency, or sufficient statistic for damage.
-
-Two preprocessing protocols are frozen before testing. The original feasibility protocol applies upstream per-window standardization before extracting the six values. The revised observation protocol uses no signal normalization and preserves measured amplitude. Window standardization can make RMS and standard deviation nearly constant; its effects are measured rather than repaired after observing test errors. Every arm receives the same preprocessing within its comparison. The decomposition experiment uses the amplitude-preserving protocol.
-
-### 4.2 Frozen question-conditioned encoding
-
-Qwen/Qwen3-0.6B is fixed to revision `c1899de289a04d12100db370d81485cdf75e47ca`. A non-thinking chat template includes the common class definitions, a fixed question, and the serialized state. No answer tokens are generated. The last non-padding hidden state defines $h_q(s)$; the backbone remains frozen.
-
-The flat question asks which complete class describes the window. The presence question asks whether any defined fault applies rather than health. The identity question asks which fault applies **conditional on membership in the defined fault set**. Both latter questions read the same observation and neither sees the other's answer. They are evaluated for every test window, including healthy ones. Independent evaluation is an interface constraint, not a statistical independence assumption.
-
-Each representation is standardized using its training observations and window weights only. The conditional-identity standardizer uses faulty training observations, matching that head's fit population. A regularized logistic head supplies class scores. Numerical controls standardize the same six values without Qwen. The direct language model is a supervised frozen-encoder probe, not zero-shot diagnosis or end-to-end language-model adaptation.
-
-### 4.3 Presence, conditional identity, and leaf probabilities
-
-Let the ordered fault set be $F=(I,O)$. A binary presence head estimates $r(s)$ and a fault-only head estimates $u(s)$:
-
 $$
-r(s)=\sigma(w_r^\top h_{q_r}(s)+b_r),\qquad
-u(s)=\operatorname{softmax}\!\begin{pmatrix}0\\w_u^\top h_{q_u}(s)+b_u\end{pmatrix}.
+p_\Theta(k\mid x,m,\mathcal C)=
+\frac{\exp(h^\top e_k/\tau)}{\sum_{j\in\mathcal C}\exp(h^\top e_j/\tau)},\qquad \tau>0.
 $$
 
-Both branches use the implemented binary logistic parameterization: one learned coefficient vector and intercept, with a zero reference logit. For identity, $I$ is the reference class and $O$ the non-reference class. Equivalently, its coefficient matrix has a zero row and $w_u^\top$ as the learned row; its penalty includes only $w_u$. The three-class flat head instead learns a three-row multinomial coefficient matrix. These parameterizations have different regularization geometry even when they share $C$.
+The initial readout is a dot product, not an additional mixture, retrieval system, or generated explanation. One signal encoding supports all candidates; no dataset-specific classifier rows are fitted. Candidate embeddings can be precomputed for a fixed model and candidate definitions. Reordering distinct candidates reorders the probability vector, whereas duplicating an alias would incorrectly change its normalization and is disallowed. Changing the candidate set changes the conditional classification task and need not preserve calibration.
 
-Code forms the complete distribution:
+The signal adapter must be fixed from source development data before testing. Token-budget control does not justify undocumented downsampling, aliasing, fabricated sample rates, or discarding transients without evaluation. HSE supplies relevant prior input-alignment work, not a new component claimed here [@hse2025]. The first implementation must document patch duration, channel handling, amplitude normalization, and any anti-alias filtering. These settings have not been selected or executed for the proposed method. The six pilot statistics remain a distinct baseline, not a substitute for that signal-interface validation.
 
-$$
-p(H\mid s)=1-r(s),\qquad p(k\mid s)=r(s)u_k(s),\quad k\in F,\qquad\sum_{k\in F}u_k(s)=1.
-$$
+### 4.2 Supervision at the recorded label granularity
 
-The components sum to one by construction. This is conditional factorization, not multiplication of unrelated marginal probabilities. Coherence alone does not establish correctness.
-
-![Independent fault-presence and conditional fault-identity questions consume the same six measured vibration statistics. Diagnosis-derived supervision trains the heads; code composes a coherent leaf distribution, calibrates it, and applies an explicit diagnosis/deferral cost rule. The branches are not independently measured physical concepts.](../assets/figures/jev_method.svg)
-
-Presence supervision is $\mathbb 1[y\in F]$. Identity supervision uses only faulty training examples and their original fault labels. Healthy examples have no fabricated identity label. Both targets are transformations of the same diagnosis; no physical concept supervision is added.
-
-### 4.4 Training mass and loss semantics
-
-Full coverage changes the number of windows. To avoid changing each recording's total training mass at the same time, a recording with $m_j$ exported windows assigns
+For a justified deterministic coarsening, the probability of observing $y_d$ is the sum over its preimage, giving
 
 $$
-w_{ji}=\frac{64}{m_j}.
+\ell_d(\Theta;x,y_d)=
+-\log\sum_{k\in S_d(y_d)}p_\Theta(k\mid x,m,\mathcal C).
 $$
 
-Each recording's total weight is 64 for every window candidate. The factor preserves the original 64-window probe's loss scale; it is not a prevalence or independence count. All arms use the same weights. The fault-only head retains the original faulty-sample weights and does not rescale them to match the presence branch.
-
-The factorized objective is
+For exact labels this is ordinary cross-entropy. For sources with $N_d$ observations and predeclared nonnegative within-source weights $\omega_{di}$ summing to one, use
 
 $$
-\mathcal L_C=
-\sum_{i\in\mathrm{train}}w_i\ell_{\mathrm{presence},i}
-+\sum_{i\in\mathrm{train}:y_i\in F}w_i\ell_{\mathrm{identity},i}
-+\frac{\lVert w_r\rVert^2+\lVert w_u\rVert^2}{2C}.
+\mathcal L(\Theta)=\frac1D\sum_{d=1}^{D}\sum_{i=1}^{N_d}\omega_{di}\ell_d(\Theta;x_{di},y_{di}).
 $$
 
-Intercepts are unpenalized and class balancing is disabled. The data-fit part equals weighted leaf NLL because
+Here $D$ is the number of training sources, not a new neural component. Weights are specified from the sampling units before fitting, not chosen from favorable outcomes; they prevent overlapping-window counts from silently setting a source's training mass. Regularization and backbone adaptation are held comparable across controls. No extra contrastive, distillation, or reinforcement-learning objective is required by the formulation.
+
+The objective is established coarse-label likelihood, not a new generic learning guarantee [@cour2011; @fotakis2021]. A practical benefit requires comparison with a common-coarse-label classifier, an exact-label-only control, and the same semantic matcher under the same valid supervision. If all sources have equivalent exact labels, the method reduces to conventional semantic classification and cannot support an annotation-granularity contribution. A mixed/dominant-fault label cannot be replaced by a union of pure defects unless the source semantics actually make that union correct.
+
+### 4.3 A concrete identifiability boundary
+
+Suppose the only labels are healthy and faulty, while the desired fine categories are healthy, inner-ring fault, and outer-ring fault. At a fixed observation let the fault-event probability be $\rho\in(0,1)$. For every $\alpha\in[0,1]$,
 
 $$
--\log p(y_i\mid s_i)=
-\begin{cases}
--\log(1-r_i),&y_i=H,\\
--\log r_i-\log u_{i,y_i},&y_i\in F.
-\end{cases}
+p_\alpha=(1-\rho,\rho\alpha,\rho(1-\alpha))
 $$
 
-Separately averaging and equally adding the branch losses would generally change the relative contribution of faulty examples. That alternative is not used. Flat heads use the corresponding weighted categorical NLL and L2 regularization. One shared $C$ is selected for each pair of heads, rather than a Cartesian product of branch penalties. Shared $C$ does not make parameter counts or regularization geometry identical; those differences belong to the tested parameterization.
+gives exactly the same healthy/faulty probabilities. Thus coarse supervision does not identify $\alpha$, even with unlimited repeated windows. More generally, when a partition matrix $A$ maps fine probabilities to observed event probabilities, any interior $p$ and nonzero $v$ satisfying $Av=0$ and $\mathbf1^\top v=0$ admit sufficiently small positive and negative perturbations $p+\epsilon v$ with identical observations. This follows by substitution and is an identifiability diagnostic, not a new theorem.
 
-### 4.5 Calibration of the final distribution
+Additional exact labels or informative partitions may resolve an ambiguity within a shared population, as studied in coarse-label learning [@fotakis2021]. When labels and measurements both change across datasets, that transfer additionally needs shared predictive structure; concatenating source partition matrices cannot assume all sources have the same conditional posterior. Semantic names can supply an inductive bias, but do not prove the missing distinction. The proposed experiment must therefore distinguish real fine-label transfer from merely fitting the observed coarse groups.
 
-Every comparison first constructs a complete leaf distribution. A single positive temperature is fitted on calibration bearings. For direct logits this is standard softmax temperature scaling; for an assembled or averaged distribution it is equivalently
+### 4.4 Inference cost and decision policy
 
-$$
-\widetilde p_T(k\mid s)=\frac{p(k\mid s)^{1/T}}{\sum_{j\in\mathcal Y}p(j\mid s)^{1/T}}.
-$$
+After candidate precomputation, dot-product scoring costs $O(\lvert\mathcal C\rvert d_h)$ for the declared candidates in addition to signal processing and one backbone encoding. There are zero generated response tokens. These are properties of the specified computation, not an end-to-end speedup result. Signal acquisition duration, preprocessing, warm inference, candidate compilation, and any downstream review are distinct costs. Candidate-dependent cross-encoding of the full observation would be a different algorithm with different complexity.
 
-The search uses $T\in[0.05,20]$ and retains $T=1$ if the candidate does not improve its calibration objective. Boundary solutions are reported. No method receives extra node-specific calibration. If calibrated presence or identity is exposed, it is reconstructed from $\widetilde p_T$: $\widetilde r=1-\widetilde p_T(H)$ and $\widetilde u_k=\widetilde p_T(k)/\widetilde r$. Raw factors remain distinct from these calibrated quantities.
+For an actual latency contrast, compare the same eligible backbone and signal information with its shortest valid label-generation configuration, as well as a compact non-generative signal classifier. Vary $M$ and the candidate count $\lvert\mathcal C\rvert$ using source-declared task settings; report error or NLL jointly with measured p50/p95 latency, memory, precision, batch size, and acceptance coverage. Fix class definitions and independent test units within each comparison. No generative-versus-direct latency result currently exists in this study.
 
-Positive global temperature preserves class argmax, so accuracy and Macro-F1 must agree across raw and calibrated variants sharing a head. For binary logits, maximum probability is $\sigma(|z_1-z_0|/T)$ and its ordering is preserved; with the same tie convention, temperature cannot improve risk at fixed coverage. Multiclass maximum-probability ordering does not have this unconditional invariance. Calibration may still change NLL and acceptance at a fixed cost threshold.
+Any post-hoc temperature or acceptance threshold is fitted on source development units for the target-free experiment. A different candidate set or target distribution does not inherit a calibration guarantee. Backbone independence is a method contract; empirical portability requires separately trained instances from distinct compatible families and a comparison against each family's controls. Neither portability nor cross-dataset superiority follows from a successful import or forward pass.
 
-## 5. Experimental Protocol
+## 5. Completed Pilot: Experimental Protocol
+
+The pilot tests whether changing and composing diagnostic questions helps a frozen compact-statistic predictor. It does not train a signal–description encoder, use coarse-source supervision, compare backbone families, or exclude an entire target dataset. Its detailed prediction and calibration equations are retained in Appendix C; the six fitted arm names below remain unchanged for reproducibility. Generic method statements in Section 4 must not be inferred from these arm names.
 
 ### 5.1 Dataset and physical grouping
 
@@ -220,7 +198,7 @@ For stored maximum length $L_{\max}=299038$, candidate geometry is:
 
 These totals follow from coverage and the 2,559 indexed recordings; they are not independent sample sizes. Full coverage increases observed signal extent and often creates overlap. It does not imply exhaustive independent evidence or uniform sampling in physical time.
 
-Window selection uses only the current split's train and tune bearings. Numerical-flat on amplitude-preserving statistics jointly searches window lengths and $C\in\{0.01,0.1,1,10,100\}$ by tuning-bearing NLL. Exact ties prefer fewer windows, then smaller $C$. Every arm shares the selected protocol in that split, including the standardized observation comparison. This choice favors the numerical baseline's observation criterion rather than an observation claimed optimal for all arms. Calibration and test predictions never choose window length or overlap.
+Window selection uses only the current split's train and tune bearings. Numerical-flat on amplitude-preserving statistics jointly searches window lengths and $C_{\mathrm{reg}}\in\{0.01,0.1,1,10,100\}$ by tuning-bearing NLL. Exact ties prefer fewer windows, then smaller $C_{\mathrm{reg}}$. Every arm shares the selected protocol in that split, including the standardized observation comparison. This choice favors the numerical baseline's observation criterion rather than an observation claimed optimal for all arms. Calibration and test predictions never choose window length or overlap. The existing configuration key remains `C`; the notation distinguishes it from the action-cost matrix.
 
 ### 5.3 Main split and repeated held-out bearings
 
@@ -254,19 +232,19 @@ The decomposition comparison contains six arms:
 | Qwen-factorized | Presence and conditional-identity representations | Question-conditioned factorization |
 | Qwen-two-question-direct | Flat A/B representations; two leaf heads | Additional-question control |
 
-Flat A and B share all category definitions and the healthy/fault grouping supplied to conditional questions. The two-direct-question control averages uncalibrated probabilities with fixed weights 1/2 before final calibration; no learned or test-selected fusion is used. One shared $C$ is selected at workflow level for every two-head method. All arms receive the same labeled recordings, window weights, five-value regularization search, tuning objective, and calibration bearings.
+Flat A and B share all category definitions and the healthy/fault grouping supplied to conditional questions. The two-direct-question control averages uncalibrated probabilities with fixed weights 1/2 before final calibration; no learned or test-selected fusion is used. One shared $C_{\mathrm{reg}}$ is selected at workflow level for every two-head method. All arms receive the same labeled recordings, window weights, five-value regularization search, tuning objective, and calibration bearings.
 
-Heads use deterministic `lbfgs`, at most 2,000 iterations, and tolerance $10^{-7}$, with convergence status retained. Each rotation refits training-only standardizers and heads, selects $C$, and fits temperature. Frozen, protocol-compatible hidden states can be reused across role assignments without fitting to their labels. States from a different observation, interval, question, or model revision are not interchangeable.
+Heads use deterministic `lbfgs`, at most 2,000 iterations, and tolerance $10^{-7}$, with convergence status retained. Each rotation refits training-only standardizers and heads, selects $C_{\mathrm{reg}}$, and fits temperature. Frozen, protocol-compatible hidden states can be reused across role assignments without fitting to their labels. States from a different observation, interval, question, or model revision are not interchangeable.
 
 The Qwen representation has 1,024 coordinates. Fitted-head parameter counts, including intercepts, are 3,075 for Qwen-flat, 2,050 for each Qwen factorized workflow, and 6,150 for the two-direct-question control. Numerical-flat has 21 parameters and Numerical-factorized 14. These counts make the different capacities and binary reference-logit parameterizations explicit rather than asserting exact model equivalence.
 
-Pooled final-distribution temperature calibration is primary in the decomposition comparison. Raw and equal-bearing-scaled outputs are secondary analyses. All controls supply complete normalized distributions and the same leaf-or-defer contract. Equal question counts do not imply equal token counts, FLOPs, latency, or parameter counts. We record tokens, padded tokens, forward batches, cache-extraction elapsed time, and fitted-head parameters. FLOPs are not measured, and unequal extraction schedules and warmup conditions do not constitute a matched deployment-latency benchmark.
+Pooled final-distribution temperature calibration is primary in the decomposition comparison. Raw and equal-bearing-scaled outputs are secondary analyses. All controls supply complete normalized distributions and the same leaf-or-defer contract. Equal question counts do not imply equal token counts, floating-point operations (FLOPs), latency, or parameter counts. We record tokens, padded tokens, forward batches, cache-extraction elapsed time, and fitted-head parameters. FLOPs are not measured, and unequal extraction schedules and warmup conditions do not constitute a matched deployment-latency benchmark.
 
 ### 5.5 Metrics and uncertainty
 
 The primary endpoint is the paired bearing-weighted NLL difference, Qwen-factorized minus Qwen-flat; negative values favor factorization. Comparisons with Qwen-shared-factorized and Qwen-two-question-direct distinguish question conditioning from hierarchy and added evaluations. Numerical-factorized minus Numerical-flat tests whether the numerical hierarchy explains the effect's direction.
 
-Multiclass Brier sums over all three classes, $\sum_k(p_k-\mathbb1[y=k])^2$, rather than using a one-component binary convention. Accuracy and Macro-F1 use the same equal-bearing, equal-window weights as NLL. ECE uses maximum probability and ten bins: $[0,0.1),[0.1,0.2),\ldots,[0.9,1]$. It sums each bin's probability mass times the absolute difference between its weighted mean confidence and accuracy; empty bins contribute zero. ECE is descriptive and depends on binning.
+Multiclass Brier sums over all three classes, $\sum_k(p_k-\mathbb1[y=k])^2$, rather than using a one-component binary convention. Accuracy and macro-averaged F1 (Macro-F1) use the same equal-bearing, equal-window weights as NLL. ECE uses maximum probability and ten bins: $[0,0.1),[0.1,0.2),\ldots,[0.9,1]$. It sums each bin's probability mass times the absolute difference between its weighted mean confidence and accuracy; empty bins contribute zero. ECE is descriptive and depends on binning.
 
 Risk–coverage curves sort saved maximum probabilities with stable ties, and report weighted accepted-window error against weighted coverage. AURC is the sum of each prefix's risk times its coverage increment, using right endpoints; lower values indicate lower integrated selective error. Fixed-cost outputs include coverage, accepted-sample error when coverage is positive, and realized cost including every deferral's 0.25 charge. Lower selective error from greater rejection is not treated as improvement at matched coverage.
 
@@ -282,7 +260,7 @@ For the complete 376,173-window amplitude-preserving 2,048-point export, the dir
 
 A numerical hierarchy gain supports a hierarchy explanation. A gain retained by Qwen-shared-factorized does not establish that two diagnostic questions are necessary. A gain matched by two direct questions is compatible with extra calls or prompt diversity. A gain following amplitude restoration belongs to the observation revision unless within-protocol controls isolate an additional effect. Zero and negative results remain findings. Interface or infrastructure failure is separated from a completed comparison.
 
-## 6. Results
+## 6. Completed Pilot: Results
 
 ### 6.1 Observation and coverage verification
 
@@ -290,7 +268,7 @@ The exported 2,048-point protocol covers every stored sample in all 2,559 record
 
 ### 6.2 Amplitude-preserving feasibility comparison
 
-The completed amplitude-preserving feasibility run uses the selected 2,048-point window on the main split. It evaluates 94,080 test windows from eight bearings, with 11,760 windows per bearing. Its five calibration bearings provide 58,653 windows: four have 11,760 and KA08 has 11,613, reflecting the existing missing record. The numerical and legacy-Qwen heads both select $C=0.01$ on the tuning bearings. Qwen encoding uses frozen bfloat16 weights; this comparison retains the non-question-specific legacy representation rather than the fixed diagnostic questions.
+The completed amplitude-preserving feasibility run uses the selected 2,048-point window on the main split. It evaluates 94,080 test windows from eight bearings, with 11,760 windows per bearing. Its five calibration bearings provide 58,653 windows: four have 11,760 and KA08 has 11,613, reflecting the existing missing record. The numerical and legacy-Qwen heads both select $C_{\mathrm{reg}}=0.01$ on the tuning bearings. Qwen encoding uses frozen bfloat16 weights; this comparison retains the non-question-specific legacy representation rather than the fixed diagnostic questions.
 
 | Representation | Calibration | Test NLL | Brier | ECE | Coverage (%) | Cost |
 |---|---|---:|---:|---:|---:|---:|
@@ -309,7 +287,7 @@ The uncalibrated accepted-window error is 50.8125% for numerical and 51.8127% fo
 
 ### 6.3 Standardized-observation feasibility comparison
 
-The completed per-window-standardized feasibility run uses the same window intervals, eight test bearings, 94,080 test windows, labels, and role assignments. Both heads again select $C=0.01$. It tests the original observation protocol, including the nearly constant RMS/standard-deviation coordinates and their rescaled finite-precision variation described above.
+The completed per-window-standardized feasibility run uses the same window intervals, eight test bearings, 94,080 test windows, labels, and role assignments. Both heads again select $C_{\mathrm{reg}}=0.01$. It tests the original observation protocol, including the nearly constant RMS/standard-deviation coordinates and their rescaled finite-precision variation described above.
 
 | Representation | Calibration | Test NLL | Brier | ECE | Coverage (%) | Cost |
 |---|---|---:|---:|---:|---:|---:|
@@ -326,7 +304,7 @@ Equal-bearing minus pooled NLL is $0.000012$ for numerical, with conditional pai
 
 ### 6.4 Primary decomposition comparison
 
-All six decomposition arms completed under the frozen amplitude-preserving observation and the same 94,080 test windows from eight held-out bearings. Every workflow selects $C=0.01$; calibration acts on each final three-class distribution. The numerical-flat result is the protocol-compatible feasibility result, retained as a shared comparison rather than independent evidence.
+All six decomposition arms completed under the frozen amplitude-preserving observation and the same 94,080 test windows from eight held-out bearings. Every workflow selects $C_{\mathrm{reg}}=0.01$; calibration acts on each final three-class distribution. The numerical-flat result is the protocol-compatible feasibility result, retained as a shared comparison rather than independent evidence.
 
 | Method | NLL | Brier | Accuracy (%) | Macro-F1 | ECE | AURC |
 |---|---:|---:|---:|---:|---:|---:|
@@ -345,7 +323,7 @@ Probability and selection metrics disagree in an informative way. Qwen-factorize
 
 Before final calibration, Qwen-factorized NLL is 1.2429 versus 1.2237 for Qwen-flat, and its cost is 0.3511 versus 0.3311. The tiny favorable calibrated primary point difference therefore does not persist in the uncalibrated comparison. Raw and equal-bearing-calibrated probabilities, class metrics, and risk–coverage curves are retained in the complete result tables rather than used to select a favorable calibration regime.
 
-![Main-split paired bearing NLL differences and pooled-calibration risk–coverage curves from saved predictions. Only Qwen-factorized minus Qwen-flat is the prespecified primary contrast; the other conditional 95% intervals are descriptive and unadjusted for multiplicity. Risk–coverage curves sweep confidence acceptance rather than using the single fixed-cost operating point.](../assets/figures/jev_primary_results.svg)
+![Completed pilot only: main-split paired bearing NLL differences and pooled-calibration risk–coverage curves from saved predictions. Only Qwen-factorized minus Qwen-flat is the prespecified primary contrast; other conditional 95% intervals are descriptive and unadjusted. These are not tests of semantic candidate learning or cross-dataset generalization.](../assets/figures/jev_primary_results.svg)
 
 ### 6.5 Split-sensitive attribution
 
@@ -366,39 +344,41 @@ Per-bearing values reveal heterogeneous changes. In rotation 2, healthy bearing 
 
 Higher acceptance also need not improve the fixed-cost decision. In rotation 5, Qwen-factorized has 5.1395% coverage and cost 0.2808; Qwen-flat has 4.1446% coverage and cost 0.2739. Both exceed the 0.25 always-defer reference. Thus accepting more windows does not by itself demonstrate useful diagnosis. All rotation probabilities and metrics, including negative results and the numerical hierarchy controls, are retained in the complete saved tables.
 
-![Question-conditioned factorization minus the three Qwen controls in six predeclared bearing rotations. Each rotation shares its development-selected window within the comparison; widths are annotated. Changes of direction describe sensitivity to fitting and held-out populations, not independent repetitions or a pooled significance test.](../assets/figures/jev_rotation_contrasts.svg)
+![Completed pilot only: question-conditioned factorization minus three Qwen controls in six predeclared bearing rotations. Each rotation shares its development-selected window within the comparison. Direction changes describe sensitivity within one collection, not independent replications or target-dataset transfer.](../assets/figures/jev_rotation_contrasts.svg)
 
-## 7. Discussion
+## 7. Discussion and Required Validation
 
-### 7.1 A bounded negative attribution finding
+### 7.1 What the pilot establishes
 
-The primary result does not demonstrate a question-conditioning increment. The proposed model's calibrated NLL is close to Qwen-flat with an interval including zero, while the hierarchy on the single flat representation has a better point score. Descriptive rotations change direction against both that hierarchy and two direct questions. Their windows, observations, and selection opportunities are matched within each comparison; a favorable individual split therefore cannot be selected as evidence of a general benefit.
+The pilot does not establish an additional question-conditioning benefit. The shared-representation hierarchy has a better primary point NLL, and the question-conditioned contrasts change direction across refits. Because observations and model-selection opportunities are matched within a comparison, a favorable split cannot be selected as a general benefit. These conclusions apply to the frozen compact-statistic model, not to the proposed signal–semantic learner. No new model inference or cross-dataset result is introduced by the formulation.
 
-This finding identifies a boundary of the interface transfer. Asking two semantically explicit questions can change the learned representation without improving its diagnostic information or decision behavior. The conditional chain supplies coherent outputs and interpretable event definitions, but these structural properties do not predict generalization to a new bearing. Ordinary numerical hierarchy attains the best primary probability score, and its conditional secondary improvement does not require a language-specific explanation. The experiment leaves open whether other observations, training regimes, or independently annotated physical concepts would change the conclusion.
+Six temporal statistics discard waveform order and frequency structure. A pretrained encoder can impose a useful prior or reparameterize these statistics, but cannot retrieve the particular signal information that was not supplied. The pilot does not determine whether richer measured inputs or a trained signal adapter would improve diagnosis. Its few healthy bearings, source-dominant categories including mixed damage, and overlapping rotations limit external validity. Full signal coverage does not resolve limited equipment diversity.
 
-The bearing-level error concentrations suggest split sensitivity as an important empirical limitation, not a discovered physical mechanism. Healthy-bearing count is small, training populations vary by rotation, and individual bearing losses can determine a fold's mean. The protocol was frozen before these observations; neither feature definitions nor questions were revised to improve these test results. A future explanatory hypothesis based on the observed bearing patterns would be exploratory and would require a separate test.
+The observed concentration of errors on particular bearings is descriptive, not a physical mechanism. The original protocol was frozen before these test observations; neither its questions nor feature definitions were selected to repair those outcomes. Hypotheses motivated by these errors are exploratory and require evaluation on untouched data. The new generalization questions arose after the pilot and are not retrospectively described as its preregistered objectives.
 
-### 7.2 Limits of the observation and collection
+### 7.2 Validation of annotation-compatible transfer
 
-Six temporal statistics bound the attribution question. They discard waveform order and frequency structure and may not resolve damage whose distinction depends on those properties. A frozen language encoder can reparameterize textual context but cannot recover missing observation information. Linear numerical controls do not represent the ceiling of tuned nonlinear PHM models using complete signals. Practical superiority over mature signal diagnosis is not established by this comparison.
+The first pending comparison holds the measured observations, backbone, candidate descriptions, and source model-selection budget fixed while changing only valid supervision. Compare exact-label-only training, a justified common-coarse-label baseline, and compatible-event training. Fine-label evaluation must use ground truth unavailable during training; coarse predictions are evaluated at their actual granularity. No baseline is forced to invent a fine label. Where candidate descriptions and common label mappings already solve the problem, that explanation takes priority over a new method claim.
 
-Few independent healthy bearings and a fixed source taxonomy including mixed damage limit the collection. Bearing isolation reduces leakage but does not establish external validity across installations, sensors, datasets, or unseen damage. The six rotations assess the same collection. Full coverage and many correlated windows do not resolve limited bearing diversity. Nominal sampling metadata supports indexing this experiment; it does not validate a raw timebase or defect-frequency interpretation.
+Exclude whole target datasets and all dependent physical units from task-specific fitting and calibration. Audit native class definitions before constructing $S_d$; do not turn run-to-failure timestamps into fault-onset labels without supporting annotations. Sources whose dominant or mixed faults cannot share the proposed partition are reported as incompatible rather than discarded after inspecting test performance. Controlled coarsening of source labels can diagnose sensitivity, but is not a substitute for demonstrating that the native annotations present the claimed problem. Compare results per target dataset, retaining negative transfer and uncertainty at the physical-unit level.
 
-### 7.3 Probability validity and operational meaning
+The semantic matcher under the same supervision is a required nearest control, because the dot-product architecture itself is conventional. A mapped shared classifier and a compact signal-only model help determine whether semantic candidates or a pretrained backbone add value. A single checkpoint is shared within each source-trained model instance; a different excluded-target fold generally trains a different checkpoint. Two compatible backbone families test method portability without implying universal performance.
 
-Typed categories and normalized probabilities make outputs consumable but do not provide calibrated risk guarantees. The lower ECE and higher AURC of Qwen-factorized illustrate the difference between probability calibration and rejection ranking. Both calibrated Qwen and normalized-observation predictors can attain cost 0.25 by rejecting all observations. Decisions consequently require coverage and realized error alongside probability metrics.
+### 7.3 Probability estimates, rejection, and runtime
 
-Calibration bearings are few, and their composition affects the fitted temperature. The mean-bearing target is declared rather than estimated from deployment prevalence. The pooled/equal-bearing comparison shows tiny differences with intervals including zero, under almost equal recording counts. It supplies neither a weighting advantage nor an equivalence result. A meaningful comparison of these targets in a different deployment population would require corresponding independent-unit sampling, not artificial duplication to create a favorable effect.
+The pilot's lower ECE but higher AURC distinguishes calibration from selective ordering. Complete deferral attains the always-defer cost but produces no accepted diagnosis. Calibration bearings are few, and nearly equal counts make the two calibration-weighting objectives very similar; their uncertain differences establish neither a weighting advantage nor equivalence. The normalized deferral cost does not model expert accuracy, delay, downtime, or physical intervention.
 
-The rejection cost defines a diagnostic scenario, not a maintenance policy validated with experts or downtime. Deferral is charged without modeling expert accuracy, delay, or intervention. A probability gate is not an engineering interlock. Fault-presence and fault-identity outputs are label-derived judgments, not verified physical explanations.
+The second pending comparison measures diagnostic error or NLL jointly with latency while varying the declared signal-token budget and candidate count. Use the same hardware, precision, batching, warmup and input duration, and include device synchronization. Compare direct readout against minimal-output generation and an efficient numerical classifier. Report cold candidate compilation separately from repeated warm decisions, and retain failures and format errors in the generated-output denominator. A method that trades away accuracy or rejects everything cannot be declared uniformly faster at the same diagnostic service level.
+
+Acquisition duration is not inference latency, candidate order is not class semantics, and a source-calibrated maximum probability is not an engineering interlock. These distinctions constrain interpretation but do not guarantee the proposed method's outcome. The current tables contain no matched latency experiment, coarse-label learning experiment, or target-dataset exclusion experiment.
 
 ## 8. Conclusion
 
-Using 32 physical Paderborn bearings, the study tests whether independent fault-presence and conditional fault-identity questions add probability or selective-decision value to a frozen Qwen3-0.6B representation of six vibration statistics. The primary paired NLL interval includes zero, an ordinary hierarchy on the direct representation has a better point score, and the six predeclared rotations reverse direction. These results do not support a stable question-conditioning increment in the stated setting.
+Jev-PHM is formulated as non-generative semantic fault-candidate prediction with compatible source supervision, independently of a particular backbone. The scientific questions concern the transfer of diagnostic distinctions under annotation and measurement changes, and the error–latency consequences of replacing response generation with direct scoring. Existing semantic classification and coarse-label theory delimit the method's novelty; coherent probabilities alone cannot identify distinctions absent from the annotations.
 
-The useful findings are the attribution boundary and the separation of observation, probability quality, and action utility. Preserving amplitude improves the pooled-calibrated feasibility NLL, lower ECE does not ensure better selective ordering, and low fixed-cost outputs can reflect complete deferral. The code and saved outputs preserve these distinctions for reproduction. Stronger practical or mechanistic claims require richer validated signal evidence and broader independent equipment; they do not follow from typed validity or coherent probability composition.
+The completed 32-bearing pilot supplies a bounded result: two diagnostic questions do not demonstrate a stable increment over direct prediction, shared-representation hierarchy, or two direct questions in the six-statistic frozen-encoder setting. The primary NLL interval includes zero, rotation contrasts change sign, and primary calibrated Qwen methods defer all observations. These results remain intact. The proposed cross-dataset method still needs implementation and its declared transfer, semantic-supervision, and runtime comparisons before a methodological improvement or submission-ready general-model claim can be made.
 
-## Appendix A. Fixed question meanings
+## Appendix A. Fixed pilot question meanings
 
 Every decomposition prompt begins with this identical definition, including the actual label strings and mixed-damage qualification:
 
@@ -413,14 +393,93 @@ The fixed questions below precede the identical state:
 | Presence | Does this vibration window belong to any of the defined fault classes rather than the healthy class? |
 | Conditional identity | Conditional on this vibration window belonging to one of the defined fault classes, which fault class describes it? |
 
-The feasibility legacy query is “Represent this vibration window for fault diagnosis.” It lacks the category-conditioned diagnostic question and is analyzed only as the retained feasibility representation. No prompt contains a sample's answer or identifier. Complete templates, tokenization settings, and class order are saved.
+The feasibility legacy query is “Represent this vibration window for fault diagnosis.” It lacks the category-conditioned diagnostic question and is analyzed only as the retained feasibility representation. No prompt contains a sample's answer or identifier. Complete templates, tokenization settings, and class order are saved. These literal prompt strings are preserved; their use of “race” does not relabel the source categories or imply an additional damage class.
 
 ## Appendix B. Data and software availability
 
-The implementation and compact summaries are maintained at [PT01-jev-phm](https://github.com/liq22/PT01-jev-phm/tree/dev). PHMFactory/PHM-Vibench is fixed to commit `cdc0669167ca25ac848e34c880875ca39c6aed89` [@phmvibench2026]. Paderborn source data remain subject to the [provider's CC BY-NC 4.0 terms](https://mb.uni-paderborn.de/en/kat/research/bearing-datacenter), distinct from the original paper and code licenses. Large observations and hidden states are stored separately from version-controlled code.
+The implementation and compact pilot summaries are maintained at [PT01-jev-phm](https://github.com/liq22/PT01-jev-phm/tree/dev). PHMFactory/PHM-Vibench is fixed to commit `cdc0669167ca25ac848e34c880875ca39c6aed89` [@phmvibench2026]. Paderborn source data remain subject to the [provider's CC BY-NC 4.0 terms](https://mb.uni-paderborn.de/en/kat/research/bearing-datacenter), distinct from the original paper and code licenses. Large observations and hidden states are stored separately from version-controlled code.
 
-The successful run is `run-20261013-pu-001`. It contains two feasibility evaluations, the primary decomposition comparison, and six bearing rotations under `src/outputs/jev-phm/`. Each evaluation retains `metrics.json`, `predictions.npz`, configuration, and provenance. The [compact study summary](../assets/tables/jev_study_summary.json) retains all evaluation metrics and fitted configuration, while [per-bearing NLL values](../assets/tables/jev_unit_nll.csv) support numerical reconstruction of the paired contrasts. Editable figures are generated by `src/S03_Scripts/plot_jev_results.py` from saved predictions. The [repository reproduction instructions](https://github.com/liq22/PT01-jev-phm/tree/dev#reproduce-the-pu-study) give complete preparation, export, window-selection, encoding, and evaluation commands using `src/S03_Scripts/run_jev_study.py`. Reproduction uses a new output directory, retaining failures and previous results.
+The successful pilot run is `run-20261013-pu-001`. It contains two feasibility evaluations, the primary decomposition comparison, and six bearing rotations under `src/outputs/jev-phm/`. Each evaluation retains `metrics.json`, `predictions.npz`, configuration, and provenance. The [compact study summary](../assets/tables/jev_study_summary.json) retains all evaluation metrics and fitted configuration, while [per-bearing NLL values](../assets/tables/jev_unit_nll.csv) support numerical reconstruction of paired contrasts. Figures are generated by `src/S03_Scripts/plot_jev_results.py` from saved predictions. The [repository reproduction instructions](https://github.com/liq22/PT01-jev-phm/tree/dev#reproduce-the-pu-study) provide the pilot preparation, export, window selection, encoding, and evaluation commands using `src/S03_Scripts/run_jev_study.py`. They are not an executable implementation of Section 4. Reproduction uses a new output directory and retains failures.
 
-The sole authoritative manuscript is Markdown. `src/S03_Scripts/build_jev_paper.py` builds offline HTML and PDF previews without maintaining a second text source. Author identities, funding, conflicts, target journal, and submission declarations require author confirmation and are not inferred from the repository.
+The sole authoritative manuscript is Markdown. `src/S03_Scripts/build_jev_paper.py` builds derived offline HTML and PDF previews without maintaining a second text source. Author identities, funding, conflicts, target journal, and submission declarations remain unconfirmed. The complete previous candidate and its provenance are retained in Git at `ff9db6e4e43c8da2fc66990a03dcc78ed1fd2afb`.
+
+## Appendix C. Completed pilot prediction and estimation details
+
+### C.1 Scope, features, and frozen encoder
+
+The pilot has $\mathcal C=\{H,I,O\}$: healthy, inner-ring-dominant, and outer-ring-dominant states. Every recording from a bearing remains in one fitting or evaluation role. Labels, bearing/file IDs, operating-condition IDs and role assignments are excluded from inputs. PHMFactory owns reading, preprocessing, window construction, and grouped assignments; validation bearings are divided into tuning and calibration roles without changing the original data.
+
+For a univariate window of length $W$, the feature vector is
+
+$$
+s(x)=\left(\sqrt{\overline{x^2}},\sqrt{\overline{(x-\bar x)^2}},\overline{|x|},\max x-\min x,
+\frac{\max|x|}{\sqrt{\overline{x^2}}},\overline{\left(\frac{x-\bar x}{\operatorname{std}(x)}\right)^4}\right).
+$$
+
+These are root mean square (RMS) amplitude, population standard deviation, mean absolute amplitude, peak-to-peak amplitude, crest factor, and ordinary kurtosis rather than excess kurtosis. A zero denominator gives the relevant ratio a declared zero convention. Values use fixed order and eight significant digits. The model does not calculate signal quantities. The two frozen preprocessing conditions are upstream per-window standardization and no signal normalization. They are shared by all arms within a comparison; the decomposition study uses amplitude-preserving observations. These choices were fixed before test-performance inspection, not selected to improve a test result.
+
+Qwen/Qwen3-0.6B is the pilot instance, fixed to revision `c1899de289a04d12100db370d81485cdf75e47ca` [@qwen2025]. A non-thinking chat template supplies the common class definitions, a fixed question $q$, and the serialized statistics. The last non-padding hidden state $h_q(s)\in\mathbb R^{1024}$ is extracted without answer-token generation; the backbone is frozen. Training-only weighted standardization precedes each logistic head. The conditional-identity standardizer uses faulty training observations only. Numerical heads use the same six values without the encoder. These are supervised probes, not zero-shot diagnostic models.
+
+### C.2 Conditional heads and output probabilities
+
+Let $F=(I,O)$. The pilot's presence probability is denoted $r(s)$. With sigmoid $\sigma$, learned coefficient vectors $\beta_F,\beta_L\in\mathbb R^{1024}$ and scalar intercepts $b_F,b_L$,
+
+$$
+r(s)=\sigma(\beta_F^\top h_{q_F}(s)+b_F),\qquad
+u(s)=\operatorname{softmax}\begin{pmatrix}0\\\beta_L^\top h_{q_L}(s)+b_L\end{pmatrix}.
+$$
+
+$I$ is the identity reference class and $O$ the learned non-reference class. Each binary branch therefore has one learned coefficient vector and intercept, whereas the flat head learns a three-row multinomial matrix. Their regularization geometry differs even for equal $C_{\mathrm{reg}}$. Code forms
+
+$$
+p(H\mid s)=1-r(s),\qquad p(k\mid s)=r(s)u_k(s),\quad k\in F.
+$$
+
+Presence targets are $\mathbb1[y\in F]$; identity targets exist only for faulty training observations. Both are derived from the same diagnostic label, not additional physical-symptom annotations. Every test observation executes both question branches; neither answer nor a test label is used to select the other branch. The figure's labels $r$ and $u$ denote these pilot factors, not the proposed semantic scorer.
+
+![Completed pilot only: independent fault-presence and conditional fault-identity questions read the same six measured statistics. Diagnostic labels supervise the heads; code composes leaf probabilities, calibrates them, and applies a diagnosis/deferral rule. The figure notation r denotes the pilot fault probability. This diagram does not depict the new method in Section 4.](../assets/figures/jev_method.svg)
+
+### C.3 Training weights, loss, and regularization
+
+A recording $j$ with $m_j$ exported windows assigns scalar training weight $w_{ji}=64/m_j$. Its total training mass is always 64, preserving the earlier probe's loss scale rather than defining prevalence or an independent sample count. Fault-only heads retain the original weights without renormalizing them to the presence branch. The objective is
+
+$$
+\mathcal L_{C_{\mathrm{reg}}}=
+\sum_{i\in\mathrm{train}}w_i\ell_{F,i}
++\sum_{i\in\mathrm{train}:y_i\in F}w_i\ell_{L,i}
++\frac{\|\beta_F\|^2+\|\beta_L\|^2}{2C_{\mathrm{reg}}}.
+$$
+
+Intercepts are unpenalized and class balancing is disabled. The data-fit term equals weighted leaf NLL because
+
+$$
+-\log p(y_i\mid s_i)=
+\begin{cases}
+-\log(1-r_i),&y_i=H,\\
+-\log r_i-\log u_{i,y_i},&y_i\in F.
+\end{cases}
+$$
+
+Separately averaging and equally adding the two losses would generally change faulty-example weight and is not the implemented objective. Flat heads use corresponding weighted categorical NLL with L2 regularization. One shared $C_{\mathrm{reg}}$ is selected for each pair, not a Cartesian product of penalties. The regularization parameter is denoted $C_{\mathrm{reg}}$ to distinguish it from the action-cost matrix $\Lambda$.
+
+### C.4 Calibration population and temperature
+
+Each method first forms its complete three-class distribution. A scalar temperature is fitted only on calibration bearings:
+
+$$
+\widetilde p_T(k\mid s)=\frac{p(k\mid s)^{1/T}}{\sum_{j\in\{H,I,O\}}p(j\mid s)^{1/T}}.
+$$
+
+The search interval is $[0.05,20]$; $T=1$ is retained if the fitted candidate does not improve the selected calibration objective. Boundary solutions are reported. No extra node-specific calibration is used. Calibrated factors, if exposed, are reconstructed as $\widetilde r=1-\widetilde p_T(H)$ and $\widetilde u_k=\widetilde p_T(k)/\widetilde r$, separately from raw factors.
+
+For calibration bearing $b$, let $L_b(T)$ be mean window NLL and $n_b$ its window count. Pooled calibration minimizes $\sum_b n_bL_b(T)/\sum_b n_b$, while equal-bearing calibration minimizes $B^{-1}\sum_bL_b(T)$. With covariance computed using divisor $B$ and mean count $\bar n$,
+
+$$
+R_{\mathrm{window}}(T)-R_{\mathrm{unit}}(T)=\frac{\operatorname{Cov}_b(n_b,L_b(T))}{\bar n}.
+$$
+
+This elementary identity does not predict held-out benefit. Equal counts make the objectives equal, and uniformly replicating all windows of one bearing leaves its equal-bearing objective unchanged. The weighting defines a population, not an arbitrary-distribution calibration guarantee.
+
+Positive global temperature preserves class argmax and therefore each arm's accuracy and Macro-F1. In binary classification, maximum probability is $\sigma(|z_1-z_0|/T)$, so confidence ordering and risk at matched coverage are unchanged under a fixed tie convention. No corresponding unconditional ordering claim holds for multiclass maximum probability. NLL, fixed-threshold acceptance and realized scenario cost can still change.
 
 ## References
