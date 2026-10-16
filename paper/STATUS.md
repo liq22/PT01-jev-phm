@@ -26,6 +26,8 @@
 
 C1—C3 的[索引](experiments/evidence_matrix.md)、[结果](assets/tables/jev_metrics.csv)及原 run ID 保留。本轮不改变或重新认证原主要差值、条件区间、轮换或全拒判结果。
 
+后续结果组织参考：[文献约束的实验结果蓝图](experiments/expected_results_blueprint.md)（2026-10-16 用户材料）。其中新实验数值为 TBD，M* 未确定；该文档不提供新增结果证据，也不替代 E 中的 CWRU 资格核验动作。
+
 ## C. Baseline 竞争力
 
 | Baseline及必要性 | 搜索/实际预算 | 选择规则/结果证据 | 资格/有效性 | 未解决问题 |
