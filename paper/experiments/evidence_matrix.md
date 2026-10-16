@@ -25,6 +25,8 @@ The sole manuscript presents the general-method formulation before the completed
 
 ## Execution boundary
 
+The [prospective results blueprint](expected_results_blueprint.md) preserves the user-provided 16 October 2026 table/figure designs and falsifying outcomes for C4–C5. It is a presentation reference with TBD experiment values and an undecided intervention, not supporting evidence or a replacement for the single next action in STATUS.
+
 ### Completed and pending are separate
 
 All existing E0, E1 and E2 evaluations remain completed under [jev_goal.md](jev_goal.md). The original run ledger and compact tables remain the result sources. Existing intervals are conditional on fits/splits and rotations are overlapping, not independent confirmations. The original data and runtime were not changed during this compatibility analysis.
