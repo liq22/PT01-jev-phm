@@ -1,29 +1,35 @@
-# Core Innovation Decision Card
+# Jev-PHM｜研究问题与方法入口
 
-> **Status: provisional.** Record only what current evidence supports. Unknown items stay `unknown`; do not infer a failure, novelty claim, result, or author decision. The only author-approved direction is `paper/paper.yaml -> idea_selection`.
+## 1. 当前唯一正文
 
-| Decision field | Current answer |
-|---|---|
-| Observed problem or unresolved contradiction | `unknown` |
-| Current claim at risk | `unknown` |
-| Evidence already observed | `unknown` |
-| Before → after core change | `unknown` |
-| Provisional front-runner | `not selected` |
-| Favored mechanism | `unknown` |
-| Strongest competing explanation | `unknown` |
-| Closest verified prior and irreducible delta | `unverified` |
-| Divergent prediction | `unknown` |
-| Decisive test | `unknown` |
-| Scope or boundary | `unknown` |
-| Current decision | insufficient evidence / retain / revise / downgrade / eliminate |
-| Most informative next action | `unknown` |
-| Stop or rejection condition | `unknown` |
-| Author approval | pending |
+### 1.1 2026-10-14 科学修订
 
-## Decision rules
+通用方法的科学问题、术语、数学对象与候选贡献已经直接进入 [paper/draft/main.md](../draft/main.md) 第 1–4 节。本文件不再保留另一份引言、公式或贡献正文。
 
-- No observed failure or unresolved contradiction: keep the front-runner unselected and make evidence collection the next action.
-- Repeated candidate mechanism: merge it and stop generating more variants.
-- Null or contradictory evidence: revise, downgrade, or eliminate the direction; do not protect the original story.
-- M1–M5 and P01–P15 are optional internal search lenses, not required fields or novelty evidence.
-- Use one provisional front-runner, one strongest competing explanation, and one decisive test. Add detail only when it changes the research decision.
+研究对象是异构标注下的跨数据集非生成式故障诊断。骨干无关表示方法可在兼容骨干上实例化；不表示不同架构共享同一权重。对一个实例而言，跨数据集部署使用同一 checkpoint，不为每个数据集重新训练分类头。
+
+## 2. 两个可检验的问题
+
+### 2.1 标注信息与迁移
+
+在测量分布变化和已核验的标注粗化条件下，兼容事件监督何时比共同粗标签或仅精确标签训练降低完全留出数据集上的 NLL/分类误差？先区分可识别与不可识别的细类；混合/主导损伤不是单故障之间的不确定性。
+
+### 2.2 读出方式与误差—时延
+
+在相同信号、候选定义及仅源域选择下，直接语义评分相对于最短合法标签生成的误差—时延关系，如何随信号 token 预算和候选数量变化？没有响应解码不等于一定更快；全部拒判不算有用的诊断吞吐。
+
+## 3. 证据与差异
+
+### 3.1 已有基础和未验证部分
+
+GLiClass、CLIP 已覆盖语义候选读出的关键基础；UniFault/YOTOnet 分别提供表征适应和目标数据集迁移近邻；Cour/Fotakis 已研究部分/粗标签的可学习性。不得把共享评分、集合似然或简单不可识别性例子当作首次提出的理论。
+
+C1–C3 仍由已完成 PU 先导研究支持。该研究为六维统计状态、冻结 Qwen 实例，主要差异区间跨零、轮换变号、主拆分校准后全部拒判。新方法的迁移与速度主张 C4–C5 仍未验证。参见唯一 [贡献—验证表](../experiments/evidence_matrix.md)。
+
+## 4. 下一步与边界
+
+### 4.1 必要接续
+
+先核验实际 PHMFactory 数据的原生标注对应与可用独立设备，再在既有实现和 [Goal](../experiments/jev_goal.md) 中定义最小匹配比较。本文阶段不运行新实验，不创建第二运行系统，不重写先导结果为新方法结果。
+
+方法说明和分析已进入正文；目标期刊、作者和正式提交授权仍待确认。`paper/paper.yaml` 保留审批字段的真实状态。旧候选稿及结果在 `ff9db6e4e43c8da2fc66990a03dcc78ed1fd2afb` 中可追溯，不另存平行稿件。

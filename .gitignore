@@ -32,6 +32,7 @@ src/checkpoints/
 src/wandb/
 
 # TeX build products
+paper/build/
 paper/tex/build/
 *.aux
 *.bbl

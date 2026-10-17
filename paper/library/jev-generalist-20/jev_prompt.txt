@@ -1,0 +1,176 @@
+**已完成优化，并通过 PR #7 合入 `dev`。**合并提交为 `29bbd2f71fe5e5173032efde7f9581a454106a21`。本轮更新了发表状态清单、通用方法设计和修订记录，`master` 未改动。 
+
+核心调整是：**论文研究一种骨干无关的非生成式故障决策学习方法，Qwen 只作为实现实例；文献的发表状态与 arXiv 下载版本分别记录。**
+
+jev_generalist_20.md[更新后的 20 篇文献清单｜Markdown](sandbox:/mnt/data/jev_generalist_revision_20261013/jev_generalist_20.md) ｜ jev_generalist_20.html[HTML 阅读版](sandbox:/mnt/data/jev_generalist_revision_20261013/jev_generalist_20.html)  
+core_innovation.md[通用方法与创新设计｜Markdown](sandbox:/mnt/data/jev_generalist_revision_20261013/core_innovation.md) ｜ core_innovation.html[HTML 阅读版](sandbox:/mnt/data/jev_generalist_revision_20261013/core_innovation.html)
+
+## 1. 文献状态：正式发表、录用线索与预印本分开
+
+### 1.1 已发表或会议录用明确：13 项
+
+保留上一版编号，方便与你已下载的文件对应。**引用优先采用正式题录；公开全文可以从 arXiv 下载，但不把不同版本重复计为不同论文。**
+
+| 原编号 | 文献 | 核验后的状态 | 下载与引用注意事项 |
+|---|---|---|---|
+| 05 | **HSE: A plug-and-play module for unified fault diagnosis foundation models** | *Information Fusion*，2025，123:103277 | 引用正式期刊论文。[科学通报](https://www.sciencedirect.com/science/article/pii/S1566253525003501) |
+| 06 | **PHM–GPT: A Large Language Model for Prognostics and Health Management** | *Engineering*，2026，63:156–172 | DOI 中含 2025，不应据此把最终卷期年写成 2025。[工程网](https://www.engineering.org.cn/engi/EN/) |
+| 07 | **VSLLaVA: A pipeline for Large Multimodal Foundation Models in industrial vibration signal analysis** | *Advanced Engineering Informatics*，76，Part B，105023；出版社页面已公开 | 卷期标为 **2026 年 11 月**；arXiv 是公开预印本渠道，不能保证与正式版逐字相同。[科学通报](https://www.sciencedirect.com/science/article/pii/S1474034626007159) |
+| 09 | **Large language models for explainable fault diagnosis of machines**，Qaid et al. | *Engineering Applications of Artificial Intelligence*，2026，163，Part 4，113131 | 优先阅读这篇正式期刊论文；与旧 FD-LLM 预印本的完整版本沿革尚未核清，不能直接把旧 PDF 标成接受稿。[sciencedirect.com](https://www.sciencedirect.com/science/article/abs/pii/S0952197625031628?utm_source=chatgpt.com) |
+| 10 | **FD-LLM: Large language model for fault diagnosis of complex equipment**，Lin et al. | *Advanced Engineering Informatics*，2025，103208 | 与第 09 项不是同一篇论文，不因缩写相同而合并。[数字对象标识符](https://doi.org/10.1016/j.aei.2025.103208) |
+| 11 | **PGA-LLM: A Probability-Guided Alignment Large Language Model Framework for Fault Diagnosis** | *Technologies*，2026，14(8):494 | 已发表，出版社提供开放全文。[MDPI](https://www.mdpi.com/2227-7080/14/8/494) |
+| 12 | **A Multi-Stage Post-Training Framework for Domain-Specific Language Models in Fault Diagnosis** | *AI*，2026，7(9):383 | 已发表；研究对象是 HVAC 维护文本，不能直接当作振动跨数据集证据。[MDPI](https://www.mdpi.com/2673-2688/7/9/383) |
+| 15 | **LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders** | **COLM 2024** | arXiv 明确标注录用，作者实验室也列为 COLM；不再归为“仅预印本”。[arXiv](https://arxiv.org/abs/2404.05961) |
+| 16 | **Learning Transferable Visual Models From Natural Language Supervision** | **ICML 2021**，PMLR 139 | CLIP 正式会议论文，引用论文集版本。[Proceedings of Machine Learning Research](https://proceedings.mlr.press/v139/radford21a.html) |
+| 17 | **UniTS: A Unified Multi-Task Time Series Model** | **NeurIPS 2024** | 正式会议记录与 arXiv 下载版本分别提供。[NeurIPS 会议录](https://proceedings.neurips.cc/paper_files/paper/2024/hash/fe248e22b241ae5a9adf11493c8c12bc-Abstract-Conference.html) |
+| 18 | **Distilling Step-by-Step! Outperforming Larger Language Models with Less Training Data and Smaller Model Sizes** | **Findings of ACL 2023** | 应写 Findings，不写成 ACL 主会论文。[ACL Anthology](https://aclanthology.org/2023.findings-acl.507/) |
+| 19 | **Are Language Models Actually Useful for Time Series Forecasting?** | **NeurIPS 2024** | 已有正式会议记录，不再仅标 arXiv。[NeurIPS 会议录](https://proceedings.neurips.cc/paper_files/paper/2024/hash/6ed5bf446f59e2c6646d23058c86424b-Abstract-Conference.html) |
+| 20 | **Towards a more realistic evaluation of machine learning models for bearing fault diagnosis** | *Mechanical Systems and Signal Processing*，2026，258:114640 | 引用正式版；公开预印本与正式版的数据集描述存在版本差异，不能混用。[数字对象标识符](https://doi.org/10.1016/j.ymssp.2026.114640) |
+
+**第 09 项是一次明确的阅读优先级修订，而不是已证明的版本合并：**清单优先列同团队相关的正式期刊论文，旧预印本仍作为相关早期工作保留说明。
+
+### 1.2 UniFault：作者公开列为 TII，但正式出版信息仍待补齐
+
+**第 03 项 UniFault 不再放在“仅 arXiv”组。**第一作者主页已将其列为 **IEEE Transactions on Industrial Informatics，2026**，并提供对应 arXiv 入口。不过，本轮尚未核到 IEEE 正式 DOI、卷期／页码及接受稿版本，因此采用下面的状态表述：
+
+> **作者公开列为 TII 2026；正式出版元数据待核。**
+
+这比继续标为“未发表”准确，也避免把作者报告误写成已经核验出版社终稿。[Emadeldeen Eldele](https://emadeldeen24.github.io/)
+
+### 1.3 仅核验到预印本或技术报告：6 项
+
+| 原编号 | 文献 | 当前可确认的状态 |
+|---|---|---|
+| 01 | **Where Can a Decision Model Diagnose HVAC Faults?** | arXiv，2026-10-07；标注 **Submitted to Energy and Buildings**，不是 Accepted。[arXiv](https://arxiv.org/abs/2610.09937) |
+| 02 | **GLiClass: Generalist Lightweight Model for Sequence Classification Tasks** | 已核验 arXiv 原文，本轮未找到可确认的正式录用记录。[arXiv](https://arxiv.org/abs/2508.07662) |
+| 04 | **YOTOnet: Zero-Shot Cross-Domain Fault Diagnosis via Domain-Conditioned Mixture of Experts** | 已核验 arXiv 原文，本轮未找到可确认的正式录用记录。[arXiv](https://arxiv.org/abs/2605.04528) |
+| 08 | **FaultGPT: Industrial Fault Diagnosis Question Answering System by Vision Language Models** | 已核验 arXiv 原文，本轮未找到可确认的正式录用记录。[arXiv](https://arxiv.org/abs/2502.15481) |
+| 13 | **Qwen3 Technical Report** | 模型技术报告；未核验期刊／会议录用。[arXiv](https://arxiv.org/abs/2505.09388) |
+| 14 | **Qwen3 Embedding: Advancing Text Embedding and Reranking Through Foundation Models** | 模型技术报告；未核验期刊／会议录用。[arXiv](https://arxiv.org/abs/2506.05176) |
+
+**“未核验到录用”不等于“未获录用”，发表状态也不代替相关性判断。**GLiClass、YOTOnet 和直接使用 Jev 的 HVAC 研究仍是必须认真比较的近邻。
+
+## 2. 研究定位：从 Qwen 应用转为通用方法
+
+### 2.1 新的拟题与研究对象
+
+拟题已调整为：
+
+> **Jev-PHM: Backbone-Agnostic Non-Generative Decision Learning for Cross-Dataset Fault Diagnosis**
+
+中文定位：
+
+> **面向跨数据集故障诊断的骨干无关非生成式决策学习方法。**
+
+研究对象不再是“Qwen 如何识别故障”，而是：
+
+**如何让异构振动观测通过共享的故障语义接口直接形成诊断概率，并使同一模型实例跨数据集复用，而不依赖逐 token 响应生成或数据集专属分类头。**
+
+方法中使用通用对象——信号编码器、预训练骨干、故障语义候选和共享评分器。Qwen 的具体名称、规模与版本只在实现与实验设置中出现。
+
+### 2.2 Motivation 的主线
+
+新的动机不写成“大模型一定慢、小模型一定不准”，而是聚焦两个可检验的限制：
+
+> **任务专用分类器可以高效，但其输出参数可能与特定类别体系绑定；生成式语义接口能够利用类别描述，却可能承担固定类别识别并不需要的响应解码和解析。与此同时，不同 PHM 数据集不仅存在信号分布变化，还存在故障名称、标注粒度和类别对应关系的差异。**
+
+因此，核心问题应是：
+
+> **能否通过故障语义兼容的多源学习，将可迁移诊断表示与低开销共享读出结合，使模型在不生成答案文本的条件下，识别不同数据集中的已定义故障？**
+
+非生成式通用分类、语义类别匹配和跨数据集时序学习已有 GLiClass、CLIP、UniTS 等基础，不能把这些组件本身当作新发明；本方法需要解决它们进入 PHM 后的具体困难。[arXiv](https://arxiv.org/abs/2508.07662)
+
+### 2.3 两种通用性必须分别成立
+
+| 通用性 | 本项目中的准确含义 | 不应混淆为 |
+|---|---|---|
+| **骨干无关** | 同一方法可在满足接口的不同骨干上实例化和训练 | 不同架构直接共用同一套权重、零成本替换 |
+| **跨数据集复用** | 对某个实例化模型，使用同一 checkpoint 和共享读出识别多个数据集 | 每个数据集单独训练分类头后，合称“通用模型” |
+
+结构上可替换不等于实验上已证明可迁移。下一轮至少应在不同骨干实例中检验方法增量，而不是只在一个骨干上改名。
+
+## 3. Contribution：框架、学习机制与实证分别明确
+
+### 3.1 贡献一：共享语义候选的非生成式决策框架
+
+拟议框架是：
+
+```text
+PHMFactory 振动观测与必要测量信息
+                  ↓
+有界长度的信号表示
+                  ↓
+可替换的预训练骨干
+                  ↓
+共享信号—故障候选评分
+                  ↓
+完整诊断概率与明确的接受／拒判规则
+```
+
+方法定义不绑定特定骨干：
+
+$$
+Z=E_\phi(x,m),\qquad
+h=P(B_\theta(Z)),\qquad
+e_k=T_\psi(d_k),
+$$
+
+$$
+p_\Theta(k\mid x,m,\mathcal C)=
+\frac{\exp(s_\omega(h,e_k)/\tau)}
+{\sum_{j\in\mathcal C}\exp(s_\omega(h,e_j)/\tau)}.
+$$
+
+其中，候选由故障描述表示，共享评分器替代数据集专属输出行。固定模型与类别定义后，可以预计算候选表示；**一次信号编码用于所有候选评分**，而不是让信号针对每个类别重复经过完整骨干。
+
+这是拟议接口与计算方式，**尚不是已测得的速度优势**。实际效率仍需与最短标签生成、普通分类头和高效信号模型比较。
+
+### 3.2 贡献二：优先研究“故障语义与标注粒度兼容”
+
+这是本轮进一步收敛的具体创新候选，重点不是增加模块，而是解决一个实际跨数据集问题：
+
+**不同数据集中的同名故障未必同义，不同粒度标签也不能强制映射成同一个 one-hot 目标。**
+
+例如，一个数据集标“轴承故障”，另一个区分内圈与外圈损伤；粗标签不能被随意补成细标签。对于确实对应一组互斥状态的粗标注，可以学习其兼容事件的总概率：
+
+$$
+\ell(x,y,d)=
+-\log\sum_{k\in S_d(y)}
+p_\Theta(k\mid x,m,\mathcal C).
+$$
+
+但需要保留两个限制。首先，集合监督与部分标签学习已有研究基础，不能把该形式包装成新的通用理论。其次，**混合故障不是“不知道究竟是哪一种单故障”**；主导损伤标签不能直接映射为若干纯单故障的集合。[机器学习研究杂志](https://jmlr.org/papers/v12/cour11a.html)
+
+这项贡献是否成立，取决于真实数据是否存在有意义的标注差异，以及该处理是否优于普通语义匹配和经过认真核验的共享标签映射。没有相应差异时，就不保留“粒度兼容”的创新主张。
+
+### 3.3 贡献三：共享 checkpoint 下的精度—时延—迁移验证
+
+实证部分应同时回答三个问题：
+
+| 要证明什么 | 必要验证 |
+|---|---|
+| 非生成式读出是否真正减少开销 | 同骨干最短合法标签生成与直接读出比较，计入信号处理、候选评分及实际运行条件 |
+| 是否实现跨数据集复用 | 同一实例的共享 checkpoint；整个目标数据集不参与拟合、选择与校准 |
+| 方法是否不依赖特定骨干 | 在不同兼容骨干中比较相对于各自对照的增量，而不是仅比较绝对分数 |
+
+**“First Jev-PHM”暂不采用。**已有直接使用 Jev 做 HVAC 故障诊断的公开预印本；是否正式录用，不影响其作为先行工作的相关性。更稳妥的贡献表述是“提出 Jev-PHM 方法”，让具体学习机制和有效结果支撑创新。[arXiv](https://arxiv.org/abs/2610.09937)
+
+## 4. 已合并内容与验证边界
+
+### 4.1 本轮实际修改的文件
+
+| 文件 | 本轮产出 |
+|---|---|
+| `paper/refs/jev_generalist_20.md` | 20 项文献的发表状态、正式来源、公开下载入口和版本关系 |
+| `paper/kickstart/core_innovation.md` | 骨干无关定位、Motivation 英文段落、方法公式、拟议贡献和必要对照 |
+| `paper/logs/paper_log.md` | 新方向及其与已完成候选稿的边界 |
+
+上述三项已通过 **PR #7** 合并。原候选稿、PDF、实验数据、代码、配置以及 C1—C3 没有改动；PR #6 的旧稿叙事修订和无关 PR #4 也没有被一并合入。
+
+### 4.2 做到哪一步，尚未做到哪一步
+
+两份新文档已经成功渲染为 HTML，无警告；远端差异已核对为三个预期文件。**本轮没有重跑完整测试，也没有新增实验；远端仍无该提交的 CI 检查记录，未报告 CI 通过。** 
+
+当前完成的是**新方向的文献校正与方法设计合并**，不是把原先的单一 PU 负结果候选稿改成“已验证的通用模型论文”。
+
+下一步应先读清 GLiClass、UniFault、HSE、PHM–GPT 与 YOTOnet 的核心方法，并核验实际 PHMFactory 数据之间的故障语义对应；随后才能将上述候选机制转成一个最小、可区分贡献的实现与实验。

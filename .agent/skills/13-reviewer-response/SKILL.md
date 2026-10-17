@@ -29,6 +29,12 @@ reviewer concern
 1. Restate the reviewer concern accurately and identify whether it targets
    novelty, theory, method, experiment, statistics, generalization, writing, or
    venue requirements.
+   For requested `nature-response` support or a difficult response/package issue,
+   read the source through
+   [task-specific selection](../../references/task_specific_skill_selection.md).
+   Work from actual comments and revisions. A local reply can proceed without an
+   editor decision; decision-dependent package strategy requires that decision.
+   Reuse the existing response, author decisions and progress view.
 2. Decide whether to add evidence, correct the method/analysis, narrow the claim,
    clarify the text, disagree with evidence, or acknowledge a limitation.
 3. Modify the manuscript or run the required scientific work first.

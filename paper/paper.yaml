@@ -1,7 +1,7 @@
-# Current research state. The specific calibration hypothesis is provisional.
+# Project metadata and claim index. Current judgments and unique next action: paper/STATUS.md.
 schema_version: 1
 project_name: Jev-PHM
-paper_title: Typed, Unit-Calibrated Small Language Models for Selective Fault Diagnosis
+paper_title: "Jev-PHM: Non-Generative Fault Diagnosis Across Datasets with Heterogeneous Annotations"
 short_title: Jev-PHM
 language: English
 paper_stage: markdown_draft
@@ -18,27 +18,70 @@ idea_selection:
   approved_by: []
   approved_at: TODO
 problem_definition:
-  object: Single-channel vibration observations of industrial equipment
-  environment: Closed-set supervised diagnosis; exact dataset and independent units require local verification
-  observation: Six deterministic features from PHMFactory windows
-  task_or_decision: Categorical fault probabilities and explicit cost-based deferral
-  failure_or_contradiction: Window counts can weight calibration differently from a declared unit-uniform population
-  desired_understanding: Whether unit-calibrated Qwen decisions improve on pooled calibration and competitive numeric controls
+  object: Vibration-based single-label fault diagnosis with semantically defined candidates
+  environment: Proposed source-only cross-dataset transfer; completed pilot is PU bearing-disjoint classification only
+  observation: Proposed bounded signal tokens and measurement metadata; existing pilot uses six temporal statistics
+  task_or_decision: Candidate probabilities and explicit diagnosis-or-defer action
+  failure_or_contradiction: Measurement shifts and incompatible label granularity are not resolved by removing response generation
+  desired_understanding: When annotation-compatible supervision supports target diagnostic distinctions, and how readout changes the error-latency relation
 research_state:
-  central_question: Does a typed Qwen3-0.6B decision layer provide useful unit-population probabilities beyond a calibrated numeric classifier?
-  current_claim_at_risk: Unit-weighted calibration yields a meaningful held-out increment beyond ordinary temperature scaling
-  strongest_support: Elementary objective identity and nine numerical/interface tests; no real PHM or Qwen evidence
-  favored_explanation: Calibration weighting matters when unit counts and losses covary under a unit-uniform target
-  strongest_competing_explanation: Ordinary calibration is sufficient and Qwen adds no value beyond the numeric state
-  largest_unresolved_uncertainty: Real-data feasibility and effect on independently held-out units
-  current_novelty_risk: Typing, classification heads, calibration, selective prediction, and PHM calibration are existing work
-  most_informative_next_action: Execute E0 then the locked two-by-three comparison in paper/experiments/jev_goal.md
-  possible_outcomes_and_decisions: Positive evidence supports a population-specific claim; null or negative evidence narrows the claim without result-driven reruns
-  stopping_condition: Deliver the first valid paired comparison and update claims; no unmotivated experiment expansion
-# No empirical claim or author-approved contribution is recorded as established.
-main_claims: []
-main_contributions: []
-required_experiments: []
+  central_question: See paper/STATUS.md A for the current scientific focus; the manuscript retains C4 transfer and C5 readout questions.
+  current_claim_at_risk: See paper/STATUS.md B; C4 requires a valid native annotation map before its performance comparison.
+  strongest_support: Native PU metadata supplies a scoped mapping counterexample; complete proof and original-source details are linked in paper/STATUS.md B.
+  favored_explanation: See paper/STATUS.md A; component location alone discards dominance used by the actual source annotation.
+  strongest_competing_explanation: See paper/STATUS.md A; a refined or explicitly dominant-location task may be valid but does not automatically demonstrate coarse-label learning.
+  largest_unresolved_uncertainty: See paper/STATUS.md E for the unfinished CWRU local metadata and native semantic qualification.
+  current_novelty_risk: Shared semantic readout and coarse-label foundations are prior art; the native counterexample is an applicability result, not demonstrated method superiority.
+  most_informative_next_action: Follow the single bounded action in paper/STATUS.md E; do not restart completed E0/E1/E2.
+  possible_outcomes_and_decisions: See paper/STATUS.md E; no parallel Goal or new run queue is introduced.
+  stopping_condition: See paper/STATUS.md E; current empirical improvements remain untested and submission approvals remain pending.
+main_claims:
+  - claim_id: C1
+    statement: The frozen pilot has no established primary NLL increment over direct Qwen or its attribution controls; rotation differences change sign.
+    status: supported_bounded_negative_finding
+    evidence: paper/assets/tables/jev_study_summary.json
+    boundary: One PU cohort and six-statistic state; not a test of the proposed semantic method, equivalence, or cross-dataset transfer.
+  - claim_id: C2
+    statement: Pilot probability and decision metrics disagree; every calibrated primary Qwen arm defers all test windows at the declared cost.
+    status: supported_observation
+    evidence: paper/assets/tables/jev_metrics.csv
+    boundary: Error cost 1 and deferral cost 0.25; no safety, maintenance, or expert-transfer benefit.
+  - claim_id: C3
+    statement: Shared amplitude preservation lowers pooled pilot E1 NLL for both representations; all four equal-bearing-minus-pooled calibration intervals include zero.
+    status: supported_conditional_observation
+    evidence: paper/assets/tables/jev_study_summary.json
+    boundary: Primary-split preprocessing/calibration observation, not semantic learning or equivalence of weighting schemes.
+  - claim_id: C4
+    statement: Verified annotation-compatible source supervision improves excluded-dataset diagnostic NLL or error beyond conventional semantic controls.
+    status: hypothesis_pending_validation
+    evidence: paper/method/native_annotation_compatibility.md
+    boundary: Native PU mixed/dominant records refute pure-site and undifferentiated-both deterministic mappings; this is not a C4 performance test. CWRU local semantics remain UNKNOWN.
+  - claim_id: C5
+    statement: Direct semantic readout provides a favorable diagnostic error-latency relation across compatible backbone instances.
+    status: hypothesis_pending_validation
+    evidence: paper/draft/main.md
+    boundary: Mathematical zero-response-token and scoring-cost properties are not measured end-to-end benefits or validated backbone portability.
+main_contributions:
+  - contribution_id: CTR-001
+    statement: Completed pilot attribution separates diagnostic question conditioning from ordinary hierarchy and another direct question, with a bounded negative result.
+    supporting_claims: [C1]
+  - contribution_id: CTR-002
+    statement: Completed pilot observation distinguishes preprocessing, probability quality and cost-based acceptance; coherent typing or lower ECE does not establish useful diagnosis here.
+    supporting_claims: [C2, C3]
+# C4-C5 remain hypotheses, not established empirical contributions.
+required_experiments:
+  - experiment_id: E0
+    status: completed
+    supports_claims: [C3]
+    output: src/outputs/jev-phm/run-20261013-pu-001/exports
+  - experiment_id: E1
+    status: completed
+    supports_claims: [C2, C3]
+    output: src/outputs/jev-phm/run-20261013-pu-001/evaluations/primary_raw_e1
+  - experiment_id: E2
+    status: completed
+    supports_claims: [C1, C2]
+    output: src/outputs/jev-phm/run-20261013-pu-001/evaluations
 artifacts:
   method_spec: paper/method/method_spec.yaml
   figures: paper/assets/figures/

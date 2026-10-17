@@ -283,6 +283,14 @@ Report only:
 Do not expose route packets, YAML traces, validation matrices, or process reports
 unless explicitly requested.
 
+## Reusable research stages
+
+For an explicitly requested stage, use [the staged Prompt index](paper/prompts/README.md)
+and its scoped external Skill sources, adapted from PaperTrace
+`869051ad38f6858e52523013db43d99724e5bdc7`. Keep Jev-PHM's current scientific
+authority, unique manuscript, frozen protocols and data-access exclusions.
+The stage materials do not reopen a stopped experiment or alter an author decision.
+
 ## Final PR validation
 
 At final PR review, run the repository's lean CI once:

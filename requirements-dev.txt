@@ -1,5 +1,10 @@
 PyYAML==6.0.3
-# Numerical probe tests do not download Qwen or require torch/transformers.
+# Probe and simulation tests never download language-model weights.
 numpy>=1.26
 scipy>=1.11
 scikit-learn>=1.4
+# The simulation PoC and its gradient tests use torch on CPU, not transformers.
+torch>=2.2
+# Saved-result verification and figures; no model calls during plotting.
+pandas>=2.0
+matplotlib>=3.7

@@ -28,6 +28,13 @@ quota of personas, sections, standards, checklists, or findings.
    - domain validity and reproducibility;
    - positioning, writing, figure function, or venue fit;
    - adversarial rejection.
+   For requested Nature-style assessment, use `nature-reviewer` through
+   [task-specific selection](../../references/task_specific_skill_selection.md)
+   as one scoped support. Use only claim-relevant review axes in this focused
+   pass; venue criteria follow the actual article and target. Distinguish a
+   demonstrated error, an unsupported inference and inaccessible evidence, and
+   name the check that would resolve each major concern. This does not invoke
+   the upstream default three-report, synthesis and forensic-audit package.
 5. Test the six paper questions:
 
    ```text

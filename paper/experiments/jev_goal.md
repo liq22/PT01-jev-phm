@@ -1,92 +1,108 @@
-# Goal: First Real Jev-PHM Comparison
+# Goal: Real PHM Attribution Study and Complete Manuscript
 
-## Scientific purpose and existing evidence
+## Research question and stopping condition
 
-### Required gap
+At matched observations, taxonomy, supervision and final calibration, does a frozen Qwen3-0.6B question-conditioned health/fault factorization improve probability quality or selective decisions beyond flat prediction, ordinary hierarchy and two direct model calls? Unit-weighted calibration is a secondary estimation question. Types, heads, conditional factorization, temperature scaling and rejection are established foundations.
 
-Test whether independent-unit calibration improves held-out probability quality beyond ordinary pooled temperature scaling, and whether frozen Qwen adds value over the same numeric state. Without this comparison, neither empirical contribution can be claimed. Existing evidence consists only of source inspection, the objective identity, and numerical/interface tests; no real PHM/Qwen result exists. This Goal is a bounded first experiment, not a submission-ready evidence claim. Do not write Results until the actual artifacts are available.
+E0/E1 are milestones. Continue through E2, six predeclared bearing rotations, analysis, the complete English Markdown manuscript, editable figures and a readable PDF preview. Retain useful null or negative findings. Run completion, merge or build success alone does not establish paper completion. If evidence remains insufficient, identify the minimum necessary gap.
 
-The first run is closed-set, single-channel diagnosis with six deterministic signal features, a frozen Qwen3-0.6B representation, and an L2 logistic head. No Jev API, proprietary weights, RLCD training, agent orchestration, or fallback model is required.
+## Frozen inputs and prospective revisions: 13 October 2026
 
-## Inputs and protocol
+- PHMFactory submodule: external/PHM-Vibench at cdc0669167ca25ac848e34c880875ca39c6aed89. Its configuration resolver, data_factory, readers, datasets and native grouped partitioning own those operations.
+- Data: local RM_027_PU.h5 and metadata.xlsx; Name=RM_027_PU, actual Dataset_id=20. There are 2,559 indexed recordings and 32 documented physical bearings. Label_Description is unique and constant per bearing; files, conditions and windows are dependent observations.
+- Retained raw taxonomy: healthy (6 bearings), inner-dominant (13), outer-dominant (13). KB23/KB24 and KB27 include mixed damage. These mutually exclusive diagnosis categories do not assert mutually exclusive physical lesions.
+- Select vibration channel 2 explicitly from the verified current/current/vibration order. The nominal rate is 64 kHz; analysis operates on actual sample indices without resampling or defect-frequency assumptions. Raw clock association remains independently unverified.
+- KA08/N15_M01_F10_KA08_2.mat is unreadable in the two inspected SciPy versions and absent from the supplied metadata/H5. Disclose the unavailable recording; do not fill it or infer historical corruption origin. Raw data and metadata remain unchanged. Original PU data terms are CC BY-NC 4.0, distinct from wrapper code terms.
+- Use a writable independent cache copy outside the original data directory and explicit use_cache=true. Cache writes must not reach raw files through links.
+- Frozen non-thinking Qwen/Qwen3-0.6B, revision c1899de289a04d12100db370d81485cdf75e47ca; no answer generation. Public download and isolated dependency installation are authorized.
+- Never use physical GPU 2. Bind visibility to the UUID of a permitted device before CUDA initialization and verify physical/logical mapping. Default physical GPU 0. No paid compute, paid APIs or private-data egress.
 
-### E0: Required local inputs, currently unresolved
+### Full-coverage windows and development-only selection
 
-Work from the project checkout, on a work branch based on `dev`. Install `src/S02_Configs/jev_requirements.txt` in an isolated environment compatible with the existing PHMFactory environment. Record the actual environment with `python -m pip freeze` in the run directory.
+The original fixed 64 positions leave gaps in 82 indexed recordings. Retain upstream evenly_spaced windowing. Candidate width W is 2048, 4096 or 8192; maximum allowed start separation S defaults to W, with 1 <= S <= W. H5 lengths range from 249,940 to 299,038; actual shapes determine legal intervals and differences from metadata nominal lengths are recorded.
 
-Use the existing local PHMFactory checkout, not a copied loader. The inspected source is `PHMbench/PHM-Vibench` at `cdc0669167ca25ac848e34c880875ca39c6aed89`. Its verified entry is `src.data_factory.build_data(args_data, args_task)`; it constructs `train_dataset`, `val_dataset`, `test_dataset`, whose items preserve `file_id`. The narrow export adapter imports this upstream entry. It does not modify it.
+$$
+N=1+\left\lceil\frac{L_{\max}-W}{S}\right\rceil.
+$$
 
-Before execution, the local Agent must locate actual datasets/metadata and a working resolved PHMFactory configuration. Export its complete resolved `data` and `task` objects as JSON; do not hand-invent missing data/task options. Confirm the returned item keys and pass their actual signal and scalar-label names. The first probe rejects multi-channel tensors rather than flattening them silently. Dataset names, paths, sampling rate, label ontology, normalization, window length, stride, and actual raw-data availability are **not yet verified here**.
+Check actual upstream intervals: first start 0, final stop L, width W, unique increasing starts, separation at most S and 100% union coverage. Short records fail explicitly; do not pad, drop, deduplicate silently or retain a 64-window cap. Default candidate counts are 147/74/37 windows per recording, totaling 376,173/189,366/94,683. Actual overlap varies by recording; this is not fixed-stride sampling. Greater overlap can be explicitly configured, but only W is searched here.
 
-Create `units.csv` with `file_id,unit_id,role`. Each selected source file occurs once. Roles are `train`, `tune`, `cal`, `test`; upstream train maps only to train, upstream validation only to tune/cal, upstream test only to test. Assign whole verified independent units, never windows. Files from the same bearing/acquisition that are not independent must share a unit. The table must cover exactly the upstream selected files and every role must cover the declared classes. Insufficient units/class coverage is a blocker, not permission to use random window splitting.
+Within EACH protocol, Numerical-flat on the amplitude-preserving state selects W and C from the declared grids using training and tuning bearings only, by tuning-bearing-balanced uncalibrated NLL. Exact ties favor fewer windows, then smaller C. All methods share that protocol's selected observations and intervals; no input is asserted optimal for every method. Freeze all protocols, prompts and selection rules before test outcomes. Each rotation repeats selection within its own train/tune roles.
 
-Create `labels.json` as the actual raw-label-to-name mapping. Dictionary order fixes class indices; all labels must have distinct names. Confirm label meanings from metadata/source documentation. No file identifier or label enters the textual state.
+### Physical-bearing roles
 
-Resolve `Qwen/Qwen3-0.6B` to its actual 40-character Hugging Face commit. The embedding command requires that revision. We verified the official checkpoint name and API support, but did not download or execute the model here. GPU access is unverified; CPU is accepted for a very small smoke, while the full local run should use the available GPU. No fixed hardware claim is made.
+Shuffle sorted documented bearing codes within each class with seed 20260922. Primary train/tune/cal/test allocations: healthy 2/1/1/2; each fault class 7/1/2/3; totals 16/3/5/8. Every available recording and operating condition follows its bearing.
 
-### E1: Comparisons and fixed conditions
+Freeze six rotations. Healthy k is test, k+1 calibration, k+2 tuning cyclically, with three other healthy bearings training. Split each shuffled 13-bearing fault list into test buckets of sizes 3/2/2/2/2/2; from the remaining ordered bearings take two calibration, one tuning and the rest training. Use native frozen grouped partitions; upstream validation covers the disjoint tune/cal bearing sets.
 
-Use the complete selected first dataset/protocol, not a favorable subset chosen after prediction. Freeze `units.csv`, labels, resolved factory config, model revision, and `src/S02_Configs/jev_probe.json` before inspecting test predictions. Class counts, unit counts, windows per unit, and operating-condition assignments must be recorded first. When calibration counts are equal, declare beforehand that the unit/pooled contrast is an expected null; do not fabricate unequal counts to obtain a benefit.
+The pinned public config schema does not expose native read-only partition fields. Resolve supported base settings with analyze_config, then visibly serialize the exact native manifest_mode/partition_map fields before the programmatic build_data call. This narrow, explicit bridge uses the existing native frozen-partition implementation; it does not claim the full public CLI validates those fields, alter the upstream pin or replace the requested split. Native required metadata verification is not extended with any custom hash system.
 
-Compare numeric and Qwen representations, each with raw, pooled-scaled, and unit-scaled probabilities. Both heads use training-only standardization and the same declared C grid. Choose C using tuning-unit NLL. Fit temperatures only on calibration units. Use no test labels in preprocessing, tuning, calibration, or threshold choice. The shared scenario cost is 0/1 error with deferral cost 0.25; it is not a real economic estimate.
+### Weighted supervised objective
 
-Primary endpoint: paired unit-minus-pooled test NLL, unit-weighted. Report Brier, ten-bin ECE, accuracy, macro-F1, coverage, selective error, and scenario cost. Also compare Qwen with the equivalently calibrated numeric control using paired unit-level analysis from saved logits. Do not claim Qwen benefit from unrelated model budgets or unmatched paper scores.
+Each window of recording j receives weight w=64/m_j, preserving total training weight 64 per source recording as coverage changes. The conditional identity head uses faulty training samples with their ORIGINAL weights, without renormalizing the subset:
 
-Statistical unit: the verified independent asset/acquisition, not a window or a random seed. One frozen-encoder extraction and one deterministic head search per representation are sufficient for this feasibility run; no mandatory three-seed rule. Use the predeclared 2,000 paired unit-bootstrap draws, seed 20260922, for conditional NLL uncertainty. These intervals do not include training/split variability or validate uncertain independence. With too few units, report the limitation and avoid generalization claims.
+$$
+\sum_{\mathrm{all}}w_i\ell_{\mathrm{presence},i}
++\sum_{\mathrm{fault}}w_i\ell_{\mathrm{identity},i}
++\frac{\|W_p\|^2+\|W_t\|^2}{2C}.
+$$
 
-## Execution
+Use unpenalized intercepts, no class weighting, lbfgs, tolerance 1e-7, maximum 2,000 iterations and C grid 0.01/0.1/1/10/100. Record installed software versions. Paired heads share C selected on complete workflow tuning NLL. Convergence failures are failures, not permission to skip candidates. Refit every learned scaler, head, C and temperature within each rotation.
 
-### Verified project commands and prerequisites
+Presence and conditional-identity questions receive identical observations and full common taxonomy definitions, never each other's answers. Both execute on all test samples; only faulty training labels supervise identity. Assemble p(H)=1-r and p(k)=r*u_k. This is conditional factorization, without an output-independence assumption or new physical-concept targets.
 
-The following CLI parsers and numerical path have been tested locally. The real PHMFactory import/export and Qwen forward pass remain **source-checked but not end-to-end executed**. The environment variables below must point to real inputs resolved in E0; they are not suggested data paths.
+## Experiments and predeclared interpretation
 
-```bash
-# From the PT01-jev-phm checkout:
-python -m unittest discover -s src/S04_Tests -p test_jev.py -v
-python src/S01_Package/jev_phm.py --help
+E0 verifies actual factory export, channel/labels/roles, interval coverage, normalization effects, local Qwen weights and a real forward/evaluation smoke. Keep smoke separate; prediction quality does not select the protocol.
 
-# Set PHMFACTORY_ROOT, FACTORY_JSON, UNITS_CSV, LABELS_JSON,
-# SIGNAL_KEY, LABEL_KEY, QWEN_REVISION and RUN_ROOT to verified local values.
-# RUN_ROOT must be a NEW directory; preserve any previous failed run.
-set -euo pipefail
-: "${PHMFACTORY_ROOT:?}" "${FACTORY_JSON:?}" "${UNITS_CSV:?}" "${LABELS_JSON:?}"
-: "${SIGNAL_KEY:?}" "${LABEL_KEY:?}" "${QWEN_REVISION:?}" "${RUN_ROOT:?}"
-mkdir "$RUN_ROOT"
-python -m pip freeze > "$RUN_ROOT/environment.txt"
-PYTHONPATH="$PHMFACTORY_ROOT${PYTHONPATH:+:$PYTHONPATH}" \
-  python src/S01_Package/jev_phm.py export \
-  --factory-root "$PHMFACTORY_ROOT" --factory-json "$FACTORY_JSON" \
-  --units-csv "$UNITS_CSV" --labels-json "$LABELS_JSON" \
-  --signal-key "$SIGNAL_KEY" --label-key "$LABEL_KEY" \
-  --out "$RUN_ROOT/data.npz" 2>&1 | tee "$RUN_ROOT/export.log"
+E1 preserves numerical/Qwen crossed with raw/pooled/unit calibration. Evaluate both per-window-standardized and prospectively declared normalization=none amplitude-preserving states at the primary selected geometry. Shared observation restoration is not decomposition evidence. Nearly equal recording counts make pooled-versus-unit calibration an expected near-null; do not manufacture imbalance.
 
-python src/S01_Package/jev_phm.py embed \
-  --data "$RUN_ROOT/data.npz" --revision "$QWEN_REVISION" \
-  --device cuda --out "$RUN_ROOT/embeddings.npz" \
-  2>&1 | tee "$RUN_ROOT/embed.log"
+E2 uses the raw state and six arms: Numerical-flat; Numerical-factorized; Qwen-flat (A); Qwen-factorized (presence/conditional identity); Qwen-two-question-direct (A/B, fixed 50/50 probability mean); Qwen-shared-factorized (ordinary hierarchy on the saved flat-A representation, no extra encoding).
 
-python src/S01_Package/jev_phm.py run \
-  --data "$RUN_ROOT/data.npz" --embeddings "$RUN_ROOT/embeddings.npz" \
-  --config src/S02_Configs/jev_probe.json --out "$RUN_ROOT/evaluation" \
-  2>&1 | tee "$RUN_ROOT/evaluation.log"
-```
+Assemble final leaf distributions before calibration. Pooled temperature is the fixed primary E2 regime; raw and unit temperature are secondary. All arms use the same scalar-temperature bounds 0.05 to 20 and calibration roles. Preserve raw factors; recompute any exposed calibrated factors from final leaf probabilities.
 
-Run each stage only after the preceding stage succeeds. For the first real model smoke, invoke `embed` on a small E0 copy that preserves all roles/classes, retain the smoke separately, and do not mix its outputs with the full run. Do not change the frozen main protocol based on smoke prediction quality. Dataset/feature or model-interface failures return to the relevant implementation step; a valid negative result is not an infrastructure failure.
+Primary contrast: Qwen-factorized minus Qwen-flat bearing-balanced test NLL. Required attribution contrasts use shared-Qwen hierarchy and the two-direct-question control. Numerical hierarchy gains support hierarchy; matched-call gains support added computation; restoration gains support information recovery. Favorable results still concern these selected prompts/backbone/observations/categories, not semantic causation or universal superiority. Nonsignificance is not equivalence. Preserve valid null/adverse outcomes and distinguish infrastructure failure.
 
-### Artifacts and acceptance
+## Estimand, uncertainty and saved evidence
 
-Retain the resolved inputs, environment and command/code versions, data features with upstream provenance, revision-pinned embeddings, `evaluation/predictions.npz`, `metrics.json`, `config.json`, `provenance.json`, six typed decision JSONL files, and logs including failures. The prediction archive includes class logits on all roles, class order, group/role/window identifiers, scaler statistics, and linear-head coefficients. This is sufficient for post-hoc metric checks without another model call. Keep large artifacts in the established local/external storage and commit only compact summaries plus accessible references; do not publish raw data or local paths without checking their sensitivity and dataset terms.
+The task predicts windows. Average window losses within each physical bearing, then give bearings equal weight:
 
-Validate that all role units are disjoint, classes are correctly mapped, records align between features/embeddings/logits, weights sum to one, probabilities are normalized, test labels were not used for selection, and raw/pooled/unit accuracy and macro-F1 match within each head. Recompute core metrics from saved logits. Temperature boundary solutions, unavailable selective risk at zero coverage, small independent-unit counts, and convergence failures must be reported. The adapter deliberately errors on unknown labels, missing units, wrong import/version, and conflicting roles.
+$$
+L=\frac1B\sum_b\frac1{n_b}\sum_{i\in b}-\log p_i(y_i).
+$$
 
-The equal-count and complete-unit-duplication tests establish numerical behavior only. They do not count as real PHM evidence. Do not manufacture result tables or motivation curves. Any result figures must read the saved artifacts only.
+This is not the NLL of an aggregated bearing diagnosis. Tuning/test weights are bearing-balanced; primary pooled temperature uses uniform calibration-window weights. Report that population distinction.
 
-## Failure, interpretation, and synchronization
+Report NLL, multiclass-summed Brier, ten equal-width-bin ECE, accuracy, weighted-confusion Macro-F1, stable-tie risk/coverage and cost-sensitive decisions. Error cost is 1 and deferral cost 0.25, with deferral on a tie; these are scenario costs. Positive scalar temperature preserves argmax and binary confidence ordering; multiclass ordering can change.
 
-### Predeclared outcome meanings
+Use 2,000 paired bearing-bootstrap draws, seed 20260922, for fixed-split conditional NLL intervals; they omit training/split variation. Six overlapping rotations are descriptive sensitivity evidence: show each contrast, direction and range rather than six independent replications or a naive pooled bootstrap. Two healthy primary test bearings limit inference.
 
-A reproducible decrease in held-out unit-weighted NLL versus pooled scaling supports the population-specific calibration hypothesis, not universal calibration. Equivalent results leave pooled scaling sufficient in that setting. A Qwen model that is uncompetitive with the calibrated numeric control does not support language-model necessity. Either valid outcome completes the experiment; do not rerun until positive. If the state representation is inadequate, record the result and propose one separate, justified representation revision rather than silently replacing features.
+Retain attempts, environment, code version, commands/configs, unit/label maps, IDs/intervals, weights and fits, pinned representations, tokens/forwards/time, all-role logits, temperatures and prediction/metric files. Reuse only compatible artifacts. Figures read saved results. Compact summaries and editable figures enter Git; large artifacts remain in src/outputs with local references.
 
-Write results back to `paper/experiments/evidence_matrix.md` and the existing research state in `paper/paper.yaml`. Only after actual analysis should the manuscript acquire results and supported empirical contributions. Full publication claims still require adequate data scope and a focused closest-neighbor check of weighted/clustered calibration; no first-ever claim is authorized by this initialization.
+## Full manuscript and final verification
 
-Record failures and protocol deviations without deleting runs. Continue independent required work when one dependency blocks; stop when nothing else can run. Use a work branch and PR into `dev`, no force-push and no `master` changes. Report the actual merged revision or why the PR remains open. Do not redesign the paper, add optional experiments, or overwrite failed outputs during execution.
+Complete the unique English paper/draft/main.md; finalize Abstract/contributions after actual analysis. Update the existing evidence matrix and paper.yaml. Keep author/venue/funding/compliance unknowns pending. Markdown remains authoritative; HTML/PDF are previews. No official submission is authorized.
+
+Targeted checks: actual coverage, recording weight sums, weighted leaf-loss identity, healthy exclusion, both-branch inference, no answer leakage, fixed fusion, role separation, probability coherence and temperature invariants. Recompute metrics from saved logits. Conduct one concentrated scientific/manuscript review when results and full draft exist, then fix material gaps.
+
+Final PR checks: validate_project.py, validate_agent_skills.py --skills-dir .agent/skills, validate_skill_evals.py, and unittest discovery under src/S04_Tests. Check references/figures/preview, actual CI and merge state; merge this work only into dev, without force-push or master changes.
+
+Bounded budget: three numerical candidate exports; up to three selected raw geometries; one normalized primary geometry; one deterministic head search per arm/protocol; seven predeclared bearing protocols. Record real smoke timing before full encoder extraction. Stop extra experimentation when it cannot change attribution or the claim boundary.
+
+### Executed E0 and extraction budget
+
+All three full upstream exports passed actual interval coverage (376,173 / 189,366 / 94,683 windows). The real 128-window, 32-bearing smoke passed frozen Qwen forwards and both E1/E2 evaluation interfaces; its scores are not paper efficacy evidence. Its five-query BF16 extraction used batch 128 and took 5.24 seconds including a 2.90-second model load. Query timings include unequal first-forward warmup and are not deployment latency benchmarks.
+
+The preliminary four-window-per-record smoke subset retained the full 37-window export's weights, giving each included recording mass 6.918918919 rather than 64. Its original `smoke/data.npz` is retained. The final smoke uses the separate `smoke/data-recordbalanced.npz`, with weights 16 per included window and mass 64 per recording. Neither version supplies efficacy evidence; this smoke correction did not alter or replace any full-study observation or result.
+
+The primary development-only selector chose 2,048 points. Parameter-free encoding of that already selected geometry may proceed while other development selectors finish; no test score is inspected until all selections are frozen. Full extraction uses BF16 and batch 256. To reduce wall time without changing observations or learned objectives, independent query/geometry cache jobs may use physical GPUs 0, 1, 3, 4, 5, 6 and 7, each explicitly restricted to its own verified UUID. Physical GPU 2 remains forbidden. Per-job device, batch, tokens and time are retained; parallel cache construction is not claimed as a deployment speedup.
+
+The first full Qwen head candidate converged in 681 iterations and 155.83 seconds (188,160 training windows, 1,024 dimensions). Before any main test score was inspected, CPU execution was amended to allow three independent C candidates in isolated processes per protocol, with four BLAS/OpenMP threads per process. Each candidate retains the same initialization, data, weights, objective, solver, tolerance and iteration limit. Ordered candidate results and the fixed tie rule remain unchanged; any convergence failure still aborts the comparison. Up to seven independent protocols may run concurrently within the observed 144 logical CPUs and available memory. This operational parallelism is recorded and supplies no efficiency claim.
+
+One additional training-only timing probe inspected single-thread execution after concurrent fitting became slow. On the unchanged rotation-1 8,192-point flat-Qwen training state, C=0.01 converged in 747 iterations and 873.19 seconds (881.43 seconds including the weighted scaler). It computed no tuning/test predictions or scores. Concurrent load and different scheduling prevent a fair speed-ratio interpretation; the probe supplied no basis to replace the four-thread execution budget. Its script and log remain in the run directory and are excluded from efficacy evidence.
+
+### Completed evidence and scientific decision
+
+Both E1 and all seven E2 evaluations completed with the declared grid and convergence contract. Primary pooled question-factorized-minus-flat NLL is -0.001102028, with conditional paired interval [-0.008577209, 0.005163370]; shared-Qwen hierarchy has lower point NLL than the question-factorized workflow. All four primary calibrated Qwen arms defer every window at the fixed cost. Each comparison with flat, shared hierarchy and two direct questions changes sign across the six refitted rotations (three lower / three higher NLL).
+
+The stable question-conditioned increment is not established, and equivalence is not asserted. Preserve the bounded attribution result, the calibration/coverage mismatch and the separately observed input effect as the manuscript's empirical findings. No further within-test development is authorized by these outcomes. A broader advantage claim needs a prospectively frozen evaluation on additional independent equipment and appropriate application baselines; it is not supplied by more correlated PU windows. The current stopping decision is to complete the evidence-grounded candidate, readable preview and final PR checks, retaining author/venue/submission confirmations as pending.

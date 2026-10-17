@@ -1,0 +1,97 @@
+{
+  "analysis": "native_annotation_compatibility",
+  "date": "2026-10-14",
+  "evidence_kind": "original-source plus versioned-metadata analysis; no signal/model run",
+  "input": {
+    "repository": "liq22/PT01-jev-phm",
+    "revision": "d152c507d27ed2beb8cc2cca6ba4a04add9e439e",
+    "path": "paper/assets/tables/jev_unit_roles.csv",
+    "selection": "protocol == primary"
+  },
+  "upstream_revision": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+  "sources": {
+    "PU": "https://mb.uni-paderborn.de/fileadmin-mb/kat/PDF/Veroeffentlichungen/20160703_PHME16_CM_bearing.pdf",
+    "PU_locations": "Tables 4, 5 and 7; mixed sites Table 5 (p. 6); dominance Section 7.4 (p. 13)",
+    "CWRU": "https://engineering.case.edu/bearingdatacenter/welcome",
+    "CWRU_faults": "https://engineering.case.edu/bearingdatacenter/fault-specifications"
+  },
+  "population": {
+    "bearings": 32,
+    "recordings": 2559
+  },
+  "by_published_state": {
+    "healthy": {
+      "bearings": 6,
+      "recordings": 480
+    },
+    "inner_and_outer": {
+      "bearings": 3,
+      "recordings": 240
+    },
+    "inner_ring_only": {
+      "bearings": 11,
+      "recordings": 880
+    },
+    "outer_ring_only": {
+      "bearings": 12,
+      "recordings": 959
+    }
+  },
+  "counterexamples": [
+    {
+      "component_state": "inner_and_outer",
+      "stored_labels": [
+        "inner-race-dominant",
+        "outer-race-dominant"
+      ],
+      "bearings": [
+        "KB23",
+        "KB24",
+        "KB27"
+      ],
+      "recordings": 240
+    }
+  ],
+  "decisions": {
+    "pure_site_H_I_O_cover_all_PU": "REFUTED: mixed observations are outside this event space",
+    "H_I_O_plus_one_both_state_deterministic_coarsening": "REFUTED: one both state has two observed dominant labels",
+    "single_ring_subset": "CONDITIONAL: 29 bearings / 2319 records describe a possible new task, not an authorized exclusion or native coarse-label experiment",
+    "dominance_refined_states": "CONDITIONAL: may restore a deterministic map but change target semantics; need justified state definitions and identifiability",
+    "PU_ball_label_from_KB_prefix": "REFUTED: KB23/24/27 have documented ring damage, not a rolling-element class",
+    "CWRU_local_record_labels_channels_and_independent_units": "UNKNOWN: upstream reader and official vocabulary inspected, local metadata/H5 unavailable",
+    "C4_general_method_effect": "UNTESTED",
+    "C5_latency_and_backbone_portability": "UNTESTED"
+  },
+  "affected_units": [
+    {
+      "bearing": "KB23",
+      "published_component_state": "inner_and_outer",
+      "stored_label": "inner-race-dominant",
+      "raw_label": "1.0",
+      "source_record_count": 80,
+      "pilot_role": "train"
+    },
+    {
+      "bearing": "KB24",
+      "published_component_state": "inner_and_outer",
+      "stored_label": "inner-race-dominant",
+      "raw_label": "1.0",
+      "source_record_count": 80,
+      "pilot_role": "test"
+    },
+    {
+      "bearing": "KB27",
+      "published_component_state": "inner_and_outer",
+      "stored_label": "outer-race-dominant",
+      "raw_label": "2.0",
+      "source_record_count": 80,
+      "pilot_role": "train"
+    }
+  ],
+  "non_changes": [
+    "pilot labels and results",
+    "data cohort and split",
+    "upstream loader",
+    "model and training configuration"
+  ]
+}

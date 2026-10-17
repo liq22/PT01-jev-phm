@@ -1,0 +1,5019 @@
+{
+  "run": "src/outputs/jev-phm/run-20261013-pu-001",
+  "independent_unit": "physical bearing",
+  "primary_interval": "2000 paired bearing resamples, conditional on primary fit and split",
+  "rotation_interpretation": "descriptive refitted cases; overlapping fits are not independent replicates",
+  "metric_definitions": {
+    "brier": "sum of squared errors across all three classes",
+    "ece": "10 equal-width confidence bins with equal-bearing weights",
+    "risk_coverage": "stable saved observation-order ties; equal-bearing window weights"
+  },
+  "selection": {
+    "primary": {
+      "window_size": 2048,
+      "num_window": 147,
+      "C": 0.01,
+      "tune_nll": 2.0189599970321157
+    },
+    "rotation_1": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 10.0,
+      "tune_nll": 0.7484620047073283
+    },
+    "rotation_2": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 0.1,
+      "tune_nll": 0.8254434416698664
+    },
+    "rotation_3": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 100.0,
+      "tune_nll": 0.9823875982700333
+    },
+    "rotation_4": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 0.1,
+      "tune_nll": 0.7830543119264515
+    },
+    "rotation_5": {
+      "window_size": 2048,
+      "num_window": 147,
+      "C": 1.0,
+      "tune_nll": 1.823602513479436
+    },
+    "rotation_6": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 0.01,
+      "tune_nll": 1.4206435169436398
+    }
+  },
+  "encoding": {
+    "w2048_normalized_legacy": {
+      "model": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16",
+      "batch_size": 256,
+      "mapping": {
+        "device": "cuda:0",
+        "physical_index": 7,
+        "uuid": "GPU-8640449a-5956-75e8-2ee1-95b710d5a666",
+        "name": "NVIDIA GeForce RTX 4090",
+        "logical_uuid": "8640449a-5956-75e8-2ee1-95b710d5a666"
+      },
+      "representation": "last_nonpadding_token",
+      "queries": {
+        "legacy": {
+          "seconds": 692.5763235780178,
+          "forward_batches": 1470,
+          "model_calls_per_window": 1,
+          "tokens": 36419034,
+          "padded_tokens": 37241127,
+          "windows": 376173
+        }
+      },
+      "load_seconds": 3.5381730790250003,
+      "total_seconds": 696.115003221028
+    },
+    "w2048_raw_flat_a": {
+      "model": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16",
+      "batch_size": 256,
+      "mapping": {
+        "device": "cuda:0",
+        "physical_index": 1,
+        "uuid": "GPU-60f13472-c659-0921-7467-67de80e14924",
+        "name": "NVIDIA GeForce RTX 4090",
+        "logical_uuid": "60f13472-c659-0921-7467-67de80e14924"
+      },
+      "representation": "last_nonpadding_token",
+      "queries": {
+        "flat_a": {
+          "seconds": 1195.6099032820202,
+          "forward_batches": 1470,
+          "model_calls_per_window": 1,
+          "tokens": 64870462,
+          "padded_tokens": 65199017,
+          "windows": 376173
+        }
+      },
+      "load_seconds": 3.7110646999790333,
+      "total_seconds": 1199.3214271260076
+    },
+    "w2048_raw_flat_b": {
+      "model": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16",
+      "batch_size": 256,
+      "mapping": {
+        "device": "cuda:0",
+        "physical_index": 3,
+        "uuid": "GPU-b2242977-f831-80c7-ab3b-cbe4ffb954f9",
+        "name": "NVIDIA GeForce RTX 4090",
+        "logical_uuid": "b2242977-f831-80c7-ab3b-cbe4ffb954f9"
+      },
+      "representation": "last_nonpadding_token",
+      "queries": {
+        "flat_b": {
+          "seconds": 1237.0889011279796,
+          "forward_batches": 1470,
+          "model_calls_per_window": 1,
+          "tokens": 66751327,
+          "padded_tokens": 67079882,
+          "windows": 376173
+        }
+      },
+      "load_seconds": 3.7792536839842796,
+      "total_seconds": 1240.8686001030146
+    },
+    "w2048_raw_identity": {
+      "model": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16",
+      "batch_size": 256,
+      "mapping": {
+        "device": "cuda:0",
+        "physical_index": 5,
+        "uuid": "GPU-d502df93-cde4-843e-b444-e38fe6f4c023",
+        "name": "NVIDIA GeForce RTX 4090",
+        "logical_uuid": "d502df93-cde4-843e-b444-e38fe6f4c023"
+      },
+      "representation": "last_nonpadding_token",
+      "queries": {
+        "identity": {
+          "seconds": 1279.3093657020363,
+          "forward_batches": 1470,
+          "model_calls_per_window": 1,
+          "tokens": 68256019,
+          "padded_tokens": 68584574,
+          "windows": 376173
+        }
+      },
+      "load_seconds": 3.814227617054712,
+      "total_seconds": 1283.1240053380025
+    },
+    "w2048_raw_legacy": {
+      "model": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16",
+      "batch_size": 256,
+      "mapping": {
+        "device": "cuda:0",
+        "physical_index": 0,
+        "uuid": "GPU-d77295d4-8e79-f0fa-8d82-791c244a2148",
+        "name": "NVIDIA GeForce RTX 4090",
+        "logical_uuid": "d77295d4-8e79-f0fa-8d82-791c244a2148"
+      },
+      "representation": "last_nonpadding_token",
+      "queries": {
+        "legacy": {
+          "seconds": 706.4832712829811,
+          "forward_batches": 1470,
+          "model_calls_per_window": 1,
+          "tokens": 37033660,
+          "padded_tokens": 37362215,
+          "windows": 376173
+        }
+      },
+      "load_seconds": 3.7949814570019953,
+      "total_seconds": 710.2787078890251
+    },
+    "w2048_raw_presence": {
+      "model": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16",
+      "batch_size": 256,
+      "mapping": {
+        "device": "cuda:0",
+        "physical_index": 4,
+        "uuid": "GPU-c38496be-772e-da08-ee89-47a4c826fb9c",
+        "name": "NVIDIA GeForce RTX 4090",
+        "logical_uuid": "c38496be-772e-da08-ee89-47a4c826fb9c"
+      },
+      "representation": "last_nonpadding_token",
+      "queries": {
+        "presence": {
+          "seconds": 1206.9565019829897,
+          "forward_batches": 1470,
+          "model_calls_per_window": 1,
+          "tokens": 67503673,
+          "padded_tokens": 67832228,
+          "windows": 376173
+        }
+      },
+      "load_seconds": 3.748068378015887,
+      "total_seconds": 1210.7052061030408
+    },
+    "w8192_raw_legacy_flat_a_flat_b_presence_identity": {
+      "model": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16",
+      "batch_size": 256,
+      "mapping": {
+        "device": "cuda:0",
+        "physical_index": 6,
+        "uuid": "GPU-6f6cf669-7400-d4d7-47d5-b9523860e702",
+        "name": "NVIDIA GeForce RTX 4090",
+        "logical_uuid": "6f6cf669-7400-d4d7-47d5-b9523860e702"
+      },
+      "representation": "last_nonpadding_token",
+      "queries": {
+        "legacy": {
+          "seconds": 171.37702051002998,
+          "forward_batches": 370,
+          "model_calls_per_window": 1,
+          "tokens": 9322091,
+          "padded_tokens": 9394353,
+          "windows": 94683
+        },
+        "flat_a": {
+          "seconds": 295.3463191050105,
+          "forward_batches": 370,
+          "model_calls_per_window": 1,
+          "tokens": 16328633,
+          "padded_tokens": 16400895,
+          "windows": 94683
+        },
+        "flat_b": {
+          "seconds": 305.05322846601484,
+          "forward_batches": 370,
+          "model_calls_per_window": 1,
+          "tokens": 16802048,
+          "padded_tokens": 16874310,
+          "windows": 94683
+        },
+        "presence": {
+          "seconds": 309.48304373200517,
+          "forward_batches": 370,
+          "model_calls_per_window": 1,
+          "tokens": 16991414,
+          "padded_tokens": 17063676,
+          "windows": 94683
+        },
+        "identity": {
+          "seconds": 308.2088916920475,
+          "forward_batches": 370,
+          "model_calls_per_window": 1,
+          "tokens": 17180780,
+          "padded_tokens": 17253042,
+          "windows": 94683
+        }
+      },
+      "load_seconds": 3.489880510023795,
+      "total_seconds": 1392.963905237033
+    }
+  },
+  "evaluations": {
+    "primary_raw_e2": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/primary_raw_e2",
+      "test_windows": 94080,
+      "test_units": 8,
+      "metrics": {
+        "Numerical-flat": {
+          "raw": {
+            "nll": 1.0708246291832246,
+            "brier": 0.6554904547644075,
+            "accuracy": 0.45734481292518103,
+            "macro_f1": 0.3484015491019646,
+            "ece_10": 0.12080646878807393,
+            "coverage": 0.13540603741496496,
+            "selective_error": 0.5081246565664532,
+            "scenario_cost": 0.28495163690474967,
+            "aurc": 0.5033372553807246
+          },
+          "pooled": {
+            "nll": 1.0226815901658686,
+            "brier": 0.6216156573745646,
+            "accuracy": 0.45734481292518103,
+            "macro_f1": 0.3484015491019646,
+            "ece_10": 0.11099082205025056,
+            "coverage": 0.000744047619047619,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24981398809522948,
+            "aurc": 0.47208991827168867
+          },
+          "unit": {
+            "nll": 1.0225109958667076,
+            "brier": 0.6215331289904438,
+            "accuracy": 0.45734481292518103,
+            "macro_f1": 0.3484015491019646,
+            "ece_10": 0.11046751266338427,
+            "coverage": 0.0007759353741496598,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24980601615645395,
+            "aurc": 0.4721063455759137
+          }
+        },
+        "Numerical-factorized": {
+          "raw": {
+            "nll": 1.05265220435875,
+            "brier": 0.645521434455312,
+            "accuracy": 0.4590667517006914,
+            "macro_f1": 0.34964693730692,
+            "ece_10": 0.11475527255098579,
+            "coverage": 0.1137329931972782,
+            "selective_error": 0.44504672897196557,
+            "scenario_cost": 0.2721832482993094,
+            "aurc": 0.4942051375426777
+          },
+          "pooled": {
+            "nll": 1.0183375939163501,
+            "brier": 0.6189787457611011,
+            "accuracy": 0.4590667517006914,
+            "macro_f1": 0.34964693730692,
+            "ece_10": 0.10546633771994733,
+            "coverage": 0.00026573129251700677,
+            "selective_error": 0.0,
+            "scenario_cost": 0.2499335671768621,
+            "aurc": 0.4642227007132267
+          },
+          "unit": {
+            "nll": 1.0181535813600882,
+            "brier": 0.6188885706866504,
+            "accuracy": 0.4590667517006914,
+            "macro_f1": 0.34964693730692,
+            "ece_10": 0.10484229040852085,
+            "coverage": 0.0002869897959183673,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24992825255101175,
+            "aurc": 0.4642351850393437
+          }
+        },
+        "Qwen-flat": {
+          "raw": {
+            "nll": 1.223713157252926,
+            "brier": 0.7029749381511117,
+            "accuracy": 0.4646045918367462,
+            "macro_f1": 0.3884092340064795,
+            "ece_10": 0.18633068343188644,
+            "coverage": 0.2953656462585036,
+            "selective_error": 0.5244350079170818,
+            "scenario_cost": 0.33105867346937534,
+            "aurc": 0.5198815065028046
+          },
+          "pooled": {
+            "nll": 1.0553022125382112,
+            "brier": 0.6386294896419074,
+            "accuracy": 0.4646045918367462,
+            "macro_f1": 0.3884092340064795,
+            "ece_10": 0.0759854478336364,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.49336373615451995
+          },
+          "unit": {
+            "nll": 1.055147598351022,
+            "brier": 0.6385343633231233,
+            "accuracy": 0.4646045918367462,
+            "macro_f1": 0.3884092340064795,
+            "ece_10": 0.0756970556398068,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.49339696032413655
+          }
+        },
+        "Qwen-factorized": {
+          "raw": {
+            "nll": 1.2428878169429796,
+            "brier": 0.7219655613250493,
+            "accuracy": 0.45946003401361657,
+            "macro_f1": 0.3781922238516339,
+            "ece_10": 0.19749864595304495,
+            "coverage": 0.31653911564626014,
+            "selective_error": 0.5692411014103341,
+            "scenario_cost": 0.3510522959183542,
+            "aurc": 0.56863627771729
+          },
+          "pooled": {
+            "nll": 1.0542001843810827,
+            "brier": 0.6387432899828316,
+            "accuracy": 0.45946003401361657,
+            "macro_f1": 0.3781922238516339,
+            "ece_10": 0.06497954196978643,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.5399441217445372
+          },
+          "unit": {
+            "nll": 1.0540654042130866,
+            "brier": 0.6386682463635722,
+            "accuracy": 0.45946003401361657,
+            "macro_f1": 0.3781922238516339,
+            "ece_10": 0.06468632604162317,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.5399919027886243
+          }
+        },
+        "Qwen-two-question-direct": {
+          "raw": {
+            "nll": 1.2139753475903199,
+            "brier": 0.6998083073207773,
+            "accuracy": 0.47252338435375346,
+            "macro_f1": 0.3905050801517052,
+            "ece_10": 0.17020350084864416,
+            "coverage": 0.2877657312925167,
+            "selective_error": 0.5563845898127242,
+            "scenario_cost": 0.33816698554420416,
+            "aurc": 0.5461749742838372
+          },
+          "pooled": {
+            "nll": 1.0567616300055844,
+            "brier": 0.6397267476763914,
+            "accuracy": 0.47252338435375346,
+            "macro_f1": 0.3905050801517052,
+            "ece_10": 0.08540193139852274,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.5088976344207048
+          },
+          "unit": {
+            "nll": 1.0566059672337165,
+            "brier": 0.6396324572427965,
+            "accuracy": 0.47252338435375346,
+            "macro_f1": 0.3905050801517052,
+            "ece_10": 0.08510641289438446,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.5089519367834668
+          }
+        },
+        "Qwen-shared-factorized": {
+          "raw": {
+            "nll": 1.1877622157366816,
+            "brier": 0.6969385917269557,
+            "accuracy": 0.46352040816327666,
+            "macro_f1": 0.3858908789184978,
+            "ece_10": 0.18174361796892102,
+            "coverage": 0.27570153061224384,
+            "selective_error": 0.5277199475672736,
+            "scenario_cost": 0.32656781462583784,
+            "aurc": 0.5204768967638684
+          },
+          "pooled": {
+            "nll": 1.0463345653717289,
+            "brier": 0.6334447690110817,
+            "accuracy": 0.46352040816327666,
+            "macro_f1": 0.3858908789184978,
+            "ece_10": 0.06391050267642151,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.49146749812931456
+          },
+          "unit": {
+            "nll": 1.046189077448426,
+            "brier": 0.6333606030332669,
+            "accuracy": 0.46352040816327666,
+            "macro_f1": 0.3858908789184978,
+            "ece_10": 0.06361967036992021,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.4915089324504086
+          }
+        }
+      },
+      "contrasts": {
+        "Qwen-factorized_minus_Qwen-flat": {
+          "mean": -0.0011020281571288723,
+          "conditional_ci95": [
+            -0.008577209074599136,
+            0.005163369625922527
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.006890365670680194,
+            -0.0018771623551282269,
+            0.001131064621196693,
+            0.013659946085664733,
+            -0.021647977637566734,
+            0.0038582380320280173,
+            -0.00288985440819234,
+            0.005839886075647072
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        },
+        "Qwen-factorized_minus_Qwen-shared-factorized": {
+          "mean": 0.007865619009353435,
+          "conditional_ci95": [
+            -0.0019087622904457881,
+            0.018887195451785865
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            0.00636742828379974,
+            0.009537281608361037,
+            -0.017773452200979523,
+            0.0017275234498303562,
+            0.004968016458662059,
+            0.03833855135382217,
+            0.015987065235826284,
+            0.0037725378855053586
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        },
+        "Qwen-factorized_minus_Qwen-two-question-direct": {
+          "mean": -0.002561445624501856,
+          "conditional_ci95": [
+            -0.009060483803132723,
+            0.003681885905810684
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.00864528323116212,
+            -0.004875269554571657,
+            -0.00042367903345176533,
+            0.01585472565712803,
+            -0.01865531178728763,
+            -0.0007286185850291262,
+            -0.004817050877961322,
+            0.0017989224163207482
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        },
+        "Numerical-factorized_minus_Numerical-flat": {
+          "mean": -0.004343996249518329,
+          "conditional_ci95": [
+            -0.007547150070716791,
+            -0.0009732190445738976
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.00931402050215382,
+            -0.006559595539969101,
+            0.00468223700987265,
+            0.004082765689021169,
+            -0.007906793641642587,
+            -0.006969326307648653,
+            -0.005845064605562943,
+            -0.006922172098063348
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        },
+        "Qwen-shared-factorized_minus_Qwen-flat": {
+          "mean": -0.008967647166482306,
+          "conditional_ci95": [
+            -0.021274788533064377,
+            0.0028856312254407395
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.013257793954479933,
+            -0.011414443963489264,
+            0.01890451682217622,
+            0.01193242263583438,
+            -0.02661599409622879,
+            -0.03448031332179415,
+            -0.018876919644018626,
+            0.002067348190141711
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "primary",
+        "window_selection": {
+          "window_size": 2048,
+          "num_window": 147,
+          "C": 0.01,
+          "tune_nll": 2.0189599970321157
+        },
+        "normalization": "raw",
+        "head_workers": 3
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 2048,
+            "max_stride": 2048,
+            "num_window": 147,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "none",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Healthy Bearing K005": "train",
+            "Healthy Bearing K002": "train",
+            "Healthy Bearing K001": "tune",
+            "Healthy Bearing K006": "cal",
+            "Healthy Bearing K004": "test",
+            "Healthy Bearing K003": "test",
+            "Artificial Inner Ring Damage KI01": "train",
+            "Artificial Inner Ring Damage KI08": "train",
+            "Artificial Inner Ring Damage KI05": "train",
+            "Real Mixed Damage, IR Dominant KB23": "train",
+            "Real Inner Ring Damage KI17": "train",
+            "Artificial Inner Ring Damage KI03": "train",
+            "Real Inner Ring Damage KI18": "train",
+            "Real Inner Ring Damage KI16": "tune",
+            "Real Inner Ring Damage KI14": "cal",
+            "Real Inner Ring Damage KI21": "cal",
+            "Artificial Inner Ring Damage KI07": "test",
+            "Real Inner Ring Damage KI04": "test",
+            "Real Mixed Damage, IR Dominant KB24": "test",
+            "Artificial Outer Ring Damage KA07": "train",
+            "Real Outer Ring Damage KA04": "train",
+            "Artificial Outer Ring Damage KA09": "train",
+            "Real Outer Ring Damage KA16": "train",
+            "Artificial Outer Ring Damage KA05": "train",
+            "Real Outer Ring Damage KA22": "train",
+            "Real Mixed Damage, OR Dominant KB27": "train",
+            "Artificial Outer Ring Damage KA01": "tune",
+            "Artificial Outer Ring Damage KA08": "cal",
+            "Artificial Outer Ring Damage KA03": "cal",
+            "Artificial Outer Ring Damage KA06": "test",
+            "Real Outer Ring Damage KA15": "test",
+            "Real Outer Ring Damage KA30": "test"
+          }
+        },
+        "embedding_archives": [
+          "w2048_raw_flat_a.npz",
+          "w2048_raw_flat_b.npz",
+          "w2048_raw_identity.npz",
+          "w2048_raw_presence.npz"
+        ]
+      },
+      "heads": {
+        "Numerical-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 2.0189599970321157,
+              "C": 0.01
+            },
+            {
+              "nll": 2.126091633048821,
+              "C": 0.1
+            },
+            {
+              "nll": 2.4707984973782473,
+              "C": 1.0
+            },
+            {
+              "nll": 3.1986475183948726,
+              "C": 10.0
+            },
+            {
+              "nll": 3.513669768147721,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 4.497039047940101,
+            "unit": 4.477616961615326
+          },
+          "fit_evaluate_seconds": 25.206819762010127,
+          "head_parameters": 21
+        },
+        "Numerical-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.9305159183889693,
+              "C": 0.01
+            },
+            {
+              "nll": 2.0626911808529425,
+              "C": 0.1
+            },
+            {
+              "nll": 2.3237286086848483,
+              "C": 1.0
+            },
+            {
+              "nll": 3.024238801977115,
+              "C": 10.0
+            },
+            {
+              "nll": 3.4181232085085425,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 4.177367570618086,
+            "unit": 4.15902676451654
+          },
+          "fit_evaluate_seconds": 3.3605046740267426,
+          "head_parameters": 14
+        },
+        "Qwen-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 2.0021843449989656,
+              "C": 0.01
+            },
+            {
+              "nll": 2.0241363588547974,
+              "C": 0.1
+            },
+            {
+              "nll": 2.026904889667161,
+              "C": 1.0
+            },
+            {
+              "nll": 2.0271921933106225,
+              "C": 10.0
+            },
+            {
+              "nll": 2.027221739762228,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 7.149011650866932,
+            "unit": 7.111827689865353
+          },
+          "fit_evaluate_seconds": 2552.4379965469707,
+          "head_parameters": 3075
+        },
+        "Qwen-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.94844933568874,
+              "C": 0.01
+            },
+            {
+              "nll": 1.9777256749427712,
+              "C": 0.1
+            },
+            {
+              "nll": 1.9815588870601333,
+              "C": 1.0
+            },
+            {
+              "nll": 1.9819572528350813,
+              "C": 10.0
+            },
+            {
+              "nll": 1.981997546036651,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 6.571798180563684,
+            "unit": 6.540309462540762
+          },
+          "fit_evaluate_seconds": 1081.571168016002,
+          "head_parameters": 2050
+        },
+        "Qwen-two-question-direct": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.9672319736204693,
+              "C": 0.01
+            },
+            {
+              "nll": 1.9834617220181379,
+              "C": 0.1
+            },
+            {
+              "nll": 1.985434797156855,
+              "C": 1.0
+            },
+            {
+              "nll": 1.9856383652818725,
+              "C": 10.0
+            },
+            {
+              "nll": 1.985659071860046,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 7.085997618496412,
+            "unit": 7.047775668926017
+          },
+          "fit_evaluate_seconds": 1374.1567371590063,
+          "head_parameters": 6150
+        },
+        "Qwen-shared-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.9162722881616587,
+              "C": 0.01
+            },
+            {
+              "nll": 1.9449274629123838,
+              "C": 0.1
+            },
+            {
+              "nll": 1.9488752447933537,
+              "C": 1.0
+            },
+            {
+              "nll": 1.9492879093638487,
+              "C": 10.0
+            },
+            {
+              "nll": 1.9493289275522094,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 5.766255236474515,
+            "unit": 5.740847841398321
+          },
+          "fit_evaluate_seconds": 371.4297264360357,
+          "head_parameters": 2050
+        }
+      }
+    },
+    "primary_raw_e1": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/primary_raw_e1",
+      "test_windows": 94080,
+      "test_units": 8,
+      "metrics": {
+        "numeric": {
+          "raw": {
+            "nll": 1.0708246291832246,
+            "brier": 0.6554904547644075,
+            "accuracy": 0.45734481292518103,
+            "macro_f1": 0.3484015491019646,
+            "ece_10": 0.12080646878807393,
+            "coverage": 0.13540603741496496,
+            "selective_error": 0.5081246565664532,
+            "scenario_cost": 0.28495163690474967,
+            "aurc": 0.5033372553807246
+          },
+          "pooled": {
+            "nll": 1.0226815901658686,
+            "brier": 0.6216156573745646,
+            "accuracy": 0.45734481292518103,
+            "macro_f1": 0.3484015491019646,
+            "ece_10": 0.11099082205025056,
+            "coverage": 0.000744047619047619,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24981398809522948,
+            "aurc": 0.47208991827168867
+          },
+          "unit": {
+            "nll": 1.0225109958667076,
+            "brier": 0.6215331289904438,
+            "accuracy": 0.45734481292518103,
+            "macro_f1": 0.3484015491019646,
+            "ece_10": 0.11046751266338427,
+            "coverage": 0.0007759353741496598,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24980601615645395,
+            "aurc": 0.4721063455759137
+          }
+        },
+        "qwen": {
+          "raw": {
+            "nll": 1.2594897641349703,
+            "brier": 0.7145166365419919,
+            "accuracy": 0.4745960884353863,
+            "macro_f1": 0.4086280871491897,
+            "ece_10": 0.20078973008319925,
+            "coverage": 0.35857780612245344,
+            "selective_error": 0.5181265747739622,
+            "scenario_cost": 0.3461442389455668,
+            "aurc": 0.5272723561185081
+          },
+          "pooled": {
+            "nll": 1.0527414684563396,
+            "brier": 0.6370234257631081,
+            "accuracy": 0.4745960884353863,
+            "macro_f1": 0.4086280871491897,
+            "ece_10": 0.08175916069273353,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.5026090884853034
+          },
+          "unit": {
+            "nll": 1.052579784984442,
+            "brier": 0.6369251590302164,
+            "accuracy": 0.4745960884353863,
+            "macro_f1": 0.4086280871491897,
+            "ece_10": 0.08155455969181405,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.5026457809524365
+          }
+        }
+      },
+      "contrasts": {
+        "numeric_unit_minus_pooled": {
+          "mean": -0.00017059429916120589,
+          "conditional_ci95": [
+            -0.0005574140476647997,
+            0.0002704055513847428
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.00030805388604800024,
+            -0.00019738840327636475,
+            0.001106170345658788,
+            0.0003533091337658721,
+            -0.0004170548578646545,
+            -0.0010382667907671392,
+            -0.0004716886774950394,
+            -0.00039178125726310867
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        },
+        "qwen_unit_minus_pooled": {
+          "mean": -0.00016168347189779873,
+          "conditional_ci95": [
+            -0.0005966934402676881,
+            0.00031924363968822603
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.0003376491237841799,
+            -0.0003207370537744956,
+            0.001270836637507226,
+            0.00020066897218897766,
+            -0.0007280282878331563,
+            -0.0010658601762939658,
+            -0.0004473522707363945,
+            0.00013465352754359845
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "primary",
+        "window_selection": {
+          "window_size": 2048,
+          "num_window": 147,
+          "C": 0.01,
+          "tune_nll": 2.0189599970321157
+        },
+        "normalization": "raw"
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 2048,
+            "max_stride": 2048,
+            "num_window": 147,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "none",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Healthy Bearing K005": "train",
+            "Healthy Bearing K002": "train",
+            "Healthy Bearing K001": "tune",
+            "Healthy Bearing K006": "cal",
+            "Healthy Bearing K004": "test",
+            "Healthy Bearing K003": "test",
+            "Artificial Inner Ring Damage KI01": "train",
+            "Artificial Inner Ring Damage KI08": "train",
+            "Artificial Inner Ring Damage KI05": "train",
+            "Real Mixed Damage, IR Dominant KB23": "train",
+            "Real Inner Ring Damage KI17": "train",
+            "Artificial Inner Ring Damage KI03": "train",
+            "Real Inner Ring Damage KI18": "train",
+            "Real Inner Ring Damage KI16": "tune",
+            "Real Inner Ring Damage KI14": "cal",
+            "Real Inner Ring Damage KI21": "cal",
+            "Artificial Inner Ring Damage KI07": "test",
+            "Real Inner Ring Damage KI04": "test",
+            "Real Mixed Damage, IR Dominant KB24": "test",
+            "Artificial Outer Ring Damage KA07": "train",
+            "Real Outer Ring Damage KA04": "train",
+            "Artificial Outer Ring Damage KA09": "train",
+            "Real Outer Ring Damage KA16": "train",
+            "Artificial Outer Ring Damage KA05": "train",
+            "Real Outer Ring Damage KA22": "train",
+            "Real Mixed Damage, OR Dominant KB27": "train",
+            "Artificial Outer Ring Damage KA01": "tune",
+            "Artificial Outer Ring Damage KA08": "cal",
+            "Artificial Outer Ring Damage KA03": "cal",
+            "Artificial Outer Ring Damage KA06": "test",
+            "Real Outer Ring Damage KA15": "test",
+            "Real Outer Ring Damage KA30": "test"
+          }
+        },
+        "embedding_archives": [
+          "w2048_raw_legacy.npz"
+        ]
+      },
+      "heads": {
+        "numeric": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 2.0189599970321157,
+              "C": 0.01
+            },
+            {
+              "nll": 2.126091633048821,
+              "C": 0.1
+            },
+            {
+              "nll": 2.4707984973782473,
+              "C": 1.0
+            },
+            {
+              "nll": 3.1986475183948726,
+              "C": 10.0
+            },
+            {
+              "nll": 3.513669768147721,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 4.497039047940101,
+            "unit": 4.477616961615326
+          }
+        },
+        "qwen": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 2.0188968023187708,
+              "C": 0.01
+            },
+            {
+              "nll": 2.0517303751086566,
+              "C": 0.1
+            },
+            {
+              "nll": 2.055944686669658,
+              "C": 1.0
+            },
+            {
+              "nll": 2.0563801995229682,
+              "C": 10.0
+            },
+            {
+              "nll": 2.0564248856437324,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 7.219854994658695,
+            "unit": 7.182005172741414
+          }
+        }
+      }
+    },
+    "primary_normalized_e1": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/primary_normalized_e1",
+      "test_windows": 94080,
+      "test_units": 8,
+      "metrics": {
+        "numeric": {
+          "raw": {
+            "nll": 1.2615603569510327,
+            "brier": 0.7118409511548323,
+            "accuracy": 0.43118622448980515,
+            "macro_f1": 0.3277274603203845,
+            "ece_10": 0.12147204645504041,
+            "coverage": 0.022704081632653025,
+            "selective_error": 0.9901685393258427,
+            "scenario_cost": 0.2668048469387653,
+            "aurc": 0.6342558220299053
+          },
+          "pooled": {
+            "nll": 1.0961028972470892,
+            "brier": 0.6647194114796894,
+            "accuracy": 0.43118622448980515,
+            "macro_f1": 0.3277274603203845,
+            "ece_10": 0.07908063954467932,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.6208976203193586
+          },
+          "unit": {
+            "nll": 1.0961148522165982,
+            "brier": 0.6647194695999341,
+            "accuracy": 0.43118622448980515,
+            "macro_f1": 0.3277274603203845,
+            "ece_10": 0.07962105237316502,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.6209131693919105
+          }
+        },
+        "qwen": {
+          "raw": {
+            "nll": 1.1655953508918948,
+            "brier": 0.6974536769706767,
+            "accuracy": 0.3791879251700738,
+            "macro_f1": 0.2933637548193204,
+            "ece_10": 0.13490268041743922,
+            "coverage": 0.0007971938775510203,
+            "selective_error": 0.7733333333333333,
+            "scenario_cost": 0.250417198129243,
+            "aurc": 0.6476879909076152
+          },
+          "pooled": {
+            "nll": 1.0897341368400533,
+            "brier": 0.6617885557255896,
+            "accuracy": 0.3791879251700738,
+            "macro_f1": 0.2933637548193204,
+            "ece_10": 0.05254555718036701,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.6421802742484433
+          },
+          "unit": {
+            "nll": 1.089842597081065,
+            "brier": 0.6618518033501476,
+            "accuracy": 0.3791879251700738,
+            "macro_f1": 0.2933637548193204,
+            "ece_10": 0.052794817710246356,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999134,
+            "aurc": 0.6421989594790676
+          }
+        }
+      },
+      "contrasts": {
+        "numeric_unit_minus_pooled": {
+          "mean": 1.1954969508973917e-05,
+          "conditional_ci95": [
+            -0.0006053840032420273,
+            0.0007507891833405025
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.00030902351163052106,
+            -0.0003718250060020268,
+            0.0021740606249096234,
+            0.0011910019347803917,
+            -0.0004344143437666854,
+            -0.0009626453852474349,
+            -0.000661062152819373,
+            -0.0005304524041521828
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        },
+        "qwen_unit_minus_pooled": {
+          "mean": 0.00010846024101106381,
+          "conditional_ci95": [
+            -0.0003287696542801235,
+            0.0005810756149310503
+          ],
+          "units": 8,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K003",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.0003388507412943596,
+            -0.00021282969368815856,
+            0.0012584253333378578,
+            0.001471192258192321,
+            -0.00024542614941343023,
+            -0.0003950474430577641,
+            -0.0003487335621840351,
+            -0.000321048073803921
+          ],
+          "repetitions": 2000,
+          "seed": 20260922
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "primary",
+        "window_selection": {
+          "window_size": 2048,
+          "num_window": 147,
+          "C": 0.01,
+          "tune_nll": 2.0189599970321157
+        },
+        "normalization": "normalized",
+        "head_workers": 3
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 2048,
+            "max_stride": 2048,
+            "num_window": 147,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "per_window_standardization",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Healthy Bearing K005": "train",
+            "Healthy Bearing K002": "train",
+            "Healthy Bearing K001": "tune",
+            "Healthy Bearing K006": "cal",
+            "Healthy Bearing K004": "test",
+            "Healthy Bearing K003": "test",
+            "Artificial Inner Ring Damage KI01": "train",
+            "Artificial Inner Ring Damage KI08": "train",
+            "Artificial Inner Ring Damage KI05": "train",
+            "Real Mixed Damage, IR Dominant KB23": "train",
+            "Real Inner Ring Damage KI17": "train",
+            "Artificial Inner Ring Damage KI03": "train",
+            "Real Inner Ring Damage KI18": "train",
+            "Real Inner Ring Damage KI16": "tune",
+            "Real Inner Ring Damage KI14": "cal",
+            "Real Inner Ring Damage KI21": "cal",
+            "Artificial Inner Ring Damage KI07": "test",
+            "Real Inner Ring Damage KI04": "test",
+            "Real Mixed Damage, IR Dominant KB24": "test",
+            "Artificial Outer Ring Damage KA07": "train",
+            "Real Outer Ring Damage KA04": "train",
+            "Artificial Outer Ring Damage KA09": "train",
+            "Real Outer Ring Damage KA16": "train",
+            "Artificial Outer Ring Damage KA05": "train",
+            "Real Outer Ring Damage KA22": "train",
+            "Real Mixed Damage, OR Dominant KB27": "train",
+            "Artificial Outer Ring Damage KA01": "tune",
+            "Artificial Outer Ring Damage KA08": "cal",
+            "Artificial Outer Ring Damage KA03": "cal",
+            "Artificial Outer Ring Damage KA06": "test",
+            "Real Outer Ring Damage KA15": "test",
+            "Real Outer Ring Damage KA30": "test"
+          }
+        },
+        "embedding_archives": [
+          "w2048_normalized_legacy.npz"
+        ]
+      },
+      "heads": {
+        "numeric": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.699675956505296,
+              "C": 0.01
+            },
+            {
+              "nll": 1.7202203580281583,
+              "C": 0.1
+            },
+            {
+              "nll": 1.7225520018947345,
+              "C": 1.0
+            },
+            {
+              "nll": 1.7227894922609879,
+              "C": 10.0
+            },
+            {
+              "nll": 1.7228133132277685,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 8.659983281082736,
+            "unit": 8.55828406988736
+          }
+        },
+        "qwen": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.3862042420516762,
+              "C": 0.01
+            },
+            {
+              "nll": 1.39806848740809,
+              "C": 0.1
+            },
+            {
+              "nll": 1.3998486948670172,
+              "C": 1.0
+            },
+            {
+              "nll": 1.4000389915570353,
+              "C": 10.0
+            },
+            {
+              "nll": 1.4000576967525866,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.9970676159412422,
+            "unit": 1.9916344169364186
+          }
+        }
+      }
+    },
+    "rotation_1_raw_e2": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/rotation_1_raw_e2",
+      "test_windows": 20720,
+      "test_units": 7,
+      "metrics": {
+        "Numerical-flat": {
+          "raw": {
+            "nll": 1.096122632649429,
+            "brier": 0.594062711313619,
+            "accuracy": 0.5574324324324323,
+            "macro_f1": 0.5096051648425468,
+            "ece_10": 0.16548047167993366,
+            "coverage": 0.26399613899613944,
+            "selective_error": 0.44808043875685416,
+            "scenario_cost": 0.3022924710424676,
+            "aurc": 0.4887698447349171
+          },
+          "pooled": {
+            "nll": 0.98596901308005,
+            "brier": 0.6048442074609122,
+            "accuracy": 0.5574324324324323,
+            "macro_f1": 0.5096051648425468,
+            "ece_10": 0.2272321213773851,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999659,
+            "aurc": 0.5984202710375903
+          },
+          "unit": {
+            "nll": 0.98596901308005,
+            "brier": 0.6048442074609122,
+            "accuracy": 0.5574324324324323,
+            "macro_f1": 0.5096051648425468,
+            "ece_10": 0.2272321213773851,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999659,
+            "aurc": 0.5984202710375903
+          }
+        },
+        "Numerical-factorized": {
+          "raw": {
+            "nll": 1.107707167552022,
+            "brier": 0.6023966022310607,
+            "accuracy": 0.5528474903474905,
+            "macro_f1": 0.5024148157475586,
+            "ece_10": 0.16745317862797604,
+            "coverage": 0.2557432432432437,
+            "selective_error": 0.47480656727684317,
+            "scenario_cost": 0.3074927606177571,
+            "aurc": 0.5086706232341047
+          },
+          "pooled": {
+            "nll": 0.9889308927299587,
+            "brier": 0.6069464801258206,
+            "accuracy": 0.5528474903474905,
+            "macro_f1": 0.5024148157475586,
+            "ece_10": 0.2219853964953595,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999659,
+            "aurc": 0.6130326891352429
+          },
+          "unit": {
+            "nll": 0.9889308927299587,
+            "brier": 0.6069464801258206,
+            "accuracy": 0.5528474903474905,
+            "macro_f1": 0.5024148157475586,
+            "ece_10": 0.2219853964953595,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999659,
+            "aurc": 0.6130326891352429
+          }
+        },
+        "Qwen-flat": {
+          "raw": {
+            "nll": 1.2459072249711864,
+            "brier": 0.7137634109879278,
+            "accuracy": 0.4364382239382253,
+            "macro_f1": 0.36120645940880136,
+            "ece_10": 0.21608154424359366,
+            "coverage": 0.27075289575289624,
+            "selective_error": 0.5042780748663088,
+            "scenario_cost": 0.3188465250965219,
+            "aurc": 0.5327160280422955
+          },
+          "pooled": {
+            "nll": 1.0215505036719392,
+            "brier": 0.6242881457588261,
+            "accuracy": 0.4364382239382253,
+            "macro_f1": 0.36120645940880136,
+            "ece_10": 0.024713280367935943,
+            "coverage": 0.00019305019305019305,
+            "selective_error": 0.75,
+            "scenario_cost": 0.2500965250965217,
+            "aurc": 0.5213612467459858
+          },
+          "unit": {
+            "nll": 1.0215505036719392,
+            "brier": 0.6242881457588261,
+            "accuracy": 0.4364382239382253,
+            "macro_f1": 0.36120645940880136,
+            "ece_10": 0.024713280367935943,
+            "coverage": 0.00019305019305019305,
+            "selective_error": 0.75,
+            "scenario_cost": 0.2500965250965217,
+            "aurc": 0.5213612467459858
+          }
+        },
+        "Qwen-factorized": {
+          "raw": {
+            "nll": 1.1769932594678922,
+            "brier": 0.6820522605490048,
+            "accuracy": 0.46023166023166173,
+            "macro_f1": 0.3860383750488821,
+            "ece_10": 0.19739985304420538,
+            "coverage": 0.2765444015444021,
+            "selective_error": 0.4738219895287944,
+            "scenario_cost": 0.31189671814671494,
+            "aurc": 0.5025266951107862
+          },
+          "pooled": {
+            "nll": 0.9984163941632052,
+            "brier": 0.6097468540272751,
+            "accuracy": 0.46023166023166173,
+            "macro_f1": 0.3860383750488821,
+            "ece_10": 0.02561001201353375,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999659,
+            "aurc": 0.49966443863706345
+          },
+          "unit": {
+            "nll": 0.9984163941632052,
+            "brier": 0.6097468540272751,
+            "accuracy": 0.46023166023166173,
+            "macro_f1": 0.3860383750488821,
+            "ece_10": 0.02561001201353375,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.24999999999999659,
+            "aurc": 0.49966443863706345
+          }
+        },
+        "Qwen-two-question-direct": {
+          "raw": {
+            "nll": 1.1516551542331026,
+            "brier": 0.6766687183708685,
+            "accuracy": 0.44276061776061915,
+            "macro_f1": 0.3653797849348089,
+            "ece_10": 0.18287522944006412,
+            "coverage": 0.20641891891891911,
+            "selective_error": 0.4601356090717784,
+            "scenario_cost": 0.2933759652509618,
+            "aurc": 0.505297473116199
+          },
+          "pooled": {
+            "nll": 1.0059622459239426,
+            "brier": 0.6151488108564478,
+            "accuracy": 0.44276061776061915,
+            "macro_f1": 0.3653797849348089,
+            "ece_10": 0.02244678427669544,
+            "coverage": 4.826254826254826e-05,
+            "selective_error": 1.0,
+            "scenario_cost": 0.2500361969111935,
+            "aurc": 0.49833829341015634
+          },
+          "unit": {
+            "nll": 1.0059622459239426,
+            "brier": 0.6151488108564478,
+            "accuracy": 0.44276061776061915,
+            "macro_f1": 0.3653797849348089,
+            "ece_10": 0.02244678427669544,
+            "coverage": 4.826254826254826e-05,
+            "selective_error": 1.0,
+            "scenario_cost": 0.2500361969111935,
+            "aurc": 0.49833829341015634
+          }
+        },
+        "Qwen-shared-factorized": {
+          "raw": {
+            "nll": 1.2251082170862726,
+            "brier": 0.7030265973489707,
+            "accuracy": 0.4399131274131288,
+            "macro_f1": 0.36256823147647194,
+            "ece_10": 0.2024561843572161,
+            "coverage": 0.24097490347490386,
+            "selective_error": 0.500700981373922,
+            "scenario_cost": 0.31041264478764147,
+            "aurc": 0.5298739672925821
+          },
+          "pooled": {
+            "nll": 1.0211476153309382,
+            "brier": 0.6236432383747964,
+            "accuracy": 0.4399131274131288,
+            "macro_f1": 0.36256823147647194,
+            "ece_10": 0.020693777312891036,
+            "coverage": 0.00019305019305019305,
+            "selective_error": 0.75,
+            "scenario_cost": 0.2500965250965217,
+            "aurc": 0.5192086476901633
+          },
+          "unit": {
+            "nll": 1.0211476153309382,
+            "brier": 0.6236432383747964,
+            "accuracy": 0.4399131274131288,
+            "macro_f1": 0.36256823147647194,
+            "ece_10": 0.020693777312891036,
+            "coverage": 0.00019305019305019305,
+            "selective_error": 0.75,
+            "scenario_cost": 0.2500965250965217,
+            "aurc": 0.5192086476901633
+          }
+        }
+      },
+      "contrasts": {
+        "Qwen-factorized_minus_Qwen-flat": {
+          "mean": -0.023134109508734353,
+          "units": 7,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI01",
+            "Artificial Inner Ring Damage KI05",
+            "Artificial Inner Ring Damage KI08",
+            "Artificial Outer Ring Damage KA07",
+            "Artificial Outer Ring Damage KA09",
+            "Healthy Bearing K005",
+            "Real Outer Ring Damage KA04"
+          ],
+          "unit_deltas": [
+            -0.007702459175359294,
+            -0.07137775142801399,
+            -0.014153892745449407,
+            0.02488369544019153,
+            0.03863844872557693,
+            -0.13061244056614452,
+            -0.0016143668119417383
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-shared-factorized": {
+          "mean": -0.022731221167733216,
+          "units": 7,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI01",
+            "Artificial Inner Ring Damage KI05",
+            "Artificial Inner Ring Damage KI08",
+            "Artificial Outer Ring Damage KA07",
+            "Artificial Outer Ring Damage KA09",
+            "Healthy Bearing K005",
+            "Real Outer Ring Damage KA04"
+          ],
+          "unit_deltas": [
+            0.0026205949817899596,
+            -0.0646100172758993,
+            -0.009191399639977123,
+            0.019482211685640276,
+            0.03274221586404379,
+            -0.1449779800934562,
+            0.0048158263037260795
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-two-question-direct": {
+          "mean": -0.007545851760737651,
+          "units": 7,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI01",
+            "Artificial Inner Ring Damage KI05",
+            "Artificial Inner Ring Damage KI08",
+            "Artificial Outer Ring Damage KA07",
+            "Artificial Outer Ring Damage KA09",
+            "Healthy Bearing K005",
+            "Real Outer Ring Damage KA04"
+          ],
+          "unit_deltas": [
+            0.004653310503243987,
+            -0.051239628215571154,
+            -0.01853605351668875,
+            0.04308965815324571,
+            0.05459711023126679,
+            -0.09074694363849979,
+            0.005361584157839651
+          ]
+        },
+        "Numerical-factorized_minus_Numerical-flat": {
+          "mean": 0.0029618796499087914,
+          "units": 7,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI01",
+            "Artificial Inner Ring Damage KI05",
+            "Artificial Inner Ring Damage KI08",
+            "Artificial Outer Ring Damage KA07",
+            "Artificial Outer Ring Damage KA09",
+            "Healthy Bearing K005",
+            "Real Outer Ring Damage KA04"
+          ],
+          "unit_deltas": [
+            0.02616207235178338,
+            -0.001979127292990305,
+            0.0004777674510985218,
+            -0.004882056299914102,
+            -0.004500668745457997,
+            0.0023090051708477247,
+            0.003146164913994322
+          ]
+        },
+        "Qwen-shared-factorized_minus_Qwen-flat": {
+          "mean": -0.00040288834100113874,
+          "units": 7,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI01",
+            "Artificial Inner Ring Damage KI05",
+            "Artificial Inner Ring Damage KI08",
+            "Artificial Outer Ring Damage KA07",
+            "Artificial Outer Ring Damage KA09",
+            "Healthy Bearing K005",
+            "Real Outer Ring Damage KA04"
+          ],
+          "unit_deltas": [
+            -0.010323054157149255,
+            -0.006767734152114684,
+            -0.004962493105472278,
+            0.005401483754551247,
+            0.005896232861533137,
+            0.014365539527311686,
+            -0.006430193115667822
+          ]
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "rotation_1",
+        "window_selection": {
+          "window_size": 8192,
+          "num_window": 37,
+          "C": 10.0,
+          "tune_nll": 0.7484620047073283
+        },
+        "normalization": "raw",
+        "head_workers": 3
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 8192,
+            "max_stride": 8192,
+            "num_window": 37,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "none",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Artificial Inner Ring Damage KI01": "test",
+            "Artificial Inner Ring Damage KI03": "tune",
+            "Artificial Inner Ring Damage KI05": "test",
+            "Artificial Inner Ring Damage KI07": "train",
+            "Artificial Inner Ring Damage KI08": "test",
+            "Artificial Outer Ring Damage KA01": "train",
+            "Artificial Outer Ring Damage KA03": "train",
+            "Artificial Outer Ring Damage KA05": "cal",
+            "Artificial Outer Ring Damage KA06": "train",
+            "Artificial Outer Ring Damage KA07": "test",
+            "Artificial Outer Ring Damage KA08": "train",
+            "Artificial Outer Ring Damage KA09": "test",
+            "Healthy Bearing K001": "tune",
+            "Healthy Bearing K002": "cal",
+            "Healthy Bearing K003": "train",
+            "Healthy Bearing K004": "train",
+            "Healthy Bearing K005": "test",
+            "Healthy Bearing K006": "train",
+            "Real Inner Ring Damage KI04": "train",
+            "Real Inner Ring Damage KI14": "train",
+            "Real Inner Ring Damage KI16": "train",
+            "Real Inner Ring Damage KI17": "cal",
+            "Real Inner Ring Damage KI18": "train",
+            "Real Inner Ring Damage KI21": "train",
+            "Real Mixed Damage, IR Dominant KB23": "cal",
+            "Real Mixed Damage, IR Dominant KB24": "train",
+            "Real Mixed Damage, OR Dominant KB27": "train",
+            "Real Outer Ring Damage KA04": "test",
+            "Real Outer Ring Damage KA15": "train",
+            "Real Outer Ring Damage KA16": "cal",
+            "Real Outer Ring Damage KA22": "tune",
+            "Real Outer Ring Damage KA30": "train"
+          }
+        },
+        "embedding_archives": [
+          "w8192_raw_legacy_flat_a_flat_b_presence_identity.npz"
+        ]
+      },
+      "heads": {
+        "Numerical-flat": {
+          "C": 10.0,
+          "tuning": [
+            {
+              "nll": 0.7862285299234478,
+              "C": 0.01
+            },
+            {
+              "nll": 0.7888628469430552,
+              "C": 0.1
+            },
+            {
+              "nll": 0.7756628173191521,
+              "C": 1.0
+            },
+            {
+              "nll": 0.7484620047073283,
+              "C": 10.0
+            },
+            {
+              "nll": 0.7533434635975738,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 9.928454836417385,
+            "unit": 9.928454836417385
+          },
+          "fit_evaluate_seconds": 14.377460977004375,
+          "head_parameters": 21
+        },
+        "Numerical-factorized": {
+          "C": 10.0,
+          "tuning": [
+            {
+              "nll": 0.797653594658727,
+              "C": 0.01
+            },
+            {
+              "nll": 0.790268045081292,
+              "C": 0.1
+            },
+            {
+              "nll": 0.7831863167043132,
+              "C": 1.0
+            },
+            {
+              "nll": 0.7486619231711096,
+              "C": 10.0
+            },
+            {
+              "nll": 0.7501674293162283,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 9.647055625360691,
+            "unit": 9.647055625360691
+          },
+          "fit_evaluate_seconds": 2.2027701810002327,
+          "head_parameters": 14
+        },
+        "Qwen-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.0535452879320788,
+              "C": 0.01
+            },
+            {
+              "nll": 1.0747261141031705,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0782863454504756,
+              "C": 1.0
+            },
+            {
+              "nll": 1.0786725949785168,
+              "C": 10.0
+            },
+            {
+              "nll": 1.0787115291409628,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 3.3420536066530055,
+            "unit": 3.3420536066530055
+          },
+          "fit_evaluate_seconds": 990.2305815989967,
+          "head_parameters": 3075
+        },
+        "Qwen-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.0042319381005453,
+              "C": 0.01
+            },
+            {
+              "nll": 1.0336600012627466,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0392044189323937,
+              "C": 1.0
+            },
+            {
+              "nll": 1.0398192877499026,
+              "C": 10.0
+            },
+            {
+              "nll": 1.0398813845512227,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 4.28692651435891,
+            "unit": 4.28692651435891
+          },
+          "fit_evaluate_seconds": 547.6057853309903,
+          "head_parameters": 2050
+        },
+        "Qwen-two-question-direct": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 0.948053271546669,
+              "C": 0.01
+            },
+            {
+              "nll": 0.9534360257938774,
+              "C": 0.1
+            },
+            {
+              "nll": 0.9543777241076288,
+              "C": 1.0
+            },
+            {
+              "nll": 0.9544803815113357,
+              "C": 10.0
+            },
+            {
+              "nll": 0.9544905722630426,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 3.125721322123273,
+            "unit": 3.125721322123273
+          },
+          "fit_evaluate_seconds": 1478.485692775983,
+          "head_parameters": 6150
+        },
+        "Qwen-shared-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.0383758198659996,
+              "C": 0.01
+            },
+            {
+              "nll": 1.0666935866660978,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0721177626775487,
+              "C": 1.0
+            },
+            {
+              "nll": 1.0727263321275178,
+              "C": 10.0
+            },
+            {
+              "nll": 1.0727867440695462,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 3.2084602307020784,
+            "unit": 3.2084602307020784
+          },
+          "fit_evaluate_seconds": 285.5680160530028,
+          "head_parameters": 2050
+        }
+      }
+    },
+    "rotation_2_raw_e2": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/rotation_2_raw_e2",
+      "test_windows": 14800,
+      "test_units": 5,
+      "metrics": {
+        "Numerical-flat": {
+          "raw": {
+            "nll": 1.5262217382368632,
+            "brier": 0.7547029607442493,
+            "accuracy": 0.35925675675675606,
+            "macro_f1": 0.2648402918731457,
+            "ece_10": 0.2651236884692674,
+            "coverage": 0.28608108108108116,
+            "selective_error": 0.5125177137458673,
+            "scenario_cost": 0.32510135135135043,
+            "aurc": 0.5075228173519358
+          },
+          "pooled": {
+            "nll": 1.1764175221541944,
+            "brier": 0.6784433429728887,
+            "accuracy": 0.35925675675675606,
+            "macro_f1": 0.2648402918731457,
+            "ece_10": 0.2007638695853014,
+            "coverage": 0.013986486486486486,
+            "selective_error": 0.15942028985507248,
+            "scenario_cost": 0.24873310810810637,
+            "aurc": 0.5000132101553479
+          },
+          "unit": {
+            "nll": 1.1764175221541944,
+            "brier": 0.6784433429728887,
+            "accuracy": 0.35925675675675606,
+            "macro_f1": 0.2648402918731457,
+            "ece_10": 0.2007638695853014,
+            "coverage": 0.013986486486486486,
+            "selective_error": 0.15942028985507248,
+            "scenario_cost": 0.24873310810810637,
+            "aurc": 0.5000132101553479
+          }
+        },
+        "Numerical-factorized": {
+          "raw": {
+            "nll": 1.6707127423746622,
+            "brier": 0.7546049129244226,
+            "accuracy": 0.39608108108108003,
+            "macro_f1": 0.29967278614959075,
+            "ece_10": 0.25477535557303516,
+            "coverage": 0.30445945945945935,
+            "selective_error": 0.5337328007101652,
+            "scenario_cost": 0.336385135135134,
+            "aurc": 0.5036149755374664
+          },
+          "pooled": {
+            "nll": 1.1658362835959264,
+            "brier": 0.6673569322410648,
+            "accuracy": 0.39608108108108003,
+            "macro_f1": 0.29967278614959075,
+            "ece_10": 0.14327849327727793,
+            "coverage": 0.014594594594594595,
+            "selective_error": 0.25,
+            "scenario_cost": 0.24999999999999825,
+            "aurc": 0.5045660832403023
+          },
+          "unit": {
+            "nll": 1.1658362835959264,
+            "brier": 0.6673569322410648,
+            "accuracy": 0.39608108108108003,
+            "macro_f1": 0.29967278614959075,
+            "ece_10": 0.14327849327727793,
+            "coverage": 0.014594594594594595,
+            "selective_error": 0.25,
+            "scenario_cost": 0.24999999999999825,
+            "aurc": 0.5045660832403023
+          }
+        },
+        "Qwen-flat": {
+          "raw": {
+            "nll": 1.1537196354260324,
+            "brier": 0.685196402697803,
+            "accuracy": 0.45027027027026867,
+            "macro_f1": 0.38930528765540934,
+            "ece_10": 0.19716660212001139,
+            "coverage": 0.22358108108108146,
+            "selective_error": 0.5074040495618009,
+            "scenario_cost": 0.30755067567567423,
+            "aurc": 0.5247647444078766
+          },
+          "pooled": {
+            "nll": 0.9821915835549828,
+            "brier": 0.6098867030474737,
+            "accuracy": 0.45027027027026867,
+            "macro_f1": 0.38930528765540934,
+            "ece_10": 0.046166294850749474,
+            "coverage": 0.00047297297297297297,
+            "selective_error": 0.8571428571428571,
+            "scenario_cost": 0.25028716216216035,
+            "aurc": 0.5235009024599766
+          },
+          "unit": {
+            "nll": 0.9821915835549828,
+            "brier": 0.6098867030474737,
+            "accuracy": 0.45027027027026867,
+            "macro_f1": 0.38930528765540934,
+            "ece_10": 0.046166294850749474,
+            "coverage": 0.00047297297297297297,
+            "selective_error": 0.8571428571428571,
+            "scenario_cost": 0.25028716216216035,
+            "aurc": 0.5235009024599766
+          }
+        },
+        "Qwen-factorized": {
+          "raw": {
+            "nll": 1.2684405419866873,
+            "brier": 0.7075099724321328,
+            "accuracy": 0.44925675675675514,
+            "macro_f1": 0.3695354770178838,
+            "ece_10": 0.19927452360240525,
+            "coverage": 0.22304054054054093,
+            "selective_error": 0.5183277794607691,
+            "scenario_cost": 0.30984797297297156,
+            "aurc": 0.5283159060651661
+          },
+          "pooled": {
+            "nll": 1.048939467404165,
+            "brier": 0.6388288386604508,
+            "accuracy": 0.44925675675675514,
+            "macro_f1": 0.3695354770178838,
+            "ece_10": 0.08533483880701402,
+            "coverage": 0.005067567567567568,
+            "selective_error": 0.4933333333333333,
+            "scenario_cost": 0.2512331081081063,
+            "aurc": 0.5256643054227406
+          },
+          "unit": {
+            "nll": 1.048939467404165,
+            "brier": 0.6388288386604508,
+            "accuracy": 0.44925675675675514,
+            "macro_f1": 0.3695354770178838,
+            "ece_10": 0.08533483880701402,
+            "coverage": 0.005067567567567568,
+            "selective_error": 0.4933333333333333,
+            "scenario_cost": 0.2512331081081063,
+            "aurc": 0.5256643054227406
+          }
+        },
+        "Qwen-two-question-direct": {
+          "raw": {
+            "nll": 1.14331108124258,
+            "brier": 0.6791788326558083,
+            "accuracy": 0.44912162162162006,
+            "macro_f1": 0.371675203372575,
+            "ece_10": 0.17734646946929097,
+            "coverage": 0.16141891891891913,
+            "selective_error": 0.5324403516115526,
+            "scenario_cost": 0.29559121621621476,
+            "aurc": 0.5418472116099357
+          },
+          "pooled": {
+            "nll": 0.992967943993609,
+            "brier": 0.6182743633040255,
+            "accuracy": 0.44912162162162006,
+            "macro_f1": 0.371675203372575,
+            "ece_10": 0.06475215259048034,
+            "coverage": 0.001283783783783784,
+            "selective_error": 0.8421052631578947,
+            "scenario_cost": 0.25076013513513334,
+            "aurc": 0.5406827184944543
+          },
+          "unit": {
+            "nll": 0.992967943993609,
+            "brier": 0.6182743633040255,
+            "accuracy": 0.44912162162162006,
+            "macro_f1": 0.371675203372575,
+            "ece_10": 0.06475215259048034,
+            "coverage": 0.001283783783783784,
+            "selective_error": 0.8421052631578947,
+            "scenario_cost": 0.25076013513513334,
+            "aurc": 0.5406827184944543
+          }
+        },
+        "Qwen-shared-factorized": {
+          "raw": {
+            "nll": 1.1414733998237825,
+            "brier": 0.6802013809188593,
+            "accuracy": 0.44817567567567407,
+            "macro_f1": 0.389284461891276,
+            "ece_10": 0.19108430762039277,
+            "coverage": 0.19716216216216248,
+            "selective_error": 0.49999999999999956,
+            "scenario_cost": 0.2992905405405391,
+            "aurc": 0.5212921774133856
+          },
+          "pooled": {
+            "nll": 0.9820095474991443,
+            "brier": 0.6098217513860866,
+            "accuracy": 0.44817567567567407,
+            "macro_f1": 0.389284461891276,
+            "ece_10": 0.04859460348185742,
+            "coverage": 0.00013513513513513514,
+            "selective_error": 1.0,
+            "scenario_cost": 0.25010135135134953,
+            "aurc": 0.521763027037309
+          },
+          "unit": {
+            "nll": 0.9820095474991443,
+            "brier": 0.6098217513860866,
+            "accuracy": 0.44817567567567407,
+            "macro_f1": 0.389284461891276,
+            "ece_10": 0.04859460348185742,
+            "coverage": 0.00013513513513513514,
+            "selective_error": 1.0,
+            "scenario_cost": 0.25010135135134953,
+            "aurc": 0.521763027037309
+          }
+        }
+      },
+      "contrasts": {
+        "Qwen-factorized_minus_Qwen-flat": {
+          "mean": 0.06674788384918216,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA05",
+            "Healthy Bearing K002",
+            "Real Inner Ring Damage KI17",
+            "Real Mixed Damage, IR Dominant KB23",
+            "Real Outer Ring Damage KA16"
+          ],
+          "unit_deltas": [
+            -0.08197682627261647,
+            0.4007558506458498,
+            -0.017490414909437427,
+            0.007836618363437058,
+            0.024614191418677895
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-shared-factorized": {
+          "mean": 0.06692991990502074,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA05",
+            "Healthy Bearing K002",
+            "Real Inner Ring Damage KI17",
+            "Real Mixed Damage, IR Dominant KB23",
+            "Real Outer Ring Damage KA16"
+          ],
+          "unit_deltas": [
+            -0.0838512499739539,
+            0.3951923017890336,
+            -0.018992735159994265,
+            0.006683643383922206,
+            0.03561763948609614
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-two-question-direct": {
+          "mean": 0.05597152341055596,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA05",
+            "Healthy Bearing K002",
+            "Real Inner Ring Damage KI17",
+            "Real Mixed Damage, IR Dominant KB23",
+            "Real Outer Ring Damage KA16"
+          ],
+          "unit_deltas": [
+            -0.037801436701371795,
+            0.2536508900788659,
+            0.014152638806984377,
+            0.02029524453427985,
+            0.029560280334021496
+          ]
+        },
+        "Numerical-factorized_minus_Numerical-flat": {
+          "mean": -0.010581238558268199,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA05",
+            "Healthy Bearing K002",
+            "Real Inner Ring Damage KI17",
+            "Real Mixed Damage, IR Dominant KB23",
+            "Real Outer Ring Damage KA16"
+          ],
+          "unit_deltas": [
+            -0.031043809836426486,
+            0.005473203281189914,
+            -0.032222980017960486,
+            0.03147860831123773,
+            -0.026591214529381672
+          ]
+        },
+        "Qwen-shared-factorized_minus_Qwen-flat": {
+          "mean": -0.00018203605583859555,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA05",
+            "Healthy Bearing K002",
+            "Real Inner Ring Damage KI17",
+            "Real Mixed Damage, IR Dominant KB23",
+            "Real Outer Ring Damage KA16"
+          ],
+          "unit_deltas": [
+            0.0018744237013374294,
+            0.0055635488568161464,
+            0.0015023202505568332,
+            0.001152974979514865,
+            -0.01100344806741825
+          ]
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "rotation_2",
+        "window_selection": {
+          "window_size": 8192,
+          "num_window": 37,
+          "C": 0.1,
+          "tune_nll": 0.8254434416698664
+        },
+        "normalization": "raw",
+        "head_workers": 3
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 8192,
+            "max_stride": 8192,
+            "num_window": 37,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "none",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Artificial Inner Ring Damage KI01": "cal",
+            "Artificial Inner Ring Damage KI03": "train",
+            "Artificial Inner Ring Damage KI05": "tune",
+            "Artificial Inner Ring Damage KI07": "train",
+            "Artificial Inner Ring Damage KI08": "cal",
+            "Artificial Outer Ring Damage KA01": "train",
+            "Artificial Outer Ring Damage KA03": "train",
+            "Artificial Outer Ring Damage KA05": "test",
+            "Artificial Outer Ring Damage KA06": "train",
+            "Artificial Outer Ring Damage KA07": "cal",
+            "Artificial Outer Ring Damage KA08": "train",
+            "Artificial Outer Ring Damage KA09": "tune",
+            "Healthy Bearing K001": "cal",
+            "Healthy Bearing K002": "test",
+            "Healthy Bearing K003": "train",
+            "Healthy Bearing K004": "train",
+            "Healthy Bearing K005": "train",
+            "Healthy Bearing K006": "tune",
+            "Real Inner Ring Damage KI04": "train",
+            "Real Inner Ring Damage KI14": "train",
+            "Real Inner Ring Damage KI16": "train",
+            "Real Inner Ring Damage KI17": "test",
+            "Real Inner Ring Damage KI18": "train",
+            "Real Inner Ring Damage KI21": "train",
+            "Real Mixed Damage, IR Dominant KB23": "test",
+            "Real Mixed Damage, IR Dominant KB24": "train",
+            "Real Mixed Damage, OR Dominant KB27": "train",
+            "Real Outer Ring Damage KA04": "cal",
+            "Real Outer Ring Damage KA15": "train",
+            "Real Outer Ring Damage KA16": "test",
+            "Real Outer Ring Damage KA22": "train",
+            "Real Outer Ring Damage KA30": "train"
+          }
+        },
+        "embedding_archives": [
+          "w8192_raw_legacy_flat_a_flat_b_presence_identity.npz"
+        ]
+      },
+      "heads": {
+        "Numerical-flat": {
+          "C": 0.1,
+          "tuning": [
+            {
+              "nll": 0.943192089727513,
+              "C": 0.01
+            },
+            {
+              "nll": 0.8254434416698664,
+              "C": 0.1
+            },
+            {
+              "nll": 0.843626870095494,
+              "C": 1.0
+            },
+            {
+              "nll": 0.921485817588505,
+              "C": 10.0
+            },
+            {
+              "nll": 0.977301242316839,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.9418050621805028,
+            "unit": 1.9418050621805028
+          },
+          "fit_evaluate_seconds": 12.338692880992312,
+          "head_parameters": 21
+        },
+        "Numerical-factorized": {
+          "C": 1.0,
+          "tuning": [
+            {
+              "nll": 0.9836714222711876,
+              "C": 0.01
+            },
+            {
+              "nll": 0.8343956837892648,
+              "C": 0.1
+            },
+            {
+              "nll": 0.8292139313438968,
+              "C": 1.0
+            },
+            {
+              "nll": 0.9001165338762043,
+              "C": 10.0
+            },
+            {
+              "nll": 0.9616621889874122,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.3756850948834205,
+            "unit": 2.3756850948834205
+          },
+          "fit_evaluate_seconds": 2.200412870035507,
+          "head_parameters": 14
+        },
+        "Qwen-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.1734383500387129,
+              "C": 0.01
+            },
+            {
+              "nll": 1.1856627696909139,
+              "C": 0.1
+            },
+            {
+              "nll": 1.1875814420421529,
+              "C": 1.0
+            },
+            {
+              "nll": 1.1877845610257816,
+              "C": 10.0
+            },
+            {
+              "nll": 1.1878052342974668,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.5639432620028897,
+            "unit": 2.5639432620028897
+          },
+          "fit_evaluate_seconds": 952.8411407130188,
+          "head_parameters": 3075
+        },
+        "Qwen-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.0193736738024468,
+              "C": 0.01
+            },
+            {
+              "nll": 1.0249305970421916,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0263462770738165,
+              "C": 1.0
+            },
+            {
+              "nll": 1.0265053357821545,
+              "C": 10.0
+            },
+            {
+              "nll": 1.026521932972039,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.0099408877609695,
+            "unit": 2.0099408877609695
+          },
+          "fit_evaluate_seconds": 608.4214992070338,
+          "head_parameters": 2050
+        },
+        "Qwen-two-question-direct": {
+          "C": 0.1,
+          "tuning": [
+            {
+              "nll": 1.07158290565035,
+              "C": 0.01
+            },
+            {
+              "nll": 1.07110934500496,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0712257207584814,
+              "C": 1.0
+            },
+            {
+              "nll": 1.071240527084649,
+              "C": 10.0
+            },
+            {
+              "nll": 1.071241831795659,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.1015034823168217,
+            "unit": 2.1015034823168217
+          },
+          "fit_evaluate_seconds": 1478.6882564169937,
+          "head_parameters": 6150
+        },
+        "Qwen-shared-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.159041049466649,
+              "C": 0.01
+            },
+            {
+              "nll": 1.1741370610778352,
+              "C": 0.1
+            },
+            {
+              "nll": 1.1769085743835672,
+              "C": 1.0
+            },
+            {
+              "nll": 1.1772113317995399,
+              "C": 10.0
+            },
+            {
+              "nll": 1.1772421172791185,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.472323519403331,
+            "unit": 2.472323519403331
+          },
+          "fit_evaluate_seconds": 214.72712576697813,
+          "head_parameters": 2050
+        }
+      }
+    },
+    "rotation_3_raw_e2": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/rotation_3_raw_e2",
+      "test_windows": 14800,
+      "test_units": 5,
+      "metrics": {
+        "Numerical-flat": {
+          "raw": {
+            "nll": 0.7731435916758312,
+            "brier": 0.5137858830672948,
+            "accuracy": 0.5161486486486464,
+            "macro_f1": 0.48455173372418897,
+            "ece_10": 0.08214747864797997,
+            "coverage": 0.13270270270270285,
+            "selective_error": 0.13187372708757625,
+            "scenario_cost": 0.23432432432432265,
+            "aurc": 0.3282779596440558
+          },
+          "pooled": {
+            "nll": 0.7870116585866751,
+            "brier": 0.5081758713970799,
+            "accuracy": 0.5161486486486464,
+            "macro_f1": 0.48455173372418897,
+            "ece_10": 0.06680294901475053,
+            "coverage": 0.04371621621621621,
+            "selective_error": 0.0,
+            "scenario_cost": 0.23907094594594425,
+            "aurc": 0.3139223687409995
+          },
+          "unit": {
+            "nll": 0.7870116585866751,
+            "brier": 0.5081758713970799,
+            "accuracy": 0.5161486486486464,
+            "macro_f1": 0.48455173372418897,
+            "ece_10": 0.06680294901475053,
+            "coverage": 0.04371621621621621,
+            "selective_error": 0.0,
+            "scenario_cost": 0.23907094594594425,
+            "aurc": 0.3139223687409995
+          }
+        },
+        "Numerical-factorized": {
+          "raw": {
+            "nll": 0.7698756726949091,
+            "brier": 0.5099118262679381,
+            "accuracy": 0.5280405405405382,
+            "macro_f1": 0.5051190974258927,
+            "ece_10": 0.0652091199115445,
+            "coverage": 0.12472972972972987,
+            "selective_error": 0.1300108342361862,
+            "scenario_cost": 0.23503378378378215,
+            "aurc": 0.32168297393312906
+          },
+          "pooled": {
+            "nll": 0.7852568124472438,
+            "brier": 0.5062123220081987,
+            "accuracy": 0.5280405405405382,
+            "macro_f1": 0.5051190974258927,
+            "ece_10": 0.06266830807693902,
+            "coverage": 0.04472972972972972,
+            "selective_error": 0.0,
+            "scenario_cost": 0.2388175675675659,
+            "aurc": 0.30809651427199797
+          },
+          "unit": {
+            "nll": 0.7852568124472438,
+            "brier": 0.5062123220081987,
+            "accuracy": 0.5280405405405382,
+            "macro_f1": 0.5051190974258927,
+            "ece_10": 0.06266830807693902,
+            "coverage": 0.04472972972972972,
+            "selective_error": 0.0,
+            "scenario_cost": 0.2388175675675659,
+            "aurc": 0.30809651427199797
+          }
+        },
+        "Qwen-flat": {
+          "raw": {
+            "nll": 1.001463947937455,
+            "brier": 0.6318950402020773,
+            "accuracy": 0.4527027027027011,
+            "macro_f1": 0.45987514259442724,
+            "ece_10": 0.1385139168809738,
+            "coverage": 0.11756756756756769,
+            "selective_error": 0.43275862068965465,
+            "scenario_cost": 0.27148648648648493,
+            "aurc": 0.49135625542320566
+          },
+          "pooled": {
+            "nll": 0.9662419379557527,
+            "brier": 0.6051010816650939,
+            "accuracy": 0.4527027027027011,
+            "macro_f1": 0.45987514259442724,
+            "ece_10": 0.07257054582145431,
+            "coverage": 0.01824324324324324,
+            "selective_error": 0.3148148148148149,
+            "scenario_cost": 0.25118243243243066,
+            "aurc": 0.4913420072237068
+          },
+          "unit": {
+            "nll": 0.9662419379557527,
+            "brier": 0.6051010816650939,
+            "accuracy": 0.4527027027027011,
+            "macro_f1": 0.45987514259442724,
+            "ece_10": 0.07257054582145431,
+            "coverage": 0.01824324324324324,
+            "selective_error": 0.3148148148148149,
+            "scenario_cost": 0.25118243243243066,
+            "aurc": 0.4913420072237068
+          }
+        },
+        "Qwen-factorized": {
+          "raw": {
+            "nll": 0.9745726660302373,
+            "brier": 0.6199750065538366,
+            "accuracy": 0.46378378378378204,
+            "macro_f1": 0.4799922117508813,
+            "ece_10": 0.12714189460177866,
+            "coverage": 0.11060810810810821,
+            "selective_error": 0.39706780696395805,
+            "scenario_cost": 0.2662668918918903,
+            "aurc": 0.4753228958374478
+          },
+          "pooled": {
+            "nll": 0.953939147134663,
+            "brier": 0.6027807729948984,
+            "accuracy": 0.46378378378378204,
+            "macro_f1": 0.4799922117508813,
+            "ece_10": 0.08637898302074902,
+            "coverage": 0.04094594594594593,
+            "selective_error": 0.3250825082508252,
+            "scenario_cost": 0.25307432432432264,
+            "aurc": 0.47588622345963083
+          },
+          "unit": {
+            "nll": 0.953939147134663,
+            "brier": 0.6027807729948984,
+            "accuracy": 0.46378378378378204,
+            "macro_f1": 0.4799922117508813,
+            "ece_10": 0.08637898302074902,
+            "coverage": 0.04094594594594593,
+            "selective_error": 0.3250825082508252,
+            "scenario_cost": 0.25307432432432264,
+            "aurc": 0.47588622345963083
+          }
+        },
+        "Qwen-two-question-direct": {
+          "raw": {
+            "nll": 0.9404986420096169,
+            "brier": 0.5981061133497134,
+            "accuracy": 0.46189189189189017,
+            "macro_f1": 0.4755151183503366,
+            "ece_10": 0.09731867109833632,
+            "coverage": 0.04405405405405405,
+            "selective_error": 0.3466257668711657,
+            "scenario_cost": 0.2542567567567551,
+            "aurc": 0.47272509752965175
+          },
+          "pooled": {
+            "nll": 0.9366823804634048,
+            "brier": 0.5941843417068122,
+            "accuracy": 0.46189189189189017,
+            "macro_f1": 0.4755151183503366,
+            "ece_10": 0.0852119185061585,
+            "coverage": 0.029391891891891887,
+            "selective_error": 0.3333333333333334,
+            "scenario_cost": 0.2524493243243226,
+            "aurc": 0.4731365413832286
+          },
+          "unit": {
+            "nll": 0.9366823804634048,
+            "brier": 0.5941843417068122,
+            "accuracy": 0.46189189189189017,
+            "macro_f1": 0.4755151183503366,
+            "ece_10": 0.0852119185061585,
+            "coverage": 0.029391891891891887,
+            "selective_error": 0.3333333333333334,
+            "scenario_cost": 0.2524493243243226,
+            "aurc": 0.4731365413832286
+          }
+        },
+        "Qwen-shared-factorized": {
+          "raw": {
+            "nll": 1.0067982905077764,
+            "brier": 0.6343375298505094,
+            "accuracy": 0.44844594594594434,
+            "macro_f1": 0.4563769567952029,
+            "ece_10": 0.13901470180332492,
+            "coverage": 0.10310810810810819,
+            "selective_error": 0.4285714285714281,
+            "scenario_cost": 0.2684121621621606,
+            "aurc": 0.49624746742745723
+          },
+          "pooled": {
+            "nll": 0.9715516892179709,
+            "brier": 0.607963635389687,
+            "accuracy": 0.44844594594594434,
+            "macro_f1": 0.4563769567952029,
+            "ece_10": 0.07506956706966109,
+            "coverage": 0.014459459459459461,
+            "selective_error": 0.2803738317757009,
+            "scenario_cost": 0.2504391891891874,
+            "aurc": 0.4960323649008002
+          },
+          "unit": {
+            "nll": 0.9715516892179709,
+            "brier": 0.607963635389687,
+            "accuracy": 0.44844594594594434,
+            "macro_f1": 0.4563769567952029,
+            "ece_10": 0.07506956706966109,
+            "coverage": 0.014459459459459461,
+            "selective_error": 0.2803738317757009,
+            "scenario_cost": 0.2504391891891874,
+            "aurc": 0.4960323649008002
+          }
+        }
+      },
+      "contrasts": {
+        "Qwen-factorized_minus_Qwen-flat": {
+          "mean": -0.0123027908210898,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI03",
+            "Healthy Bearing K001",
+            "Real Inner Ring Damage KI18",
+            "Real Mixed Damage, OR Dominant KB27",
+            "Real Outer Ring Damage KA22"
+          ],
+          "unit_deltas": [
+            -0.014498090991423664,
+            -0.13734755116070457,
+            0.004919426247305992,
+            0.03245765163708275,
+            0.05295461016229049
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-shared-factorized": {
+          "mean": -0.017612542083307786,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI03",
+            "Healthy Bearing K001",
+            "Real Inner Ring Damage KI18",
+            "Real Mixed Damage, OR Dominant KB27",
+            "Real Outer Ring Damage KA22"
+          ],
+          "unit_deltas": [
+            -0.00022333193776146747,
+            -0.14399431440856392,
+            -0.001812272069606232,
+            0.03302177681836601,
+            0.02494543118102668
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-two-question-direct": {
+          "mean": 0.017256766671258188,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI03",
+            "Healthy Bearing K001",
+            "Real Inner Ring Damage KI18",
+            "Real Mixed Damage, OR Dominant KB27",
+            "Real Outer Ring Damage KA22"
+          ],
+          "unit_deltas": [
+            0.051132094393838194,
+            -0.106781457193835,
+            0.06834529947685636,
+            0.03302829454259475,
+            0.040559602136836646
+          ]
+        },
+        "Numerical-factorized_minus_Numerical-flat": {
+          "mean": -0.0017548461394315189,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI03",
+            "Healthy Bearing K001",
+            "Real Inner Ring Damage KI18",
+            "Real Mixed Damage, OR Dominant KB27",
+            "Real Outer Ring Damage KA22"
+          ],
+          "unit_deltas": [
+            0.01101639475164483,
+            -0.0038573751099721535,
+            0.0022391275162414095,
+            -0.009409679159166712,
+            -0.00876269869590497
+          ]
+        },
+        "Qwen-shared-factorized_minus_Qwen-flat": {
+          "mean": 0.005309751262217987,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI03",
+            "Healthy Bearing K001",
+            "Real Inner Ring Damage KI18",
+            "Real Mixed Damage, OR Dominant KB27",
+            "Real Outer Ring Damage KA22"
+          ],
+          "unit_deltas": [
+            -0.014274759053662194,
+            0.006646763247859352,
+            0.006731698316912218,
+            -0.0005641251812832558,
+            0.028009178981263812
+          ]
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "rotation_3",
+        "window_selection": {
+          "window_size": 8192,
+          "num_window": 37,
+          "C": 100.0,
+          "tune_nll": 0.9823875982700333
+        },
+        "normalization": "raw",
+        "head_workers": 3
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 8192,
+            "max_stride": 8192,
+            "num_window": 37,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "none",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Artificial Inner Ring Damage KI01": "cal",
+            "Artificial Inner Ring Damage KI03": "test",
+            "Artificial Inner Ring Damage KI05": "tune",
+            "Artificial Inner Ring Damage KI07": "train",
+            "Artificial Inner Ring Damage KI08": "cal",
+            "Artificial Outer Ring Damage KA01": "train",
+            "Artificial Outer Ring Damage KA03": "train",
+            "Artificial Outer Ring Damage KA05": "train",
+            "Artificial Outer Ring Damage KA06": "train",
+            "Artificial Outer Ring Damage KA07": "cal",
+            "Artificial Outer Ring Damage KA08": "train",
+            "Artificial Outer Ring Damage KA09": "tune",
+            "Healthy Bearing K001": "test",
+            "Healthy Bearing K002": "train",
+            "Healthy Bearing K003": "train",
+            "Healthy Bearing K004": "tune",
+            "Healthy Bearing K005": "train",
+            "Healthy Bearing K006": "cal",
+            "Real Inner Ring Damage KI04": "train",
+            "Real Inner Ring Damage KI14": "train",
+            "Real Inner Ring Damage KI16": "train",
+            "Real Inner Ring Damage KI17": "train",
+            "Real Inner Ring Damage KI18": "test",
+            "Real Inner Ring Damage KI21": "train",
+            "Real Mixed Damage, IR Dominant KB23": "train",
+            "Real Mixed Damage, IR Dominant KB24": "train",
+            "Real Mixed Damage, OR Dominant KB27": "test",
+            "Real Outer Ring Damage KA04": "cal",
+            "Real Outer Ring Damage KA15": "train",
+            "Real Outer Ring Damage KA16": "train",
+            "Real Outer Ring Damage KA22": "test",
+            "Real Outer Ring Damage KA30": "train"
+          }
+        },
+        "embedding_archives": [
+          "w8192_raw_legacy_flat_a_flat_b_presence_identity.npz"
+        ]
+      },
+      "heads": {
+        "Numerical-flat": {
+          "C": 100.0,
+          "tuning": [
+            {
+              "nll": 1.2257158197440865,
+              "C": 0.01
+            },
+            {
+              "nll": 1.1364199091919494,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0482002341444665,
+              "C": 1.0
+            },
+            {
+              "nll": 0.9866620597482105,
+              "C": 10.0
+            },
+            {
+              "nll": 0.9823875982700333,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.5580215759242102,
+            "unit": 1.5580215759242102
+          },
+          "fit_evaluate_seconds": 16.471318918978795,
+          "head_parameters": 21
+        },
+        "Numerical-factorized": {
+          "C": 100.0,
+          "tuning": [
+            {
+              "nll": 1.2548829835757465,
+              "C": 0.01
+            },
+            {
+              "nll": 1.1510918847549865,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0626932430278888,
+              "C": 1.0
+            },
+            {
+              "nll": 0.9788898233887999,
+              "C": 10.0
+            },
+            {
+              "nll": 0.9669442273229774,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.5333733951777229,
+            "unit": 1.5333733951777229
+          },
+          "fit_evaluate_seconds": 2.315528316947166,
+          "head_parameters": 14
+        },
+        "Qwen-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.3585973154235869,
+              "C": 0.01
+            },
+            {
+              "nll": 1.3735990114670769,
+              "C": 0.1
+            },
+            {
+              "nll": 1.375810229444831,
+              "C": 1.0
+            },
+            {
+              "nll": 1.3760434746168229,
+              "C": 10.0
+            },
+            {
+              "nll": 1.3760663980334198,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.4846511638624424,
+            "unit": 1.4846511638624424
+          },
+          "fit_evaluate_seconds": 917.0826710640104,
+          "head_parameters": 3075
+        },
+        "Qwen-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.3662570237646587,
+              "C": 0.01
+            },
+            {
+              "nll": 1.3826497564198967,
+              "C": 0.1
+            },
+            {
+              "nll": 1.3856562711036715,
+              "C": 1.0
+            },
+            {
+              "nll": 1.3859824565675436,
+              "C": 10.0
+            },
+            {
+              "nll": 1.3860160204504377,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.2641564033664032,
+            "unit": 1.2641564033664032
+          },
+          "fit_evaluate_seconds": 584.6773374999757,
+          "head_parameters": 2050
+        },
+        "Qwen-two-question-direct": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.2736312009242545,
+              "C": 0.01
+            },
+            {
+              "nll": 1.2754595983363806,
+              "C": 0.1
+            },
+            {
+              "nll": 1.2758494140790169,
+              "C": 1.0
+            },
+            {
+              "nll": 1.275892210202342,
+              "C": 10.0
+            },
+            {
+              "nll": 1.2758963417026463,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.077629063235966,
+            "unit": 1.077629063235966
+          },
+          "fit_evaluate_seconds": 1502.4749773470103,
+          "head_parameters": 6150
+        },
+        "Qwen-shared-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.3635017818773194,
+              "C": 0.01
+            },
+            {
+              "nll": 1.383852546702386,
+              "C": 0.1
+            },
+            {
+              "nll": 1.3872422959799247,
+              "C": 1.0
+            },
+            {
+              "nll": 1.3876075834377968,
+              "C": 10.0
+            },
+            {
+              "nll": 1.3876422682780212,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.470847252178687,
+            "unit": 1.470847252178687
+          },
+          "fit_evaluate_seconds": 295.6532849149662,
+          "head_parameters": 2050
+        }
+      }
+    },
+    "rotation_4_raw_e2": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/rotation_4_raw_e2",
+      "test_windows": 14763,
+      "test_units": 5,
+      "metrics": {
+        "Numerical-flat": {
+          "raw": {
+            "nll": 1.343375613814419,
+            "brier": 0.687332095273326,
+            "accuracy": 0.3771578857338347,
+            "macro_f1": 0.3933348139439194,
+            "ece_10": 0.21885680763463375,
+            "coverage": 0.1094688676017791,
+            "selective_error": 0.163566188247611,
+            "scenario_cost": 0.24053818850495914,
+            "aurc": 0.4951544522523451
+          },
+          "pooled": {
+            "nll": 1.084634410263809,
+            "brier": 0.6449073603855779,
+            "accuracy": 0.3771578857338347,
+            "macro_f1": 0.3933348139439194,
+            "ece_10": 0.14883767511175044,
+            "coverage": 0.012770270270270272,
+            "selective_error": 0.010582010582010581,
+            "scenario_cost": 0.24694256756756588,
+            "aurc": 0.5042555482819531
+          },
+          "unit": {
+            "nll": 1.084634410263809,
+            "brier": 0.6449073603855779,
+            "accuracy": 0.3771578857338347,
+            "macro_f1": 0.3933348139439194,
+            "ece_10": 0.14883767511175044,
+            "coverage": 0.012770270270270272,
+            "selective_error": 0.010582010582010581,
+            "scenario_cost": 0.24694256756756588,
+            "aurc": 0.5042555482819531
+          }
+        },
+        "Numerical-factorized": {
+          "raw": {
+            "nll": 1.3678573564249745,
+            "brier": 0.6907549538217633,
+            "accuracy": 0.36232466643859024,
+            "macro_f1": 0.37903900647742467,
+            "ece_10": 0.2258820040148483,
+            "coverage": 0.1084553540882656,
+            "selective_error": 0.19001466807564288,
+            "scenario_cost": 0.24349426958604023,
+            "aurc": 0.5102385306405198
+          },
+          "pooled": {
+            "nll": 1.0833071393566336,
+            "brier": 0.646771785275019,
+            "accuracy": 0.36232466643859024,
+            "macro_f1": 0.37903900647742467,
+            "ece_10": 0.11512534753398702,
+            "coverage": 0.003581081081081081,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24910472972972802,
+            "aurc": 0.5259157547950367
+          },
+          "unit": {
+            "nll": 1.0833071393566336,
+            "brier": 0.646771785275019,
+            "accuracy": 0.36232466643859024,
+            "macro_f1": 0.37903900647742467,
+            "ece_10": 0.11512534753398702,
+            "coverage": 0.003581081081081081,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24910472972972802,
+            "aurc": 0.5259157547950367
+          }
+        },
+        "Qwen-flat": {
+          "raw": {
+            "nll": 1.043361665186769,
+            "brier": 0.6740210782574737,
+            "accuracy": 0.42190899760519945,
+            "macro_f1": 0.45240623596743185,
+            "ece_10": 0.18989037355354654,
+            "coverage": 0.16592285323298003,
+            "selective_error": 0.5642200652587407,
+            "scenario_cost": 0.3021362897707823,
+            "aurc": 0.5600754925880864
+          },
+          "pooled": {
+            "nll": 0.9909524607447651,
+            "brier": 0.6117238502865674,
+            "accuracy": 0.42190899760519945,
+            "macro_f1": 0.45240623596743185,
+            "ece_10": 0.04958794391948806,
+            "coverage": 0.0004054054054054054,
+            "selective_error": 0.16666666666666669,
+            "scenario_cost": 0.2499662162162145,
+            "aurc": 0.5669544672686169
+          },
+          "unit": {
+            "nll": 0.9909524607447651,
+            "brier": 0.6117238502865674,
+            "accuracy": 0.42190899760519945,
+            "macro_f1": 0.45240623596743185,
+            "ece_10": 0.04958794391948806,
+            "coverage": 0.0004054054054054054,
+            "selective_error": 0.16666666666666669,
+            "scenario_cost": 0.2499662162162145,
+            "aurc": 0.5669544672686169
+          }
+        },
+        "Qwen-factorized": {
+          "raw": {
+            "nll": 1.074683375087114,
+            "brier": 0.6698514125415236,
+            "accuracy": 0.4409040369483398,
+            "macro_f1": 0.46661112552090084,
+            "ece_10": 0.17095821482122728,
+            "coverage": 0.15880260006842303,
+            "selective_error": 0.5038131759231328,
+            "scenario_cost": 0.2903061922682164,
+            "aurc": 0.5189502376174868
+          },
+          "pooled": {
+            "nll": 1.0015771110655354,
+            "brier": 0.6145311843431368,
+            "accuracy": 0.4409040369483398,
+            "macro_f1": 0.46661112552090084,
+            "ece_10": 0.02322652175610657,
+            "coverage": 0.00033783783783783786,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24991554054053883,
+            "aurc": 0.5136219759983773
+          },
+          "unit": {
+            "nll": 1.0015771110655354,
+            "brier": 0.6145311843431368,
+            "accuracy": 0.4409040369483398,
+            "macro_f1": 0.46661112552090084,
+            "ece_10": 0.02322652175610657,
+            "coverage": 0.00033783783783783786,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24991554054053883,
+            "aurc": 0.5136219759983773
+          }
+        },
+        "Qwen-two-question-direct": {
+          "raw": {
+            "nll": 0.9979639714131089,
+            "brier": 0.6444319032199869,
+            "accuracy": 0.43312008210742303,
+            "macro_f1": 0.46878541906149795,
+            "ece_10": 0.15187973870236976,
+            "coverage": 0.10271980841601101,
+            "selective_error": 0.5358201498751035,
+            "scenario_cost": 0.27935939103660506,
+            "aurc": 0.5537028532539539
+          },
+          "pooled": {
+            "nll": 0.975982392473722,
+            "brier": 0.6061629631349933,
+            "accuracy": 0.43312008210742303,
+            "macro_f1": 0.46878541906149795,
+            "ece_10": 0.05202686946426795,
+            "coverage": 0.0008108108108108108,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24979729729729558,
+            "aurc": 0.5608884208178482
+          },
+          "unit": {
+            "nll": 0.975982392473722,
+            "brier": 0.6061629631349933,
+            "accuracy": 0.43312008210742303,
+            "macro_f1": 0.46878541906149795,
+            "ece_10": 0.05202686946426795,
+            "coverage": 0.0008108108108108108,
+            "selective_error": 0.0,
+            "scenario_cost": 0.24979729729729558,
+            "aurc": 0.5608884208178482
+          }
+        },
+        "Qwen-shared-factorized": {
+          "raw": {
+            "nll": 1.056112430532761,
+            "brier": 0.6786482133689087,
+            "accuracy": 0.4198947998631536,
+            "macro_f1": 0.4501787740478918,
+            "ece_10": 0.19128568713477956,
+            "coverage": 0.16245381457406793,
+            "selective_error": 0.5741519735075624,
+            "scenario_cost": 0.30265972459801466,
+            "aurc": 0.5676541192596873
+          },
+          "pooled": {
+            "nll": 0.9948573434980404,
+            "brier": 0.6147109399291164,
+            "accuracy": 0.4198947998631536,
+            "macro_f1": 0.4501787740478918,
+            "ece_10": 0.052433823190562286,
+            "coverage": 0.00047297297297297297,
+            "selective_error": 0.14285714285714285,
+            "scenario_cost": 0.24994932432432262,
+            "aurc": 0.5693336766099696
+          },
+          "unit": {
+            "nll": 0.9948573434980404,
+            "brier": 0.6147109399291164,
+            "accuracy": 0.4198947998631536,
+            "macro_f1": 0.4501787740478918,
+            "ece_10": 0.052433823190562286,
+            "coverage": 0.00047297297297297297,
+            "selective_error": 0.14285714285714285,
+            "scenario_cost": 0.24994932432432262,
+            "aurc": 0.5693336766099696
+          }
+        }
+      },
+      "contrasts": {
+        "Qwen-factorized_minus_Qwen-flat": {
+          "mean": 0.010624650320770063,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA01",
+            "Artificial Outer Ring Damage KA08",
+            "Healthy Bearing K006",
+            "Real Inner Ring Damage KI14",
+            "Real Inner Ring Damage KI16"
+          ],
+          "unit_deltas": [
+            0.1380507411034159,
+            -0.025415568190723048,
+            -0.038599304109497246,
+            0.005953666509990261,
+            -0.02686628370933554
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-shared-factorized": {
+          "mean": 0.006719767567494465,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA01",
+            "Artificial Outer Ring Damage KA08",
+            "Healthy Bearing K006",
+            "Real Inner Ring Damage KI14",
+            "Real Inner Ring Damage KI16"
+          ],
+          "unit_deltas": [
+            0.09573711818505859,
+            -0.021439440718029033,
+            -0.03035299044715748,
+            0.007425305252463613,
+            -0.017771154434863365
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-two-question-direct": {
+          "mean": 0.025594718591813226,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA01",
+            "Artificial Outer Ring Damage KA08",
+            "Healthy Bearing K006",
+            "Real Inner Ring Damage KI14",
+            "Real Inner Ring Damage KI16"
+          ],
+          "unit_deltas": [
+            0.06851461008442133,
+            0.013796404363627194,
+            0.028453600006301982,
+            0.01731959519476391,
+            -0.0001106166900483035
+          ]
+        },
+        "Numerical-factorized_minus_Numerical-flat": {
+          "mean": -0.0013272709071749608,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA01",
+            "Artificial Outer Ring Damage KA08",
+            "Healthy Bearing K006",
+            "Real Inner Ring Damage KI14",
+            "Real Inner Ring Damage KI16"
+          ],
+          "unit_deltas": [
+            -0.1052660509818324,
+            0.008734515355382836,
+            0.058109595427143924,
+            0.012794307842790568,
+            0.018991277820640265
+          ]
+        },
+        "Qwen-shared-factorized_minus_Qwen-flat": {
+          "mean": 0.0039048827532755974,
+          "units": 5,
+          "unit_names": [
+            "Artificial Outer Ring Damage KA01",
+            "Artificial Outer Ring Damage KA08",
+            "Healthy Bearing K006",
+            "Real Inner Ring Damage KI14",
+            "Real Inner Ring Damage KI16"
+          ],
+          "unit_deltas": [
+            0.042313622918357295,
+            -0.003976127472694015,
+            -0.008246313662339766,
+            -0.0014716387424733538,
+            -0.009095129274472176
+          ]
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "rotation_4",
+        "window_selection": {
+          "window_size": 8192,
+          "num_window": 37,
+          "C": 0.1,
+          "tune_nll": 0.7830543119264515
+        },
+        "normalization": "raw",
+        "head_workers": 3
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 8192,
+            "max_stride": 8192,
+            "num_window": 37,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "none",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Artificial Inner Ring Damage KI01": "cal",
+            "Artificial Inner Ring Damage KI03": "train",
+            "Artificial Inner Ring Damage KI05": "tune",
+            "Artificial Inner Ring Damage KI07": "train",
+            "Artificial Inner Ring Damage KI08": "cal",
+            "Artificial Outer Ring Damage KA01": "test",
+            "Artificial Outer Ring Damage KA03": "train",
+            "Artificial Outer Ring Damage KA05": "train",
+            "Artificial Outer Ring Damage KA06": "train",
+            "Artificial Outer Ring Damage KA07": "cal",
+            "Artificial Outer Ring Damage KA08": "test",
+            "Artificial Outer Ring Damage KA09": "tune",
+            "Healthy Bearing K001": "train",
+            "Healthy Bearing K002": "train",
+            "Healthy Bearing K003": "tune",
+            "Healthy Bearing K004": "cal",
+            "Healthy Bearing K005": "train",
+            "Healthy Bearing K006": "test",
+            "Real Inner Ring Damage KI04": "train",
+            "Real Inner Ring Damage KI14": "test",
+            "Real Inner Ring Damage KI16": "test",
+            "Real Inner Ring Damage KI17": "train",
+            "Real Inner Ring Damage KI18": "train",
+            "Real Inner Ring Damage KI21": "train",
+            "Real Mixed Damage, IR Dominant KB23": "train",
+            "Real Mixed Damage, IR Dominant KB24": "train",
+            "Real Mixed Damage, OR Dominant KB27": "train",
+            "Real Outer Ring Damage KA04": "cal",
+            "Real Outer Ring Damage KA15": "train",
+            "Real Outer Ring Damage KA16": "train",
+            "Real Outer Ring Damage KA22": "train",
+            "Real Outer Ring Damage KA30": "train"
+          }
+        },
+        "embedding_archives": [
+          "w8192_raw_legacy_flat_a_flat_b_presence_identity.npz"
+        ]
+      },
+      "heads": {
+        "Numerical-flat": {
+          "C": 0.1,
+          "tuning": [
+            {
+              "nll": 0.84379061606627,
+              "C": 0.01
+            },
+            {
+              "nll": 0.7830543119264515,
+              "C": 0.1
+            },
+            {
+              "nll": 0.8012974145119283,
+              "C": 1.0
+            },
+            {
+              "nll": 0.8676685041662577,
+              "C": 10.0
+            },
+            {
+              "nll": 0.9077347359592333,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.8079911018725934,
+            "unit": 2.8079911018725934
+          },
+          "fit_evaluate_seconds": 19.26003144099377,
+          "head_parameters": 21
+        },
+        "Numerical-factorized": {
+          "C": 0.1,
+          "tuning": [
+            {
+              "nll": 0.8540972955167707,
+              "C": 0.01
+            },
+            {
+              "nll": 0.7871023821172182,
+              "C": 0.1
+            },
+            {
+              "nll": 0.8000754085042676,
+              "C": 1.0
+            },
+            {
+              "nll": 0.8615246583882669,
+              "C": 10.0
+            },
+            {
+              "nll": 0.909285932478719,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 3.2949706530813194,
+            "unit": 3.2949706530813194
+          },
+          "fit_evaluate_seconds": 2.2342666870099492,
+          "head_parameters": 14
+        },
+        "Qwen-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.1001720672467457,
+              "C": 0.01
+            },
+            {
+              "nll": 1.1131247041777637,
+              "C": 0.1
+            },
+            {
+              "nll": 1.1150394807258492,
+              "C": 1.0
+            },
+            {
+              "nll": 1.1152410039204719,
+              "C": 10.0
+            },
+            {
+              "nll": 1.1152617873853385,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.6543814446456264,
+            "unit": 2.6543814446456264
+          },
+          "fit_evaluate_seconds": 983.0138502700138,
+          "head_parameters": 3075
+        },
+        "Qwen-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.048840121703314,
+              "C": 0.01
+            },
+            {
+              "nll": 1.0605186063418106,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0625958993198332,
+              "C": 1.0
+            },
+            {
+              "nll": 1.062821358666048,
+              "C": 10.0
+            },
+            {
+              "nll": 1.0628441661323675,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.536962683960535,
+            "unit": 2.536962683960535
+          },
+          "fit_evaluate_seconds": 608.4430194369634,
+          "head_parameters": 2050
+        },
+        "Qwen-two-question-direct": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.017384811477004,
+              "C": 0.01
+            },
+            {
+              "nll": 1.020640928639374,
+              "C": 0.1
+            },
+            {
+              "nll": 1.0211480220802471,
+              "C": 1.0
+            },
+            {
+              "nll": 1.0212013862785594,
+              "C": 10.0
+            },
+            {
+              "nll": 1.0212069781688728,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.0372168252288554,
+            "unit": 2.0372168252288554
+          },
+          "fit_evaluate_seconds": 1533.1741834490094,
+          "head_parameters": 6150
+        },
+        "Qwen-shared-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.092394433548359,
+              "C": 0.01
+            },
+            {
+              "nll": 1.1095353873797071,
+              "C": 0.1
+            },
+            {
+              "nll": 1.1124021929711456,
+              "C": 1.0
+            },
+            {
+              "nll": 1.112711105025204,
+              "C": 10.0
+            },
+            {
+              "nll": 1.1127425434374747,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.5342286663716975,
+            "unit": 2.5342286663716975
+          },
+          "fit_evaluate_seconds": 237.37354990298627,
+          "head_parameters": 2050
+        }
+      }
+    },
+    "rotation_5_raw_e2": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/rotation_5_raw_e2",
+      "test_windows": 58800,
+      "test_units": 5,
+      "metrics": {
+        "Numerical-flat": {
+          "raw": {
+            "nll": 1.1929670802564403,
+            "brier": 0.7238449258463502,
+            "accuracy": 0.3457823129251735,
+            "macro_f1": 0.26642744614936525,
+            "ece_10": 0.2125169584175931,
+            "coverage": 0.007721088435374149,
+            "selective_error": 0.854625550660793,
+            "scenario_cost": 0.25466836734693526,
+            "aurc": 0.7387745544101583
+          },
+          "pooled": {
+            "nll": 1.0464496986749507,
+            "brier": 0.6512922472917085,
+            "accuracy": 0.3457823129251735,
+            "macro_f1": 0.26642744614936525,
+            "ece_10": 0.11322410980254465,
+            "coverage": 5.102040816326531e-05,
+            "selective_error": 1.0,
+            "scenario_cost": 0.25003826530611806,
+            "aurc": 0.6953376614512292
+          },
+          "unit": {
+            "nll": 1.0464496986749507,
+            "brier": 0.6512922472917085,
+            "accuracy": 0.3457823129251735,
+            "macro_f1": 0.26642744614936525,
+            "ece_10": 0.11322410980254465,
+            "coverage": 5.102040816326531e-05,
+            "selective_error": 1.0,
+            "scenario_cost": 0.25003826530611806,
+            "aurc": 0.6953376614512292
+          }
+        },
+        "Numerical-factorized": {
+          "raw": {
+            "nll": 1.1605449563177304,
+            "brier": 0.7077859644287287,
+            "accuracy": 0.34530612244898296,
+            "macro_f1": 0.26920021577859515,
+            "ece_10": 0.21478884270741747,
+            "coverage": 0.010289115646258506,
+            "selective_error": 0.8495867768595038,
+            "scenario_cost": 0.25616921768707157,
+            "aurc": 0.7017352158179293
+          },
+          "pooled": {
+            "nll": 1.0275815796329597,
+            "brier": 0.640514905253814,
+            "accuracy": 0.34530612244898296,
+            "macro_f1": 0.26920021577859515,
+            "ece_10": 0.11546710734174656,
+            "coverage": 0.00010204081632653062,
+            "selective_error": 0.8333333333333334,
+            "scenario_cost": 0.25005952380951946,
+            "aurc": 0.6688550963192244
+          },
+          "unit": {
+            "nll": 1.0275815796329597,
+            "brier": 0.640514905253814,
+            "accuracy": 0.34530612244898296,
+            "macro_f1": 0.26920021577859515,
+            "ece_10": 0.11546710734174656,
+            "coverage": 0.00010204081632653062,
+            "selective_error": 0.8333333333333334,
+            "scenario_cost": 0.25005952380951946,
+            "aurc": 0.6688550963192244
+          }
+        },
+        "Qwen-flat": {
+          "raw": {
+            "nll": 1.8670070769873313,
+            "brier": 0.9006351276611202,
+            "accuracy": 0.31261904761904946,
+            "macro_f1": 0.24455575787054806,
+            "ece_10": 0.3452259999300554,
+            "coverage": 0.2458333333333324,
+            "selective_error": 0.7301279833967486,
+            "scenario_cost": 0.3680314625850417,
+            "aurc": 0.7191052046455151
+          },
+          "pooled": {
+            "nll": 1.4685191687728922,
+            "brier": 0.8110237178764395,
+            "accuracy": 0.31261904761904946,
+            "macro_f1": 0.24455575787054806,
+            "ece_10": 0.26548427138350705,
+            "coverage": 0.041445578231292496,
+            "selective_error": 0.8268362741075099,
+            "scenario_cost": 0.2739073129251691,
+            "aurc": 0.7207084810892919
+          },
+          "unit": {
+            "nll": 1.4685191687728922,
+            "brier": 0.8110237178764395,
+            "accuracy": 0.31261904761904946,
+            "macro_f1": 0.24455575787054806,
+            "ece_10": 0.26548427138350705,
+            "coverage": 0.041445578231292496,
+            "selective_error": 0.8268362741075099,
+            "scenario_cost": 0.2739073129251691,
+            "aurc": 0.7207084810892919
+          }
+        },
+        "Qwen-factorized": {
+          "raw": {
+            "nll": 1.906455663355442,
+            "brier": 0.9066982561973409,
+            "accuracy": 0.30918367346938946,
+            "macro_f1": 0.24114116604046187,
+            "ece_10": 0.35182582401362505,
+            "coverage": 0.2511394557823121,
+            "selective_error": 0.7503893817295315,
+            "scenario_cost": 0.3756675170068111,
+            "aurc": 0.7350386467558959
+          },
+          "pooled": {
+            "nll": 1.5217359687796166,
+            "brier": 0.8235228423117392,
+            "accuracy": 0.30918367346938946,
+            "macro_f1": 0.24114116604046187,
+            "ece_10": 0.2788425905725969,
+            "coverage": 0.05139455782312918,
+            "selective_error": 0.84976836532098,
+            "scenario_cost": 0.2808248299319729,
+            "aurc": 0.7373138562352582
+          },
+          "unit": {
+            "nll": 1.5217359687796166,
+            "brier": 0.8235228423117392,
+            "accuracy": 0.30918367346938946,
+            "macro_f1": 0.24114116604046187,
+            "ece_10": 0.2788425905725969,
+            "coverage": 0.05139455782312918,
+            "selective_error": 0.84976836532098,
+            "scenario_cost": 0.2808248299319729,
+            "aurc": 0.7373138562352582
+          }
+        },
+        "Qwen-two-question-direct": {
+          "raw": {
+            "nll": 1.8518215484473304,
+            "brier": 0.8932475211367464,
+            "accuracy": 0.31382653061224675,
+            "macro_f1": 0.2451625820189134,
+            "ece_10": 0.33595412204003433,
+            "coverage": 0.20911564625850254,
+            "selective_error": 0.7631750162654524,
+            "scenario_cost": 0.3573129251700748,
+            "aurc": 0.7255833799085214
+          },
+          "pooled": {
+            "nll": 1.5366694656729374,
+            "brier": 0.8259016715548182,
+            "accuracy": 0.31382653061224675,
+            "macro_f1": 0.2451625820189134,
+            "ece_10": 0.27595910952273495,
+            "coverage": 0.05200680272108836,
+            "selective_error": 0.8378024852845003,
+            "scenario_cost": 0.28056972789115653,
+            "aurc": 0.7273077410267642
+          },
+          "unit": {
+            "nll": 1.5366694656729374,
+            "brier": 0.8259016715548182,
+            "accuracy": 0.31382653061224675,
+            "macro_f1": 0.2451625820189134,
+            "ece_10": 0.27595910952273495,
+            "coverage": 0.05200680272108836,
+            "selective_error": 0.8378024852845003,
+            "scenario_cost": 0.28056972789115653,
+            "aurc": 0.7273077410267642
+          }
+        },
+        "Qwen-shared-factorized": {
+          "raw": {
+            "nll": 1.8701398109931033,
+            "brier": 0.9000196511897212,
+            "accuracy": 0.3124319727891175,
+            "macro_f1": 0.24453619616318997,
+            "ece_10": 0.345108570920796,
+            "coverage": 0.24457482993197183,
+            "selective_error": 0.7321465822960852,
+            "scenario_cost": 0.36792091836735474,
+            "aurc": 0.719711742747756
+          },
+          "pooled": {
+            "nll": 1.487074337394465,
+            "brier": 0.8147441213363205,
+            "accuracy": 0.3124319727891175,
+            "macro_f1": 0.24453619616318997,
+            "ece_10": 0.2689700320408468,
+            "coverage": 0.041768707482993175,
+            "selective_error": 0.8220684039087954,
+            "scenario_cost": 0.2738945578231283,
+            "aurc": 0.7214472644442833
+          },
+          "unit": {
+            "nll": 1.487074337394465,
+            "brier": 0.8147441213363205,
+            "accuracy": 0.3124319727891175,
+            "macro_f1": 0.24453619616318997,
+            "ece_10": 0.2689700320408468,
+            "coverage": 0.041768707482993175,
+            "selective_error": 0.8220684039087954,
+            "scenario_cost": 0.2738945578231283,
+            "aurc": 0.7214472644442833
+          }
+        }
+      },
+      "contrasts": {
+        "Qwen-factorized_minus_Qwen-flat": {
+          "mean": 0.05321680000672484,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA03",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI21"
+          ],
+          "unit_deltas": [
+            0.002211643773770434,
+            0.01369365040344621,
+            -0.018208272238715982,
+            0.25346169270018204,
+            0.014925285394941505
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-shared-factorized": {
+          "mean": 0.034661631385151985,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA03",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI21"
+          ],
+          "unit_deltas": [
+            -0.01595365351260672,
+            0.0006107238897961319,
+            -0.012049117231209413,
+            0.18345576185888046,
+            0.017244441920899477
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-two-question-direct": {
+          "mean": -0.014933496893320622,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA03",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI21"
+          ],
+          "unit_deltas": [
+            -0.06829758999443795,
+            -0.022930899880452525,
+            0.020848679759462994,
+            -0.039669097447877597,
+            0.035381423096701975
+          ]
+        },
+        "Numerical-factorized_minus_Numerical-flat": {
+          "mean": -0.01886811904199109,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA03",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI21"
+          ],
+          "unit_deltas": [
+            0.09357943391689547,
+            -0.017453147724951785,
+            0.0028378736055978317,
+            -0.1394151747613102,
+            -0.033889580246186754
+          ]
+        },
+        "Qwen-shared-factorized_minus_Qwen-flat": {
+          "mean": 0.018555168621572853,
+          "units": 5,
+          "unit_names": [
+            "Artificial Inner Ring Damage KI07",
+            "Artificial Outer Ring Damage KA03",
+            "Artificial Outer Ring Damage KA06",
+            "Healthy Bearing K004",
+            "Real Inner Ring Damage KI21"
+          ],
+          "unit_deltas": [
+            0.01816529728637715,
+            0.013082926513650077,
+            -0.006159155007506569,
+            0.07000593084130156,
+            -0.0023191565259579683
+          ]
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "rotation_5",
+        "window_selection": {
+          "window_size": 2048,
+          "num_window": 147,
+          "C": 1.0,
+          "tune_nll": 1.823602513479436
+        },
+        "normalization": "raw",
+        "head_workers": 3
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 2048,
+            "max_stride": 2048,
+            "num_window": 147,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "none",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Artificial Inner Ring Damage KI01": "cal",
+            "Artificial Inner Ring Damage KI03": "train",
+            "Artificial Inner Ring Damage KI05": "tune",
+            "Artificial Inner Ring Damage KI07": "test",
+            "Artificial Inner Ring Damage KI08": "cal",
+            "Artificial Outer Ring Damage KA01": "train",
+            "Artificial Outer Ring Damage KA03": "test",
+            "Artificial Outer Ring Damage KA05": "train",
+            "Artificial Outer Ring Damage KA06": "test",
+            "Artificial Outer Ring Damage KA07": "cal",
+            "Artificial Outer Ring Damage KA08": "train",
+            "Artificial Outer Ring Damage KA09": "tune",
+            "Healthy Bearing K001": "train",
+            "Healthy Bearing K002": "train",
+            "Healthy Bearing K003": "cal",
+            "Healthy Bearing K004": "test",
+            "Healthy Bearing K005": "tune",
+            "Healthy Bearing K006": "train",
+            "Real Inner Ring Damage KI04": "train",
+            "Real Inner Ring Damage KI14": "train",
+            "Real Inner Ring Damage KI16": "train",
+            "Real Inner Ring Damage KI17": "train",
+            "Real Inner Ring Damage KI18": "train",
+            "Real Inner Ring Damage KI21": "test",
+            "Real Mixed Damage, IR Dominant KB23": "train",
+            "Real Mixed Damage, IR Dominant KB24": "train",
+            "Real Mixed Damage, OR Dominant KB27": "train",
+            "Real Outer Ring Damage KA04": "cal",
+            "Real Outer Ring Damage KA15": "train",
+            "Real Outer Ring Damage KA16": "train",
+            "Real Outer Ring Damage KA22": "train",
+            "Real Outer Ring Damage KA30": "train"
+          }
+        },
+        "embedding_archives": [
+          "w2048_raw_flat_a.npz",
+          "w2048_raw_flat_b.npz",
+          "w2048_raw_identity.npz",
+          "w2048_raw_presence.npz"
+        ]
+      },
+      "heads": {
+        "Numerical-flat": {
+          "C": 1.0,
+          "tuning": [
+            {
+              "nll": 1.8928830548652984,
+              "C": 0.01
+            },
+            {
+              "nll": 1.8465076213218603,
+              "C": 0.1
+            },
+            {
+              "nll": 1.823602513479436,
+              "C": 1.0
+            },
+            {
+              "nll": 1.8251513731805433,
+              "C": 10.0
+            },
+            {
+              "nll": 1.8998272663613263,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.3586703440770367,
+            "unit": 2.3586703440770367
+          },
+          "fit_evaluate_seconds": 26.190955689002294,
+          "head_parameters": 21
+        },
+        "Numerical-factorized": {
+          "C": 10.0,
+          "tuning": [
+            {
+              "nll": 1.8715648937410578,
+              "C": 0.01
+            },
+            {
+              "nll": 1.8510107411619243,
+              "C": 0.1
+            },
+            {
+              "nll": 1.829584452371852,
+              "C": 1.0
+            },
+            {
+              "nll": 1.8267159502419699,
+              "C": 10.0
+            },
+            {
+              "nll": 1.8895083779626254,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 2.3945421225130135,
+            "unit": 2.3945421225130135
+          },
+          "fit_evaluate_seconds": 3.68410990096163,
+          "head_parameters": 14
+        },
+        "Qwen-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 2.5474495255145513,
+              "C": 0.01
+            },
+            {
+              "nll": 2.587652998436884,
+              "C": 0.1
+            },
+            {
+              "nll": 2.5931281602926064,
+              "C": 1.0
+            },
+            {
+              "nll": 2.5936986104849673,
+              "C": 10.0
+            },
+            {
+              "nll": 2.593757361323696,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.5766196913000567,
+            "unit": 1.5766196913000567
+          },
+          "fit_evaluate_seconds": 3166.7898316339706,
+          "head_parameters": 3075
+        },
+        "Qwen-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 2.521786575714906,
+              "C": 0.01
+            },
+            {
+              "nll": 2.575110033905694,
+              "C": 0.1
+            },
+            {
+              "nll": 2.5829508887958528,
+              "C": 1.0
+            },
+            {
+              "nll": 2.5837817183698926,
+              "C": 10.0
+            },
+            {
+              "nll": 2.5838676966467027,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.5089102426732757,
+            "unit": 1.5089102426732757
+          },
+          "fit_evaluate_seconds": 527.1618225510465,
+          "head_parameters": 2050
+        },
+        "Qwen-two-question-direct": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 2.4916174304777954,
+              "C": 0.01
+            },
+            {
+              "nll": 2.518570221288318,
+              "C": 0.1
+            },
+            {
+              "nll": 2.522117932746646,
+              "C": 1.0
+            },
+            {
+              "nll": 2.522486160698153,
+              "C": 10.0
+            },
+            {
+              "nll": 2.5225221572186136,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.4104164113857995,
+            "unit": 1.4104164113857995
+          },
+          "fit_evaluate_seconds": 1653.686132564966,
+          "head_parameters": 6150
+        },
+        "Qwen-shared-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 2.5608775769531102,
+              "C": 0.01
+            },
+            {
+              "nll": 2.6147108274354993,
+              "C": 0.1
+            },
+            {
+              "nll": 2.6227229020797944,
+              "C": 1.0
+            },
+            {
+              "nll": 2.6235731345768425,
+              "C": 10.0
+            },
+            {
+              "nll": 2.6236604151523895,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 1.538522888156474,
+            "unit": 1.538522888156474
+          },
+          "fit_evaluate_seconds": 269.6957704919623,
+          "head_parameters": 2050
+        }
+      }
+    },
+    "rotation_6_raw_e2": {
+      "source": "src/outputs/jev-phm/run-20261013-pu-001/evaluations/rotation_6_raw_e2",
+      "test_windows": 14800,
+      "test_units": 5,
+      "metrics": {
+        "Numerical-flat": {
+          "raw": {
+            "nll": 0.8089881575751318,
+            "brier": 0.5516465580949047,
+            "accuracy": 0.48108108108107916,
+            "macro_f1": 0.5380552694433057,
+            "ece_10": 0.1433031730104778,
+            "coverage": 0.15033783783783805,
+            "selective_error": 0.26067415730337035,
+            "scenario_cost": 0.25160472972972847,
+            "aurc": 0.41058251710550264
+          },
+          "pooled": {
+            "nll": 0.9608035454048367,
+            "brier": 0.5854146468046645,
+            "accuracy": 0.48108108108107916,
+            "macro_f1": 0.5380552694433057,
+            "ece_10": 0.08389729367095872,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.482104407965068
+          },
+          "unit": {
+            "nll": 0.9608035454048367,
+            "brier": 0.5854146468046645,
+            "accuracy": 0.48108108108107916,
+            "macro_f1": 0.5380552694433057,
+            "ece_10": 0.08389729367095872,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.482104407965068
+          }
+        },
+        "Numerical-factorized": {
+          "raw": {
+            "nll": 0.7830209059060962,
+            "brier": 0.5250239443011975,
+            "accuracy": 0.48108108108107916,
+            "macro_f1": 0.5375133799024246,
+            "ece_10": 0.12094202255669448,
+            "coverage": 0.10871621621621633,
+            "selective_error": 0.1417029210689868,
+            "scenario_cost": 0.23822635135134987,
+            "aurc": 0.3939524894920389
+          },
+          "pooled": {
+            "nll": 0.9732575221715728,
+            "brier": 0.5913259314666945,
+            "accuracy": 0.48108108108107916,
+            "macro_f1": 0.5375133799024246,
+            "ece_10": 0.08927367788154049,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.46719157927888366
+          },
+          "unit": {
+            "nll": 0.9732575221715728,
+            "brier": 0.5913259314666945,
+            "accuracy": 0.48108108108107916,
+            "macro_f1": 0.5375133799024246,
+            "ece_10": 0.08927367788154049,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.46719157927888366
+          }
+        },
+        "Qwen-flat": {
+          "raw": {
+            "nll": 0.9425695890488401,
+            "brier": 0.5997225407045129,
+            "accuracy": 0.4916216216216196,
+            "macro_f1": 0.5109218640520249,
+            "ece_10": 0.1497534665745985,
+            "coverage": 0.23466216216216254,
+            "selective_error": 0.35272099049812805,
+            "scenario_cost": 0.27410472972972844,
+            "aurc": 0.40117969912980517
+          },
+          "pooled": {
+            "nll": 0.9831265685081166,
+            "brier": 0.5951140131214766,
+            "accuracy": 0.4916216216216196,
+            "macro_f1": 0.5109218640520249,
+            "ece_10": 0.08222517673496467,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.42128825020640304
+          },
+          "unit": {
+            "nll": 0.9831265685081166,
+            "brier": 0.5951140131214766,
+            "accuracy": 0.4916216216216196,
+            "macro_f1": 0.5109218640520249,
+            "ece_10": 0.08222517673496467,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.42128825020640304
+          }
+        },
+        "Qwen-factorized": {
+          "raw": {
+            "nll": 0.9247894197384697,
+            "brier": 0.5926914389992081,
+            "accuracy": 0.49986486486486276,
+            "macro_f1": 0.5285655344579244,
+            "ece_10": 0.15044892268285062,
+            "coverage": 0.2564189189189192,
+            "selective_error": 0.3396574440052699,
+            "scenario_cost": 0.27298986486486365,
+            "aurc": 0.3829206500937056
+          },
+          "pooled": {
+            "nll": 0.9612039363367175,
+            "brier": 0.5827175260613529,
+            "accuracy": 0.49986486486486276,
+            "macro_f1": 0.5285655344579244,
+            "ece_10": 0.07527156890445047,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.4057244182389763
+          },
+          "unit": {
+            "nll": 0.9612039363367175,
+            "brier": 0.5827175260613529,
+            "accuracy": 0.49986486486486276,
+            "macro_f1": 0.5285655344579244,
+            "ece_10": 0.07527156890445047,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.4057244182389763
+          }
+        },
+        "Qwen-two-question-direct": {
+          "raw": {
+            "nll": 0.88363883673461,
+            "brier": 0.5626692364213963,
+            "accuracy": 0.5059459459459438,
+            "macro_f1": 0.5250747603804847,
+            "ece_10": 0.10092162033144028,
+            "coverage": 0.17121621621621647,
+            "selective_error": 0.2355958958168899,
+            "scenario_cost": 0.2475337837837824,
+            "aurc": 0.3682510282181719
+          },
+          "pooled": {
+            "nll": 0.9668314157527504,
+            "brier": 0.5853811039600492,
+            "accuracy": 0.5059459459459438,
+            "macro_f1": 0.5250747603804847,
+            "ece_10": 0.09110910368935544,
+            "coverage": 6.756756756756757e-05,
+            "selective_error": 0.0,
+            "scenario_cost": 0.2499831081081063,
+            "aurc": 0.3956746284164389
+          },
+          "unit": {
+            "nll": 0.9668314157527504,
+            "brier": 0.5853811039600492,
+            "accuracy": 0.5059459459459438,
+            "macro_f1": 0.5250747603804847,
+            "ece_10": 0.09110910368935544,
+            "coverage": 6.756756756756757e-05,
+            "selective_error": 0.0,
+            "scenario_cost": 0.2499831081081063,
+            "aurc": 0.3956746284164389
+          }
+        },
+        "Qwen-shared-factorized": {
+          "raw": {
+            "nll": 0.9389288390134537,
+            "brier": 0.5977167804903502,
+            "accuracy": 0.4917567567567548,
+            "macro_f1": 0.5114517985070242,
+            "ece_10": 0.14198819165875382,
+            "coverage": 0.21567567567567605,
+            "selective_error": 0.34899749373433525,
+            "scenario_cost": 0.27135135135135,
+            "aurc": 0.4065961348121063
+          },
+          "pooled": {
+            "nll": 0.9822726551090535,
+            "brier": 0.594917691000301,
+            "accuracy": 0.4917567567567548,
+            "macro_f1": 0.5114517985070242,
+            "ece_10": 0.08162082196560021,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.42663654172764603
+          },
+          "unit": {
+            "nll": 0.9822726551090535,
+            "brier": 0.594917691000301,
+            "accuracy": 0.4917567567567548,
+            "macro_f1": 0.5114517985070242,
+            "ece_10": 0.08162082196560021,
+            "coverage": 0.0,
+            "selective_error": null,
+            "scenario_cost": 0.2499999999999982,
+            "aurc": 0.42663654172764603
+          }
+        }
+      },
+      "contrasts": {
+        "Qwen-factorized_minus_Qwen-flat": {
+          "mean": -0.021922632171399198,
+          "units": 5,
+          "unit_names": [
+            "Healthy Bearing K003",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.04798911121166233,
+            -0.023549821935830273,
+            -0.019542571874554698,
+            -0.004219560211870909,
+            -0.014312095623077786
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-shared-factorized": {
+          "mean": -0.021068718772336036,
+          "units": 5,
+          "unit_names": [
+            "Healthy Bearing K003",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            -0.04862623859221348,
+            -0.020258184328961384,
+            -0.021038989073274242,
+            -0.001892748937531731,
+            -0.013527432929699358
+          ]
+        },
+        "Qwen-factorized_minus_Qwen-two-question-direct": {
+          "mean": -0.005627479416032866,
+          "units": 5,
+          "unit_names": [
+            "Healthy Bearing K003",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            0.009547523536696752,
+            -0.03498695066230399,
+            0.0036052997505771384,
+            0.016959375649553042,
+            -0.023262645354687268
+          ]
+        },
+        "Numerical-factorized_minus_Numerical-flat": {
+          "mean": 0.012453976766735821,
+          "units": 5,
+          "unit_names": [
+            "Healthy Bearing K003",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            0.032281616647690685,
+            0.021286794383167162,
+            0.0015575575187091245,
+            0.003592779681848889,
+            0.0035511356022632453
+          ]
+        },
+        "Qwen-shared-factorized_minus_Qwen-flat": {
+          "mean": -0.0008539133990631605,
+          "units": 5,
+          "unit_names": [
+            "Healthy Bearing K003",
+            "Real Inner Ring Damage KI04",
+            "Real Mixed Damage, IR Dominant KB24",
+            "Real Outer Ring Damage KA15",
+            "Real Outer Ring Damage KA30"
+          ],
+          "unit_deltas": [
+            0.0006371273805511501,
+            -0.003291637606868892,
+            0.0014964171987195444,
+            -0.002326811274339175,
+            -0.0007846626933784303
+          ]
+        }
+      },
+      "config": {
+        "C_grid": [
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0
+        ],
+        "reject_cost": 0.25,
+        "bootstrap_seed": 20260922,
+        "bootstrap_repetitions": 2000,
+        "split_seed": 20260922,
+        "healthy_index": 0,
+        "window_candidates": [
+          2048,
+          4096,
+          8192
+        ],
+        "coverage_max_stride": null,
+        "training_record_weight": 64.0,
+        "protocol": "rotation_6",
+        "window_selection": {
+          "window_size": 8192,
+          "num_window": 37,
+          "C": 0.01,
+          "tune_nll": 1.4206435169436398
+        },
+        "normalization": "raw",
+        "head_workers": 3
+      },
+      "provenance": {
+        "data": {
+          "phmfactory_commit": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+          "window_plan": {
+            "window_size": 8192,
+            "max_stride": 8192,
+            "num_window": 37,
+            "min_length": 249940,
+            "max_length": 299038
+          },
+          "channel": 2,
+          "normalization": "none",
+          "original_split": "primary",
+          "evaluation_unit_roles": {
+            "Artificial Inner Ring Damage KI01": "cal",
+            "Artificial Inner Ring Damage KI03": "train",
+            "Artificial Inner Ring Damage KI05": "tune",
+            "Artificial Inner Ring Damage KI07": "train",
+            "Artificial Inner Ring Damage KI08": "cal",
+            "Artificial Outer Ring Damage KA01": "train",
+            "Artificial Outer Ring Damage KA03": "train",
+            "Artificial Outer Ring Damage KA05": "train",
+            "Artificial Outer Ring Damage KA06": "train",
+            "Artificial Outer Ring Damage KA07": "cal",
+            "Artificial Outer Ring Damage KA08": "train",
+            "Artificial Outer Ring Damage KA09": "tune",
+            "Healthy Bearing K001": "train",
+            "Healthy Bearing K002": "tune",
+            "Healthy Bearing K003": "test",
+            "Healthy Bearing K004": "train",
+            "Healthy Bearing K005": "cal",
+            "Healthy Bearing K006": "train",
+            "Real Inner Ring Damage KI04": "test",
+            "Real Inner Ring Damage KI14": "train",
+            "Real Inner Ring Damage KI16": "train",
+            "Real Inner Ring Damage KI17": "train",
+            "Real Inner Ring Damage KI18": "train",
+            "Real Inner Ring Damage KI21": "train",
+            "Real Mixed Damage, IR Dominant KB23": "train",
+            "Real Mixed Damage, IR Dominant KB24": "test",
+            "Real Mixed Damage, OR Dominant KB27": "train",
+            "Real Outer Ring Damage KA04": "cal",
+            "Real Outer Ring Damage KA15": "test",
+            "Real Outer Ring Damage KA16": "train",
+            "Real Outer Ring Damage KA22": "train",
+            "Real Outer Ring Damage KA30": "test"
+          }
+        },
+        "embedding_archives": [
+          "w8192_raw_legacy_flat_a_flat_b_presence_identity.npz"
+        ]
+      },
+      "heads": {
+        "Numerical-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.4206435169436398,
+              "C": 0.01
+            },
+            {
+              "nll": 1.8309516980258116,
+              "C": 0.1
+            },
+            {
+              "nll": 2.0379926347357094,
+              "C": 1.0
+            },
+            {
+              "nll": 2.2045691542420522,
+              "C": 10.0
+            },
+            {
+              "nll": 2.287390405728534,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 6.307447476091771,
+            "unit": 6.307447476091771
+          },
+          "fit_evaluate_seconds": 16.30793241696665,
+          "head_parameters": 21
+        },
+        "Numerical-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.3754420616908674,
+              "C": 0.01
+            },
+            {
+              "nll": 1.7738470139047635,
+              "C": 0.1
+            },
+            {
+              "nll": 2.0227992767131155,
+              "C": 1.0
+            },
+            {
+              "nll": 2.195845915563014,
+              "C": 10.0
+            },
+            {
+              "nll": 2.2985562805301316,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 6.540259488241093,
+            "unit": 6.540259488241093
+          },
+          "fit_evaluate_seconds": 2.185097749985289,
+          "head_parameters": 14
+        },
+        "Qwen-flat": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.6001268414546537,
+              "C": 0.01
+            },
+            {
+              "nll": 1.675642770716334,
+              "C": 0.1
+            },
+            {
+              "nll": 1.6886297340034127,
+              "C": 1.0
+            },
+            {
+              "nll": 1.690044308396306,
+              "C": 10.0
+            },
+            {
+              "nll": 1.6901856495933787,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 5.600407057764249,
+            "unit": 5.600407057764249
+          },
+          "fit_evaluate_seconds": 932.6063466200139,
+          "head_parameters": 3075
+        },
+        "Qwen-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.6848101559934503,
+              "C": 0.01
+            },
+            {
+              "nll": 1.8070073545196421,
+              "C": 0.1
+            },
+            {
+              "nll": 1.8303251651710195,
+              "C": 1.0
+            },
+            {
+              "nll": 1.8329308092442047,
+              "C": 10.0
+            },
+            {
+              "nll": 1.8331930336168953,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 4.804249244474695,
+            "unit": 4.804249244474695
+          },
+          "fit_evaluate_seconds": 631.2007050119573,
+          "head_parameters": 2050
+        },
+        "Qwen-two-question-direct": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.5029531702595875,
+              "C": 0.01
+            },
+            {
+              "nll": 1.558939878521413,
+              "C": 0.1
+            },
+            {
+              "nll": 1.5683095965508311,
+              "C": 1.0
+            },
+            {
+              "nll": 1.569324304562304,
+              "C": 10.0
+            },
+            {
+              "nll": 1.569425747244967,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 4.46268011007557,
+            "unit": 4.46268011007557
+          },
+          "fit_evaluate_seconds": 1694.046627898002,
+          "head_parameters": 6150
+        },
+        "Qwen-shared-factorized": {
+          "C": 0.01,
+          "tuning": [
+            {
+              "nll": 1.5610350558542905,
+              "C": 0.01
+            },
+            {
+              "nll": 1.656455341929376,
+              "C": 0.1
+            },
+            {
+              "nll": 1.6755210033095622,
+              "C": 1.0
+            },
+            {
+              "nll": 1.6776699214646928,
+              "C": 10.0
+            },
+            {
+              "nll": 1.6778901438852243,
+              "C": 100.0
+            }
+          ],
+          "temperatures": {
+            "raw": 1.0,
+            "pooled": 5.361902656850054,
+            "unit": 5.361902656850054
+          },
+          "fit_evaluate_seconds": 134.32599149801536,
+          "head_parameters": 2050
+        }
+      }
+    }
+  }
+}

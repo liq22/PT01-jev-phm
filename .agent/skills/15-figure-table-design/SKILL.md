@@ -16,7 +16,11 @@ mechanism. The actual figure/table and caption are the product.
 2. Fix the source data, comparison, units, uncertainty, and interpretation
    boundary.
 3. Choose the simplest encoding that answers the question.
-4. Generate or revise the actual asset and caption.
+4. For creation or revision, change the actual asset and caption. For explicit
+   audit, inspect the supplied asset and return located findings without edits.
+   Use requested `nature-figure` assistance through
+   [task-specific selection](../../references/task_specific_skill_selection.md),
+   retaining the existing source and plotting backend.
 5. Open it and check values, labels, units, legend, readability, and whether the
    visual exaggerates the conclusion.
 6. Stop when the scientific message is clear.
@@ -32,6 +36,15 @@ Produce one of:
 - a bounded design plan;
 - an actual editable figure/table plus export and caption;
 - a revised asset with concrete corrections.
+- located findings for an explicitly read-only figure audit.
+
+GPT Image may supply a requested motivation/framework composition draft when
+available; verify its topology before rebuilding precise editable objects.
+Quantitative figures use actual data and plotting code. Check panel roles, shared
+scales, final-size alignment and collisions as relevant. Verify Visio/Illustrator
+format and editability in the actual available application; an SVG export alone
+does not establish native-object round-trip editing. Report source reading,
+generation and executed QA separately.
 
 ## Boundaries
 

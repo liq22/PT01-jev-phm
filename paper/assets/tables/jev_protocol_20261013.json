@@ -1,0 +1,175 @@
+{
+  "source_run": "src/outputs/jev-phm/run-20261013-pu-001",
+  "prepared_run_spec": {
+    "phmfactory_revision": "cdc0669167ca25ac848e34c880875ca39c6aed89",
+    "qwen_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "forbidden_physical_gpu": 2,
+    "channel": 2,
+    "signal_key": "x",
+    "label_key": "y",
+    "training_record_weight": 64.0,
+    "code_commit": "31379201046cf9a96ce2c04c4d68a1c1722fcfa9",
+    "python": "3.10.0 (default, Mar  3 2022, 09:58:08) [GCC 7.5.0]",
+    "prepared_at": "2026-10-13T11:49:48+0800"
+  },
+  "labels": {
+    "0.0": "healthy",
+    "1.0": "inner-race-dominant",
+    "2.0": "outer-race-dominant"
+  },
+  "probe": {
+    "C_grid": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "reject_cost": 0.25,
+    "bootstrap_seed": 20260922,
+    "bootstrap_repetitions": 2000,
+    "split_seed": 20260922,
+    "healthy_index": 0,
+    "window_candidates": [
+      2048,
+      4096,
+      8192
+    ],
+    "coverage_max_stride": null,
+    "training_record_weight": 64.0
+  },
+  "window_plans": {
+    "2048": {
+      "window_size": 2048,
+      "max_stride": 2048,
+      "num_window": 147,
+      "min_length": 249940,
+      "max_length": 299038
+    },
+    "4096": {
+      "window_size": 4096,
+      "max_stride": 4096,
+      "num_window": 74,
+      "min_length": 249940,
+      "max_length": 299038
+    },
+    "8192": {
+      "window_size": 8192,
+      "max_stride": 8192,
+      "num_window": 37,
+      "min_length": 249940,
+      "max_length": 299038
+    }
+  },
+  "window_selection": {
+    "primary": {
+      "window_size": 2048,
+      "num_window": 147,
+      "C": 0.01,
+      "tune_nll": 2.0189599970321157
+    },
+    "rotation_1": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 10.0,
+      "tune_nll": 0.7484620047073283
+    },
+    "rotation_2": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 0.1,
+      "tune_nll": 0.8254434416698664
+    },
+    "rotation_3": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 100.0,
+      "tune_nll": 0.9823875982700333
+    },
+    "rotation_4": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 0.1,
+      "tune_nll": 0.7830543119264515
+    },
+    "rotation_5": {
+      "window_size": 2048,
+      "num_window": 147,
+      "C": 1.0,
+      "tune_nll": 1.823602513479436
+    },
+    "rotation_6": {
+      "window_size": 8192,
+      "num_window": 37,
+      "C": 0.01,
+      "tune_nll": 1.4206435169436398
+    }
+  },
+  "public_factory_fields": {
+    "data": {
+      "factory_name": "default",
+      "metadata_file": "metadata.xlsx",
+      "use_cache": true,
+      "normalization": "none",
+      "window_sampling_strategy": "evenly_spaced",
+      "dtype": "float32"
+    },
+    "split": {
+      "strategy": "grouped_metadata",
+      "group_key": "Label_Description",
+      "stratify_key": "Label",
+      "seed": 20260922,
+      "test_policy": "partition"
+    },
+    "task": {
+      "name": "Default_task",
+      "type": "Default_task",
+      "target_system_id": [
+        20
+      ]
+    }
+  },
+  "native_split_adapter": {
+    "runtime_additions": {
+      "manifest_mode": "read_only",
+      "partition_map": {
+        "train": "train",
+        "val": "val",
+        "test": "test"
+      }
+    },
+    "reason": "Pinned public DataSplitConfig rejects native read_only/partition_map fields. The inspected native constructor accepts these explicit frozen protocol fields. Public analyze_config validates the complete base configuration first; all additions are serialized before construction.",
+    "metadata_file_sha256": "Mandatory native manifest field computed solely by upstream _sha256_file."
+  },
+  "execution_environment": {
+    "python": "3.10.0",
+    "packages": {
+      "numpy": "1.26.4",
+      "scipy": "1.11.4",
+      "scikit-learn": "1.4.2",
+      "joblib": "1.3.2",
+      "torch": "2.6.0",
+      "transformers": "4.51.3",
+      "tokenizers": "0.21.4",
+      "safetensors": "0.8.0",
+      "huggingface-hub": "0.32.3",
+      "pandas": "1.5.3",
+      "h5py": "3.13.0",
+      "openpyxl": "3.1.5",
+      "tqdm": "4.67.1",
+      "PyYAML": "6.0.3",
+      "pydantic": "2.11.7",
+      "requests": "2.32.3",
+      "matplotlib": "3.7.0",
+      "pypandoc_binary": "1.15"
+    },
+    "precision": "bfloat16 frozen Qwen, float32 factory windows, float64 numerical fitting",
+    "encoder_batch_size": 256,
+    "fit_threads": 4,
+    "fit_candidate_workers": {
+      "primary_raw_e1": 1,
+      "other_evaluations": 3
+    },
+    "original_preparation_record": "inputs/environment.txt retains PyYAML 6.0.1; selected execution environment subsequently aligned to 6.0.3. No raw inputs or fitted objective changed."
+  }
+}

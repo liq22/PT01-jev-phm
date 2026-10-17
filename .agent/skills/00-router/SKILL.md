@@ -38,6 +38,12 @@ if the section's scientific logic is incomplete, use `08-markdown-draft`.
    defect to solve. For research tasks, state the failure/unresolved contradiction
    and the decision the action must change.
 2. Select one primary skill; use at most one supporting skill.
+   For an independently requested research stage, read the relevant block in
+   [staged prompts](../../../paper/prompts/README.md). When an external/project
+   Skill is named or a concrete capability is missing, read
+   [task-specific selection](../../references/task_specific_skill_selection.md).
+   Inspect its actual source and runtime; retain this project's task scope,
+   scientific authority, protocol and local Skill extensions.
 3. Read only the inputs needed for that change. Read `paper/paper.yaml` only when
    stage, active source, claim state, or a consequential author confirmation
    matters.

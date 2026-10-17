@@ -1,21 +1,38 @@
 # Claim–Support Matrix
 
+Current decisions and the single next action are maintained only in [paper/STATUS.md](../STATUS.md). This file is the existing claim/artifact index, not a parallel execution plan.
+
 ## Current claims
 
-### Evidence status at initialization
+### Scientific refinement: 14 October 2026
 
-| Claim | Method location | Existing support | Missing evidence / minimum action | Boundary / competing explanation | Status |
-|---|---|---|---|---|---|
-| Typed decisions stay within the declared closed-set output space | Main §3.1, §4.4; `typed_decisions` | Numerical/interface unit tests | Actual PHM/Qwen export and prediction smoke | Structural property, also true of ordinary classification; not diagnostic correctness or standalone novelty | supported at interface level |
-| Unit calibration estimates the declared unit-uniform objective | Main §3.2, §4.3 | Exact covariance identity; equal-count and duplication tests | Audit whether units/counts match the intended deployment population | Pooled calibration is appropriate for a window-weighted target; equal counts give the same method | analytical identity supported |
-| Unit calibration improves held-out probability quality beyond pooled scaling | Main §4.3, §5 | None; pre-result hypothesis | Required E1 in `jev_goal.md`: identical logits, distinct calibration weighting, paired test-unit NLL | Sample variance or no objective mismatch may eliminate the benefit | planned, unverified |
-| Qwen representation contributes beyond the same numeric state | Main §4.2, §5 | None; pre-result hypothesis | Required E1: numeric/Qwen heads, equal search opportunities and identical downstream calibration | Numeric features may be sufficient; six features may discard key signal information | planned, unverified |
-| Better calibrated probabilities yield useful selective decisions | Main §3.3, §4.4 | Only the model-relative minimum-cost rule | Required E1: held-out coverage/error and fixed scenario cost | Cost depends on probability quality and declared costs; no real maintenance savings established | planned, unverified |
+The sole manuscript presents the general-method formulation before the completed pilot. Existing run IDs, numerical results and E0/E1/E2 completion are unchanged. C1–C3 are pilot findings; C4–C5 are new-method hypotheses, not validated contributions.
 
-## Experiment priority
+| Claim ID | Finding | Strength | Evidence ID | Run/ref/artifact | Boundary | Status |
+|---|---|---|---|---|---|---|
+| TODO | Typed pilot decisions remain in the declared closed-set output space | strong | E1 | src/S04_Tests/test_jev.py; RUN-001; main Appendix C.2 | Also true of ordinary classification; not truth or standalone novelty | supported |
+| TODO | Equal-bearing calibration implements its declared objective | strong | E2 | Main Appendix C.4; existing code and bearing-role table | Elementary identity; deployment prevalence unknown | supported |
+| C3 | No established equal-bearing calibration increment in four pilot E1 contrasts | moderate | E3 | RUN-003; RUN-004; paper/assets/tables/jev_study_summary.json | Point differences within 0.00018 NLL and intervals include zero; almost equal counts; no equivalence | supported |
+| C1 | No primary pilot Qwen probability advantage over the same numerical state | moderate | E4 | RUN-005; paper/assets/tables/jev_metrics.csv; main Section 6 | Numerical-factorized NLL 1.018337594; not a full-signal PHM ceiling or a general-method test | supported |
+| TODO | Pilot conditional judgments form a normalized leaf distribution | strong | E5 | Existing test_jev.py; RUN-001; RUN-005; Appendix C.2 | Established algebra, not additional physical-concept supervision | supported |
+| C1 | Stable pilot question-conditioning increment is not established | moderate | E6 | RUN-005; paper/assets/tables/jev_study_summary.json; paper/assets/tables/jev_unit_nll.csv | Delta -0.001102028; interval [-0.008577209, 0.005163370]; factor-minus-shared +0.007865619; three favorable and three unfavorable rotations per Qwen contrast | supported |
+| C2 | Lower pilot ECE does not imply better AURC or useful primary coverage | moderate | E7 | RUN-005; paper/assets/tables/jev_metrics.csv; Sections 3.3 and 6 | Primary Qwen coverage 0 and cost 0.25; rotation 5 cost 0.280825 at 5.1395% coverage; no maintenance gain | supported |
+| C3 | Amplitude preservation is a separate pilot observation effect | moderate | E8 | RUN-003; RUN-004; paper/assets/tables/jev_study_summary.json | Pooled NLL changes -0.073421307 numerical and -0.036992668 legacy Qwen; same windows/roles; not decomposition evidence | supported |
+| TODO | A verified deterministic coarsening has observed-event likelihood; an unresolved partition cannot identify all fine probabilities | analytical | Source/derivation | Main Sections 3.2 and 4.2–4.3; Cour 2011; Fotakis 2021 | Existing coarse-label foundations; no new general theorem, cross-domain guarantee, or inheritance of their algorithmic guarantees | supported |
+| C4 | The proposed pure-site canonicalization cannot cover all native PU samples; adding one undifferentiated both-rings state still cannot deterministically produce dominant-location annotations | analytical and native-metadata | Native compatibility | [Complete criterion and proof](../method/native_annotation_compatibility.md); [native analysis output](../assets/tables/jev_native_annotation_compatibility.json); analyze_jev_annotation_compatibility.py | KB23/KB24/KB27: 3 bearings, 240 records; refutes these candidate mappings, not the existing dominant-label pilot or all possible refined ontologies; CWRU local mapping UNKNOWN | supported_scoped_counterexample |
+| C4 | Compatible-label supervision improves excluded-dataset NLL or classification error | hypothesis | Pending | Main Sections 4.2 and 7.2; [STATUS E](../STATUS.md#e-唯一下一步) | Native deterministic-map condition must first be satisfied; compare exact-only, justified common-coarse, and ordinary semantic controls; no new training result | planned |
+| C5 | Direct readout improves error–latency tradeoffs and transfers across backbone implementations | hypothesis | Pending | Main Sections 4.4 and 7.3; no matched latency run exists | Zero response tokens and O(number of candidates × embedding width) scoring do not imply end-to-end superiority; no all-defer success criterion | planned |
 
-### Required versus optional
+## Execution boundary
 
-E0 (required execution prerequisite): verified PHMFactory data/labels/units/configuration and one real Qwen embedding batch. E1 (required empirical evidence): one locked two-by-three comparison. No result exists yet.
+The [prospective results blueprint](expected_results_blueprint.md) preserves the user-provided 16 October 2026 table/figure designs and falsifying outcomes for C4–C5. It is a presentation reference with TBD experiment values and an undecided intervention, not supporting evidence or a replacement for the single next action in STATUS.
 
-Optional until motivated by a core gap: Qwen fine-tuning, generative output comparisons, additional datasets, RUL, open-set recognition, physical/temporal constraints, and motivation/overview figures. Do not add these to the current run queue. Ordinary accuracy must be identical across the three calibration variants sharing a head; any discrepancy invalidates the run.
+### Completed and pending are separate
+
+All existing E0, E1 and E2 evaluations remain completed under [jev_goal.md](jev_goal.md). The original run ledger and compact tables remain the result sources. Existing intervals are conditional on fits/splits and rotations are overlapping, not independent confirmations. The original data and runtime were not changed during this compatibility analysis.
+
+The new semantic method remains unimplemented and unvalidated in the inspected revision. The native metadata result constrains its observation-to-label likelihood; it is not a diagnostic score, signal experiment, or proof of C4 improvement. The model-specific 87-test and saved-logit checks are historical and were not repeated here. No pilot run was relabeled or excluded.
+
+The original main Sections 3.2/4.2 retain their deterministic-partition assumptions. The [new method supplement](../method/native_annotation_compatibility.md) supplies the source-specific derivation, complete proof, observed counterexample and permissible interpretations. No new main-text performance claim, table of classifier results, figure, or PDF was generated.
+
+If selected annotations are all exact equivalents, the granularity-specific empirical claim does not apply. Controlled artificial coarsening is a sensitivity experiment, not evidence of a naturally coarsened source. Current pending actions and budgets are exclusively in STATUS Section E.

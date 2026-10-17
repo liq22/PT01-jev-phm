@@ -1,0 +1,45 @@
+% Preamble: \usepackage{booktabs,tabularx,array,amssymb}
+% Canonical paper text is paper/draft/main.md; this is the table's typesetting source.
+\begin{table*}[t]
+\centering
+\caption{Supervision, prediction mechanisms, and validation scope of related methods. Symbols describe coverage of the stated dimension, not a performance ranking. Task and domain qualifiers prevent adaptation, sequential learning, and simulation from being mistaken for real target-free diagnosis.}
+\label{tab:related-comparison}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.22}
+\newcommand{\yes}{\ensuremath{\checkmark}}
+\newcommand{\partly}{\ensuremath{\circ}}
+\newcommand{\no}{\ensuremath{\times}}
+\newcommand{\unknown}{\textemdash}
+\begin{tabularx}{\textwidth}{@{}p{0.125\textwidth}*{6}{>{\raggedright\arraybackslash}X}@{}}
+\toprule
+Work / version & Supervision & Semantic candidates & Retention mechanism & Shift evaluation & Probability assessment & Inference measurement \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{Direct prediction and diagnostic transfer methods}}\\
+GLiClass~\cite{gliclass2025} (2025, v1) & Exact single-/multi-label & \yes\ Label descriptions & \unknown & \partly\ Text-task transfer & \unknown & \yes\ GPU throughput \\
+UniFault~\cite{unifault2025} (2025, v2) & Self-supervised; target fine-tuning & \no\ Indexed target head & \unknown & \partly\ Target-label adaptation & \unknown & \unknown\\
+YOTOnet~\cite{yoto2026} (2026, v1) & Common exact fault labels & \no\ Indexed fault head & \unknown & \yes\ Excluded datasets; two faults & \unknown & \unknown\\
+Jev--HVAC~\cite{jung2026} (2026, v1) & Inference study; pretraining undisclosed & \yes\ Textual alternatives & \unknown & \yes\ Seasonal / system / building & \yes\ Brier, ECE & \yes\ Hosted / local timing$^{a}$\\
+CAT~\cite{forest2024cat} (2024) & Labelled source; unlabelled target & \no\ Fixed class head & \unknown$^{b}$ & \partly\ Target-data adaptation & \yes\ Calibration / ECE & \unknown\\
+\addlinespace
+\multicolumn{7}{@{}l}{\textit{Label-ambiguity and predictive-retention methods}}\\
+Libra loss~\cite{zombori2024} (2024) & Sets containing one true label & \no\ Indexed softmax & \partly\ Allowed-label ratio property & \unknown & \partly\ Probability dynamics & \unknown\\
+LwF~\cite{li2018lwf} (2018) & Exact new-task labels; old predictions & \no\ Task-specific heads & \yes\ Soft output distillation & \partly\ Sequential image tasks & \unknown & \unknown\\
+OGD~\cite{farajtabar2020} (2020) & Exact sequential-task labels & \no\ Task-specific outputs & \yes\ First-order output projection & \partly\ Sequential image tasks & \unknown & \unknown\\
+\midrule
+\textbf{Ours (evaluated scope)} & \textbf{Exact / coarsened simulated labels} & \textbf{\partly\ Design only} & \textbf{\partly\ Soft / hard tested; selected soft off} & \textbf{\partly\ Simulated target exclusion} & \textbf{\yes\ NLL, Brier} & \textbf{\unknown}\\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+\begin{minipage}{\textwidth}
+\raggedright
+\yes: addressed by the specified mechanism or reported evaluation;
+\partly: restricted, adjacent, or design-only coverage as stated;
+\no: absent from the specified evaluated architecture;
+\unknown: not established in the inspected source. No symbol asserts superiority or a universal guarantee.\par
+$^{a}$Jev--HVAC reports runtime, but hosted requests and local models are not a matched-hardware readout ablation. $^{b}$An EMA teacher is not evidence of preserving a fixed fine-conditional predictor.\par
+For Ours, the row concerns the 46-feature simulation in Section~7.4: the selected soft penalty and additional update are both zero. The separately completed PU pilot does not establish cross-dataset semantic transfer. UniFault v2 uses target-label adaptation; its pretraining-exclusion wording differs between experiment passages. Dates identify the cited edition, not an inference about later acceptance. Target-free real-data performance and matched timing remain untested for Ours.
+\end{minipage}
+\endgroup
+\end{table*}
