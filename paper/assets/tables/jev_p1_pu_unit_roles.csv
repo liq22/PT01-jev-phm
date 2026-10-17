@@ -1,0 +1,30 @@
+protocol,physical_unit,raw_label,class_index,class_name,role,source_record_count
+p1,Healthy Bearing K002,0.0,0,healthy,train,80
+p1,Healthy Bearing K006,0.0,0,healthy,train,80
+p1,Healthy Bearing K005,0.0,0,healthy,train,80
+p1,Healthy Bearing K004,0.0,0,healthy,tune,80
+p1,Healthy Bearing K001,0.0,0,healthy,cal,80
+p1,Healthy Bearing K003,0.0,0,healthy,test,80
+p1,Real Inner Ring Damage KI21,1.0,1,inner-ring damage,train,80
+p1,Artificial Inner Ring Damage KI01,1.0,1,inner-ring damage,train,80
+p1,Real Inner Ring Damage KI04,1.0,1,inner-ring damage,train,80
+p1,Real Inner Ring Damage KI14,1.0,1,inner-ring damage,train,80
+p1,Artificial Inner Ring Damage KI05,1.0,1,inner-ring damage,train,80
+p1,Artificial Inner Ring Damage KI03,1.0,1,inner-ring damage,train,80
+p1,Artificial Inner Ring Damage KI07,1.0,1,inner-ring damage,tune,80
+p1,Artificial Inner Ring Damage KI08,1.0,1,inner-ring damage,tune,80
+p1,Real Inner Ring Damage KI18,1.0,1,inner-ring damage,cal,80
+p1,Real Inner Ring Damage KI17,1.0,1,inner-ring damage,test,80
+p1,Real Inner Ring Damage KI16,1.0,1,inner-ring damage,test,80
+p1,Real Outer Ring Damage KA16,2.0,2,outer-ring damage,train,80
+p1,Artificial Outer Ring Damage KA08,2.0,2,outer-ring damage,train,79
+p1,Artificial Outer Ring Damage KA09,2.0,2,outer-ring damage,train,80
+p1,Artificial Outer Ring Damage KA01,2.0,2,outer-ring damage,train,80
+p1,Artificial Outer Ring Damage KA03,2.0,2,outer-ring damage,train,80
+p1,Real Outer Ring Damage KA15,2.0,2,outer-ring damage,train,80
+p1,Artificial Outer Ring Damage KA05,2.0,2,outer-ring damage,train,80
+p1,Artificial Outer Ring Damage KA07,2.0,2,outer-ring damage,tune,80
+p1,Artificial Outer Ring Damage KA06,2.0,2,outer-ring damage,tune,80
+p1,Real Outer Ring Damage KA22,2.0,2,outer-ring damage,cal,80
+p1,Real Outer Ring Damage KA30,2.0,2,outer-ring damage,test,80
+p1,Real Outer Ring Damage KA04,2.0,2,outer-ring damage,test,80
