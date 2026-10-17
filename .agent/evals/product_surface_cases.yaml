@@ -9,8 +9,28 @@ cases:
     expected_primary_surface: code
     must_change_product: true
     audit_allowed: false
-    must_not_trigger: [code-module-xray, 07-experiment-audit]
+    must_not_trigger: [code-module-xray, 07-experiment-audit, peer-review, 13-reviewer-response]
     must_not_surface: [canonical_delta, route packet, audit chain, human gate]
+
+  - case_id: PRODUCT-CODE-PLAN-001
+    language: en
+    prompt: Explain the existing tokenizer input-output path and propose a minimal plan to fix the reported shape bug. This is plan-only; do not edit source, tests, MODULE_MAP.md, manuscript, or repository state, and do not run experiments or commission manuscript reviewers.
+    expected_primary: code-module-xray
+    expected_primary_surface: decision
+    must_change_product: false
+    audit_allowed: false
+    must_not_trigger: [code-change, peer-review, 13-reviewer-response, 06-experiment-ops]
+    must_not_surface: [reviewer simulation, claim-evidence report, manuscript QA]
+
+  - case_id: PRODUCT-MANUSCRIPT-REVIEW-001
+    language: en
+    prompt: Review the supplied Discussion against the supplied results and identify specific unsupported interpretations. Return findings only; do not revise the manuscript, persist a review file, modify repository state, or run new experiments.
+    expected_primary: peer-review
+    expected_primary_surface: governance
+    must_change_product: false
+    audit_allowed: true
+    must_not_trigger: [08-markdown-draft, 10-language-polish, 06-experiment-ops, 13-reviewer-response]
+    must_not_surface: [reviewer quota, repeated review rounds, readiness score]
 
   - case_id: PRODUCT-MANUSCRIPT-001
     language: en

@@ -1,13 +1,15 @@
 # Research-First Paper Loop
 
-This is the default reasoning contract for PaperTrace research, code, experiment,
-figure, manuscript, review, and revision work. It combines the Research-First
-Agent and Adaptive Research Paper Agent principles without turning them into a
-fixed stage pipeline. Load only the section needed by the current task.
+This is on-demand scientific reasoning guidance for PaperTrace research,
+experiment, figure, manuscript, review, and revision work. AGENTS.md owns task
+scope and execution; Paper Skill Core owns shared scientific rules and final QA.
+Load only the section needed by the current task. Code-only work uses its direct
+implementation checks without a manuscript review. Review-only and plan-only
+requests remain read-only; the actions below do not authorize edits or experiments.
 
-## Highest authority
+## Scientific decision heuristic
 
-At every iteration:
+When the requested task requires a scientific decision:
 
 1. state the strongest current claim that matters to the paper;
 2. identify the largest unresolved uncertainty that threatens it;
@@ -587,8 +589,9 @@ without a reader question are excluded.
 
 ## Adversarial review and stop rule
 
-Review is a tool for discovering independent scientific problems, not a fixed
-quota of personas or findings. Select only the lenses needed by the paper:
+For an explicitly requested scientific review or the one final manuscript QA,
+review is a tool for discovering scientific problems, not a fixed quota of
+personas or findings. Select only the lenses needed by the paper:
 novelty, theory, methodology, experiment, statistics, generalization, domain
 validity, reproducibility, positioning, writing, figures, or adversarial reject.
 
@@ -601,7 +604,8 @@ P2: important but non-fatal
 P3: presentation
 ```
 
-Each reviewer or review lens should report:
+For a requested review, report the relevant findings concisely; the following
+fields are optional aids, not mandatory output for each lens or code task:
 
 ```text
 Decision:
@@ -612,10 +616,10 @@ Alternative explanation:
 Required revision:
 ```
 
-Stop expanding review when consecutive independent lenses no longer discover a
-new P0/P1 issue. Repetition of an existing issue does not count as new information.
-Do not manufacture reviewer theatre after the marginal scientific information has
-fallen to zero.
+Stop after the requested review or focused QA pass. Recheck a corrected defect
+only when a material change requires it. Repetition of an existing issue does not
+count as new information; do not start additional reviewer rounds to establish
+that no new P0/P1 issue remains.
 
 Revision follows:
 
