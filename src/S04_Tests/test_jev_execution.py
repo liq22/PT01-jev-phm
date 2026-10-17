@@ -255,6 +255,38 @@ class ShellExecutionTests(unittest.TestCase):
         self.assertIn("800", (budget / "usage.tsv").read_text())
         self.assertEqual(len((self.root / "calls").read_text().splitlines()), 1)
 
+    def completed_artifacts(self):
+        run = Path(self.environment["JEV_RUN"])
+        for name in ("source_scale.json", "smoke/result.json", "summary.csv", "paired_unit_effects.csv"):
+            path = run / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("fixture artifact, not a real completed study\n")
+        for name in ("paired_diagnostic_effects", "error_processing_cost", "selective_diagnosis_and_alarms"):
+            for suffix in ("svg", "pdf"):
+                path = run / "figures" / f"{name}.{suffix}"
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("fixture artifact\n")
+        for family in ("rf", "signal", "indexed", "semantic", "token"):
+            path = run / "timing" / family / "summary.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("{}\n")
+        return run
+
+    def test_complete_figure_outputs_do_not_charge_another_summary_on_resume(self):
+        self.completed_artifacts()
+        result = self.invoke("--resume")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertNotIn("semantic summarize", (self.root / "calls").read_text())
+        usage = self.root / "src/outputs/jev-phm/p1-approved-20261017/execution/usage.tsv"
+        self.assertNotIn("\tsummarize\t", usage.read_text())
+
+    def test_missing_required_figure_pdf_runs_summary_on_resume(self):
+        run = self.completed_artifacts()
+        (run / "figures/selective_diagnosis_and_alarms.pdf").unlink()
+        result = self.invoke("--resume")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual((self.root / "calls").read_text().count("semantic summarize"), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

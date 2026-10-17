@@ -112,6 +112,10 @@ evidence-ID/enum errors, reproduced on an unchanged extraction of `25ec6781`;
 the validator and evidence-strength fields were not relaxed. These software
 checks do not establish real G0, model or CUDA acceptance. Detailed local outputs
 are alongside `preflight.txt`; remote CI must be reported from its actual run.
+The subsequent PR review found a stale figure filename in the resume guard. The
+guard now checks the actual three SVG/PDF pairs; 18 affected execution tests pass,
+including two new complete-resume/missing-PDF cases. The full suite was not
+repeated after this narrow correction.
 
 The run defaults to `src/outputs/jev-phm/run-real-20261017-001`:
 

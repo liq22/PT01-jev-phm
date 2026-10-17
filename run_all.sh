@@ -160,7 +160,14 @@ for config in "${CONFIGS[@]}"; do
     run_stage "$lane" "timing_${name}" 600 "$PYTHON" "$ENTRY" semantic timing --config "$config" --run-root "$RUN"
   fi
 done
-if [[ ! -f "$RUN/summary.csv" || ! -f "$RUN/paired_unit_effects.csv" || ! -f "$RUN/figures/external_unit_effect.svg" || ! -f "$RUN/figures/error_processing_cost.svg" ]]; then
+summary_complete=true
+for output in summary.csv paired_unit_effects.csv \
+  figures/paired_diagnostic_effects.svg figures/paired_diagnostic_effects.pdf \
+  figures/error_processing_cost.svg figures/error_processing_cost.pdf \
+  figures/selective_diagnosis_and_alarms.svg figures/selective_diagnosis_and_alarms.pdf; do
+  [[ -f "$RUN/$output" ]] || summary_complete=false
+done
+if [[ "$summary_complete" != true ]]; then
   run_stage cpu summarize 1800 "$PYTHON" "$ENTRY" semantic summarize --config "$COMMON_MODEL" --run-root "$RUN"
 fi
 printf 'Pipeline returned without error. Inspect qualification, saved predictions and limits; this does not establish method superiority.\n'
