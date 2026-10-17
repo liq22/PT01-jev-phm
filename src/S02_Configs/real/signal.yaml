@@ -1,0 +1,11 @@
+base: common.yaml
+name: signal
+model:
+  kind: factory
+  factory:
+    type: CNN
+    name: MobileNet1D
+    input_dim: 1
+    num_classes: 3
+    width_multiplier: 0.5
+    dropout: 0.2

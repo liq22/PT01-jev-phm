@@ -30,7 +30,7 @@ research_state:
   strongest_support: Native PU metadata supplies a scoped mapping counterexample; complete proof and original-source details are linked in paper/STATUS.md B.
   favored_explanation: See paper/STATUS.md A; component location alone discards dominance used by the actual source annotation.
   strongest_competing_explanation: See paper/STATUS.md A; a refined or explicitly dominant-location task may be valid but does not automatically demonstrate coarse-label learning.
-  largest_unresolved_uncertainty: See paper/STATUS.md E for the unfinished CWRU local metadata and native semantic qualification.
+  largest_unresolved_uncertainty: See paper/STATUS.md E for the approved PU/MFPT record-to-specimen and measurement-chain qualification; CWRU is EXCLUDED BY USER.
   current_novelty_risk: Shared semantic readout and coarse-label foundations are prior art; the native counterexample is an applicability result, not demonstrated method superiority.
   most_informative_next_action: Follow the single bounded action in paper/STATUS.md E; do not restart completed E0/E1/E2.
   possible_outcomes_and_decisions: See paper/STATUS.md E; no parallel Goal or new run queue is introduced.
@@ -52,10 +52,10 @@ main_claims:
     evidence: paper/assets/tables/jev_study_summary.json
     boundary: Primary-split preprocessing/calibration observation, not semantic learning or equivalence of weighting schemes.
   - claim_id: C4
-    statement: Verified annotation-compatible source supervision improves excluded-dataset diagnostic NLL or error beyond conventional semantic controls.
+    statement: Shared fault-description readout improves excluded-dataset diagnostic NLL beyond an indexed head on the same backbone under the approved P1 protocol.
     status: hypothesis_pending_validation
     evidence: paper/method/native_annotation_compatibility.md
-    boundary: Native PU mixed/dominant records refute pure-site and undifferentiated-both deterministic mappings; this is not a C4 performance test. CWRU local semantics remain UNKNOWN.
+    boundary: P1 uses exact-label PU single-ring records and MFPT, with G0 still BLOCKED and zero new fits. Native PU mixed/dominant counterexamples remain valid; the native-granularity subclaim is UNTESTED. CWRU is EXCLUDED BY USER.
   - claim_id: C5
     statement: Direct semantic readout provides a favorable diagnostic error-latency relation across compatible backbone instances.
     status: hypothesis_pending_validation
