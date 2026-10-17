@@ -106,3 +106,74 @@ One additional training-only timing probe inspected single-thread execution afte
 Both E1 and all seven E2 evaluations completed with the declared grid and convergence contract. Primary pooled question-factorized-minus-flat NLL is -0.001102028, with conditional paired interval [-0.008577209, 0.005163370]; shared-Qwen hierarchy has lower point NLL than the question-factorized workflow. All four primary calibrated Qwen arms defer every window at the fixed cost. Each comparison with flat, shared hierarchy and two direct questions changes sign across the six refitted rotations (three lower / three higher NLL).
 
 The stable question-conditioned increment is not established, and equivalence is not asserted. Preserve the bounded attribution result, the calibration/coverage mismatch and the separately observed input effect as the manuscript's empirical findings. No further within-test development is authorized by these outcomes. A broader advantage claim needs a prospectively frozen evaluation on additional independent equipment and appropriate application baselines; it is not supplied by more correlated PU windows. The current stopping decision is to complete the evidence-grounded candidate, readable preview and final PR checks, retaining author/venue/submission confirmations as pending.
+
+## Approved P1 continuation: PU single-ring source to MFPT external target
+
+### Authorization and scientific scope — 17 October 2026
+
+The author explicitly replied “确认并继续” to the 17 October P1 protocol and its complete table/figure templates. This approves the PU single-ring-component population, MFPT known-label test-rig target, the stated execution matrix, and a ceiling of **24 GPU-hours plus 12 CPU wall-hours**. Do not request the same authorization again. Approval does not waive data, implementation or information-access prerequisites. The preceding E0–E2 record remains historical and completed; its old parallelism/window/weighting rules do not override P1.
+
+P1 tests the current manuscript Section 4 framework: signal adapter, compatible frozen first-instance backbone and shared fault-description scores, against an indexed head on the same backbone. Conditional KL and projection are not required components. A correct-description versus fixed mismatched-description control tests semantic correspondence. C4's native coarse-label subclaim is not tested by these two exact-label datasets. C5 concerns measured diagnostic error and latency, not a construction-only speed claim.
+
+CWRU data and explicitly CWRU-trained industrial weights remain excluded. Physical GPU 2 is forbidden. At most one GPU job and eight CPU threads are active. No paid service, new cluster allocation or private-data egress is authorized. A second backbone, multi-source training with a third target, a replacement dataset, or a changed diagnostic population is outside P1.
+
+### G0 executed: fixed PU population and roles
+
+The new [P1 bearing assignments](../assets/tables/jev_p1_pu_unit_roles.csv) were generated from the 32 `primary` rows of the existing [PU role table](../assets/tables/jev_unit_roles.csv) at `810cc01fccd0c34539b03e8f3f8009e5d841f344`. Published single-ring categories use the existing `PUB_SITES` interpretation in `analyze_jev_annotation_compatibility.py`, not identifier-prefix fault inference. Remove KB23/KB24/KB27 from the NEW P1 population only; preserve all 240 associated records and the historical 32-bearing experiment unchanged. The remaining categories are healthy, inner-ring damage and outer-ring damage; microscopic single-defect purity is not claimed.
+
+Sort physical bearing codes within each class; use one Python-standard-library `random.Random(20261017)` instance, shuffling classes in H/I/O order. Consume each shuffled class in train/tune/cal/test order. This fixes an implementation detail left open in the accepted plan before any new signal/model result. Original source label integers and record counts remain in the CSV; no raw metadata is changed. The declared map is consumed by PHMFactory's existing frozen grouped-partition path, not by a new data loader.
+
+| Class | Train | Tune | Calibration | Internal test | Indexed records |
+|---|---:|---:|---:|---:|---:|
+| Healthy | 3 | 1 | 1 | 1 | 480 |
+| Inner-ring damage | 6 | 2 | 1 | 2 | 880 |
+| Outer-ring damage | 7 | 2 | 1 | 2 | 959 |
+| Total | 16 | 5 | 3 | 5 | 2,319 |
+
+Indexed records by role are 1,279 / 400 / 240 / 400. KA08 retains 79 indexed records; its missing historical recording is not filled. Checks performed on this metadata projection: 32 unique original bearings and 2,559 records; exactly the three approved exclusions and 240 retained-outside-P1 records; 29 unique P1 bearings; per-class allocations; disjoint roles; complete accounting of 2,319 records. This establishes the roster, NOT raw H5 availability, timebase/units, spectral validity, model efficacy or an independent new PU confirmation.
+
+### G0 executed: MFPT publication and remaining unit boundary
+
+The MathWorks publisher mirror [README](https://github.com/mathworks/RollingElementBearingFaultDiagnosis-Data/blob/master/README.md) and [license](https://github.com/mathworks/RollingElementBearingFaultDiagnosis-Data/blob/master/license.txt) explicitly identify the original data owner and **CC BY-NC-SA 4.0**. The permission boundary was verified for that distributed version; it is not a certification of the user's processed H5 provenance, and a repository wrapper's software license is not substituted for data terms. No raw data is redistributed in this change.
+
+The complete public tree `d3efefb6ce84fa1ee6c0311f80f7c89cf903ad1d` contains 20 MAT files under publisher train/test folders. Together with the [publisher processing documentation](https://www.mathworks.com/help/predmaint/ug/Rolling-Element-Bearing-Fault-Diagnosis.html), this verifies the distributed known-label inventory: 3 baseline, 10 outer-ring and 7 inner-ring recordings. These are recordings, NOT 20 verified bearings. Both folders belong entirely to the P1 external target; their example train/test split supplies no permissions to tune on MFPT.
+
+No physical-specimen join was supplied by the inspected README, license or file tree. Actual `bearing` payload fields and the local `RM_007_MFPT.h5` correspondence remain UNKNOWN; filename spelling is not used to certify their contents. The old MFPT provider URL now redirects to the ASNT affiliate page; the original data-acoustics page could not be retrieved. These source-access limitations do not prove that a unit map does not exist elsewhere.
+
+The authoring container does not mount `/home/user/data/PHMbenchdata/PHM-Vibench`, its `metadata.xlsx`, either real H5, or the user's GPU. Git clone also fails at DNS resolution. A remote-execution integration search returned no usable connected SSH/terminal action. The earlier Library notes describe the user's data root but are not current bytes or a remote execution session. No target waveform, class-conditioned target statistic or target prediction was read. G0 remains BLOCKED for the approved device-balanced external evaluation, not failed as a method test.
+
+### Approved input and evaluation contract
+
+Train only on the new PU train role, select only on PU tune, use PU cal only for declared post-hoc sensitivity, and freeze every selected instance before external prediction. PU internal evaluation remains exploratory because earlier PU results influenced research design. The same checkpoint is used on PU internal and all eligible MFPT records; do not add reverse-direction training and call it the same instance.
+
+Approved initial observation: one documented acceleration channel, 25.6 kHz after qualified anti-alias processing, 8,192-point (0.32 s) nonoverlapping windows, no crossing original records, and no padding of incomplete tails. Record discarded tail duration. This is not the older full-coverage-window protocol. Nominal sampling and empty units cannot certify the new physical transform; source/target time and channel provenance are hard prerequisites. Transform settings and units must be resolved without optimizing on target spectra. All model families receive the same observation. Use neither original rate as a text class cue nor filenames, bearing/source ID, original length or target truth as model inputs.
+
+Initial semantic interface: 64 patches of 128 samples, a source-trained signal projection, frozen first backbone, declared pooling and one shared scoring module. Candidate embeddings are frozen. Qwen3-0.6B at the earlier pinned revision is only the first eligible instance, conditional on a real verified cache and signal interface. The complete interface/runner remains unverified; neither an invented command nor the old PU-specific `prepare` command authorizes it.
+
+Main contrast is MFPT JEV-minus-B_IDX raw NLL. For each verified physical unit, average windows within each original recording, then records within the unit, then give units equal weight. This differs from the old direct unit-window estimator; do not pool results. Macro-F1 comes from the resulting weighted confusion matrix, not a mean of per-bearing Macro-F1. Three neural fits use seeds 101/202/303; search runs on 101, then two refits use the selected setting and the same source stopping rule. No seed selection. Use a paired physical-unit interval conditional on these fits where estimable, and report fit variability separately. Unknown or singleton-per-class specimen structure cannot be rescued by file/window bootstrap. No numerical superiority or no-loss-acceleration threshold has been established; report effect estimates and trade-offs without inventing such a threshold.
+
+### Approved finite run matrix
+
+| Job | Information | Fits / search | Ceiling and stopping rule |
+|---|---|---|---|
+| G0b, real-data qualification | Metadata/provenance; no classifier outcomes | 0 | CPU 30 minutes per source; unresolved required fields stop admission |
+| G1, real interface smoke | PU train only | Not an efficacy comparison | 1 GPU-hour total; actual data and every model input must be consumed |
+| G2a, B_RF | PU train/tune | 6 | 300 trees; depth 8/None x leaf 1/4/12; 20 CPU minutes per fit |
+| G2b, B_SIG/B_IDX/JEV/JEV-PERM/B_TOK | PU train/tune | 5 x 6 = 30 | LR 1e-4/3e-4/1e-3 x decay 0/1e-2; 30 min AND 2,000 updates per fit |
+| G3, selected neural settings | Same PU roles | 5 x 2 = 10 additional fits | Same per-fit cap; never read MFPT to choose a setting |
+| G4/G5, calibration sensitivity, frozen evaluation and timing | PU cal; then sealed tests | 0 new fitting families | 1 GPU-hour shared allowance; timing 30 warmups then 200 measurements per readout in five interleaved blocks |
+| Technical recovery | Unchanged scientific config | At most one retry per failed job, two globally | Within 2 GPU-hour reserve and total CPU cap; keep failed attempts |
+
+Total approval is 46 fitting runs: 40 neural and 6 RF. GPU allowance is 20 hours fitting + 1 interface + 1 evaluation/timing + 2 recovery = 24 GPU-hours. CPU wall time, including preparation/checking/RF/analysis/recovery, is at most 12 hours with eight threads, not 12 core-hours. A cap hit before qualification is uncertainty, not permission to weaken a baseline. This G0 execution used zero GPU hours and 0/46 fits; CPU metadata operation time was not separately instrumented, so it is not reported as zero.
+
+For neural methods use AdamW, validation every 100 updates including the initializer, and stop after five consecutive nonimprovements or the stated hard cap. Source NLL chooses the model; exact ties favor fewer trainable parameters when applicable, then lower compute and earlier fixed trial order. B_SIG must be an actually available registered signal model, not a fabricated replacement. JEV-PERM uses H-to-I-description, I-to-O-description, O-to-H-description throughout fitting/evaluation while output labels retain their physical meaning. Token-score and shortest-generation controls share B_TOK weights, prompt and verified distinct label codes. No separate generation training family and no long-answer strawman.
+
+Optional scalar calibration is source-only, T in [0.05,20], keeping T=1 when no source-calibration improvement. Primary results remain raw probabilities. Preserve original raw logits/probabilities, failures and all approved fit outputs. Keep accepted error undefined at zero coverage. C4 native-coarsening and nonzero preservation hypotheses remain UNTESTED; do not insert their losses into this exact-label matrix.
+
+### Current handoff and one next action
+
+**Authorization is complete; G0 admission is not.** Resume this same G0 on a session that can read the user's approved raw/processed PU and MFPT files. Verify original file to processed Id, channel and physical time/scale, and the MFPT physical-specimen-to-record relation. The generated P1 CSV fixes roles but does not certify those remaining fields. Keep MFPT target scores sealed. Do not silently substitute a record-balanced estimand, another dataset, synthetic waves or a default geometry.
+
+If G0 passes, continue directly to authorized minimal interface implementation/G1 and the bounded matrix; no repeated budget/population confirmation is needed. If a required join is still UNKNOWN, stop with the exact missing original source. If only a small verified specimen set exists, keep the fixed-archive limitation and do not manufacture a population-level interval. A different estimand or expanded population needs a scientific amendment, not merely another run.
+
+The earlier `run-sim-002` source-information diagnostic remains unfinished and separate; this author approval does not mark it complete. The mounted simulation archive contains `sim-20261017-001`, a different protocol, so it is not substituted. It becomes a prerequisite only for reviving the preservation-mechanism claim, not an excuse to relabel P1 results. All old PU and simulation outputs, PR #16, the manuscript and the figure sources are untouched by this execution record.
