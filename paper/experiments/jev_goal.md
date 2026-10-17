@@ -177,3 +177,62 @@ Optional scalar calibration is source-only, T in [0.05,20], keeping T=1 when no 
 If G0 passes, continue directly to authorized minimal interface implementation/G1 and the bounded matrix; no repeated budget/population confirmation is needed. If a required join is still UNKNOWN, stop with the exact missing original source. If only a small verified specimen set exists, keep the fixed-archive limitation and do not manufacture a population-level interval. A different estimand or expanded population needs a scientific amendment, not merely another run.
 
 The earlier `run-sim-002` source-information diagnostic remains unfinished and separate; this author approval does not mark it complete. The mounted simulation archive contains `sim-20261017-001`, a different protocol, so it is not substituted. It becomes a prerequisite only for reviving the preservation-mechanism claim, not an excuse to relabel P1 results. All old PU and simulation outputs, PR #16, the manuscript and the figure sources are untouched by this execution record.
+
+### P1 implementation binding and real-input check — 17 October 2026
+
+The local candidate has been integrated at `run_jev_study.py semantic` without
+replacing the pilot or simulation commands. The six `src/S02_Configs/real/`
+configurations instantiate the approved 46-fit matrix. The fixed registered
+signal comparator is MobileNet1D (width multiplier 0.5, dropout 0.2); the semantic
+first instance uses the already pinned local Qwen3-0.6B snapshot. These are
+implementation bindings, not measured baseline qualification or model benefits.
+
+The native data adapter requires an already approved PU/MFPT-only metadata CSV,
+`metadata_pu_mfpt.csv`, plus the existing G0 qualification map. It does not read
+the shared workbook and then filter. Qualification must establish native PU
+physical identity for every selected record, not only counts and labels. The
+map and role/metadata contents are frozen in the consumed run contract. The
+PHMFactory pin, reader, grouped partition and sequential window implementation
+remain upstream; caches are independent copies. Per-record resampled lengths,
+retained intervals, tail duration and actual transformation time are saved.
+
+Source interface acceptance now covers all five neural families and RF's fixed
+features before the search. An isolated technical update and state roundtrip in
+G1 is not a new efficacy family. `verify-source` loads every selected model twice,
+checks source inference, freezes source-only temperature and checks fixed
+candidate-vector contracts before target export. A file-presence marker cannot
+release MFPT. All source verification, external evaluation and timing share the
+original one GPU-hour allowance; no reserve is silently reassigned. Manual
+technical recovery remains within the original per-job/global and total caps,
+with no automatic retry or optimizer continuation.
+
+The descriptive sensitivity is fixed before target access: `race_wording` uses
+“A rolling bearing without diagnosed ring damage.”, “A rolling bearing with
+inner-race damage.”, and “A rolling bearing with outer-race damage.” in H/I/O
+order. Its vectors are compiled and saved on the source side, then reused with
+the selected adapter. It is raw-probability sensitivity, not another fit or a
+separate selected temperature. The canonical descriptions and fixed permutation
+stay unchanged. This one wording set cannot establish general language
+robustness or semantic understanding.
+
+Saved-output analysis uses the approved record-within-unit estimand. Brier sums
+three squared class errors; ECE has ten equal-width bins. The main paired effect
+averages the three seed effects per physical unit, then uses 10,000 paired unit
+bootstrap draws with seed 20261017, conditional on those fits. Unknown units or
+fewer than two units in any class give NA intervals. Fit SD is separate and NA
+for a single fit. Fixed acceptance and fault-probability thresholds 0,0.1,...,1
+are sensitivity scenarios; .5 is the displayed alarm point, not a target-selected
+or industrially validated optimum. Undefined costs and zero-coverage accepted
+error stay NA. Generated outputs have their own measured errors. Saved results
+alone produce three figure groups; no plotting call reruns a model.
+
+Actual CPU-only `semantic check` on this machine returned **exit 2**, wall time
+**0.79 seconds**, with precisely the unbound qualification map and missing
+approved-only metadata projection. PU/MFPT H5 and weight paths and fixed package
+versions are locatable, but their measurement chain and full runtime contract
+were not inspected by that check. Its local output is
+`src/outputs/jev-phm/g0-20261017-integration/preflight.txt`. No actual metadata,
+H5 signal, target score, pretrained forward or CUDA job was read/run. G0 remains
+BLOCKED and efficacy fitting remains **0/46**. Code fixtures and the native
+adapter numerical compatibility test do not replace G0. The next action is the
+same missing record/specimen/measurement binding, not another dataset or plan.

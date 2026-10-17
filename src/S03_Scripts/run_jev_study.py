@@ -1,6 +1,7 @@
 """Run the frozen PU study through PHMFactory and the sole Jev-PHM implementation.
 
-Stages are explicit: prepare, export, select, embed, evaluate. Large arrays stay in
+Pilot stages are explicit: prepare, export, select, embed, evaluate. Approved P1
+operations use the semantic subcommand. Large arrays stay in
 the ignored run directory. This driver never implements a loader or a model.
 """
 from __future__ import annotations
@@ -437,6 +438,8 @@ def evaluate(args) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+    from jev_execution import add_subparser
+    add_subparser(sub)
     p = sub.add_parser("prepare")
     p.add_argument("--run-root", required=True)
     p.add_argument("--data-root", default=str(DEFAULT_DATA_ROOT))
@@ -467,7 +470,15 @@ def main() -> None:
     p.add_argument("--head-workers", type=int, default=1,
                    help="Independent C candidates fitted in isolated CPU worker processes")
     args = parser.parse_args()
-    globals()[args.command](args)
+    if hasattr(args, "handler"):
+        try:
+            args.handler(args, ROOT, _upstream)
+        except (FileNotFoundError, RuntimeError, ValueError) as exc:
+            if args.stage == "check":
+                parser.exit(2, f"{exc}\n")
+            raise
+    else:
+        globals()[args.command](args)
 
 
 if __name__ == "__main__":

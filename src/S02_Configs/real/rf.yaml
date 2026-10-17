@@ -1,0 +1,11 @@
+base: common.yaml
+name: rf
+model:
+  kind: rf
+  trees: 300
+fit:
+  max_seconds: 1200
+search:
+  max_depth: [8, null]
+  min_samples_leaf: [1, 4, 12]
+seeds: [101]
