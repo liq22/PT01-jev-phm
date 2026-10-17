@@ -26,6 +26,11 @@ target prediction or CUDA workload was read or executed. The authoring package's
 older environment failures remain in the original Obsidian candidate directory;
 they do not describe this machine's dependency availability.
 
+After committing the implementation, the public `bash run_all.sh --check` entry
+also returned exit 2 for the same G0 requirements, in 0.94 seconds. Its saved
+output is `shell-preflight.txt` alongside the direct CLI check. Combined G0
+preflight wall time is 1.73 seconds, not total development/checking time.
+
 G0 needs an already authorized **PU/MFPT-only CSV projection**, configured as
 `data.metadata`, and a documented record map configured as
 `data.qualification_file`. The shared Excel workbook is never loaded and then
