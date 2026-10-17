@@ -55,7 +55,7 @@ def main(run, out):
         ax.scatter(vals,np.full(len(vals),i)+np.linspace(-.08,.08,len(vals)),s=40,label='Independent simulation cohorts' if i==0 else None)
         ax.scatter([vals.mean()],[i],marker='D',s=65,label='Mean across cohorts' if i==0 else None)
     ax.set(xscale='log',xlabel='Target negative log-likelihood (nats, log scale)',yticks=range(3),yticklabels=list(labels.values()),title='Primary comparison: the selected soft constraint is inactive')
-    ax.legend(loc='upper left',bbox_to_anchor=(0,-.19),ncol=2,fontsize=9)
+    ax.legend(loc='upper left',fontsize=9)
     save(fig,'04_primary_nll','Three independently generated cohorts; 90 virtual test units per cohort, four windows per unit.\nAll three soft-anchor selections use lambda = 0 and update step 0. Coincidence is not evidence of universal equivalence.')
     searches=json.loads((run/'searches.json').read_text())
     fig,ax=plt.subplots(figsize=(10,5))
