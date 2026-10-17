@@ -151,8 +151,122 @@ Twelve targeted tests passed. Recomputing 108 saved prediction/metric rows agree
 
 A full Git clone was unavailable in the authoring container. Local execution imported a separately labelled exact excerpt of the two retrieved existing helpers (`signal_features`, `unit_weights`), not a mock reader or model. That excerpt is not committed and must never overwrite the full module. Full repository integration/suite and remote CI remain unchecked; the previous 87-test result is not a current check. No PHMFactory export or language-model forward pass was claimed. Figure/report builds and saved-result checks are separate from machine-validity evidence.
 
+## 5. Method clarification: what the conditional anchor does and does not learn
+
+This analysis was added after `run-sim-002`, against `dev@193127a909a4fb9abf8e4539247fe6b30a8bcbe6`. It clarifies the implemented objective; it is not a new training protocol, a replacement result, or a claim to have invented distillation. Sections 1–4 and every saved simulation result remain the historical execution record. The scalar identities below use exact real arithmetic; general proofs, assumptions and implementation consequences are stated explicitly.
+
+### 5.1 Definitions, assumptions and input permissions
+
+The operational question remains whether limiting fine-conditional changes helps diagnosis when an added source exposes only a valid coarse fault event. The minimal evaluated model takes a vibration-derived vector `v` of 46 source-standardized features plus an intercept, so `v` has dimension 47. It uses `W` of dimension 47 by 3 and dimensionless logits `z = W^T v`, with class order H/I/O. The input features use only the declared waveform and observed shaft rate, not fault identity, source identity, noise truth or test labels. Their physical assumptions remain those in Section 2. No language backbone or semantic candidate encoder was executed in this instance.
+
+For the analysis, extend the output only in notation to a finite set of K mutually exclusive diagnostic states. Let S be a nonempty, verified preimage of an observed annotation. For finite real logits, define
+
+$$
+p_j=\frac{e^{z_j}}{\sum_{l=1}^{K}e^{z_l}},\qquad
+m_S=\sum_{j\in S}p_j>0,\qquad
+q_j=\frac{\mathbf1\{j\in S\}p_j}{m_S}.
+$$
+
+A fixed initial predictor gives a normalized conditional distribution `q^0` on S; extend it by zero outside S. Its parameters and predictions are detached. It is a model prediction, not a new fine label. In the implemented three-class case the anchor is evaluated only for coarse-source observations with S={I,O}; health remains ordinary singleton supervision. The notation-level generalization does not add support for arbitrary partitions to the code.
+
+Use lambda >= 0, fixed finite teacher logits, positive score temperature when present, and natural logarithms. All logarithm arguments on S are positive; zero terms outside S are omitted. The probabilities, losses and lambda are dimensionless, with loss reported in nats. If logits are defined as raw similarities divided by tau, gradients with respect to those similarities acquire the factor 1/tau. None of these quantities is a physical vibration amplitude or inference time.
+
+### 5.2 Exact loss interpretation and gradient
+
+For an eligible observation, the implemented coarse objective is
+
+$$
+\ell_\lambda=-\log m_S+\lambda D_{\mathrm{KL}}(q^0\|q).
+$$
+
+Let `CE(q^0,p)=-sum_{j in S}q^0_j log p_j` and `H(q^0)=-sum_{j in S}q^0_j log q^0_j`. Then
+
+$$
+\ell_\lambda=(1-\lambda)(-\log m_S)
++\lambda\operatorname{CE}(q^0,p)-\lambda H(q^0),
+\qquad
+\frac{\partial\ell_\lambda}{\partial z_j}
+=p_j+(\lambda-1)q_j-\lambda q^0_j.
+$$
+
+**Proof.** Substitute `q_j=p_j/m_S` in the conditional KL and use `sum_{j in S}q^0_j=1`. Its expansion is `-H(q^0)+CE(q^0,p)+log m_S`, giving the first identity. For finite softmax logits, `partial(-log m_S)/partial z_j=p_j-q_j`, while `partial CE(q^0,p)/partial z_j=p_j-q^0_j`. Combine these derivatives; the fixed entropy has zero derivative. This proves the gradient for every class, including outside S, where both extended conditional probabilities are zero. QED.
+
+At lambda=0 this is the ordinary event likelihood. At lambda=1 it is exactly full-class soft-target cross-entropy with zero target mass outside S, minus a teacher-dependent constant. For 0<=lambda<=1 it is a convex combination of those *loss terms* up to a constant; this is not a claim that the loss is convex in arbitrary model parameters. For lambda>1 the same algebra holds, but the coefficients are not a convex mixture; the original event-plus-KL expression remains nonnegative. No negative coefficient is a reason to silently cap the existing lambda=3 experiment.
+
+Thus the anchor adds a fixed conditional preference, not observed fine-state information. LwF already uses frozen old predictions as distillation targets; the present conditioning on a known event and replay protocol must be distinguished from that earlier setup, not advertised as a new distillation principle. Libra's probability-ratio property concerns its stated parameterization; it is not a guarantee for this KL objective or an arbitrary semantic head.
+
+At the common initialization, `q=q^0`, so the KL derivative is zero. With the same ridge, data, weights, optimizer state and arithmetic, the first parameter update equals the lambda=0 update for every lambda. Subsequent updates need not coincide. Selecting step zero makes the returned predictor the initializer regardless of how later trajectories behaved. This explains what an inactive selected treatment means; it does not explain *why* a particular source criterion selected it, prove algorithm equivalence, or establish that hidden coarse-source fine labels were already learned.
+
+### 5.3 A population counterexample to unconditional benefit
+
+The next statement is an idealized counterexample boundary, not a statistical guarantee for the finite linear experiment. Fix an observation x. Assume the fine and coarse sources share the same conditional state distribution at x, their local objective weights are `w_f>0` and `w_c>=0`, all true and teacher conditional probabilities are positive, and `0<m^*<1` is the true fault-event probability. The student can choose its event mass m and fault conditional q freely. There is no parameter penalty or cross-input tying in this pointwise calculation. The teacher `q^0` is a fixed possibly inaccurate finite-data predictor; it is not assumed to be the population-optimal fine classifier.
+
+The pointwise population objective decomposes as
+
+$$
+\mathcal R_\lambda(m,q)
+=(w_f+w_c)\operatorname{CE}(\operatorname{Bern}(m^*),\operatorname{Bern}(m))
++m^*\left[w_f\operatorname{CE}(q^*,q)+w_c\lambda D_{\mathrm{KL}}(q^0\|q)\right].
+$$
+
+Its unique interior minimizer is
+
+$$
+m_\lambda=m^*,\qquad
+q_\lambda=\frac{w_f q^*+w_c\lambda q^0}{w_f+w_c\lambda}.
+$$
+
+**Proof.** The Bernoulli cross-entropy is uniquely minimized at the true event probability. In the conditional term, collect the coefficients of `-log q_j`; they are `w_f q^*_j+w_c lambda q^0_j` and sum to `w_f+w_c lambda>0`. Therefore that term is a positive multiple of cross-entropy with target `q_lambda`, plus a constant. By nonnegativity of KL, its unique minimum is `q=q_lambda`. Both solutions lie in their original open-simplex domains; substitution makes the original stationarity equations zero. QED.
+
+Relative to the unrestricted population solution at lambda=0, the fine-label risk excess is exactly
+
+$$
+R^*(p_\lambda)-R^*(p_0)
+=m^*D_{\mathrm{KL}}(q^*\|q_\lambda).
+$$
+
+It is strictly positive whenever `w_c lambda>0` and `q^0 != q^*`; it is zero when the teacher is correct or the anchor has zero weight. For an explicit interior counterexample, take `w_f=w_c=lambda=1`, `m^*=1/2`, `q^*=(3/4,1/4)` and `q^0=(1/4,3/4)`. Then `q_lambda=(1/2,1/2)` and
+
+$$
+R^*(p_\lambda)-R^*(p_0)=\frac18\log\frac{27}{16}>0.
+$$
+
+This exact analytical quantity is not a simulation score or an industrial effect size. It rules out an unconditional improvement guarantee even without measurement shift. In finite data, regularization may still reduce estimation variance or help optimization; neither the sign nor size of that net effect follows from this population calculation. The current simulation's result is not attributed retrospectively to teacher error.
+
+With `w_c>0`, `lambda -> infinity` gives `q_lambda -> q^0` in this pointwise problem. With no coarse weight, lambda has no effect. If `w_f=0` and `w_c lambda>0`, the conditional solution merely copies the teacher; if also `w_c lambda=0`, the conditional is unidentified. These zero-weight branches must not be lost by cancelling the denominator. A source with only singleton annotations supplies ordinary CE and no nontrivial conditional penalty. If S contains every class, event likelihood supplies no label information and the penalty only matches the teacher.
+
+Finite-sample large-lambda fitting does not establish global functional freezing. For example, a linear I/O logit difference can change by `c v_2` while all eligible training features have `v_2=0`. Training conditional KL then stays exactly zero for any c, but a new input with `v_2=1` changes its I/O log-odds by c. The hard residual construction in Section 1.2 instead preserves the ratio algebraically at every input. Those two statements must not be interchanged.
+
+### 5.4 Minimal algorithm and implementation constraints
+
+Keep the current measured-feature extractor, one direct head and the detached fine-source anchor. No projector, teacher refresh, new semantic module or extra inference branch is justified by this derivation. The ordinary event update remains the reference, and a nonzero conditional penalty remains a candidate regularizer rather than a demonstrated contribution.
+
+The existing implementation follows this sequence: fit the source-only standardizer and fine head; freeze the teacher; build coarse allowed masks without hidden fine truth; calculate fine CE, coarse event NLL and the eligible conditional KL with their original unit/source weights; optimize only the declared student parameters; select by fine-tuning NLL plus coarse-tuning event NLL, including step zero; return the selected head for direct probability prediction. The source validation criterion does not include the penalty itself or the coarse source's hidden fine labels. Inference needs no teacher evaluation. All algorithmic selections stay source-side.
+
+Use logsumexp for event likelihood and within-S log_softmax for the conditional; do not divide two underflowed class probabilities. Teacher probabilities must remain normalized and detached. An empty S is invalid, singleton S needs no penalty, and eligibility must not be renormalized to silently upweight faulty observations. The current numerical floor in the teacher-log term changes only its finite-precision constant when the teacher is fixed; underflow or loss-value checks must still be disclosed rather than presented as exact symbolic arithmetic.
+
+A same-code zero-penalty control means identical ridge and all other choices. The archived grids contain six event ridge values but only two ridge values crossed with the three anchor strengths. They are not nested candidate sets; including lambda=0 alone does not guarantee that the anchor search can return every event-search winner. Do not retrospectively enlarge the grid or alter saved selections. For a future mechanism comparison, use matched existing ridge settings or explicitly retain the already fitted event winner as a no-extra-fit selection candidate; report that protocol change separately. Candidate-set inclusion can guarantee no worse *selected source criterion*, not lower target risk.
+
+| Necessary object | Simplest alternative | Distinguishing prediction or removal consequence |
+|---|---|---|
+| Verified coarse event likelihood | Exact labels or one declared common coarse task | Exact labels reduce to CE; invalid events invalidate the stated likelihood |
+| Fixed conditional anchor | lambda=0; lambda=1 soft-target CE | Zero is event likelihood; one is the exact distillation control, not a separate new mechanism |
+| Soft preservation | Offset hard residual | Soft acts only through sampled loss; hard preserves all-input ratios but cannot repair their errors |
+| Source-only selection | Prespecified fixed step, reported separately | Step-zero selection provides no incremental deployed treatment; hidden fine error can remain unknown |
+
+### 5.5 Symbolic verification and the first empirical check
+
+The user-specified SymPy skill was read at commit `a1043ef544e3a100c28e70a736b6cf32554d0677`, including its assumptions and core-calculus guidance. The working runtime was Python 3.13.5 and SymPy 1.14.0; no installation, data read, waveform generation, model forward pass, fitting or target reanalysis was performed. Exact checks covered the three-class loss identity, all logit derivatives, the zero initial penalty gradient, the lambda=1 identity, population stationarity by substitution, the open-simplex Hessian expression, boundary limits and the rational counterexample. A first generic-real-symbol ratio-log simplification remained unresolved; the check was corrected to the expanded real-log expression valid on the explicitly stated positive domain, without forced complex-log identities. That check failure did not change a model result.
+
+The preceding proofs, not a successful computer simplification, establish the stated conditions. The symbolic checks do not certify arbitrary neural optimization or generalization. A self-contained record of the exact expressions is supplied with this revision's downloadable `symbolic_checks.py`; SymPy is not made a dependency of the experimental runtime or existing CI.
+
+The first empirical action remains the STATUS source-only information diagnostic on saved `run-sim-002` source inputs, selected heads and virtual-unit truth: separate coarse-event NLL from fault-conditional NLL and error, with one observation weight per declared unit. Hidden fine truth is used by the evaluator only. Near-zero coarse-event NLL is not a substitute for this check. If the source conditional is already learned, stop seeking a preservation gain in that task; if it is wrong, establish whether the error is identifiable from permitted supervision before testing another constraint. This diagnostic has not been run in the present method-only revision. No target-driven simulator revision or restoration of CWRU is authorized.
+
+Relevant prior methods are Zombori et al., JMLR 2024, Section 4.3 and Appendix B, and Li and Hoiem, *Learning without Forgetting*, TPAMI 2018, Section 3 of the accessible author version (arXiv:1606.09282v3). The references already exist in the manuscript bibliography. These elementary identities and the constructed boundary constrain the candidate; they are not claimed as a new general distillation or coarse-label theorem.
+
 ## References
 
 1. McFadden and Smith. Model for the vibration produced by a single point defect in a rolling element bearing. JSV 96(1),69–82,1984. DOI:10.1016/0022-460X(84)90595-9. Original publisher abstract inspected: https://www.sciencedirect.com/science/article/abs/pii/0022460X84905959.
 2. He, Ding and Lin. Fault feature extraction of rolling element bearings using sparse representation. JSV 366,514–527,2016. Original publisher methods/simulation excerpts inspected: https://www.sciencedirect.com/science/article/abs/pii/S0022460X15010068. Numerical parameters here are declared choices, not attributed to the paper.
 3. Zombori et al. Towards Unbiased Exploration in Partial Label Learning. JMLR25(412),1–56,2024. https://jmlr.org/papers/v25/23-0868.html. Relevant loss text and official `log_prp_Loss` source were inspected; allowed-count scaling and detached weighting are retained.
+4. Li and Hoiem. Learning without Forgetting. TPAMI, 2018. Accessible author version: https://arxiv.org/abs/1606.09282v3, Section 3. Frozen prediction targets are prior work; this revision does not claim a new distillation principle.
