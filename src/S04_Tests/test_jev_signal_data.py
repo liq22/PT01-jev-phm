@@ -10,9 +10,11 @@ import tempfile
 import textwrap
 import types
 import unittest
+import zipfile
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
+from xml.sax.saxutils import escape
 
 import numpy as np
 import pandas as pd
@@ -28,25 +30,33 @@ class SignalQualificationTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
         self.unit = "Real Inner Ring Damage KI21"
-        # Synthetic table rows test the declared population contract, not a
-        # real population or a claim that this one-unit fixture is eligible.
+        # Synthetic records reuse the approved role assignments to test the
+        # population contract; they provide no G0 or measurement evidence.
+        with (ROOT / "paper/assets/tables/jev_p1_pu_unit_roles.csv").open(newline="") as handle:
+            self.roles = list(csv.DictReader(handle))
         self.rows = []
-        for index in range(2339):
-            source = index < 2319
-            self.rows.append(dict(
-                Id=str(index + 1), Name="RM_027_PU" if source else "RM_007_MFPT",
-                File=f"fixture/record_{index}.mat", unit_id=self.unit if source else "MFPT-fixture",
-                role="train" if source else "external", class_index="1", raw_label="1",
-                sample_rate_hz="64000", channel_index="2", scale_to_g="0.5",
-                physical_source="fixture-only", measurement_source="fixture-only",
-                license_source="fixture-only"))
-        self.frame = pd.DataFrame([dict(Id=int(r["Id"]), Name=r["Name"], File=r["File"],
-            Label=int(r["raw_label"]), Label_Description=r["unit_id"]) for r in self.rows])
+        source_roles = sorted(self.roles, key=lambda row: row["physical_unit"] != self.unit)
+        for role in source_roles:
+            for index in range(int(role["source_record_count"])):
+                self.rows.append(dict(Id=str(len(self.rows) + 1), Name="RM_027_PU",
+                    File=f"fixture/record_{len(self.rows)}.mat", unit_id=role["physical_unit"],
+                    role=role["role"], class_index=role["class_index"], raw_label=role["raw_label"],
+                    sample_rate_hz="64000", channel_index="2", scale_to_g="0.5",
+                    physical_source="fixture-only", measurement_source="fixture-only", license_source="fixture-only"))
+        for raw_label in [0] * 3 + [1] * 10 + [2] * 7:
+            self.rows.append(dict(Id=str(len(self.rows) + 1), Name="RM_007_MFPT",
+                File=f"fixture/record_{len(self.rows)}.mat", unit_id=f"MFPT-fixture-{raw_label}",
+                role="external", class_index=str(signal_data.RAW_TO_CANONICAL["RM_007_MFPT"][raw_label]),
+                raw_label=str(raw_label), sample_rate_hz="64000", channel_index="0", scale_to_g="0.5",
+                physical_source="fixture-only", measurement_source="fixture-only", license_source="fixture-only"))
+        descriptions = {0: "baseline", 1: "outer race fault", 2: "inner race fault"}
+        self.frame = pd.DataFrame([dict(Id=int(r["Id"]), Dataset_id=20 if r["Name"] == "RM_027_PU" else 7,
+            Name=r["Name"], File=r["File"], Label=int(float(r["raw_label"])),
+            Label_Description=r["unit_id"] if r["Name"] == "RM_027_PU" else descriptions[int(r["raw_label"])],
+            Sample_rate=64000, Channel=3 if r["Name"] == "RM_027_PU" else 1) for r in self.rows])
         self.config = dict(qualification_file="qualification.csv", pu_roles="roles.csv",
                            root=str(self.root), metadata="metadata_pu_mfpt.csv")
-        self.write_csv("roles.csv", [dict(physical_unit=self.unit, role="train", class_index="1",
-                                        raw_label="1", source_record_count="2319")])
-        self.reader = types.ModuleType("src.data_factory.data_utils")
+        self.write_csv("roles.csv", self.roles)
 
     def write_csv(self, name, rows):
         with (self.root / name).open("w", encoding="utf-8", newline="") as handle:
@@ -56,30 +66,70 @@ class SignalQualificationTests(unittest.TestCase):
 
     def qualify(self):
         self.write_csv("qualification.csv", self.rows)
-        with patch.dict(sys.modules, {"src.data_factory.data_utils": self.reader}):
-            with patch.object(self.reader, "read_metadata_table", create=True,
-                              return_value=self.frame) as native_reader:
-                result = signal_data.qualify_records(self.root, self.config)
-                native_reader.assert_called_once_with(self.root / "metadata_pu_mfpt.csv")
-                return result
+        self.frame.to_csv(self.root / "metadata_pu_mfpt.csv", index=False)
+        return signal_data.qualify_records(self.root, self.config)
 
-    def test_only_preprojected_population_reaches_upstream_reader(self):
+    def write_workbook(self, *, frame=None, excluded_rows=()):
+        """Minimal inline-string worksheet fixture, never a real workbook."""
+        frame = self.frame if frame is None else frame
+        def row_xml(index, values):
+            cells = []
+            for column, value in enumerate(values):
+                reference = f"{chr(65 + column)}{index}"
+                if isinstance(value, str):
+                    cells.append(f'<c r="{reference}" t="inlineStr"><is><t>{escape(value)}</t></is></c>')
+                elif value is not None:
+                    cells.append(f'<c r="{reference}" t="n"><v>{value}</v></c>')
+            return f'<row r="{index}">' + "".join(cells) + '</row>'
+        parts = [row_xml(1, list(frame.columns)), *excluded_rows]
+        parts.extend(row_xml(index + 100, values) for index, values in enumerate(frame.itertuples(index=False, name=None)))
+        path = self.root / "metadata.xlsx"
+        with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as workbook:
+            workbook.writestr("xl/worksheets/sheet1.xml",
+                '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>'
+                + "".join(parts) + '</sheetData></worksheet>')
+        self.config["metadata"] = path.name
+        return path
+
+    def test_preprojected_csv_retains_exact_approved_population(self):
         selected, bindings = self.qualify()
         self.assertEqual(len(selected), 2339)
         self.assertEqual(bindings["1"]["channel_index"], 2)
         self.assertEqual(bindings["1"]["scale_to_g"], 0.5)
 
-    def test_shared_workbook_is_rejected_before_native_read(self):
-        self.config["metadata"] = "metadata.xlsx"
+    def test_workbook_decodes_only_header_and_allowlisted_name_cells(self):
+        # This malformed excluded row would break any whole-sheet XML reader.
+        # Name is column C; an approved name in a different cell must not route it.
+        excluded = ('<row r="2"><c r="C2" t="inlineStr"><is><t>EXCLUDED_FIXTURE</t></is></c>'
+                    '<c r="D2" t="inlineStr"><is><t>RM_027_PU</t></is></c><broken & invalid></row>')
+        path = self.write_workbook(excluded_rows=(excluded,))
+        original = path.read_bytes()
+        with patch.object(signal_data.ET, "fromstring", wraps=signal_data.ET.fromstring) as decode:
+            with patch.object(pd, "read_excel", side_effect=AssertionError("Whole workbook forbidden")):
+                selected = signal_data.read_approved_metadata(self.root, self.config)
+        self.assertEqual(len(selected), 2339)
+        self.assertEqual(decode.call_count, 2340)
+        self.assertTrue(all(b"EXCLUDED_FIXTURE" not in call.args[0] for call in decode.call_args_list))
+        self.assertEqual(path.read_bytes(), original)
+
+    def test_workbook_can_qualify_correct_mapping_without_upstream_initialization(self):
+        self.write_workbook()
         self.write_csv("qualification.csv", self.rows)
-        with patch.dict(sys.modules, {"src.data_factory.data_utils": self.reader}):
-            with patch.object(self.reader, "read_metadata_table", create=True) as native_reader:
-                with self.assertRaisesRegex(ValueError, "shared workbook"):
-                    signal_data.qualify_records(self.root, self.config)
-                native_reader.assert_not_called()
+        selected, binding = signal_data.qualify_records(self.root, self.config)
+        self.assertEqual(len(selected), 2339)
+        self.assertEqual(binding["2323"]["raw_label"], "1")
+        self.assertEqual(binding["2323"]["class_index"], 2)
 
     def test_mixed_bearing_cannot_masquerade_as_fixed_single_ring_unit(self):
         self.frame.loc[0, "Label_Description"] = "Real Inner Ring Damage KB23"
+        with self.assertRaisesRegex(ValueError, "Native P1 population"):
+            self.qualify()
+
+    def test_approved_pu_units_cannot_swap_record_identity(self):
+        other = next(index for index, row in self.frame.iterrows()
+                     if row["Name"] == "RM_027_PU" and row["Label"] == 1 and row["Label_Description"] != self.unit)
+        self.frame.loc[0, "Label_Description"], self.frame.loc[other, "Label_Description"] = (
+            self.frame.loc[other, "Label_Description"], self.frame.loc[0, "Label_Description"])
         with self.assertRaisesRegex(ValueError, "Native PU physical identity"):
             self.qualify()
 
@@ -91,15 +141,53 @@ class SignalQualificationTests(unittest.TestCase):
     def test_raw_label_cannot_disagree_with_frozen_pu_role(self):
         self.rows[0]["raw_label"] = "2"
         self.frame.loc[0, "Label"] = 2
-        with self.assertRaisesRegex(ValueError, "approved PU role map"):
+        with self.assertRaisesRegex(ValueError, "raw-to-canonical label mapping"):
             self.qualify()
 
     def test_extraneous_native_rows_are_not_silently_filtered(self):
         extra = self.frame.iloc[[0]].copy()
         extra["Id"] = 9000
         self.frame = pd.concat([self.frame, extra], ignore_index=True)
-        with self.assertRaisesRegex(ValueError, "different Id populations"):
+        with self.assertRaisesRegex(ValueError, "Native P1 population"):
             self.qualify()
+
+    def test_native_duplicate_record_id_stops_projection(self):
+        self.frame.loc[1, "Id"] = self.frame.loc[0, "Id"]
+        with self.assertRaisesRegex(ValueError, "missing or ambiguous"):
+            self.qualify()
+
+    def test_integer_id_conversion_cannot_hide_duplicate_identity(self):
+        self.frame.loc[1, "Id"] = "0001"
+        self.write_workbook()
+        with self.assertRaisesRegex(ValueError, "ambiguous after integer conversion"):
+            signal_data.read_approved_metadata(self.root, self.config)
+
+    def test_blank_original_file_is_not_a_qualified_correspondence(self):
+        self.frame.loc[0, "File"] = "   "
+        with self.assertRaisesRegex(ValueError, "original-file correspondence"):
+            self.qualify()
+
+    def test_mfpt_outer_and_inner_labels_cannot_use_pu_number_meanings(self):
+        self.rows[2322]["class_index"] = "1"  # MFPT raw 1 is outer, canonical 2.
+        with self.assertRaisesRegex(ValueError, "raw-to-canonical label mapping"):
+            self.qualify()
+
+    def test_mfpt_native_description_conflict_is_not_relabelled(self):
+        for description in ("inner race fault", "outerracefault"):
+            with self.subTest(description=description):
+                self.frame.loc[2322, "Label_Description"] = description
+                with self.assertRaisesRegex(ValueError, "MFPT native label descriptions"):
+                    self.qualify()
+
+    def test_summary_keeps_native_counts_separate_from_physical_qualification(self):
+        selected, _ = self.qualify()
+        summary = signal_data.summarize_native_metadata(selected)
+        mfpt = summary["datasets"]["RM_007_MFPT"]
+        self.assertEqual(mfpt["raw_to_canonical"], {"0": 0, "1": 2, "2": 1})
+        self.assertEqual(mfpt["canonical_label_counts"], {"0": 3, "2": 10, "1": 7})
+        self.assertEqual(mfpt["approved_physical_unit_count"], "UNKNOWN")
+        self.assertEqual(summary["datasets"]["RM_027_PU"]["approved_physical_unit_count"], 29)
+        self.assertIn("not established", summary["basis"])
 
     def test_unknown_g0_and_unbound_g0_stop(self):
         self.config["qualification_file"] = None
@@ -118,11 +206,10 @@ class SignalQualificationTests(unittest.TestCase):
             with self.subTest(field=field, value=bad_value):
                 self.rows[0] = dict(first, **{field: bad_value})
                 self.write_csv("qualification.csv", self.rows)
-                with patch.dict(sys.modules, {"src.data_factory.data_utils": self.reader}):
-                    with patch.object(self.reader, "read_metadata_table", create=True) as native_reader:
-                        with self.assertRaises(ValueError):
-                            signal_data.qualify_records(self.root, self.config)
-                        native_reader.assert_not_called()
+                with patch.object(pd, "read_csv") as native_reader:
+                    with self.assertRaises(ValueError):
+                        signal_data.qualify_records(self.root, self.config)
+                    native_reader.assert_not_called()
 
     def test_target_cannot_be_assigned_a_source_role(self):
         self.rows[-1]["role"] = "train"

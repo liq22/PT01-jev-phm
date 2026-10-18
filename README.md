@@ -18,10 +18,12 @@ The integrated P1 implementation uses the existing `run_jev_study.py semantic`
 entry and six configurations under `src/S02_Configs/real/`. See
 [execution and qualification requirements](README_DELIVERY.md) and the
 [approved protocol](paper/experiments/jev_goal.md#approved-p1-continuation-pu-single-ring-source-to-mfpt-external-target).
-Its current real-input check is **BLOCKED**, with zero new efficacy fits:
-the approved-only metadata projection and documented physical-unit/measurement
-mapping have not been bound. Unit tests and native-adapter numerical fixtures do
-not establish real-data acceptance. CWRU and physical GPU 2 remain excluded.
+Its input is the existing `metadata.xlsx`; the check extracts only approved
+PU/MFPT rows and explicitly reconciles their different integer labels. Real-data
+admission remains **BLOCKED**, with zero new efficacy fits, until physical-unit
+and measurement provenance is established. Unit tests and native-adapter
+numerical fixtures do not establish real-data acceptance. CWRU and physical GPU 2
+remain excluded.
 
 ### Shared observations and probability heads
 

@@ -1,12 +1,12 @@
 # Paper Status
 
-核验日期：2026-10-17。续接基线：`dev@25ec67810a864fef9ea3a4b9b6f91e8a6e1131b7`。工作分支：`work/jev-p1-integration-20261017`。唯一正文 `paper/draft/main.md`；原实现 `jev_phm.py`、`jev_simulation.py` 和 PHMFactory pin 不改。P1 接入仍使用 `run_jev_study.py`，新增 `semantic` 操作，不替换先导实验。
+核验日期：2026-10-18。续接基线：`dev@0b2328ce7707cf55dbc5bc81d407554a8ed2f8e7`（PR #19 已合并）。工作分支：`work/jev-native-metadata-20261018`。唯一正文 `paper/draft/main.md`；原实现 `jev_phm.py`、`jev_simulation.py` 和 PHMFactory pin 不改。P1 使用既有 `run_jev_study.py semantic`，不替换先导实验。
 
 **作者已确认 P1：PU 单环部件子群＋MFPT 已知标签试验台记录；24 GPU 小时＋12 CPU 墙钟小时；最多8 CPU线程、一个GPU任务。**这是对上一条完整协议及图表模板的“确认并继续”，不再请求同一授权。执行以[既有 Goal 的 Approved P1 continuation 段](experiments/jev_goal.md#approved-p1-continuation-pu-single-ring-source-to-mfpt-external-target)为准；授权不等于数据或实现已准入。
 
 **CWRU：EXCLUDED BY USER；物理 GPU 2 禁用。**不读取该数据或使用明确以其预训练的工业权重；不恢复历史资格任务。旧PU/仿真记录和未合并PR #16保持原状。
 
-前次交接在另一容器完成 PU 角色计数与 MFPT 发布材料核验，其未挂载数据／GPU及网络失败记录保留为历史环境观察。本机现可定位 PU/MFPT H5、指定权重目录、固定 PHMFactory 和项目依赖；仅检查存在性不证明测量链或科学准入。真实 P1 预检返回退出码 2：`data.qualification_file` 未绑定，且 `metadata_pu_mfpt.csv` 不存在。未读取共享工作簿、任何真实 H5／波形、目标分数或模型权重；0 次模型／CUDA调用、0/46 拟合。
+前次交接在另一容器完成 PU 角色计数与 MFPT 发布材料核验，其未挂载数据／GPU及网络失败记录保留为历史环境观察。本机现可定位 PU/MFPT H5、指定权重目录、固定 PHMFactory 和项目依赖。17日预检在缺资格映射及另行提供的 CSV 处停止；用户指出原始信息已在 `metadata.xlsx` 中。本轮已取消人为 CSV 前置，接入原生工作簿的获准行投影，并显式核对跨库标签顺序。元数据可读不证明物理试件或测量链准入；`data.qualification_file` 仍未绑定。没有打开真实 H5／波形、目标分数或模型权重；0 次模型／CUDA调用、0/46 拟合。
 
 历史 CWRU 检查只保留为 **EXCLUDED BY USER** 的会话历史，不作为 P1 结果、选择依据或待恢复动作；本轮没有重新读取或分析 CWRU。
 
@@ -28,7 +28,7 @@
 | Claim与条件 | 本轮增量 | 理论／证明 | 产物 | 有效性／推断 | 正文及缺口 |
 |---|---|---|---|---|---|
 | C4的PU人口与分组前置 | 由候选29轴承落实为固定角色与真实索引计数 | 复用已核验损伤位置，不新造理论 | [P1 PU roles](assets/tables/jev_p1_pu_unit_roles.csv)；[Goal](experiments/jev_goal.md) | 元数据变换COMPLETED/VALID；H5与物理时钟UNVERIFIED | 旧结果不改；新人口不声称全波形已核验 |
-| C4的MFPT外部准入 | 发布许可由UNKNOWN缩小到指定发行版已知；文件数核实 | 文件不等于物理单元 | Goal中的发布来源、tree与未决项 | PARTIAL；物理unit与本地payload仍UNKNOWN | 不执行设备等权最终测试或伪造bootstrap |
+| C4的MFPT外部准入 | 原生表中20条已知标签记录可定位；已发现并固定与PU相反的内／外圈整数编码 | 文件不等于物理单元 | Goal中的发布来源；原生表的获准行；现有G0入口 | 元数据PARTIAL；物理unit与本地payload仍UNKNOWN | 不执行设备等权最终测试或伪造bootstrap |
 | C4框架与语义增量；C5错误—时延 | 作者批准独立P1执行范围，不是效果证据 | 未承诺一般优势 | 本轮拟合0/46；没有预测／计时 | UNTESTED | main §4设计与framework图保持；结果数值TBD |
 | C4原生标注／固定投影边界 | 无新增证明，历史结论保留 | [映射、条件冻结与有效秩证明](method/native_annotation_compatibility.md) | 既有PU反例 | 既有范围PROVED/COUNTEREXAMPLE；本轮未重验 | 禁用决定覆盖方法补充中的旧CWRU待访问语句 |
 | 已完成模拟条件保持 | 本轮没有新增或混合实验 | [模拟协议](experiments/jev_simulation_poc.md) | `outputs/run-sim-002`；[CSV](assets/tables/jev_simulation_poc.csv) | 历史VALID；选中lambda=0/step=0，增量INCONCLUSIVE | 低粗事件损失不证明隐藏细类已学会；不将此当P1结果 |
@@ -51,9 +51,14 @@ P1总授权：40次神经拟合＋6次RF；24GPUh/12CPU墙钟h上限；最多8�
 - **授权：**从作者待确认变为P1及预算已确认；这是执行条件，不是方法效果。
 - **已执行元数据动作：**仅取版本化PU role表的32条primary行；使用既有公开部件映射排除新人口中的KB23/KB24/KB27，保留历史记录；标准库Random(20261017)，H/I/O顺序、类内bearing code排序后shuffle。生成29行固定角色。train/tune/cal/test记录数为1279/400/240/400；KA08的79记录原样保留。
 - **MFPT来源：**读取MathWorks README、license与完整非截断tree（20个MAT条目，未取波形）。许可文本明确CC BY-NC-SA 4.0；原始数据所有者与重组范围可定位。publisher train/test目录全部作为P1外部目标，不继承示例训练权限。未找到物理试件join；不把20文件计成20轴承。
-- **本次实现与真实预检：**已接入六配置、共同拟合、原生注册适配器、全部选定模型的源侧验收、冻结校准、目标访问门槛及保存结果统计／图表链。PU 原生轴承身份须逐记录与资格映射和固定角色核对；共享工作簿禁止整表读取后过滤。G0 仍缺获准的 PU/MFPT-only 元数据投影，以及原文件／物理试件／时钟／通道／幅值依据，`qualification_file` 保持 null。预检日志为 `src/outputs/jev-phm/g0-20261017-integration/preflight.txt`，退出码 2，墙钟 0.79 秒；没有以测试 fixture 代替真实输入。
+- **17日实现与预检保留：**已接入六配置、共同拟合、原生注册适配器、全部选定模型的源侧验收、冻结校准、目标访问门槛及保存结果统计／图表链。当时在未绑定资格映射及缺独立CSV处停止；日志为 `src/outputs/jev-phm/g0-20261017-integration/preflight.txt`，退出码 2，墙钟 0.79 秒。该预检未读取原表，不是表中缺少记录的证据。
+- **18日原生元数据修正：**`data.metadata` 改为现有 `metadata.xlsx`。按Name路由worksheet原始行，只解码表头和PU/MFPT行，再取固定P1人口；不把混合工作簿整表读入后过滤。原始表和H5不改，未解析排除来源记录。PU原始0/1/2表示H/I/O，MFPT原始0/1/2表示H/O/I；资格映射须分别对应共享索引0/1/2及0/2/1。此差异在目标模型访问前固定，不是根据模型表现重标注。
+- **18日真实CPU结果：**现有CLI已从原生表取得2,339条获准记录。PU为29单元／2,319记录（H/I/O记录数480/880/959），名义64,000Hz、3通道；MFPT为20记录（H/I/O为3/7/10），名义97,656Hz的6条及48,828Hz的14条、均标注1通道。MFPT描述列只有`baseline`、`outer race fault`、`inner race fault`，未提供物理试件标识。首轮描述校验误将原生文本去空格而退出2；按实际原表修正后独立重跑，报告元数据事实，再因资格映射未绑定退出2。两次均耗时2.05秒，首轮及修复日志分别保留在 `src/outputs/jev-phm/g0-20261018-native-metadata/check.txt`、`check-corrected.txt`，时间见同名`*-time.txt`。没有创建实验run目录，未打开H5或模型；这是资格结果，不是性能结果。
+- **资格边界：**表中的Id、File、Domain_id、标称采样率及通道数量不能代替物理试件身份、重复采集关系或幅值单位。已查本地MFPT随附包络分析PDF未给出逐记录试件join；这不证明其他原始资料不存在。未知项仍阻止G1，不按文件或工况编造独立设备。
 - **前次 G0 验证保留：**实际检查原人口32/2559、排除3/240、保留29/2319、类计数6/11/12、角色16/5/3/5、无重复物理单元及完备记账。该次只生成 metadata 角色，不是神经模型 smoke；本次实现检查另行报告，不能倒填为前次已执行。
-- **本次软件检查：**项目固定环境实际运行 163 项单元测试全部通过，包含 64 项新增模型／数据／执行／统计测试；固定 PHMFactory 注册适配器的数值兼容测试在本机实际运行，未用真实波形。技能、wrapper、案例定义和 Core backend 检查通过；Shell 语法、CLI help 与差异检查通过。项目验证仍 FAILED：7 项原有 evidence ID／枚举错误在未修改的 `25ec6781` 提取副本上逐项复现，无新增项目验证错误。没有放宽校验器或改写科学证据等级来消除失败。最终 PR／远端 CI 状态以实际记录为准，不由本地测试推断。
+- **17日软件检查保留：**项目固定环境实际运行 163 项单元测试全部通过，包含 64 项新增模型／数据／执行／统计测试；固定 PHMFactory 注册适配器的数值兼容测试在本机实际运行，未用真实波形。技能、wrapper、案例定义和 Core backend 检查通过；Shell 语法、CLI help 与差异检查通过。项目验证仍 FAILED：7 项原有 evidence ID／枚举错误在未修改的 `25ec6781` 提取副本上逐项复现，没有放宽校验器或改写科学证据等级来消除失败。
+- **18日最终精简检查：**固定环境完整单元测试176项通过；技能定义和案例定义检查通过；Shell语法及`git diff --check`通过。项目验证仍退出1，同7项历史ID／枚举错误与保留的未修改基线输出逐条排序比较一致，无新增该类错误。输出分别为本轮G0目录下`unittest.txt`、`validate-project.txt`、`validate-skills.txt`、`validate-skill-evals.txt`。不把定义检查或软件测试当作真实数据准入、行为测试或远端CI通过。
+- **18日公开入口：**提交实现后实际执行`bash run_all.sh --check`，2.18秒输出同一2,339条元数据事实后在未绑定物理资格处退出2；输出`src/outputs/jev-phm/g0-20261018-native-metadata/shell-check.txt`及`shell-check-time.txt`。没有打开H5、权重或启动GPU任务。
 - **公开 Shell 入口验收：**实现提交后实际执行 `bash run_all.sh --check`，同样以退出码 2 在 G0 停止，耗时 0.94 秒；日志 `src/outputs/jev-phm/g0-20261017-integration/shell-preflight.txt`。两次 G0 预检共 1.73 秒，不是全部开发／检查耗时。没有因此启动任何模型、GPU、目标读取或拟合。
 - **集中 PR 复查：**PR #19 自动评审指出恢复检查仍引用旧图名，导致完成的运行重复汇总并消耗 CPU 预算。已改为实际三组 SVG/PDF 的完整输出检查，并新增完成恢复／缺失 PDF 两项行为测试。只重查受影响的执行测试：18 项通过，Shell 语法与 diff 检查通过；未重复全仓测试或扩展研究实验。
 - **未完成动作保留：**run-sim-002保存源侧信息诊断未完成；现有挂载包是另一个sim-20261017-001，不替代它。该动作在恢复条件保持子主张前仍必要，但不阻止作者已批准的无保持项框架P1先执行G0。
@@ -61,7 +66,7 @@ P1总授权：40次神经拟合＋6次RF；24GPUh/12CPU墙钟h上限；最多8�
 ## E. 唯一下一步
 
 - **未决问题／原因：**能否在真实数据上把PU/MFPT原文件、处理Id、振动通道、时间/幅值单位与物理试件一一对应，从而准入已批准P1？
-- **主动作／接续入口：**补齐已有 G0 的 PU/MFPT-only `metadata_pu_mfpt.csv` 及有真实依据的资格 CSV，再绑定 `src/S02_Configs/real/common.yaml`。文件来源是当前原生元数据及测量链的获准投影，不能由文件名编造设备或读取排除来源后自行补映射。现有命令 `bash run_all.sh --check` 已接入；完整调用、字段及停止行为见 [接入说明](../README_DELIVERY.md)。上游读取／注册／划分接口与 pin 保持，MFPT 模型结果仍封存。
+- **主动作／接续入口：**为已定位的MFPT 20条原生记录取得物理试件／重复采集对应及测量链依据，补齐同一个 G0 资格映射，再绑定 `src/S02_Configs/real/common.yaml`。元数据直接来自现有 `metadata.xlsx`，不再要求用户另行准备原始CSV。现有 `bash run_all.sh --check` 先报告获准元数据事实，再判定物理资格；完整字段及停止行为见 [接入说明](../README_DELIVERY.md)。上游读取／注册／划分接口与 pin 保持，MFPT 模型结果仍封存。
 - **资源／授权：**同一P1授权继续有效；G0每来源CPU只读最多30分钟，0训练、0模型、0付费；不读CWRU。恢复数据访问后不重复确认已批准人口与预算。
 - **验收：**本地 Id／原文件／原生 PU 物理身份与固定人口及角色一致；两来源通道、真实时间与幅值有依据；MFPT 独立试件／重复记录关系可定位。记录映射和角色内容改变时拒绝恢复。先源侧 smoke、拟合、全部 checkpoint 重载验收及校准冻结，后外部预测；未确认的字段不能靠文件或窗口替代。
 - **不同结果：**全部成立才进入G1真实语义接口验收及既定矩阵；只有少量已确认试件则严格限于固定档案，区间不可估时NA；unit或测量链仍不明就继续BLOCKED，不改成另一个统计问题或数据源。

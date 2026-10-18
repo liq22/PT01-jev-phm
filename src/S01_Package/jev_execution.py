@@ -156,7 +156,7 @@ def check_inputs(cfg, root, *, gpu=False):
     if cfg["data"]["qualification_file"]:
         paths.append(configured_path(root,cfg["data"]["qualification_file"]))
     else:
-        issues.append("data.qualification_file is unbound: physical units, record correspondence, clock/channel/scale need G0")
+        issues.append(_missing_qualification())
     for p in paths:
         if not p.is_file(): issues.append(f"Missing required input: {p}")
     factory=root/cfg["runtime"]["factory"]
@@ -184,20 +184,31 @@ def _csv_contents(path):
         return {"columns": reader.fieldnames, "rows": list(reader)}
 
 
+def _missing_qualification():
+    return ("data.qualification_file is unbound: original-record-to-physical-unit correspondence "
+            "(MFPT specimens and repeated acquisitions), and documented signal channel/sampling-clock/scale provenance remain "
+            "unverified. Native metadata availability does not establish scientific qualification")
+
+
+def _metadata_contents(frame):
+    """Keep only the approved native rows actually consumed, with missing values as null."""
+    return {"columns": list(frame.columns),
+            "rows": frame.astype(object).where(frame.notna(), None).to_dict(orient="records")}
+
+
 def _study_contract(cfg, root):
     qualification = cfg["data"]["qualification_file"]
     if not qualification:
         raise ValueError("A completed G0 record map must be bound before study preparation")
-    metadata = Path(cfg["data"]["root"]) / cfg["data"]["metadata"]
-    if metadata.suffix.lower() != ".csv":
-        raise ValueError("This study requires the approved PU/MFPT-only metadata CSV")
+    from jev_signal_data import read_approved_metadata
+    frame = read_approved_metadata(root, cfg["data"])
     references = {
         "qualification": configured_path(root, qualification),
         "pu_roles": configured_path(root, cfg["data"]["pu_roles"]),
-        "metadata": metadata,
     }
     return {**{key: cfg[key] for key in ("runtime", "data", "signal", "evaluation", "family_configs")},
-            "input_contents": {name: _csv_contents(path) for name, path in references.items()}}
+            "input_contents": {**{name: _csv_contents(path) for name, path in references.items()},
+                               "metadata": _metadata_contents(frame)}}
 
 
 def bind_study(cfg, run, root):
@@ -209,7 +220,7 @@ def bind_study(cfg, run, root):
             raise ValueError("Run input contract changed; use a prospectively declared new study")
     else:
         with path.open("x", encoding="utf-8") as stream:
-            json.dump(contract, stream, indent=2)
+            json.dump(contract, stream, indent=2, allow_nan=False)
 
 
 def _check_bound_study(cfg, root, run):
@@ -386,14 +397,23 @@ def dispatch(args,root,upstream):
     root=Path(root);cfg=read_config(args.config.resolve());run=args.run_root.resolve()
     validate_matrix(cfg, root)
     gpu=args.stage in {"smoke", "verify-source"} or (args.stage in {"fit-candidate","infer","timing"} and cfg["model"]["kind"]!="rf")
-    check_inputs(cfg,root,gpu=False)
     if args.stage=="check":
+        from jev_signal_data import read_approved_metadata, summarize_native_metadata, qualify_records
+        frame = read_approved_metadata(root, cfg["data"])
+        print(json.dumps({"status": "native_metadata_observed",
+                          "observations": summarize_native_metadata(frame),
+                          "scientific_qualification": "UNVERIFIED",
+                          "scope": "Approved native metadata only; no waveform or model access and no physical-unit or measurement qualification"},
+                         indent=2, allow_nan=False), flush=True)
+        if not cfg["data"]["qualification_file"]:
+            raise RuntimeError("BLOCKED:\n" + _missing_qualification())
+        check_inputs(cfg,root,gpu=False)
         upstream()
-        from jev_signal_data import qualify_records
         frame,records=qualify_records(root,cfg["data"])
         print(json.dumps({"status":"metadata_contract_bound","records":len(records),
                           "scope":"Does not authenticate the physical source documents or run a model"},indent=2))
         return
+    check_inputs(cfg,root,gpu=False)
     upstream()
     device=bind_gpu(cfg["runtime"]) if gpu else None
     if args.stage=="prepare":

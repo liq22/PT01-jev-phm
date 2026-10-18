@@ -187,11 +187,16 @@ signal comparator is MobileNet1D (width multiplier 0.5, dropout 0.2); the semant
 first instance uses the already pinned local Qwen3-0.6B snapshot. These are
 implementation bindings, not measured baseline qualification or model benefits.
 
-The native data adapter requires an already approved PU/MFPT-only metadata CSV,
-`metadata_pu_mfpt.csv`, plus the existing G0 qualification map. It does not read
-the shared workbook and then filter. Qualification must establish native PU
-physical identity for every selected record, not only counts and labels. The
-map and role/metadata contents are frozen in the consumed run contract. The
+The original 17 October implementation required a separately supplied
+PU/MFPT-only metadata CSV. On 18 October this artificial input requirement was
+removed: the native `metadata.xlsx` is the source. A bounded worksheet stream
+decodes only the header and PU/MFPT rows, then selects the fixed approved
+population; it never loads the mixed workbook as a full table. A preprojected
+CSV remains supported. The G0 qualification map must establish native PU
+physical identity for every selected record, not only counts and labels. PU
+uses raw 0/1/2 for H/I/O, whereas MFPT uses raw 0/1/2 for H/O/I; the latter must
+map to shared indices 0/2/1. The map and selected role/metadata contents are
+frozen in the consumed run contract. The
 PHMFactory pin, reader, grouped partition and sequential window implementation
 remain upstream; caches are independent copies. Per-record resampled lengths,
 retained intervals, tail duration and actual transformation time are saved.
@@ -236,3 +241,16 @@ H5 signal, target score, pretrained forward or CUDA job was read/run. G0 remains
 BLOCKED and efficacy fitting remains **0/46**. Code fixtures and the native
 adapter numerical compatibility test do not replace G0. The next action is the
 same missing record/specimen/measurement binding, not another dataset or plan.
+
+On 18 October, the corrected native-workbook check actually recovered the fixed
+2,339-row P1 population: PU H/I/O counts 480/880/959 across 29 units; MFPT
+H/I/O counts 3/7/10 across 20 records, with physical specimen count UNKNOWN.
+MFPT nominal rates are 97,656 Hz (six records) and 48,828 Hz (fourteen); all
+declare one channel. These are metadata facts, not verified acquisition units.
+The first real check exposed an incorrect space-free description literal; the
+expected native strings were corrected to `outer race fault` and
+`inner race fault`, preserving that failed attempt. The separate corrected run
+reported metadata and then stopped at the missing qualification map. Both runs
+returned exit 2 and took 2.05 seconds each, with separate outputs under
+`src/outputs/jev-phm/g0-20261018-native-metadata/`. No waveform, model, GPU or
+target outcome was accessed; G0 remains BLOCKED, C4/C5 UNTESTED, and fits 0/46.

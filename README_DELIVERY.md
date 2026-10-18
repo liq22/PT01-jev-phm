@@ -9,9 +9,9 @@ The authority for population, claims and resources is the existing
 CWRU and explicitly CWRU-trained industrial weights are excluded. Physical GPU 2
 is forbidden. No new dataset, backbone or budget is introduced.
 
-## Real input requirement
+## Native metadata and real input requirements
 
-The current input check returned exit code 2 on 17 October 2026:
+The earlier input check returned exit code 2 on 17 October 2026:
 
 ```text
 BLOCKED:
@@ -31,11 +31,24 @@ also returned exit 2 for the same G0 requirements, in 0.94 seconds. Its saved
 output is `shell-preflight.txt` alongside the direct CLI check. Combined G0
 preflight wall time is 1.73 seconds, not total development/checking time.
 
-G0 needs an already authorized **PU/MFPT-only CSV projection**, configured as
-`data.metadata`, and a documented record map configured as
-`data.qualification_file`. The shared Excel workbook is never loaded and then
-filtered. Do not invent this projection or recover missing identities from
-filenames. The map's existing columns are:
+The separately supplied CSV requirement was an implementation error: the native
+metadata already exists in `metadata.xlsx`. `data.metadata` now points to that
+workbook. The check streams worksheet rows, decodes only the header and rows
+whose Name matches PU or MFPT, and selects the already approved population.
+Excluded-source rows are not parsed into records; their H5 and waveforms are not
+opened. This bounded projection does not change the workbook or add a waveform
+reader. A preprojected CSV remains usable, but is not an additional original
+input the user must provide.
+
+The native labels require an explicit conversion to the shared H/I/O order:
+
+| Source | Native labels | Shared class indices |
+|---|---|---|
+| PU | 0 healthy, 1 inner-ring, 2 outer-ring | 0, 1, 2 |
+| MFPT | 0 baseline, 1 outer-race, 2 inner-race | 0, 2, 1 |
+
+The qualification map must agree with both the native descriptions and this
+conversion. It remains configured separately as `data.qualification_file`:
 
 ```text
 Id,Name,File,unit_id,role,class_index,raw_label,sample_rate_hz,channel_index,scale_to_g,physical_source,measurement_source,license_source
@@ -47,8 +60,28 @@ MFPT target records. PU records must match their native physical bearing and
 file. MFPT is entirely external. Its physical specimens and repeated recordings,
 and both sources' real sampling clock, acceleration channel and scale, need
 original evidence; nonempty citation fields alone do not authenticate it.
-Unknown required facts stop admission. The historical PU mixed-bearing
-counterexample and full 32-bearing pilot remain unchanged.
+The workbook supplies record IDs, original paths, fault labels, nominal sampling
+rates and channel counts. These facts do not identify MFPT physical specimens or
+establish repeated-record relationships, acceleration units or the local H5
+measurement chain. Unknown required facts stop admission; no file is promoted to
+a physical unit. The historical PU mixed-bearing counterexample and full
+32-bearing pilot remain unchanged.
+
+On 18 October the real CPU check read **2,339 approved rows** directly from the
+workbook: PU 29 units / 2,319 records (H/I/O: 480/880/959), and MFPT 20 records
+(H/I/O: 3/7/10). MFPT records declare one channel, six at 97,656 Hz and fourteen
+at 48,828 Hz. Its description field supplies categories, not physical specimen
+IDs. The first check failed on an incorrect space-free description literal;
+after correcting it to the observed native text, a separate check reported the
+metadata and stopped on missing physical qualification. Both returned exit 2
+in 2.05 seconds each. Logs are retained separately as `check.txt` and
+`check-corrected.txt` under
+`src/outputs/jev-phm/g0-20261018-native-metadata/`. No H5, model or CUDA execution
+was involved, and no experiment run directory was created.
+After committing the implementation, `bash run_all.sh --check` reproduced the
+same metadata observations and physical-qualification stop (exit 2, 2.18 seconds).
+Its separate outputs are `shell-check.txt` and `shell-check-time.txt` in that
+directory.
 
 ## Commands and execution order
 
@@ -104,7 +137,7 @@ compared on resume, rather than treating unchanged paths as unchanged inputs.
 ## Saved outputs and scientific limits
 
 Local verification used Python 3.10.0, PyTorch 2.6.0, Transformers 4.51.3 and
-the pinned project environment. All 163 repository unit tests passed, including
+the pinned project environment. On 17 October all 163 repository unit tests passed, including
 64 new P1 tests. The native adapter compatibility test used the actual pinned
 PHMFactory with numerical arrays only. Skill, wrapper, case-definition and Core
 backend checks passed. Project validation still fails on seven pre-existing
@@ -116,6 +149,13 @@ The subsequent PR review found a stale figure filename in the resume guard. The
 guard now checks the actual three SVG/PDF pairs; 18 affected execution tests pass,
 including two new complete-resume/missing-PDF cases. The full suite was not
 repeated after this narrow correction.
+
+The 18 October native-metadata change passed the complete **176-test** suite,
+both skill-definition checks, Shell syntax and the diff check. Project validation
+still exits 1 with the same seven evidence-ID/enum findings, compared against the
+preserved unchanged-baseline output; no new project-validator finding appeared.
+The validator and scientific evidence grades were not changed. Current outputs
+are `unittest.txt` and `validate-*.txt` in the 18 October G0 directory above.
 
 The run defaults to `src/outputs/jev-phm/run-real-20261017-001`:
 
