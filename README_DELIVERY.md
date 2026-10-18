@@ -78,6 +78,10 @@ in 2.05 seconds each. Logs are retained separately as `check.txt` and
 `check-corrected.txt` under
 `src/outputs/jev-phm/g0-20261018-native-metadata/`. No H5, model or CUDA execution
 was involved, and no experiment run directory was created.
+After committing the implementation, `bash run_all.sh --check` reproduced the
+same metadata observations and physical-qualification stop (exit 2, 2.18 seconds).
+Its separate outputs are `shell-check.txt` and `shell-check-time.txt` in that
+directory.
 
 ## Commands and execution order
 
