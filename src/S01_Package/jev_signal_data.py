@@ -1,6 +1,6 @@
 """Explicit PHMFactory extension for qualified, common-rate signal windows.
 
-No reader, H5 loader, split sampler or raw data repair is defined here. Raw arrays
+No waveform reader, H5 loader, split sampler or raw data repair is defined here. Raw arrays
 and grouped partitions are owned by the pinned PHMFactory. Resampling is an
 explicit project transform, not an undocumented upstream YAML capability.
 """
@@ -9,7 +9,10 @@ from __future__ import annotations
 import csv
 import json
 import math
+import re
 import shutil
+import xml.etree.ElementTree as ET
+import zipfile
 from time import perf_counter
 from collections import Counter
 from pathlib import Path
@@ -20,6 +23,8 @@ from scipy.signal import resample_poly
 
 FACTORY_REVISION = "cdc0669167ca25ac848e34c880875ca39c6aed89"
 DATASETS = {"RM_027_PU", "RM_007_MFPT"}
+RAW_TO_CANONICAL = {"RM_027_PU": {0: 0, 1: 1, 2: 2},
+                    "RM_007_MFPT": {0: 0, 1: 2, 2: 1}}
 
 
 def _integer_measurement(value: object, name: str, *, minimum: int) -> int:
@@ -62,6 +67,179 @@ def common_rate_signal(raw, *, sample_rate_hz, channel_index, scale_to_g, target
     return y.astype(np.float32)[:, None]
 
 
+def _pu_roles(root: Path, config: dict) -> list[dict]:
+    with (root / config["pu_roles"]).open(encoding="utf-8", newline="") as handle:
+        roles = list(csv.DictReader(handle))
+    if (len(roles) != 29 or len({row["physical_unit"] for row in roles}) != 29
+            or sum(int(row["source_record_count"]) for row in roles) != 2319
+            or Counter(int(row["class_index"]) for row in roles) != {0: 6, 1: 11, 2: 12}):
+        raise ValueError("The approved PU role table must describe exactly 29 units and 2319 records")
+    for row in roles:
+        raw = _integer_measurement(row["raw_label"], "PU raw_label", minimum=0)
+        if RAW_TO_CANONICAL["RM_027_PU"].get(raw) != int(row["class_index"]):
+            raise ValueError("PU role table contradicts the native label mapping")
+    return roles
+
+
+def _worksheet_rows(stream):
+    """Yield raw row bytes; excluded rows are never passed to an XML decoder."""
+    buffer = b""
+    while True:
+        chunk = stream.read(65536)
+        if chunk:
+            buffer += chunk
+        while True:
+            start = re.search(rb"<row\b", buffer)
+            if start is None:
+                buffer = buffer[-4:]
+                break
+            buffer = buffer[start.start():]
+            opening_end = buffer.find(b">")
+            if opening_end < 0:
+                break
+            if buffer[:opening_end].rstrip().endswith(b"/"):
+                end = opening_end + 1
+            else:
+                closing = buffer.find(b"</row>", opening_end)
+                if closing < 0:
+                    break
+                end = closing + len(b"</row>")
+            yield buffer[:end]
+            buffer = buffer[end:]
+        if not chunk:
+            if re.search(rb"<row\b", buffer):
+                raise ValueError("Unterminated row in the native metadata worksheet")
+            return
+
+
+def _decode_metadata_row(raw: bytes) -> dict[str, object]:
+    row = ET.fromstring(raw)
+    result = {}
+    for cell in row:
+        if cell.tag.rsplit("}", 1)[-1] != "c":
+            continue
+        reference = re.fullmatch(r"([A-Z]+)[0-9]+", cell.attrib.get("r", ""))
+        if reference is None:
+            raise ValueError("Native metadata cell lacks an explicit column reference")
+        if cell.attrib.get("t") == "s":
+            raise ValueError("Shared-string metadata is outside the inspected inline-string workbook contract")
+        if cell.attrib.get("t") == "inlineStr":
+            value = "".join(node.text or "" for node in cell.iter()
+                            if node.tag.rsplit("}", 1)[-1] == "t")
+        else:
+            value = next((node.text for node in cell if node.tag.rsplit("}", 1)[-1] == "v"), None)
+            if value is not None and cell.attrib.get("t") in {None, "n"}:
+                number = float(value)
+                value = int(number) if math.isfinite(number) and number.is_integer() else number
+        result[reference.group(1)] = value
+    return result
+
+
+def _read_approved_workbook(path: Path):
+    import pandas as pd
+    with zipfile.ZipFile(path) as workbook:
+        sheets = [name for name in workbook.namelist()
+                  if re.fullmatch(r"xl/worksheets/sheet[0-9]+\.xml", name)]
+        if sheets != ["xl/worksheets/sheet1.xml"] or "xl/sharedStrings.xml" in workbook.namelist():
+            raise ValueError("Expected the inspected single-sheet inline-string native workbook")
+        with workbook.open(sheets[0]) as worksheet:
+            raw_rows = _worksheet_rows(worksheet)
+            header = _decode_metadata_row(next(raw_rows, b"<row/>"))
+            names = list(header.values())
+            if "Name" not in names or len(set(names)) != len(names):
+                raise ValueError("Native metadata header is missing or ambiguous")
+            name_column = next(column for column, value in header.items() if value == "Name")
+            name_cell = re.compile(rb'<c\b(?=[^>]*\br="' + name_column.encode("ascii")
+                                   + rb'[0-9]+\")[^>]*>.*?</c>', re.DOTALL)
+            approved = []
+            for raw in raw_rows:
+                # Routing inspects only raw bytes of the Name cell. In
+                # particular, malformed excluded cells are never XML-parsed.
+                cell = name_cell.search(raw)
+                if cell is None or not any(b"<t>" + name.encode("ascii") + b"</t>" in cell.group()
+                                           for name in DATASETS):
+                    continue
+                values = _decode_metadata_row(raw)
+                item = {name: values.get(column) for column, name in header.items()}
+                if item["Name"] not in DATASETS:
+                    raise ValueError("Ambiguous native metadata Name routing")
+                approved.append(item)
+    return pd.DataFrame(approved, columns=names)
+
+
+def read_approved_metadata(root: Path, config: dict):
+    """Read native XLSX or an explicit UTF-8 CSV projection without raw-data writes.
+
+    This metadata-only route does not load signals or qualify physical
+    measurements; waveform readers, construction and splitting remain upstream.
+    """
+    roles = _pu_roles(root, config)
+    path = Path(config["root"]) / config["metadata"]
+    if path.suffix.lower() == ".xlsx":
+        frame = _read_approved_workbook(path)
+    elif path.suffix.lower() == ".csv":
+        import pandas as pd
+        frame = pd.read_csv(path, encoding="utf-8-sig")
+        if "Name" not in frame or not frame["Name"].isin(DATASETS).all():
+            raise ValueError("P1 metadata CSV contains an excluded dataset")
+    else:
+        raise ValueError("P1 metadata must be the native .xlsx or a PU/MFPT-only .csv projection")
+    needed = {"Id", "Name", "File", "Label", "Label_Description"}
+    if not needed.issubset(frame.columns):
+        raise ValueError(f"Native metadata projection needs {sorted(needed)}")
+    approved_units = {row["physical_unit"] for row in roles}
+    keep = ((frame["Name"].eq("RM_027_PU") & frame["Label_Description"].isin(approved_units))
+            | (frame["Name"].eq("RM_007_MFPT") & frame["Label"].isin([0, 1, 2])))
+    selected = frame.loc[keep].copy()
+    if selected["Id"].isna().any() or selected["Id"].duplicated().any():
+        raise ValueError("Native P1 Id population is missing or ambiguous")
+    selected["Id"] = [_integer_measurement(value, "metadata Id", minimum=0) for value in selected["Id"]]
+    if selected["Id"].duplicated().any():
+        raise ValueError("Native P1 Id population is missing or ambiguous after integer conversion")
+    if Counter(selected["Name"]) != {"RM_027_PU": 2319, "RM_007_MFPT": 20}:
+        raise ValueError("Native P1 population must contain 2319 approved PU and 20 known-label MFPT records")
+    pu = selected.loc[selected["Name"].eq("RM_027_PU")]
+    for role in roles:
+        unit_rows = pu.loc[pu["Label_Description"].eq(role["physical_unit"])]
+        if (len(unit_rows) != int(role["source_record_count"])
+                or not unit_rows["Label"].eq(float(role["raw_label"])).all()):
+            raise ValueError(f"Native PU population contradicts the approved role table: {role['physical_unit']}")
+    mfpt = selected.loc[selected["Name"].eq("RM_007_MFPT")]
+    if Counter(mfpt["Label"]) != {0: 3, 1: 10, 2: 7}:
+        raise ValueError("Native MFPT known-label population must be baseline=3, outer=10, inner=7")
+    descriptions = {0: "baseline", 1: "outer race fault", 2: "inner race fault"}
+    if any(str(row["Label_Description"]) != descriptions[int(row["Label"])]
+           for _, row in mfpt.iterrows()):
+        raise ValueError("MFPT native label descriptions disagree with baseline/outer/inner label meanings")
+    if (selected["File"].isna().any() or selected["File"].astype(str).str.strip().eq("").any()
+            or selected.duplicated(["Name", "File"]).any()):
+        raise ValueError("Native P1 original-file correspondence is missing or ambiguous")
+    return selected
+
+
+def summarize_native_metadata(frame) -> dict:
+    def counts(values):
+        def key(value):
+            if value is None or (isinstance(value, float) and math.isnan(value)):
+                return "UNKNOWN"
+            return str(int(value)) if isinstance(value, (int, float)) and float(value).is_integer() else str(value)
+        return dict(Counter(key(value) for value in values))
+    result = {"records": len(frame), "datasets": {},
+              "basis": "native metadata projection only; physical-unit and measurement qualification not established"}
+    for name in sorted(DATASETS):
+        rows = frame.loc[frame["Name"].eq(name)]
+        result["datasets"][name] = {
+            "records": len(rows), "raw_to_canonical": {str(k): v for k, v in RAW_TO_CANONICAL[name].items()},
+            "raw_label_counts": counts(rows["Label"]),
+            "canonical_label_counts": counts(rows["Label"].map(RAW_TO_CANONICAL[name])),
+            "label_description_counts": counts(rows["Label_Description"]),
+            "nominal_sample_rate_counts": counts(rows["Sample_rate"]) if "Sample_rate" in rows else {},
+            "metadata_channel_count_counts": counts(rows["Channel"]) if "Channel" in rows else {},
+            "approved_physical_unit_count": rows["Label_Description"].nunique() if name == "RM_027_PU" else "UNKNOWN",
+        }
+    return result
+
+
 def qualify_records(root: Path, config: dict) -> tuple[object, dict]:
     """Bind metadata to a completed G0 record map; never infer specimen identity."""
     path = config["qualification_file"]
@@ -95,6 +273,9 @@ def qualify_records(root: Path, config: dict) -> tuple[object, dict]:
             r["sample_rate_hz"], r["channel_index"], r["scale_to_g"])
         if r["class_index"] not in range(3):
             raise ValueError("The approved closed task has exactly H/I/O classes")
+        raw_label = _integer_measurement(r["raw_label"], "raw_label", minimum=0)
+        if RAW_TO_CANONICAL[r["Name"]].get(raw_label) != r["class_index"]:
+            raise ValueError(f"G0 contradicts the native raw-to-canonical label mapping: {r['Name']}")
         u = (r["Name"], r["unit_id"])
         description = (r["role"], r["class_index"])
         if u in units and units[u] != description:
@@ -104,26 +285,14 @@ def qualify_records(root: Path, config: dict) -> tuple[object, dict]:
     counts = Counter(r["Name"] for r in bindings.values())
     if counts != {"RM_027_PU": 2319, "RM_007_MFPT": 20}:
         raise ValueError(f"Population differs from the approved record inventory: {counts}")
-    roles = root / config["pu_roles"]
-    with roles.open(encoding="utf-8", newline="") as f:
-        frozen = list(csv.DictReader(f))
+    frozen = _pu_roles(root, config)
     for f in frozen:
         matched = [r for r in bindings.values() if r["Name"] == "RM_027_PU" and r["unit_id"] == f["physical_unit"]]
         if len(matched) != int(f["source_record_count"]) or any(
                 r["role"] != f["role"] or r["class_index"] != int(f["class_index"])
                 or float(r["raw_label"]) != float(f["raw_label"]) for r in matched):
             raise ValueError(f"G0 contradicts the approved PU role map: {f['physical_unit']}")
-    metadata_path = Path(config["root"]) / config["metadata"]
-    if metadata_path.suffix.lower() != ".csv":
-        raise ValueError("P1 requires an already qualified PU/MFPT-only metadata CSV; do not read a shared workbook")
-    from src.data_factory.data_utils import read_metadata_table
-    frame = read_metadata_table(metadata_path)
-    needed = {"Id", "Name", "File", "Label", "Label_Description"}
-    if not needed.issubset(frame.columns):
-        raise ValueError(f"Native metadata projection needs {sorted(needed)}")
-    if not frame["Name"].isin(DATASETS).all():
-        raise ValueError("P1 metadata projection contains an excluded dataset")
-    selected = frame.copy()
+    selected = read_approved_metadata(root, config)
     if (len(selected) != len(bindings) or selected["Id"].duplicated().any()
             or set(selected["Id"].astype(str)) != set(bindings)):
         raise ValueError("G0 and native metadata contain different Id populations")

@@ -10,8 +10,8 @@ runtime:
   cpu_seconds: 43200
 data:
   root: /home/user/data/PHMbenchdata/PHM-Vibench
-  # Required approved-only projection; never load the shared workbook then filter.
-  metadata: metadata_pu_mfpt.csv
+  # Route only approved native rows; never parse the complete shared table then filter.
+  metadata: metadata.xlsx
   source: RM_027_PU
   target: RM_007_MFPT
   pu_roles: paper/assets/tables/jev_p1_pu_unit_roles.csv

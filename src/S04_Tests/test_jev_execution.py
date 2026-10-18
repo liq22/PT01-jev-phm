@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import argparse
 import copy
+import contextlib
+import io
 import json
 import os
 import shutil
@@ -11,9 +13,10 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import numpy as np
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src/S01_Package"))
@@ -29,6 +32,13 @@ class ExecutionTests(unittest.TestCase):
         self.run.mkdir()
         for name in ("g0.csv", "roles.csv", "metadata_pu_mfpt.csv"):
             (self.root / name).write_text("Id,unit_id,role\n1,bearing-a,train\n", encoding="utf-8")
+        self.native_frame = pd.DataFrame({"Id": [1, 2], "Name": ["RM_027_PU", "RM_007_MFPT"],
+            "Label": [0, 1], "Label_Description": ["bearing-fixture", "outer-fault-fixture"],
+            "Sample_rate": [64000, 97656], "Channel": [1, 1], "unavailable": [None, None]})
+        self.native_frame.to_csv(self.root / "metadata_pu_mfpt.csv", index=False)
+        reader_patch = patch("jev_signal_data.read_approved_metadata", side_effect=self.metadata_fixture, create=True)
+        self.native_reader = reader_patch.start()
+        self.addCleanup(reader_patch.stop)
         self.cfg = {"name": "rf", "runtime": {},
                     "data": {"root": str(self.root), "metadata": "metadata_pu_mfpt.csv",
                              "qualification_file": "g0.csv", "pu_roles": "roles.csv"},
@@ -38,6 +48,11 @@ class ExecutionTests(unittest.TestCase):
         self.scale = {"mean": 0., "std": 1.}
         (self.run / "source_scale.json").write_text(json.dumps(self.scale))
         execution.bind_study(self.cfg, self.run, self.root)
+
+    def metadata_fixture(self, root, config):
+        if config["metadata"].endswith(".csv"):
+            return pd.read_csv(Path(config["root"]) / config["metadata"])
+        return self.native_frame.copy(deep=True)
 
     def selection(self):
         base = self.run / "fits" / self.cfg["name"]
@@ -78,11 +93,64 @@ class ExecutionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "changed"):
             execution.bind_study(self.cfg, self.run, self.root)
 
-    def test_whole_workbook_is_not_an_approved_metadata_input(self):
+    def test_native_workbook_uses_approved_metadata_api_for_contract(self):
         cfg = copy.deepcopy(self.cfg)
         cfg["data"]["metadata"] = "metadata.xlsx"
-        with self.assertRaisesRegex(ValueError, "PU/MFPT-only"):
-            execution._study_contract(cfg, self.root)
+        contract = execution._study_contract(cfg, self.root)
+        self.native_reader.assert_called_with(self.root, cfg["data"])
+        rows = contract["input_contents"]["metadata"]["rows"]
+        self.assertEqual([row["Name"] for row in rows], ["RM_027_PU", "RM_007_MFPT"])
+        self.assertIsNone(rows[0]["unavailable"])
+        json.dumps(contract, allow_nan=False)
+
+    def test_native_metadata_content_change_blocks_resume(self):
+        cfg = copy.deepcopy(self.cfg)
+        cfg["data"]["metadata"] = "metadata.xlsx"
+        (self.run / "study.json").write_text(json.dumps(execution._study_contract(cfg, self.root)))
+        execution.bind_study(cfg, self.run, self.root)
+        self.native_frame.loc[1, "Sample_rate"] = 12345
+        with self.assertRaisesRegex(ValueError, "changed"):
+            execution.bind_study(cfg, self.run, self.root)
+
+    def test_metadata_observations_precede_missing_physical_qualification(self):
+        cfg = copy.deepcopy(self.cfg)
+        cfg["data"]["qualification_file"] = None
+        cfg["data"]["metadata"] = "metadata.xlsx"
+        args = argparse.Namespace(config=self.root / "config.yaml", run_root=self.root / "not-created", stage="check")
+        summary = {"records": 2, "datasets": {"RM_027_PU": {"records": 1}, "RM_007_MFPT": {"records": 1}},
+                   "basis": "Native metadata fixture only; not qualification"}
+        output = io.StringIO()
+        upstream = Mock()
+        with patch.object(execution, "read_config", return_value=cfg), \
+             patch.object(execution, "validate_matrix"), \
+             patch("jev_signal_data.summarize_native_metadata", return_value=summary, create=True), \
+             patch("jev_signal_data.qualify_records") as qualify, \
+             patch.object(execution, "check_inputs") as inputs, \
+             patch.object(execution, "bind_gpu") as gpu, \
+             contextlib.redirect_stdout(output):
+            with self.assertRaisesRegex(RuntimeError, "original-record-to-physical-unit"):
+                execution.dispatch(args, self.root, upstream)
+        observed = json.loads(output.getvalue())
+        self.assertEqual(observed["status"], "native_metadata_observed")
+        self.assertEqual(observed["observations"], summary)
+        self.assertEqual(observed["scientific_qualification"], "UNVERIFIED")
+        qualify.assert_not_called()
+        inputs.assert_not_called()
+        gpu.assert_not_called()
+        upstream.assert_not_called()
+        self.assertFalse(args.run_root.exists())
+
+    def test_native_metadata_error_is_not_hidden_by_unbound_qualification(self):
+        cfg = copy.deepcopy(self.cfg)
+        cfg["data"]["qualification_file"] = None
+        args = argparse.Namespace(config=self.root / "config.yaml", run_root=self.root / "not-created", stage="check")
+        with patch.object(execution, "read_config", return_value=cfg), \
+             patch.object(execution, "validate_matrix"), \
+             patch("jev_signal_data.summarize_native_metadata", create=True), \
+             patch("jev_signal_data.read_approved_metadata", side_effect=ValueError("Native metadata mismatch")):
+            with self.assertRaisesRegex(ValueError, "Native metadata mismatch"):
+                execution.dispatch(args, self.root, lambda: None)
+        self.assertFalse(args.run_root.exists())
 
     def test_existing_checkpoints_do_not_release_target_without_verification(self):
         self.selection()
