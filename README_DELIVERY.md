@@ -83,6 +83,24 @@ same metadata observations and physical-qualification stop (exit 2, 2.18 seconds
 Its separate outputs are `shell-check.txt` and `shell-check-time.txt` in that
 directory.
 
+A subsequent bounded G0 inspection opened **headers and attributes only** for
+the twenty approved MFPT H5 entries. All were present as float64 Datasets: six
+of shape (585936,1,1) and fourteen of shape (146484,1,1). The root and all twenty
+entries had empty attributes. No signal array was read. The exact executed
+command and source checks are in the existing
+[G0 follow-up](paper/experiments/jev_goal.md#g0-follow-up-original-signal-semantics-and-local-headers--18-october-2026).
+
+The [publisher's original processing documentation](https://www.mathworks.com/help/predmaint/ug/Rolling-Element-Bearing-Fault-Diagnosis.html)
+supports interpreting the released `gs` as acceleration in g and `sr` as Hz.
+Local H5 preservation of those semantics and physical specimen membership
+remain unverified. Required evidence is the original MFPT specimen/record join
+and **both PU and MFPT** raw-to-H5 measurement provenance: sample clock/rate,
+vibration channel and acceleration scale. PU's raw clock association is still
+unverified; its known bearing roles and channel index do not establish the new
+resampling contract. An MFPT map alone cannot release G1. Only after all source
+and target requirements pass may the existing qualification map be bound.
+Until new source material is available, data operations stop and fits stay 0/46.
+
 ## Commands and execution order
 
 Use the repository's pinned environment and PHMFactory revision
