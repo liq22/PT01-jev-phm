@@ -254,3 +254,72 @@ reported metadata and then stopped at the missing qualification map. Both runs
 returned exit 2 and took 2.05 seconds each, with separate outputs under
 `src/outputs/jev-phm/g0-20261018-native-metadata/`. No waveform, model, GPU or
 target outcome was accessed; G0 remains BLOCKED, C4/C5 UNTESTED, and fits 0/46.
+
+### G0 follow-up: original signal semantics and local headers — 18 October 2026
+
+The P1 thesis, six comparison families, source selection and budget remain
+fixed. The dominant transfer hypothesis and C5 readout comparison are UNTESTED;
+the native-granularity hypothesis is outside this exact-label P1. This follow-up
+asks only whether original documentation or existing storage metadata can
+resolve physical-unit and measurement qualification before G1.
+
+The [MathWorks original processing example](https://www.mathworks.com/help/predmaint/ug/Rolling-Element-Bearing-Fault-Diagnosis.html),
+under “Envelope Spectrum Analysis for Bearing Diagnosis”, uses `bearing.gs`
+directly, forms seconds from sample indices divided by `bearing.sr`, and labels
+the acceleration in g. This supports those fields' published interpretation;
+it does not establish the local H5 conversion or identify physical specimens.
+The [publisher README](https://github.com/mathworks/RollingElementBearingFaultDiagnosis-Data/blob/master/README.md)
+explicitly describes reorganizing the original first four folders into example
+train/test directories. Those directories are not a specimen mapping or P1
+target-training permission.
+
+An additional [2025 paper involving data provider Eric Bechhoefer](https://journals.sagepub.com/doi/10.1177/14759217251350962),
+in its MFPT subsection, describes ten outer-race recordings and their sampling,
+duration and loading conditions. The [authors' MFPT code](https://github.com/omriMatania/novel_approaches_of_synchronous_averaging_of_gear_and_bearing_vibrations/blob/main/main_MFPT.m)
+uses bearing specifications for fault-frequency calculations. Neither inspected
+material supplies the file-to-physical-specimen join. Bearing geometry, load,
+file suffixes and the word “bearings” cannot supply it. The original MFPT data
+page and original envelope-PDF URL redirected to ASNT; the data-acoustics origin
+was unavailable. These retrieval limits do not prove universal absence of a map.
+
+The following **executed read-only header command** returned exit 0. It opened
+only the approved MFPT H5, never a signal array, other dataset, model or CUDA.
+Its captured stdout is archived locally as
+`src/outputs/jev-phm/g0-20261018-mfpt-qualification/mfpt-headers.jsonl`:
+
+```bash
+CUDA_VISIBLE_DEVICES='' PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY'
+import json
+from pathlib import Path
+import h5py
+
+path = Path('/home/user/data/PHMbenchdata/PHM-Vibench/RM_007_MFPT.h5')
+with h5py.File(path, 'r') as handle:
+    print(json.dumps({'file': str(path), 'root_attribute_names': list(handle.attrs.keys())}))
+    for identity in range(46282, 46302):
+        key = str(identity)
+        if key not in handle:
+            print(json.dumps({'Id': key, 'status': 'MISSING'}))
+            continue
+        item = handle[key]
+        record = {'Id': key, 'kind': type(item).__name__, 'attribute_names': list(item.attrs.keys())}
+        if isinstance(item, h5py.Dataset):
+            record.update(shape=item.shape, dtype=str(item.dtype))
+        else:
+            record['child_names'] = list(item.keys())
+        print(json.dumps(record))
+PY
+```
+
+All twenty IDs were present as float64 Datasets. IDs 46282–46287 had shape
+(585936,1,1); IDs 46288–46301 had shape (146484,1,1). The root and every selected
+entry had no attributes. This verifies only the inspected keys and storage
+layout. It supplies no specimen IDs, repeated-acquisition join, channel names,
+scale units or timebase metadata, and does not verify waveform values.
+
+**Decision:** retain G0-BLOCKED and 0/46 fits. Stop repeated metadata/header
+checks and keep G1–G5 unopened. Resume only when a new original specimen-to-file
+mapping and local processing provenance can be inspected. Their local path or
+public link has been requested; no replacement dataset, file-based estimand,
+invented unit map or artificial coarsening is adopted. This is a qualification
+decision, not evidence that the proposed method succeeds or fails.
