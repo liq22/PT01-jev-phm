@@ -93,8 +93,12 @@ command and source checks are in the existing
 The [publisher's original processing documentation](https://www.mathworks.com/help/predmaint/ug/Rolling-Element-Bearing-Fault-Diagnosis.html)
 supports interpreting the released `gs` as acceleration in g and `sr` as Hz.
 Local H5 preservation of those semantics and physical specimen membership
-remain unverified. The next required input is an original specimen/record join
-and local processing provenance, not another metadata export or the same check.
+remain unverified. Required evidence is the original MFPT specimen/record join
+and **both PU and MFPT** raw-to-H5 measurement provenance: sample clock/rate,
+vibration channel and acceleration scale. PU's raw clock association is still
+unverified; its known bearing roles and channel index do not establish the new
+resampling contract. An MFPT map alone cannot release G1. Only after all source
+and target requirements pass may the existing qualification map be bound.
 Until new source material is available, data operations stop and fits stay 0/46.
 
 ## Commands and execution order

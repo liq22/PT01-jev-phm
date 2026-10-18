@@ -318,8 +318,15 @@ layout. It supplies no specimen IDs, repeated-acquisition join, channel names,
 scale units or timebase metadata, and does not verify waveform values.
 
 **Decision:** retain G0-BLOCKED and 0/46 fits. Stop repeated metadata/header
-checks and keep G1–G5 unopened. Resume only when a new original specimen-to-file
-mapping and local processing provenance can be inspected. Their local path or
-public link has been requested; no replacement dataset, file-based estimand,
-invented unit map or artificial coarsening is adopted. This is a qualification
-decision, not evidence that the proposed method succeeds or fails.
+checks and keep G1–G5 unopened. The missing evidence comprises the MFPT original
+specimen-to-file/repeated-acquisition mapping **and measurement provenance for
+both PU and MFPT**: original-file to local-H5 correspondence, sampling clock/rate,
+vibration-channel identity and acceleration scale. PU's raw clock association
+remains independently unverified under the earlier source contract; its known
+bearing roster and channel index alone cannot qualify its resampling. Receiving
+an MFPT specimen map does not authorize G1 while PU provenance remains unresolved.
+Inspect new source material when available and bind the existing qualification
+map only after every source and target requirement passes. MFPT material paths
+or public links have been requested; no replacement dataset, file-based
+estimand, invented unit map or artificial coarsening is adopted. This is a
+qualification decision, not evidence that the method succeeds or fails.
