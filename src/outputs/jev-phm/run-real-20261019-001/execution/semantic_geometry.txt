@@ -1,0 +1,151 @@
+Jev-PHM source-only fixed-prototype geometry diagnostic
+
+Context: run-real-20261019-001, after semantic/trial_00 completed.
+Provenance: H1, prompted by the observed poor source-side fit. This was not a
+predeclared efficacy comparison, and it did not change the fitting protocol.
+Inspection used CPU only with CUDA_VISIBLE_DEVICES='', OMP_NUM_THREADS=1,
+OPENBLAS_NUM_THREADS=1 and MKL_NUM_THREADS=1. No backbone was instantiated, no
+model forward/backward or fitting was run, and no signal array or target output
+was read. All values below were computed from the existing small artifacts.
+
+Artifacts relative to the repository root:
+- src/S02_Configs/real/semantic.yaml
+- src/S02_Configs/real/permuted.yaml
+- src/outputs/jev-phm/run-real-20261019-001/fits/semantic/trial_00/model.pt
+- src/outputs/jev-phm/run-real-20261019-001/fits/semantic/trial_00/result.json
+- src/outputs/jev-phm/run-real-20261019-001/fits/semantic/trial_00/trace.csv
+- src/outputs/jev-phm/run-real-20261019-001/smoke/semantic/model.pt
+- src/outputs/jev-phm/run-real-20261019-001/smoke/permuted/model.pt
+- src/outputs/jev-phm/run-real-20261019-001/smoke/semantic/output.pt
+- src/outputs/jev-phm/run-real-20261019-001/smoke/permuted/output.pt
+- src/outputs/jev-phm/run-real-20261019-001/smoke/indexed/output.pt
+
+Label and implementation correspondence:
+- PU raw-to-canonical mapping is 0 -> healthy, 1 -> inner-ring damage,
+  2 -> outer-ring damage; the semantic descriptions use that same order.
+- Canonical candidate assignment is [0, 1, 2]. The permuted condition uses
+  [1, 2, 0] on the same candidate-vector set.
+- The trial_00 candidate tensor equals the semantic smoke candidate tensor
+  element for element: True.
+- The permuted smoke candidates equal semantic smoke candidates[[1,2,0]]
+  element for element: True.
+- Saved candidates have shape [3, 1024], are finite, readout='semantic', tau=1.0.
+- These checks found no candidate-order or fixed-candidate mutation defect.
+
+Calculation:
+The stored candidate tensor C was converted to CPU float64 for this diagnostic.
+For each class k, norm_k = ||C_k||_2. Cosine[k,j] = (C_k dot C_j)/(norm_k norm_j).
+Centered singular values are svdvals(C - mean(C, dim=0, keepdim=True)).
+For each saved smoke observation i, logit_range_i = max_k z_ik - min_k z_ik.
+The stored smoke output is the source-only post-technical-update output from
+three observations, one per class; it is not a held-out diagnostic-performance
+estimate. The three saved labels in every smoke output are [0, 1, 2].
+
+Observed candidate norms (healthy, inner, outer):
+[77.73114303313443, 83.15679626733501, 83.31966685122333]
+
+Observed cosine matrix in the same order:
+[[1.0000000000000002, 0.9483908034095425, 0.9484914710228107],
+ [0.9483908034095425, 0.9999999999999996, 0.9988305557620107],
+ [0.9484914710228107, 0.9988305557620107, 1.0000000000000009]]
+
+Observed centered singular values:
+[21.5014662572499, 2.8487327831294755, 6.307927470932988e-15]
+The near-zero third value is expected after centering three vectors; the two
+remaining directions are nonzero. This is not a zero-rank projection result.
+
+Observed saved smoke logits and ranges:
+semantic logits:
+[[101.08443450927734, 108.09638977050781, 118.85369110107422],
+ [-1006.1201782226562, -851.60595703125, -875.2208862304688],
+ [287.6231994628906, 433.70672607421875, 462.99945068359375]]
+semantic argmax: [2, 1, 2]
+semantic ranges: [17.769256591796875, 154.51422119140625, 175.37625122070312]
+
+permuted logits:
+[[269.5202941894531, 279.77349853515625, 178.7491455078125],
+ [-442.9299011230469, -448.41412353515625, -657.5579833984375],
+ [483.66424560546875, 469.4748229980469, 423.9257507324219]]
+permuted argmax: [1, 0, 0]
+permuted ranges: [101.02435302734375, 214.62808227539062, 59.738494873046875]
+
+indexed logits:
+[[2.611388921737671, 0.4585821330547333, -0.016643023118376732],
+ [-0.45659685134887695, 0.8368315696716309, -0.7891942858695984],
+ [-1.0511770248413086, -0.2583932876586914, 1.8106882572174072]]
+indexed argmax: [0, 1, 2]
+indexed ranges: [2.6280319448560476, 1.6260258555412292, 2.861865282058716]
+
+Observed adapter parameter norms (all inspected adapter values finite):
+semantic smoke:
+  projection.weight = 18.542306014555386
+  projection.bias = 1.639077997363718
+semantic trial_00:
+  projection.weight = 18.598441530218874
+  projection.bias = 1.6384363264907917
+
+Observed trial_00 source-selection result:
+- seed=101; lr=0.0001; weight_decay=0.0.
+- Initial source tuning NLL=42.404927535421024.
+- Selected/final source tuning NLL=19.37528023085252.
+- selected_step=2000; last_step=2000; termination='update_cap'.
+- qualification='cap_reached_uncertain'; recorded seconds=453.1177842631005.
+- The trace decreases overall with intervening increases. It does not establish
+  convergence, absence of learning, or a target-domain failure.
+
+H1 interpretation and limits:
+The fixed inner/outer prototypes are nearly parallel and the raw dot-product
+readout produces substantially larger class-logit ranges on these three saved
+smoke observations than the indexed head. This is consistent with an adverse
+score-scale/geometry condition under the fixed protocol. It does not identify
+geometry as the sole cause of the poor fit: norms/cosines do not by themselves
+measure adaptation difficulty or representational adequacy, and a common logit
+offset cancels from softmax. No duplicate prototype, nonfinite tensor, candidate
+mutation, or label-order mismatch was found in the inspected artifacts/code.
+This inspection neither validates the semantic mechanism nor establishes a
+universal failure. Trial_00 remains an observed, capped source fit. No new
+normalization, temperature, seed, fitting budget or retry was introduced.
+
+CPU-only reproduction of the tensor calculations (from the repository root):
+CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python - <<'PY'
+from pathlib import Path
+import json
+import torch
+
+torch.set_num_threads(1)
+run = Path('src/outputs/jev-phm/run-real-20261019-001')
+paths = {
+    'semantic_smoke': run/'smoke/semantic/model.pt',
+    'permuted_smoke': run/'smoke/permuted/model.pt',
+    'trial00': run/'fits/semantic/trial_00/model.pt',
+}
+states = {name: torch.load(path, map_location='cpu', weights_only=True)
+          for name, path in paths.items()}
+c = states['trial00']['candidates'].double()
+norm = torch.linalg.vector_norm(c, dim=1)
+cos = (c @ c.T) / (norm[:, None] * norm[None, :])
+centered = c - c.mean(0, keepdim=True)
+print(json.dumps({
+    'candidate_shape': list(c.shape),
+    'finite': bool(torch.isfinite(c).all()),
+    'norms': norm.tolist(), 'cosines': cos.tolist(),
+    'centered_singular_values': torch.linalg.svdvals(centered).tolist(),
+    'tau': states['trial00']['tau'], 'readout': states['trial00']['readout'],
+    'trial_same_as_smoke': torch.equal(c, states['semantic_smoke']['candidates'].double()),
+    'permuted_matches_declared_120': torch.equal(
+        states['permuted_smoke']['candidates'],
+        states['semantic_smoke']['candidates'][[1, 2, 0]]),
+}, indent=2))
+for name in ('semantic', 'permuted', 'indexed'):
+    out = torch.load(run/f'smoke/{name}/output.pt', map_location='cpu', weights_only=True)
+    z, y = out['logits'].double(), out['labels'].long()
+    print(json.dumps({'smoke': name, 'labels': y.tolist(), 'logits': z.tolist(),
+        'argmax': z.argmax(1).tolist(),
+        'class_logit_range': (z.max(1).values-z.min(1).values).tolist()}, indent=2))
+for name in ('semantic_smoke', 'trial00'):
+    a = states[name]['adapter']
+    print(json.dumps({'adapter': name,
+        'finite': all(bool(torch.isfinite(t).all()) for t in a.values()),
+        'parameter_norms': {k: float(torch.linalg.vector_norm(t.double()))
+                            for k, t in a.items()}}, indent=2))
+PY

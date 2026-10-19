@@ -1,0 +1,15 @@
+{
+  "source_nll": 0.9660667523806149,
+  "selected_step": 1600,
+  "last_step": 2000,
+  "termination": "update_cap",
+  "seconds": 445.75599419802893,
+  "qualification": "cap_reached_uncertain",
+  "file": "model.pt",
+  "parameters": {
+    "lr": 0.0001,
+    "weight_decay": 0.0
+  },
+  "seed": 101,
+  "path": "trial_00/model.pt"
+}

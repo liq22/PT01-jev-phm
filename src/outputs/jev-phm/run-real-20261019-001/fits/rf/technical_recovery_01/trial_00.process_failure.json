@@ -1,0 +1,20 @@
+{
+  "type": "CalledProcessError",
+  "message": "Command '['/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/.venv/bin/python', '/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/src/S03_Scripts/run_jev_study.py', 'semantic', 'fit-candidate', '--config', '/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/src/outputs/jev-phm/run-real-20261019-001/fits/rf/config.json', '--run-root', '/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/src/outputs/jev-phm/run-real-20261019-001', '--candidate-index', '0', '--fit-seed', '101']' returned non-zero exit status 1.",
+  "command": [
+    "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/.venv/bin/python",
+    "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/src/S03_Scripts/run_jev_study.py",
+    "semantic",
+    "fit-candidate",
+    "--config",
+    "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/src/outputs/jev-phm/run-real-20261019-001/fits/rf/config.json",
+    "--run-root",
+    "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/src/outputs/jev-phm/run-real-20261019-001",
+    "--candidate-index",
+    "0",
+    "--fit-seed",
+    "101"
+  ],
+  "log": "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_\u5de5\u4f5c\u4e0e\u9879\u76ee/03_\u8bba\u6587\u6d41\u6c34\u7ebf/PT01-jev-phm/src/outputs/jev-phm/run-real-20261019-001/fits/rf/trial_00.process.log",
+  "scope": "failed candidate, not a scientific result"
+}

@@ -41,14 +41,16 @@ class SignalQualificationTests(unittest.TestCase):
                 self.rows.append(dict(Id=str(len(self.rows) + 1), Name="RM_027_PU",
                     File=f"fixture/record_{len(self.rows)}.mat", unit_id=role["physical_unit"],
                     role=role["role"], class_index=role["class_index"], raw_label=role["raw_label"],
-                    sample_rate_hz="64000", channel_index="2", scale_to_g="0.5",
-                    physical_source="fixture-only", measurement_source="fixture-only", license_source="fixture-only"))
+                    sample_rate_hz="64000", channel_index="2", scale_multiplier="0.5",
+                    physical_source="fixture-only", measurement_source="fixture-only", license_source="fixture-only",
+                    unit_basis="documented_PU_bearing", value_unit="native_unspecified"))
         for raw_label in [0] * 3 + [1] * 10 + [2] * 7:
             self.rows.append(dict(Id=str(len(self.rows) + 1), Name="RM_007_MFPT",
                 File=f"fixture/record_{len(self.rows)}.mat", unit_id=f"MFPT-fixture-{raw_label}",
                 role="external", class_index=str(signal_data.RAW_TO_CANONICAL["RM_007_MFPT"][raw_label]),
-                raw_label=str(raw_label), sample_rate_hz="64000", channel_index="0", scale_to_g="0.5",
-                physical_source="fixture-only", measurement_source="fixture-only", license_source="fixture-only"))
+                raw_label=str(raw_label), sample_rate_hz="64000", channel_index="0", scale_multiplier="0.5",
+                physical_source="fixture-only", measurement_source="fixture-only", license_source="fixture-only",
+                unit_basis="user_assumed_MFPT_experiment_bearing", value_unit="g"))
         descriptions = {0: "baseline", 1: "outer race fault", 2: "inner race fault"}
         self.frame = pd.DataFrame([dict(Id=int(r["Id"]), Dataset_id=20 if r["Name"] == "RM_027_PU" else 7,
             Name=r["Name"], File=r["File"], Label=int(float(r["raw_label"])),
@@ -95,7 +97,9 @@ class SignalQualificationTests(unittest.TestCase):
         selected, bindings = self.qualify()
         self.assertEqual(len(selected), 2339)
         self.assertEqual(bindings["1"]["channel_index"], 2)
-        self.assertEqual(bindings["1"]["scale_to_g"], 0.5)
+        self.assertEqual(bindings["1"]["scale_multiplier"], 0.5)
+        self.assertEqual(bindings["1"]["value_unit"], "native_unspecified")
+        self.assertEqual(bindings["2320"]["unit_basis"], "user_assumed_MFPT_experiment_bearing")
 
     def test_workbook_decodes_only_header_and_allowlisted_name_cells(self):
         # This malformed excluded row would break any whole-sheet XML reader.
@@ -202,7 +206,7 @@ class SignalQualificationTests(unittest.TestCase):
         first = copy.deepcopy(self.rows[0])
         for field, bad_value in (("sample_rate_hz", "64000.5"), ("sample_rate_hz", "inf"),
                                  ("channel_index", "-1"), ("channel_index", "0.5"),
-                                 ("scale_to_g", "inf"), ("scale_to_g", "0")):
+                                 ("scale_multiplier", "inf"), ("scale_multiplier", "0")):
             with self.subTest(field=field, value=bad_value):
                 self.rows[0] = dict(first, **{field: bad_value})
                 self.write_csv("qualification.csv", self.rows)
@@ -252,7 +256,7 @@ class SignalTailTests(unittest.TestCase):
             dataset = adapter({'numeric-fixture-only': numeric_fixture},
                 metadata_fixture, args_data, args_task, mode='train')
             expected = signal_data.common_rate_signal(numeric_fixture,
-                sample_rate_hz=64, channel_index=2, scale_to_g=.5,
+                sample_rate_hz=64, channel_index=2, scale_multiplier=.5,
                 target_rate_hz=25, beta=5.)
             assert expected.shape == (33, 1)
             assert len(dataset) == 4

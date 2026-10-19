@@ -1,8 +1,22 @@
 # Jev-PHM P1 implementation and acceptance
 
-The implementation is integrated into the existing study CLI. Real P1 data,
-pretrained-weight and CUDA acceptance remains **BLOCKED**, with **0/46 efficacy
-fits**. Code tests and numerical adapter fixtures are not PHM results.
+The implementation is integrated into the existing study CLI. On 19 October the
+author confirmed that H5 preserves original values and authorized one experiment
+as one bearing where physical membership is unresolved. The current prospective
+execution revision is recorded at the end of the existing Goal. It retains PU's
+documented groups and uses twenty assumed MFPT experiment units. Earlier G0
+failures below remain historical; actual real-source smoke and fitting outcomes
+are reported in STATUS. Code fixtures are not PHM results.
+
+**Current outcome:** real source export and all six source interfaces passed;
+28 efficacy fits completed. The lowest-NLL semantic candidate (8.73848 on PU
+tune) hit the 2,000-update cap and remains source-unqualified. One already-started
+refit was stopped, with its original logs retained. MFPT waveforms, calibration,
+external predictions and timing remain sealed/unrun. This is an executable,
+partially exercised study, not a completed or validated external experiment.
+See the [source result table](paper/assets/tables/jev_p1_source_fit_results.csv)
+and [current stop decision](paper/STATUS.md#e-唯一下一步). No further metadata
+is currently requested. Do not restart the incomplete fit or reset its budget.
 
 The authority for population, claims and resources is the existing
 [approved P1 protocol](paper/experiments/jev_goal.md#approved-p1-continuation-pu-single-ring-source-to-mfpt-external-target).
@@ -51,7 +65,7 @@ The qualification map must agree with both the native descriptions and this
 conversion. It remains configured separately as `data.qualification_file`:
 
 ```text
-Id,Name,File,unit_id,role,class_index,raw_label,sample_rate_hz,channel_index,scale_to_g,physical_source,measurement_source,license_source
+Id,Name,File,unit_id,role,class_index,raw_label,sample_rate_hz,channel_index,scale_multiplier,physical_source,measurement_source,license_source
 ```
 
 The population is exactly 2,319 approved PU source records and 20 known-label
@@ -99,7 +113,16 @@ vibration channel and acceleration scale. PU's raw clock association is still
 unverified; its known bearing roles and channel index do not establish the new
 resampling contract. An MFPT map alone cannot release G1. Only after all source
 and target requirements pass may the existing qualification map be bound.
-Until new source material is available, data operations stop and fits stay 0/46.
+This was the 18 October stopping decision. It was superseded operationally by
+the author's 19 October provenance statement and explicit unit convention,
+without turning those statements into independently verified specimen evidence.
+The derived binding is now `paper/assets/tables/jev_p1_record_bindings.csv`, with
+additional `unit_basis` and `value_unit` columns. PU keeps its 29 known bearing
+groups; each of the twenty MFPT records is an assumed experiment unit. Saved
+definitions, effects and plots state that assumption. Both use an identity
+`scale_multiplier=1`: PU's saved amplitude unit is unspecified, so no common-g
+calibration is claimed. All methods share unchanged native values, common-rate
+resampling and source-train-only scaling. This revision predates any target score.
 
 ## Commands and execution order
 
@@ -112,6 +135,22 @@ CUDA_VISIBLE_DEVICES='' .venv/bin/python src/S03_Scripts/run_jev_study.py semant
 bash run_all.sh --check
 bash run_all.sh --status
 ```
+
+For the actual stopped study, inspect without restarting fits:
+
+```bash
+JEV_RUN=src/outputs/jev-phm/run-real-20261019-001 bash run_all.sh --status
+CUDA_VISIBLE_DEVICES='' .venv/bin/python src/S03_Scripts/run_jev_study.py semantic fit \
+  --config src/S02_Configs/real/semantic.yaml \
+  --run-root src/outputs/jev-phm/run-real-20261019-001
+```
+
+The second command reuses the six completed grid results and exits nonzero at
+the existing source-qualification gate before loading a model or starting a
+refit. It does not open target data. The original pipeline commands below remain
+documented for the protocol; they do not authorize overriding this scientific
+stop. Small configuration/result JSONs and diagnostics are retained with the
+run; waveform caches and checkpoints remain in local study storage.
 
 `--check` is CPU-only and returns a nonzero status while G0 is unbound. Commit
 reviewed scientific code/configuration before calling the Shell runner. Once

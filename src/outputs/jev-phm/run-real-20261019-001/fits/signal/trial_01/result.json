@@ -1,0 +1,15 @@
+{
+  "source_nll": 0.8847847586372889,
+  "selected_step": 400,
+  "last_step": 900,
+  "termination": "source_early_stop",
+  "seconds": 53.747149670962244,
+  "qualification": "bounded_source_selection_only",
+  "file": "model.pt",
+  "parameters": {
+    "lr": 0.0001,
+    "weight_decay": 0.01
+  },
+  "seed": 101,
+  "path": "trial_01/model.pt"
+}

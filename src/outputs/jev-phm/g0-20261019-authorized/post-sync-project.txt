@@ -1,0 +1,9 @@
+Repository: /home/user/LQ/Q_paper/LQQL_OS/lqql_06_工作与项目/03_论文流水线/PT01-jev-phm
+ERROR [E-DUPLICATE-EVIDENCE] paper/experiments/evidence_matrix.md: duplicate evidence ID 'Pending': row 11 and row 12
+ERROR [E-EVIDENCE-ID] paper/experiments/evidence_matrix.md: invalid evidence ID: 'Native compatibility'
+ERROR [E-EVIDENCE-ID] paper/experiments/evidence_matrix.md: invalid evidence ID: 'Pending'
+ERROR [E-EVIDENCE-ID] paper/experiments/evidence_matrix.md: invalid evidence ID: 'Source/derivation'
+ERROR [E-EVIDENCE-STRENGTH] paper/experiments/evidence_matrix.md: invalid strength for Source/derivation: 'analytical'
+ERROR [E-EVIDENCE-STRENGTH] paper/experiments/evidence_matrix.md: invalid strength for Native compatibility: 'analytical and native-metadata'
+ERROR [E-EVIDENCE-STATUS] paper/experiments/evidence_matrix.md: invalid status for Native compatibility: 'supported_scoped_counterexample'
+summary: 7 error(s), 0 warning(s)

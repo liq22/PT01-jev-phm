@@ -1,0 +1,32 @@
+19 October 2026, source-only scientific stop
+
+The six semantic search candidates completed. The fixed minimum-NLL rule selects
+trial_05 (lr=0.001, weight_decay=0.01): source tune NLL 8.738483828610201,
+selected step 1700, last step 2000, update_cap, cap_reached_uncertain.
+This is not source-qualified under the approved protocol. No worse qualified
+candidate was substituted. The external comparison therefore cannot be released.
+
+The original family executor had already started refit_202. The operator sent
+SIGTERM to that child after observing the complete grid and its unqualified
+winner. Its process_failure.json is retained unchanged. This was an administrative
+scientific stop, not a spontaneous optimizer failure and not a technical retry.
+The parent pipeline exited 1 and settled the interval in the existing usage.tsv.
+No job or GPU workload remains active.
+
+28 completed efficacy fits: RF 6, MobileNet1D 8, indexed 8, semantic 6.
+One additional efficacy fit was started and administratively stopped without a
+result: semantic refit_202. The earlier JSON/YAML pre-fit error is a separate
+infrastructure attempt and did not start an efficacy fit. Smoke updates are not
+efficacy fits. Permuted and token efficacy fits, source calibration/verification,
+MFPT waveform access, target predictions, timing and paired intervals did not run.
+
+All completed results, checkpoints, traces, original failure logs and the partial
+refit directory remain intact. No source or target was replaced, no label or
+preprocessing changed, and no extra seed, update or fitting budget was added.
+A minimal executor correction now checks the existing qualification immediately
+after grid selection and before extra-seed fits; the CPU-only actual-grid replay
+reports the intended stop without a new fit or model call.
+
+C4/C5 transfer and efficiency effects remain UNTESTED. Poor source NLL and an
+update-cap stop do not establish universal method failure or identify a causal
+mechanism. The separate semantic_geometry.txt is a post-hoc source diagnostic.

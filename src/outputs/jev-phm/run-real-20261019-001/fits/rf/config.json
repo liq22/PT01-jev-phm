@@ -1,0 +1,71 @@
+{
+  "name": "rf",
+  "runtime": {
+    "factory": "external/PHM-Vibench",
+    "device": "cuda",
+    "gpu_uuid": "GPU-d77295d4-8e79-f0fa-8d82-791c244a2148",
+    "forbidden_physical_gpu": 2,
+    "dtype": "bfloat16",
+    "cpu_threads": 8,
+    "gpu_seconds": 86400,
+    "cpu_seconds": 43200
+  },
+  "data": {
+    "root": "/home/user/data/PHMbenchdata/PHM-Vibench",
+    "metadata": "metadata.xlsx",
+    "source": "RM_027_PU",
+    "target": "RM_007_MFPT",
+    "pu_roles": "paper/assets/tables/jev_p1_pu_unit_roles.csv",
+    "qualification_file": "paper/assets/tables/jev_p1_record_bindings.csv"
+  },
+  "signal": {
+    "sample_rate_hz": 25600,
+    "samples": 8192,
+    "kaiser_beta": 5.0
+  },
+  "model": {
+    "kind": "rf",
+    "trees": 300
+  },
+  "fit": {
+    "batch_size": 16,
+    "max_updates": 2000,
+    "max_seconds": 1200,
+    "validate_every": 100,
+    "patience": 5
+  },
+  "search": {
+    "max_depth": [
+      8,
+      null
+    ],
+    "min_samples_leaf": [
+      1,
+      4,
+      12
+    ]
+  },
+  "seeds": [
+    101
+  ],
+  "evaluation": {
+    "probability_floor": 1e-12,
+    "timing_warmup": 30,
+    "timing_samples": 200,
+    "semantic_variants": {
+      "race_wording": [
+        "A rolling bearing without diagnosed ring damage.",
+        "A rolling bearing with inner-race damage.",
+        "A rolling bearing with outer-race damage."
+      ]
+    }
+  },
+  "family_configs": [
+    "src/S02_Configs/real/rf.yaml",
+    "src/S02_Configs/real/signal.yaml",
+    "src/S02_Configs/real/indexed.yaml",
+    "src/S02_Configs/real/semantic.yaml",
+    "src/S02_Configs/real/permuted.yaml",
+    "src/S02_Configs/real/token.yaml"
+  ]
+}

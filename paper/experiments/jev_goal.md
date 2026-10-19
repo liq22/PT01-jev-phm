@@ -330,3 +330,130 @@ map only after every source and target requirement passes. MFPT material paths
 or public links have been requested; no replacement dataset, file-based
 estimand, invented unit map or artificial coarsening is adopted. This is a
 qualification decision, not evidence that the method succeeds or fails.
+
+### Authorized native-value execution revision — 19 October 2026
+
+Before any P1 model result, the user stated that the H5 files only change the
+original storage format, that acquisition information is in metadata, and that
+one experiment should default to one bearing. Accept format-only preservation
+as **user-provided provenance**, rather than claiming an independent conversion
+audit. Accept the experiment-as-bearing convention where specimen membership
+was unresolved. These statements supersede the previous wait for a separate
+conversion description and MFPT specimen join; no renewed budget approval is
+needed.
+
+Keep the documented PU roster and all its dependent recordings together:
+29 bearings, 2,319 records, unchanged train/tune/cal/test roles. For MFPT only,
+use its twenty known-label native records as twenty **assumed experiment units**,
+with identity from the metadata record/File. Do not rename these as independently
+verified physical specimens. Paired unit intervals are conditional on this
+user-authorized independence convention and the fitted models; they do not
+establish machine-population generalization. Preserve this basis in the consumed
+qualification CSV, saved definitions, effects and figures.
+
+Retain native signal amplitudes, with an explicit identity `scale_multiplier=1`
+for both datasets. The inspected PU MAT's vibration Unit field is empty; the
+sensor sensitivity alone does not identify the saved amplitude unit. Therefore
+this revision withdraws the earlier common-g input interpretation: PU amplitudes
+remain in unspecified native units, while the published MFPT gs convention is g.
+Do not invent a PU conversion or infer it from target spectra. This is a
+prospective input-protocol revision, not a post-result preprocessing choice.
+All six families receive the same native-value observation, documented channel
+(PU 2, MFPT 0), metadata nominal rate, whole-record anti-alias resampling to
+25.6 kHz, and existing source-train-only mean/standard-deviation scaling. Unknown
+cross-source amplitude calibration is an explicit transfer limitation.
+
+The existing entry consumes
+`paper/assets/tables/jev_p1_record_bindings.csv`; its rows preserve native Id,
+File, raw label, shared H/I/O label, fixed role, rate, channel, value-unit scope
+and evidence basis. It is a derived runtime input, not an edit to native metadata
+or raw H5. The six-family 46-fit maximum, search, seeds, stopping rules, target
+seal and resource ceilings remain unchanged. Inspect actual common inputs,
+prepare source windows and run the real source-interface smoke before fitting.
+MFPT waveforms remain sealed until every selected source model has passed the
+existing verification/calibration gate. CWRU and physical GPU 2 remain forbidden.
+
+Execution directory: `src/outputs/jev-phm/run-real-20261019-001`. Reproduce with
+`JEV_RUN=src/outputs/jev-phm/run-real-20261019-001 bash run_all.sh`; do not reuse an
+incomplete run or reset the shared approved-study budget. Technical failures and
+cap-reached fits remain explicit, with no automatic retry or target release.
+
+#### First real acceptance and technical recovery
+
+Source preparation completed in 283 CPU wall seconds and exported train/tune/
+cal/test arrays of 15,377 / 4,813 / 2,884 / 4,815 windows. Their record counts
+are 1,279 / 400 / 240 / 400 and declared PU units 16 / 5 / 3 / 5. Every window
+has 8,192 samples and one channel; tails are recorded. All five real neural
+interfaces and RF features passed the source-only smoke in 94 GPU-lane seconds,
+including actual Qwen weights, gradients and checkpoint roundtrips on physical
+GPU 0. These are interface observations, not diagnostic efficacy evidence.
+
+The first RF child failed before fitting: the config handler parsed a saved
+JSON file as YAML, turning `1e-12` into a string and correctly triggering the
+shared-contract check. Repair only format dispatch (JSON parser for `.json`,
+YAML parser for YAML); do not coerce the scientific value or relax equality.
+This is manual technical recovery 1 of the existing maximum two globally,
+not a new family or extra efficacy fit. Preserve its five consumed CPU seconds,
+stage log and the original child log/failure under
+`fits/rf/technical_recovery_01/`. Reuse unchanged source exports and smoke; keep
+MFPT sealed. Do not present this failed infrastructure attempt as a PHM result.
+
+#### Real source-search outcome and scientific stop — 19 October 2026
+
+The current run completed 28 efficacy fits: six RF candidates, eight MobileNet1D
+fits, eight indexed-head fits and six semantic candidates. The source table is
+`paper/assets/tables/jev_p1_source_fit_results.csv`; each row points to the saved
+result and checkpoint. Six hyperparameter candidates are not six stochastic
+repetitions. RF's selected tune NLL is 1.0412393. The selected MobileNet1D seed
+101/202/303 tune NLLs are 0.6620075 / 0.8902235 / 0.6315378, and the indexed-head
+values are 0.7147418 / 0.8883961 / 0.7756704. All six selected neural fits satisfy
+the declared source early-stop criterion. These are source selection scores,
+not held-out diagnostic results.
+
+The efficacy runs used code commit `c242619` after the parsing-only technical
+recovery; native-value input binding was introduced in `83f9fb0`. PHMFactory
+remained at `cdc0669167ca25ac848e34c880875ca39c6aed89`, with the Qwen revision
+recorded in each saved family configuration. The later fail-fast correction did
+not change or rerun these models. Software and hardware versions are in the
+run's `runtime_versions.txt`.
+
+Semantic candidate tune NLLs in fixed trial order are 19.3752802, 20.6355222,
+21.0532140, 18.0205160, 11.4169437 and 8.7384838. The fixed minimum-NLL rule
+therefore chooses trial 05, lr=0.001 and weight decay=0.01. Its selected step is
+1700, its last step is 2000 and its qualification is `cap_reached_uncertain`.
+Do not substitute a worse early-stopped candidate or extend the update limit
+after seeing this result. The original executor had already started seed 202;
+that child was explicitly terminated on observing this scientific stop. Its
+partial directory and SIGTERM process failure remain unchanged. It is the 29th
+started efficacy fit, not a completed repeat or a spontaneous optimizer error.
+No technical retry was used for this administrative stop.
+
+The executor now checks the same qualification immediately after grid selection,
+before launching additional seeds. A CPU-only replay on the actual completed
+grid returned the intended source-qualification error, without another model
+call, fit or external access. Its output is
+`src/outputs/jev-phm/g0-20261019-authorized/source-gate-replay.txt`.
+The run's `execution/scientific_stop.txt` distinguishes this stop from the
+earlier pre-fit JSON parsing failure. All pipeline processes have ended.
+
+Source geometry is an **H1 diagnostic**, prompted by the large source losses:
+the saved inner/outer prototype cosine is 0.998831 and the smoke logits have
+much larger spans than indexed logits. Candidate order and fixedness were
+correct, and these observations do not establish a causal explanation or
+non-identifiability. The exact artifact-based calculation and limits are in
+`execution/semantic_geometry.txt`; no new normalization or training was run.
+
+MFPT waveforms remain unopened. Permuted/token efficacy fits, complete source
+reload/calibration, external predictions, timings and paired uncertainty
+intervals did not run. C4/C5 effects and native-granularity learning remain
+UNTESTED. The recorded pipeline intervals total 6,250 GPU-lane seconds and
+531 CPU seconds, including the four-second source-gate replay. These are
+instrumented command intervals, not a claim that all analysis/checking CPU time
+was measured. No approved ceiling, population, label or seed was expanded.
+
+The remaining research question is source fitting adequacy and the competing
+scale/geometry/representation explanations. Any further method or fitting
+revision must preserve these results, declare its source-inspired provenance
+and fair controls before additional runs, and retain MFPT's exclusion from
+development. Additional metadata is not the current prerequisite. No automatic
+resume of the partial fit or claim of a completed paper candidate is justified.

@@ -20,10 +20,20 @@ entry and six configurations under `src/S02_Configs/real/`. See
 [approved protocol](paper/experiments/jev_goal.md#approved-p1-continuation-pu-single-ring-source-to-mfpt-external-target).
 Its input is the existing `metadata.xlsx`; the check extracts only approved
 PU/MFPT rows and explicitly reconciles their different integer labels. Real-data
-admission remains **BLOCKED**, with zero new efficacy fits, until physical-unit
-and measurement provenance is established. Unit tests and native-adapter
-numerical fixtures do not establish real-data acceptance. CWRU and physical GPU 2
-remain excluded.
+admission now follows the author's 19 October format-only preservation statement
+and experiment-as-bearing convention for MFPT. PU retains its documented bearing
+groups. Native amplitudes are preserved without claiming a common physical unit;
+MFPT intervals are conditional on the declared grouping assumption. Real source
+smoke and efficacy results must be inspected separately from code tests. CWRU and
+physical GPU 2 remain excluded.
+
+On 19 October, real source export and Qwen/CUDA interface checks passed, and
+[28 source fits](paper/assets/tables/jev_p1_source_fit_results.csv) completed.
+The minimum-NLL semantic candidate hit the 2,000-update cap, so the study stopped
+before external evaluation. No MFPT waveforms, calibration, timing or paired
+intervals were released. The [current decision](paper/STATUS.md#e-唯一下一步)
+concerns source fitting adequacy, not another metadata request. This does not
+establish a cross-dataset gain, method failure in general, or a completed paper.
 
 ### Shared observations and probability heads
 

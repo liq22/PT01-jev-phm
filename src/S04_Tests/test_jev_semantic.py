@@ -115,11 +115,11 @@ class SemanticTests(unittest.TestCase):
     def test_filter_properties_not_fault_simulation(self):
         t=np.arange(64000)/64000
         x=np.sin(2*np.pi*4000*t)+np.sin(2*np.pi*18000*t)
-        y=common_rate_signal(x,sample_rate_hz=64000,channel_index=0,scale_to_g=1.,target_rate_hz=25600,beta=5.)
+        y=common_rate_signal(x,sample_rate_hz=64000,channel_index=0,scale_multiplier=1.,target_rate_hz=25600,beta=5.)
         self.assertEqual(y.shape,(25600,1))
         ideal=np.sin(2*np.pi*4000*np.arange(25600)/25600)
         self.assertLess(np.std(y[200:-200,0]-ideal[200:-200]),.01)
-        with self.assertRaises(ValueError): common_rate_signal(x,sample_rate_hz=64000.1,channel_index=0,scale_to_g=1.,target_rate_hz=25600,beta=5.)
+        with self.assertRaises(ValueError): common_rate_signal(x,sample_rate_hz=64000.1,channel_index=0,scale_multiplier=1.,target_rate_hz=25600,beta=5.)
     def test_contract_parse(self):
         parser=argparse.ArgumentParser();sub=parser.add_subparsers(required=True)
         add_subparser(sub)
@@ -129,7 +129,8 @@ class SemanticTests(unittest.TestCase):
         for name in ("rf","signal","indexed","semantic","permuted","token"):
             cfg=read_config(ROOT/f"src/S02_Configs/real/{name}.yaml")
             self.assertEqual(cfg["name"],name)
-            self.assertIsNone(cfg["data"]["qualification_file"])
+            self.assertTrue((ROOT / cfg["data"]["qualification_file"]).is_file())
+            cfg["data"]["qualification_file"] = None
             with self.assertRaisesRegex(RuntimeError,"BLOCKED"):
                 check_inputs(cfg,ROOT,gpu=False)
     def test_forbidden_gpu_rejected_before_cuda_initialization(self):

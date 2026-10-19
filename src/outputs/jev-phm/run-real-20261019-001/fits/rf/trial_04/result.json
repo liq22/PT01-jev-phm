@@ -1,0 +1,13 @@
+{
+  "source_nll": 1.7351248005288393,
+  "termination": "completed",
+  "qualification": "bounded_source_selection_only",
+  "file": "model.joblib",
+  "parameters": {
+    "max_depth": null,
+    "min_samples_leaf": 4
+  },
+  "seed": 101,
+  "path": "trial_04/model.joblib",
+  "seconds": 35.33359416999156
+}

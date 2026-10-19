@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_工作与项目/03_论文流水线/PT01-jev-phm/src/S03_Scripts/run_jev_study.py", line 485, in <module>
+    main()
+  File "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_工作与项目/03_论文流水线/PT01-jev-phm/src/S03_Scripts/run_jev_study.py", line 475, in main
+    args.handler(args, ROOT, _upstream)
+  File "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_工作与项目/03_论文流水线/PT01-jev-phm/src/S01_Package/jev_execution.py", line 398, in dispatch
+    validate_matrix(cfg, root)
+  File "/home/user/LQ/Q_paper/LQQL_OS/lqql_06_工作与项目/03_论文流水线/PT01-jev-phm/src/S01_Package/jev_execution.py", line 113, in validate_matrix
+    raise ValueError("Families do not share the approved input contract")
+ValueError: Families do not share the approved input contract
