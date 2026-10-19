@@ -51,6 +51,7 @@ P1总授权：40次神经拟合＋6次RF；24GPUh/12CPU墙钟h上限；最多8�
 ## D. 本轮真实变化
 
 - **19日执行起点：**已生成2,339条完整绑定，明确`unit_basis`及`value_unit`；`scale_to_g`改为不带物理单位承诺的`scale_multiplier`。G0实际退出0（`src/outputs/jev-phm/g0-20261019-authorized/check.txt`）；MFPT波形未读取。首次全仓177项检查因旧测试仍要求资格文件为null失败1项，已更新为验证绑定文件存在，同时保留缺绑定必须BLOCKED的检查；失败日志保留，修后检查另报。执行目录`src/outputs/jev-phm/run-real-20261019-001`，GPU仅允许已核对物理0的UUID；禁止GPU2。
+- **19日真实验收与首个技术失败：**源导出283 CPU秒完成，四角色窗口数15,377/4,813/2,884/4,815；真实Qwen、MobileNet1D、RF特征及全部读出的smoke在94 GPU-lane秒通过。随后RF在拟合前因JSON被YAML误读而停止（`1e-12`从数值变字符串触发合同检查），耗5 CPU秒；不是方法负结果，拟合仍0/46。最小修复格式分派，保留全部失败日志，按原上限使用第1次人工技术恢复，不重跑有效源导出或smoke，MFPT仍封存。
 - **授权：**从作者待确认变为P1及预算已确认；这是执行条件，不是方法效果。
 - **已执行元数据动作：**仅取版本化PU role表的32条primary行；使用既有公开部件映射排除新人口中的KB23/KB24/KB27，保留历史记录；标准库Random(20261017)，H/I/O顺序、类内bearing code排序后shuffle。生成29行固定角色。train/tune/cal/test记录数为1279/400/240/400；KA08的79记录原样保留。
 - **MFPT来源：**读取MathWorks README、license与完整非截断tree（20个MAT条目，未取波形）。许可文本明确CC BY-NC-SA 4.0；原始数据所有者与重组范围可定位。publisher train/test目录全部作为P1外部目标，不继承示例训练权限。未找到物理试件join；不把20文件计成20轴承。

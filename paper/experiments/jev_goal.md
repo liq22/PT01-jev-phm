@@ -377,3 +377,23 @@ Execution directory: `src/outputs/jev-phm/run-real-20261019-001`. Reproduce with
 `JEV_RUN=src/outputs/jev-phm/run-real-20261019-001 bash run_all.sh`; do not reuse an
 incomplete run or reset the shared approved-study budget. Technical failures and
 cap-reached fits remain explicit, with no automatic retry or target release.
+
+#### First real acceptance and technical recovery
+
+Source preparation completed in 283 CPU wall seconds and exported train/tune/
+cal/test arrays of 15,377 / 4,813 / 2,884 / 4,815 windows. Their record counts
+are 1,279 / 400 / 240 / 400 and declared PU units 16 / 5 / 3 / 5. Every window
+has 8,192 samples and one channel; tails are recorded. All five real neural
+interfaces and RF features passed the source-only smoke in 94 GPU-lane seconds,
+including actual Qwen weights, gradients and checkpoint roundtrips on physical
+GPU 0. These are interface observations, not diagnostic efficacy evidence.
+
+The first RF child failed before fitting: the config handler parsed a saved
+JSON file as YAML, turning `1e-12` into a string and correctly triggering the
+shared-contract check. Repair only format dispatch (JSON parser for `.json`,
+YAML parser for YAML); do not coerce the scientific value or relax equality.
+This is manual technical recovery 1 of the existing maximum two globally,
+not a new family or extra efficacy fit. Preserve its five consumed CPU seconds,
+stage log and the original child log/failure under
+`fits/rf/technical_recovery_01/`. Reuse unchanged source exports and smoke; keep
+MFPT sealed. Do not present this failed infrastructure attempt as a PHM result.

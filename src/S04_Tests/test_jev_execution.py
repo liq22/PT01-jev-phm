@@ -242,6 +242,16 @@ class ExecutionTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "46-fit matrix"):
                 execution.validate_matrix(cfg, ROOT)
 
+    def test_saved_json_configuration_preserves_numeric_contract(self):
+        cfg = execution.read_config(ROOT / "src/S02_Configs/real/rf.yaml")
+        saved = self.root / "config.json"
+        saved.write_text(json.dumps(cfg), encoding="utf-8")
+        restored = execution.read_config(saved)
+        self.assertIsInstance(restored["evaluation"]["probability_floor"], float)
+        self.assertEqual(restored["evaluation"]["probability_floor"], 1e-12)
+        self.assertEqual(restored, cfg)
+        self.assertEqual(len(execution.validate_matrix(restored, ROOT)), 6)
+
     def test_verify_source_stage_is_in_existing_cli(self):
         parser = argparse.ArgumentParser()
         execution.add_subparser(parser.add_subparsers(required=True))

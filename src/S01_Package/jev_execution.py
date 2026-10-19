@@ -28,7 +28,7 @@ def read_config(path: Path, _seen=None, _validate=True) -> dict:
         raise ValueError("Cyclic configuration inheritance")
     seen.add(path)
     with path.open(encoding="utf-8") as f:
-        value = yaml.safe_load(f)
+        value = json.load(f) if path.suffix.lower() == ".json" else yaml.safe_load(f)
     if not isinstance(value, dict):
         raise ValueError("Configuration must be a mapping")
     parent = value.pop("base", None)
