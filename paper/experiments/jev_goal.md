@@ -410,6 +410,13 @@ values are 0.7147418 / 0.8883961 / 0.7756704. All six selected neural fits satis
 the declared source early-stop criterion. These are source selection scores,
 not held-out diagnostic results.
 
+The efficacy runs used code commit `c242619` after the parsing-only technical
+recovery; native-value input binding was introduced in `83f9fb0`. PHMFactory
+remained at `cdc0669167ca25ac848e34c880875ca39c6aed89`, with the Qwen revision
+recorded in each saved family configuration. The later fail-fast correction did
+not change or rerun these models. Software and hardware versions are in the
+run's `runtime_versions.txt`.
+
 Semantic candidate tune NLLs in fixed trial order are 19.3752802, 20.6355222,
 21.0532140, 18.0205160, 11.4169437 and 8.7384838. The fixed minimum-NLL rule
 therefore chooses trial 05, lr=0.001 and weight decay=0.01. Its selected step is
