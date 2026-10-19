@@ -55,7 +55,7 @@ main_claims:
     statement: Shared fault-description readout improves excluded-dataset diagnostic NLL beyond an indexed head on the same backbone under the approved P1 protocol.
     status: hypothesis_pending_validation
     evidence: paper/method/native_annotation_compatibility.md
-    boundary: P1 uses exact-label PU single-ring records and MFPT, with G0 still BLOCKED and zero new fits. Native PU mixed/dominant counterexamples remain valid; the native-granularity subclaim is UNTESTED. CWRU is EXCLUDED BY USER.
+    boundary: P1 uses PU's documented single-ring groups and user-assumed MFPT experiment units under the 19 October native-value revision. Effects await valid real runs; intervals depend on the declared MFPT unit convention. Native PU mixed/dominant counterexamples remain valid; the native-granularity subclaim is UNTESTED. CWRU is EXCLUDED BY USER.
   - claim_id: C5
     statement: Direct semantic readout provides a favorable diagnostic error-latency relation across compatible backbone instances.
     status: hypothesis_pending_validation

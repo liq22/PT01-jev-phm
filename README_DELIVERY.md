@@ -1,8 +1,12 @@
 # Jev-PHM P1 implementation and acceptance
 
-The implementation is integrated into the existing study CLI. Real P1 data,
-pretrained-weight and CUDA acceptance remains **BLOCKED**, with **0/46 efficacy
-fits**. Code tests and numerical adapter fixtures are not PHM results.
+The implementation is integrated into the existing study CLI. On 19 October the
+author confirmed that H5 preserves original values and authorized one experiment
+as one bearing where physical membership is unresolved. The current prospective
+execution revision is recorded at the end of the existing Goal. It retains PU's
+documented groups and uses twenty assumed MFPT experiment units. Earlier G0
+failures below remain historical; actual real-source smoke and fitting outcomes
+are reported in STATUS. Code fixtures are not PHM results.
 
 The authority for population, claims and resources is the existing
 [approved P1 protocol](paper/experiments/jev_goal.md#approved-p1-continuation-pu-single-ring-source-to-mfpt-external-target).
@@ -51,7 +55,7 @@ The qualification map must agree with both the native descriptions and this
 conversion. It remains configured separately as `data.qualification_file`:
 
 ```text
-Id,Name,File,unit_id,role,class_index,raw_label,sample_rate_hz,channel_index,scale_to_g,physical_source,measurement_source,license_source
+Id,Name,File,unit_id,role,class_index,raw_label,sample_rate_hz,channel_index,scale_multiplier,physical_source,measurement_source,license_source
 ```
 
 The population is exactly 2,319 approved PU source records and 20 known-label
@@ -99,7 +103,16 @@ vibration channel and acceleration scale. PU's raw clock association is still
 unverified; its known bearing roles and channel index do not establish the new
 resampling contract. An MFPT map alone cannot release G1. Only after all source
 and target requirements pass may the existing qualification map be bound.
-Until new source material is available, data operations stop and fits stay 0/46.
+This was the 18 October stopping decision. It was superseded operationally by
+the author's 19 October provenance statement and explicit unit convention,
+without turning those statements into independently verified specimen evidence.
+The derived binding is now `paper/assets/tables/jev_p1_record_bindings.csv`, with
+additional `unit_basis` and `value_unit` columns. PU keeps its 29 known bearing
+groups; each of the twenty MFPT records is an assumed experiment unit. Saved
+definitions, effects and plots state that assumption. Both use an identity
+`scale_multiplier=1`: PU's saved amplitude unit is unspecified, so no common-g
+calibration is claimed. All methods share unchanged native values, common-rate
+resampling and source-train-only scaling. This revision predates any target score.
 
 ## Commands and execution order
 

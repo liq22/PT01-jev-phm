@@ -35,19 +35,23 @@ def _integer_measurement(value: object, name: str, *, minimum: int) -> int:
 
 
 def _measurement_binding(sample_rate_hz: object, channel_index: object,
-                         scale_to_g: object) -> tuple[int, int, float]:
+                         scale_multiplier: object) -> tuple[int, int, float]:
     rate = _integer_measurement(sample_rate_hz, "sample_rate_hz", minimum=1)
     channel = _integer_measurement(channel_index, "channel_index", minimum=0)
-    scale = float(scale_to_g)
+    scale = float(scale_multiplier)
     if not math.isfinite(scale) or scale <= 0:
-        raise ValueError("scale_to_g must be finite and positive")
+        raise ValueError("scale_multiplier must be finite and positive")
     return rate, channel, scale
 
 
-def common_rate_signal(raw, *, sample_rate_hz, channel_index, scale_to_g, target_rate_hz, beta):
-    """Declared-channel conversion and polyphase FIR before window generation."""
-    sample_rate_hz, channel_index, scale_to_g = _measurement_binding(
-        sample_rate_hz, channel_index, scale_to_g)
+def common_rate_signal(raw, *, sample_rate_hz, channel_index, scale_multiplier, target_rate_hz, beta):
+    """Declared channel, explicit amplitude multiplier and whole-record FIR.
+
+    P1 uses an identity multiplier in native amplitudes. The multiplier is not
+    a certification that the two sources share a physical amplitude unit.
+    """
+    sample_rate_hz, channel_index, scale_multiplier = _measurement_binding(
+        sample_rate_hz, channel_index, scale_multiplier)
     target_rate_hz = _integer_measurement(target_rate_hz, "target_rate_hz", minimum=1)
     if not math.isfinite(beta) or beta < 0:
         raise ValueError("Invalid documented FIR parameter")
@@ -60,7 +64,7 @@ def common_rate_signal(raw, *, sample_rate_hz, channel_index, scale_to_g, target
         raise ValueError("Declared channel is inconsistent with the native reader/cache shape")
     if not np.isfinite(x).all():
         raise ValueError("Raw observation contains nonfinite samples")
-    x = x[:, channel_index].astype(np.float64) * scale_to_g
+    x = x[:, channel_index].astype(np.float64) * scale_multiplier
     g = math.gcd(int(sample_rate_hz), int(target_rate_hz))
     y = resample_poly(x, int(target_rate_hz)//g, int(sample_rate_hz)//g,
                      window=("kaiser", beta), padtype="constant")
@@ -251,7 +255,7 @@ def qualify_records(root: Path, config: dict) -> tuple[object, dict]:
     with path.open(encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
     required = {"Id", "Name", "File", "unit_id", "role", "class_index", "raw_label",
-                "sample_rate_hz", "channel_index", "scale_to_g", "physical_source",
+                "sample_rate_hz", "channel_index", "scale_multiplier", "physical_source",
                 "measurement_source", "license_source"}
     if not rows or not required.issubset(rows[0]):
         raise ValueError(f"G0 needs record bindings: {sorted(required)}")
@@ -269,8 +273,8 @@ def qualify_records(root: Path, config: dict) -> tuple[object, dict]:
             raise ValueError("MFPT must be entirely external; source roles must belong to PU")
         r = dict(r)
         r["class_index"] = _integer_measurement(r["class_index"], "class_index", minimum=0)
-        r["sample_rate_hz"], r["channel_index"], r["scale_to_g"] = _measurement_binding(
-            r["sample_rate_hz"], r["channel_index"], r["scale_to_g"])
+        r["sample_rate_hz"], r["channel_index"], r["scale_multiplier"] = _measurement_binding(
+            r["sample_rate_hz"], r["channel_index"], r["scale_multiplier"])
         if r["class_index"] not in range(3):
             raise ValueError("The approved closed task has exactly H/I/O classes")
         raw_label = _integer_measurement(r["raw_label"], "raw_label", minimum=0)
@@ -316,7 +320,7 @@ def register_adapter() -> None:
             row = metadata[key]
             transform_start = perf_counter()
             transformed = common_rate_signal(data[key], sample_rate_hz=row["JevRate"],
-                channel_index=int(row["JevChannel"]), scale_to_g=row["JevScale"],
+                channel_index=int(row["JevChannel"]), scale_multiplier=row["JevScale"],
                 target_rate_hz=args_data.target_rate_hz, beta=args_data.resample_beta)
             resampling_seconds = perf_counter() - transform_start
             super().__init__({key: transformed}, metadata, args_data, args_task, mode)
@@ -356,7 +360,7 @@ def build_native_factory(root: Path, cfg: dict, run: Path, *, target: bool):
     if target:
         chosen = chosen[~chosen["Id"].astype(str).map(lambda k: bindings[k]["role"] == "test")].copy()
     for column, field in (("JevRate", "sample_rate_hz"), ("JevChannel", "channel_index"),
-                          ("JevScale", "scale_to_g"), ("Label", "class_index"), ("Label_Description", "unit_id")):
+                          ("JevScale", "scale_multiplier"), ("Label", "class_index"), ("Label_Description", "unit_id")):
         chosen[column] = chosen["Id"].astype(str).map(lambda k: bindings[k][field])
     area = run / ("factory_target" if target else "factory_source")
     area.mkdir(exist_ok=False)

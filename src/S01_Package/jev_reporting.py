@@ -144,7 +144,7 @@ def _paired_arrays(left: dict, right: dict) -> None:
 
 def paired_nll_effect(left: dict[int, dict], right: dict[int, dict], *, calibrated: bool = False,
                       floor: float = 1e-12) -> tuple[list[dict], dict]:
-    """JEV minus reference, paired on physical units and conditional on saved fits.
+    """JEV minus reference, paired on declared units and conditional on saved fits.
 
     Average seed-specific effects within each unit BEFORE resampling units. The
     interval does not include model fitting, split or target-selection variability.
@@ -169,7 +169,7 @@ def paired_nll_effect(left: dict[int, dict], right: dict[int, dict], *, calibrat
             mask = a["unit"] == unit
             label = np.unique(y[mask])
             if len(label) != 1:
-                raise ValueError("A physical P1 unit has inconsistent diagnostic states")
+                raise ValueError("A declared P1 evaluation unit has inconsistent diagnostic states")
             identifier = str(unit).split(":")[-1].strip().lower()
             unknown |= identifier in {"", "unknown", "unverified", "tbd", "na", "null", "none", "nan"}
             if "unit_verified" in a:
@@ -180,19 +180,19 @@ def paired_nll_effect(left: dict[int, dict], right: dict[int, dict], *, calibrat
     units = sorted({r["unit"] for r in rows})
     means = np.array([np.mean([r["difference"] for r in rows if r["unit"] == unit]) for unit in units])
     class_counts = {str(k): sum(r["class_index"] == k for r in rows if r["seed"] == min(left)) for k in range(3)}
-    reason = ("Physical-unit identity is UNKNOWN/unverified" if unknown else
-              "At least one class has fewer than two independent physical units" if min(class_counts.values()) < 2 else None)
+    reason = ("Evaluation-unit identity is UNKNOWN/unverified" if unknown else
+              "At least one class has fewer than two declared evaluation units" if min(class_counts.values()) < 2 else None)
     interval = None
     if reason is None:
         rng = np.random.default_rng(BOOTSTRAP_SEED)
         samples = means[rng.integers(0, len(means), size=(BOOTSTRAP_DRAWS, len(means)))].mean(1)
         interval = [float(x) for x in np.quantile(samples, [.025, .975])]
     return rows, {"mean_difference": float(means.mean()), "fit_sd": float(np.std(per_fit, ddof=1)) if len(per_fit) > 1 else None,
-                  "fits": len(left), "physical_units": len(units), "units_per_class": class_counts,
+                  "fits": len(left), "evaluation_units": len(units), "units_per_class": class_counts,
                   "paired_unit_95_interval": interval, "interval_unavailable_reason": reason,
                   "bootstrap_draws": BOOTSTRAP_DRAWS if interval is not None else 0,
                   "bootstrap_seed": BOOTSTRAP_SEED if interval is not None else None,
-                  "interval_scope": "Physical-unit sampling conditional on these fitted models; excludes training/split variability. Unit identity relies on G0 provenance."}
+                  "interval_scope": "Declared-unit sampling conditional on these fitted models and the recorded unit basis; excludes training/split variability. The interval does not verify physical independence."}
 
 
 def _load_npz(path: Path) -> dict:
@@ -208,6 +208,26 @@ def summarize_saved_predictions(cfg: dict, root: Path, run: Path) -> None:
     floor = cfg["evaluation"]["probability_floor"]
     report = run / "reporting"
     report.mkdir(exist_ok=True)
+    unit_basis = {"test": {"dataset": "RM_027_PU"}, "external": {"dataset": "RM_007_MFPT"}}
+    qualification = cfg.get("data", {}).get("qualification_file")
+    evidence = []
+    if qualification:
+        path = Path(qualification).expanduser()
+        with (path if path.is_absolute() else root / path).open(newline="") as handle:
+            evidence = list(csv.DictReader(handle))
+    for description in unit_basis.values():
+        relevant = [r for r in evidence if r["Name"] == description["dataset"]]
+        codes = sorted({r.get("unit_basis") or "basis_unprovided" for r in relevant}) or ["basis_unprovided"]
+        description["unit_basis"] = codes
+        description["physical_source_evidence"] = sorted({r["physical_source"] for r in relevant})
+        description["native_value_units"] = sorted({r.get("value_unit") or "unspecified" for r in relevant})
+        description["amplitude_scope"] = "Native values with the declared multiplier; no cross-source physical-amplitude calibration is established."
+        if codes == ["documented_PU_bearing"]:
+            description["basis"] = "Approved native PU bearing identities and frozen roles."
+        elif codes == ["user_assumed_MFPT_experiment_bearing"]:
+            description["basis"] = "One native experiment/file is one assumed bearing, as authorized by the user. Physical specimens are not independently verified; this does not establish machine generalization."
+        else:
+            description["basis"] = "Unit basis was not established in the supplied report inputs; this report makes no physical-specimen verification claim."
     for config_path in cfg["family_configs"]:
         family = read_config(root / config_path)
         name = family["name"]
@@ -286,19 +306,22 @@ def summarize_saved_predictions(cfg: dict, root: Path, run: Path) -> None:
     for role in ("test", "external"):
         for view, calibrated in (("raw", False), ("calibrated", True)):
             paired, effect = paired_nll_effect(saved_by_method["semantic"][role], saved_by_method["indexed"][role], calibrated=calibrated, floor=floor)
+            effect["unit_basis"] = unit_basis[role]
+            effect["interval_scope"] += " " + unit_basis[role]["basis"]
             differences.extend(dict(role=role, view=view, **r) for r in paired)
             effects[role + "_" + view] = effect
     _write_csv(run / "paired_unit_effects.csv", differences)
     _write_json(report / "paired_effects.json", effects)
     _write_json(report / "definitions.json", {
-        "weighting": "Equal physical units; equal original recordings within a unit; equal windows within a recording.",
+        "weighting": "Equal declared evaluation units; equal original recordings within a unit; equal windows within a recording.",
+        "unit_basis_by_role": unit_basis,
         "brier": "Sum of squared class-probability errors across the three classes, then weighted mean.",
         "ece": "Ten equal-width confidence bins [0,.1),...,[.9,1]; weighted confidence versus weighted accuracy.",
         "risk_coverage": "Retrospective weighted ranking, stable saved-order tie handling; first accepted error is NA at zero coverage. Not a source-selected deployment threshold.",
         "alarms": "Fixed fault-probability threshold .5 on all observations; acceptance thresholds are fixed sensitivity scenarios and never remove observations from FPR/FNR.",
         "cost": "NA: no approved scenario cost has been supplied.",
-        "fit_sd": "Sample SD over actual fits (NA for one fit), distinct from physical-unit sampling intervals.",
-        "primary": "External semantic minus indexed RAW device-balanced NLL; no target-driven seed/threshold selection."})
+        "fit_sd": "Sample SD over actual fits (NA for one fit), distinct from declared-unit sampling intervals conditional on the recorded unit basis.",
+        "primary": "External semantic minus indexed RAW unit-balanced NLL, conditional on the assumed experiment units; no target-driven seed/threshold selection."})
 
 
 def _measure_operations(operations: dict, indices: np.ndarray, *, sync, warmup: int = 30,
@@ -427,7 +450,7 @@ def render_saved(cfg: dict, root: Path, run: Path) -> None:
         differences = list(csv.DictReader(handle))
     effects = json.loads((run / "reporting" / "paired_effects.json").read_text())
     def save(fig, name):
-        fig.tight_layout()
+        fig.tight_layout(rect=(0, .09, 1, 1) if fig.texts else (0, 0, 1, 1))
         with matplotlib.rc_context({"svg.fonttype": "none", "pdf.fonttype": 42}):
             for extension in ("svg", "pdf"):
                 fig.savefig(figures / f"{name}.{extension}")
@@ -449,6 +472,8 @@ def render_saved(cfg: dict, root: Path, run: Path) -> None:
     axes[1].axhline(0, color="black", linewidth=.8)
     axes[1].set_xticks(np.arange(len(units)), units, rotation=60, ha="right")
     axes[1].set_ylabel("Per-unit mean ΔNLL over saved fits")
+    axes[1].set_xlabel("Declared evaluation unit")
+    fig.text(.01, .01, "MFPT units assume one experiment = one bearing; intervals condition on that assumption and saved fits.\nPhysical specimens are not independently verified; these results do not establish machine generalization.", fontsize=7)
     save(fig, "paired_diagnostic_effects")
     with (run / "summary.csv").open() as handle:
         metrics = list(csv.DictReader(handle))
@@ -471,6 +496,7 @@ def render_saved(cfg: dict, root: Path, run: Path) -> None:
     ax.set_ylabel("Full-coverage target error (%)")
     if ax.collections:
         ax.legend(fontsize=7)
+    fig.text(.01, .01, "MFPT error uses user-assumed experiment units.\nIndependent physical specimens and machine generalization are not established.", fontsize=7)
     save(fig, "error_processing_cost")
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.5))
     # All fit curves are visible; do not pick the most favorable seed or smooth.
@@ -480,7 +506,7 @@ def render_saved(cfg: dict, root: Path, run: Path) -> None:
             curve = _load_npz(path)
             axes[0].plot(curve["coverage"], curve["accepted_error"], linewidth=.8,
                          label=name if i == 0 else None)
-    axes[0].set_xlabel("Accepted coverage (unit-balanced weight)")
+    axes[0].set_xlabel("Accepted coverage (declared-unit weight)")
     axes[0].set_ylabel("Accepted classification error")
     axes[0].legend(fontsize=7)
     with (run / "reporting" / "fixed_threshold_scenarios.csv").open() as handle:
@@ -496,4 +522,5 @@ def render_saved(cfg: dict, root: Path, run: Path) -> None:
     axes[1].set_xticks(np.arange(len(names)), names, rotation=45, ha="right")
     axes[1].set_ylabel("Full-population rate; fixed fault threshold .5")
     axes[1].legend(fontsize=7)
+    fig.text(.01, .01, "MFPT weighting uses the user-authorized one-experiment/one-bearing assumption; physical specimens are not independently verified.", fontsize=7)
     save(fig, "selective_diagnosis_and_alarms")

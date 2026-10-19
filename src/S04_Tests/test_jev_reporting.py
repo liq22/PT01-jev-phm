@@ -183,6 +183,24 @@ class ReportingTests(unittest.TestCase):
             with (run / "timing" / "rf" / "observations.csv").open() as handle:
                 self.assertEqual(len(list(csv.DictReader(handle))), 200)
 
+    def test_missing_unit_basis_is_reported_without_specimen_verification_claim(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            run = Path(temporary)
+            for name in ("semantic", "indexed"):
+                folder = run / "evaluations" / name / "101"
+                folder.mkdir(parents=True)
+                for role in ("test", "external"):
+                    np.savez_compressed(folder / f"{role}.npz", **saved_fixture())
+            cfg = {"evaluation": {"probability_floor": 1e-12}, "family_configs": ["semantic", "indexed"]}
+            with patch("jev_execution.read_config", side_effect=lambda path: {"name": path.name, "seeds": [101]}):
+                summarize_saved_predictions(cfg, run, run)
+            definitions = json.loads((run / "reporting" / "definitions.json").read_text())
+            for basis in definitions["unit_basis_by_role"].values():
+                self.assertEqual(basis["unit_basis"], ["basis_unprovided"])
+                self.assertIn("no physical-specimen verification claim", basis["basis"])
+            effects = json.loads((run / "reporting" / "paired_effects.json").read_text())
+            self.assertIn("does not verify physical independence", effects["external_raw"]["interval_scope"])
+
     def test_saved_pipeline_recomputes_without_model_and_generation_accuracy_is_actual(self):
         with tempfile.TemporaryDirectory() as temporary:
             run = Path(temporary)
@@ -204,6 +222,9 @@ class ReportingTests(unittest.TestCase):
                             variant["logits"] = np.ones_like(values["logits"]) * 2
                             np.savez_compressed(folder / f"{role}.variant_race_wording.npz", **variant)
             cfg = {"evaluation": {"probability_floor": 1e-12, "semantic_variants": {"race_wording": ["h", "i", "o"]}}, "family_configs": ["semantic", "indexed", "token"]}
+            qualification = run / "qualification.csv"
+            qualification.write_text("Name,physical_source,unit_basis\nRM_027_PU,native bearing table,documented_PU_bearing\nRM_007_MFPT,user assertion: one experiment is one assumed bearing,user_assumed_MFPT_experiment_bearing\n")
+            cfg["data"] = {"qualification_file": str(qualification)}
             with patch("jev_execution.read_config", side_effect=lambda path: {"name": path.name, "seeds": [101, 202]}):
                 summarize_saved_predictions(cfg, run, run)
                 # Same saved outputs are safe to recompute; a changed output is not overwritten.
@@ -220,6 +241,15 @@ class ReportingTests(unittest.TestCase):
             self.assertTrue(all(np.isclose(float(r["delta_nll_vs_canonical"]), 0) for r in sensitivity))
             effect = json.loads((run / "reporting" / "paired_effects.json").read_text())
             self.assertEqual(effect["external_raw"]["fits"], 2)
+            self.assertEqual(effect["external_raw"]["evaluation_units"], 6)
+            self.assertNotIn("physical_units", effect["external_raw"])
+            self.assertIn("not independently verified", effect["external_raw"]["interval_scope"])
+            self.assertIn("one experiment is one assumed bearing", effect["external_raw"]["unit_basis"]["physical_source_evidence"][0])
+            self.assertAlmostEqual(effect["external_raw"]["mean_difference"], 0)
+            self.assertEqual(effect["external_raw"]["bootstrap_draws"], 10000)
+            definitions = json.loads((run / "reporting" / "definitions.json").read_text())
+            self.assertEqual(definitions["unit_basis_by_role"]["test"]["physical_source_evidence"], ["native bearing table"])
+            self.assertEqual(definitions["unit_basis_by_role"]["external"]["unit_basis"], ["user_assumed_MFPT_experiment_bearing"])
             timing = run / "timing" / "token"
             timing.mkdir(parents=True)
             (timing / "summary.json").write_text(json.dumps({"seed": 101, "measurements": {
@@ -229,6 +259,7 @@ class ReportingTests(unittest.TestCase):
                 self.assertIn("<svg", (run / "figures" / f"{name}.svg").read_text())
                 self.assertTrue((run / "figures" / f"{name}.pdf").read_bytes().startswith(b"%PDF"))
             self.assertIn("shortest_legal_generation", (run / "figures" / "error_processing_cost.svg").read_text())
+            self.assertIn("one experiment = one bearing", (run / "figures" / "paired_diagnostic_effects.svg").read_text())
 
 
 if __name__ == "__main__":

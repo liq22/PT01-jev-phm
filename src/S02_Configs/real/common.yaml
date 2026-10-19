@@ -15,8 +15,8 @@ data:
   source: RM_027_PU
   target: RM_007_MFPT
   pu_roles: paper/assets/tables/jev_p1_pu_unit_roles.csv
-  # Not a fabricated PASS: bind the completed G0 record map before execution.
-  qualification_file: null
+  # Native-value preservation and declared unit basis are recorded per record.
+  qualification_file: paper/assets/tables/jev_p1_record_bindings.csv
 signal:
   sample_rate_hz: 25600
   samples: 8192

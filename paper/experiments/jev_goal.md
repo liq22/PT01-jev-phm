@@ -330,3 +330,50 @@ map only after every source and target requirement passes. MFPT material paths
 or public links have been requested; no replacement dataset, file-based
 estimand, invented unit map or artificial coarsening is adopted. This is a
 qualification decision, not evidence that the method succeeds or fails.
+
+### Authorized native-value execution revision — 19 October 2026
+
+Before any P1 model result, the user stated that the H5 files only change the
+original storage format, that acquisition information is in metadata, and that
+one experiment should default to one bearing. Accept format-only preservation
+as **user-provided provenance**, rather than claiming an independent conversion
+audit. Accept the experiment-as-bearing convention where specimen membership
+was unresolved. These statements supersede the previous wait for a separate
+conversion description and MFPT specimen join; no renewed budget approval is
+needed.
+
+Keep the documented PU roster and all its dependent recordings together:
+29 bearings, 2,319 records, unchanged train/tune/cal/test roles. For MFPT only,
+use its twenty known-label native records as twenty **assumed experiment units**,
+with identity from the metadata record/File. Do not rename these as independently
+verified physical specimens. Paired unit intervals are conditional on this
+user-authorized independence convention and the fitted models; they do not
+establish machine-population generalization. Preserve this basis in the consumed
+qualification CSV, saved definitions, effects and figures.
+
+Retain native signal amplitudes, with an explicit identity `scale_multiplier=1`
+for both datasets. The inspected PU MAT's vibration Unit field is empty; the
+sensor sensitivity alone does not identify the saved amplitude unit. Therefore
+this revision withdraws the earlier common-g input interpretation: PU amplitudes
+remain in unspecified native units, while the published MFPT gs convention is g.
+Do not invent a PU conversion or infer it from target spectra. This is a
+prospective input-protocol revision, not a post-result preprocessing choice.
+All six families receive the same native-value observation, documented channel
+(PU 2, MFPT 0), metadata nominal rate, whole-record anti-alias resampling to
+25.6 kHz, and existing source-train-only mean/standard-deviation scaling. Unknown
+cross-source amplitude calibration is an explicit transfer limitation.
+
+The existing entry consumes
+`paper/assets/tables/jev_p1_record_bindings.csv`; its rows preserve native Id,
+File, raw label, shared H/I/O label, fixed role, rate, channel, value-unit scope
+and evidence basis. It is a derived runtime input, not an edit to native metadata
+or raw H5. The six-family 46-fit maximum, search, seeds, stopping rules, target
+seal and resource ceilings remain unchanged. Inspect actual common inputs,
+prepare source windows and run the real source-interface smoke before fitting.
+MFPT waveforms remain sealed until every selected source model has passed the
+existing verification/calibration gate. CWRU and physical GPU 2 remain forbidden.
+
+Execution directory: `src/outputs/jev-phm/run-real-20261019-001`. Reproduce with
+`JEV_RUN=src/outputs/jev-phm/run-real-20261019-001 bash run_all.sh`; do not reuse an
+incomplete run or reset the shared approved-study budget. Technical failures and
+cap-reached fits remain explicit, with no automatic retry or target release.
