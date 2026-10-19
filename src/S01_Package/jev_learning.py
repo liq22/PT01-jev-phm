@@ -323,6 +323,12 @@ def fit_family(cfg, run: Path, device, root: Path):
         return json.loads(finished.read_text())
     summaries = [one(i,cfg["seeds"][0]) for i in range(len(grid))]
     winner_index = min(range(len(summaries)),key=lambda i:(summaries[i]["source_nll"],i))
+    if summaries[winner_index]["qualification"] != "bounded_source_selection_only":
+        raise RuntimeError(
+            f"Source-selected trial_{winner_index:02d} is not source-qualified "
+            f"({summaries[winner_index]['qualification']}); preserve all completed candidates "
+            "and stop before additional-seed refits or target release"
+        )
     selected = [summaries[winner_index]] + [one(winner_index,seed) for seed in cfg["seeds"][1:]]
     outcome = {"models":selected,"trials":summaries,
                "scope":"Source-only bounded selection; cap and convergence limitations are explicit"}

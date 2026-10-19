@@ -27,6 +27,14 @@ MFPT intervals are conditional on the declared grouping assumption. Real source
 smoke and efficacy results must be inspected separately from code tests. CWRU and
 physical GPU 2 remain excluded.
 
+On 19 October, real source export and Qwen/CUDA interface checks passed, and
+[28 source fits](paper/assets/tables/jev_p1_source_fit_results.csv) completed.
+The minimum-NLL semantic candidate hit the 2,000-update cap, so the study stopped
+before external evaluation. No MFPT waveforms, calibration, timing or paired
+intervals were released. The [current decision](paper/STATUS.md#e-唯一下一步)
+concerns source fitting adequacy, not another metadata request. This does not
+establish a cross-dataset gain, method failure in general, or a completed paper.
+
 ### Shared observations and probability heads
 
 ```text

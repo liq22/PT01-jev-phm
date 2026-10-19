@@ -1,0 +1,266 @@
+............................
+模式：Research Execution
+Explicitly add selected ARIS retrieval, experiment, figure, and compilation capabilities behind PaperTrace.
+
+请选择使用模式：
+
+  1. PaperTrace Core（默认）
+     Start with research state, methods, code, writing, and native PaperTrace tools. ARIS is not downloaded.
+
+  2. Research Execution
+     Explicitly add selected ARIS retrieval, experiment, figure, and compilation capabilities behind PaperTrace.
+
+  3. Advanced Review
+     Explicitly add independent ARIS review capabilities; review never becomes the default route.
+
+
+模式：PaperTrace Core
+Start with research state, methods, code, writing, and native PaperTrace tools. ARIS is not downloaded.
+Canonical skills scanned: 3
+Valid canonical skills: 3
+Host-exposed canonical skills: 2 (00-router, grill-me)
+Internal-only canonical skills: 1
+Generated wrappers:
+  - claude: 2
+  - codex: 2
+canonical internal skills: 3
+approved host entrypoints: 2 (00-router, grill-me)
+claude wrappers: 2
+codex wrappers:  2
+PASS: wrappers expose only approved entrypoints and match canonical frontmatter, host overrides, provenance, and @targets.
+Canonical skills scanned: 3
+Valid canonical skills: 3
+Host-exposed canonical skills: 2 (00-router, grill-me)
+Internal-only canonical skills: 1
+Generated wrappers:
+  - claude: 2
+  - codex: 2
+canonical internal skills: 3
+approved host entrypoints: 2 (00-router, grill-me)
+claude wrappers: 3
+codex wrappers:  2
+ERROR: .claude/skills exposure mismatch; missing=[] extra_internal_wrappers=['01-project-brief']
+FAILED with 1 error(s).
+Head C=0.1, rows=12, dimensions=6, iterations=[11], seconds=0.00
+Head C=1, rows=12, dimensions=6, iterations=[12], seconds=0.00
+Head C=0.1, rows=12, dimensions=6, iterations=[11], seconds=0.00
+Head C=1, rows=12, dimensions=6, iterations=[12], seconds=0.00
+...............Head C=0.3, rows=6, dimensions=2, iterations=[11], seconds=0.00
+Head C=0.3, rows=9, dimensions=2, iterations=[11], seconds=0.00
+.Fitting Numerical-flat
+Head C=0.1, rows=27, dimensions=6, iterations=[24], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[32], seconds=0.00
+Fitting Numerical-factorized
+Head C=0.1, rows=27, dimensions=6, iterations=[14], seconds=0.00
+Head C=0.1, rows=18, dimensions=6, iterations=[13], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[17], seconds=0.00
+Head C=1, rows=18, dimensions=6, iterations=[19], seconds=0.00
+Fitting Qwen-flat
+Head C=0.1, rows=27, dimensions=6, iterations=[24], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[32], seconds=0.00
+Fitting Qwen-factorized
+Head C=0.1, rows=27, dimensions=6, iterations=[14], seconds=0.00
+Head C=0.1, rows=18, dimensions=6, iterations=[13], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[17], seconds=0.00
+Head C=1, rows=18, dimensions=6, iterations=[19], seconds=0.00
+Fitting Qwen-two-question-direct
+Head C=0.1, rows=27, dimensions=6, iterations=[24], seconds=0.00
+Head C=0.1, rows=27, dimensions=6, iterations=[25], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[32], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[44], seconds=0.00
+Fitting Qwen-shared-factorized
+Head C=0.1, rows=27, dimensions=6, iterations=[14], seconds=0.00
+Head C=0.1, rows=18, dimensions=6, iterations=[13], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[17], seconds=0.00
+Head C=1, rows=18, dimensions=6, iterations=[19], seconds=0.00
+Fitting Numerical-flat
+Head C=0.1, rows=27, dimensions=6, iterations=[24], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[32], seconds=0.00
+Fitting Numerical-factorized
+Head C=0.1, rows=27, dimensions=6, iterations=[14], seconds=0.00
+Head C=0.1, rows=18, dimensions=6, iterations=[13], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[17], seconds=0.00
+Head C=1, rows=18, dimensions=6, iterations=[19], seconds=0.00
+Fitting Qwen-flat
+Head C=0.1, rows=27, dimensions=6, iterations=[24], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[32], seconds=0.00
+Fitting Qwen-factorized
+Head C=0.1, rows=27, dimensions=6, iterations=[14], seconds=0.00
+Head C=0.1, rows=18, dimensions=6, iterations=[13], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[17], seconds=0.00
+Head C=1, rows=18, dimensions=6, iterations=[19], seconds=0.00
+Fitting Qwen-two-question-direct
+Head C=0.1, rows=27, dimensions=6, iterations=[24], seconds=0.00
+Head C=0.1, rows=27, dimensions=6, iterations=[25], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[32], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[44], seconds=0.00
+Fitting Qwen-shared-factorized
+Head C=0.1, rows=27, dimensions=6, iterations=[14], seconds=0.00
+Head C=0.1, rows=18, dimensions=6, iterations=[13], seconds=0.00
+Head C=1, rows=27, dimensions=6, iterations=[17], seconds=0.00
+Head C=1, rows=18, dimensions=6, iterations=[19], seconds=0.00
+..Head C=0.1, rows=6, dimensions=3, iterations=[11], seconds=0.00
+Head C=1, rows=6, dimensions=3, iterations=[13], seconds=0.00
+Head C=0.1, rows=6, dimensions=3, iterations=[11], seconds=0.00
+Head C=1, rows=6, dimensions=3, iterations=[13], seconds=0.00
+.Head C=1, rows=9, dimensions=3, iterations=[11], seconds=0.00
+Head C=0.1, rows=9, dimensions=3, iterations=[11], seconds=0.00
+Head C=1, rows=9, dimensions=3, iterations=[11], seconds=0.00
+Head C=0.1, rows=9, dimensions=3, iterations=[11], seconds=0.00
+Head C=1, rows=9, dimensions=3, iterations=[8], seconds=0.00
+Head C=1, rows=6, dimensions=3, iterations=[10], seconds=0.00
+Head C=0.1, rows=9, dimensions=3, iterations=[9], seconds=0.00
+Head C=0.1, rows=6, dimensions=3, iterations=[8], seconds=0.00
+Head C=1, rows=9, dimensions=3, iterations=[8], seconds=0.01
+Head C=0.1, rows=9, dimensions=3, iterations=[9], seconds=0.01
+Head C=1, rows=6, dimensions=3, iterations=[10], seconds=0.01
+Head C=0.1, rows=6, dimensions=3, iterations=[8], seconds=0.00
+Head C=1, rows=9, dimensions=3, iterations=[11], seconds=0.00
+Head C=1, rows=9, dimensions=3, iterations=[15], seconds=0.00
+Head C=0.1, rows=9, dimensions=3, iterations=[11], seconds=0.00
+Head C=0.1, rows=9, dimensions=3, iterations=[12], seconds=0.00
+Head C=1, rows=9, dimensions=3, iterations=[11], seconds=0.00
+Head C=0.1, rows=9, dimensions=3, iterations=[11], seconds=0.00
+Head C=0.1, rows=9, dimensions=3, iterations=[12], seconds=0.00
+Head C=1, rows=9, dimensions=3, iterations=[15], seconds=0.00
+Head C=1, rows=9, dimensions=3, iterations=[0], seconds=0.00
+Head C=0.1, rows=9, dimensions=3, iterations=[0], seconds=0.00
+................................................................/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+./home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+./home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+./home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+../home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+../home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+./home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+./home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+./home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+../home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+.../home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+./home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/algorithms.py:522: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  common = np.find_common_type([values.dtype, comps_array.dtype], [])
+/home/user/anaconda3/envs/LQ_signal/lib/python3.10/site-packages/pandas/core/dtypes/cast.py:1641: DeprecationWarning: np.find_common_type is deprecated.  Please use `np.result_type` or `np.promote_types`.
+See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information.  (Deprecated NumPy 1.25)
+  return np.find_common_type(types, [])
+....................................................
+----------------------------------------------------------------------
+Ran 179 tests in 11.765s
+
+OK
+Every source-selected checkpoint and source temperature verified; external waveform access is now eligible
+Every source-selected checkpoint and source temperature verified; external waveform access is now eligible
+Every source-selected checkpoint and source temperature verified; external waveform access is now eligible
+Every source-selected checkpoint and source temperature verified; external waveform access is now eligible
+routing definitions=36; product definitions=13; embedded skill definitions=1
+routing exact accuracy=0.083
+routing prohibited triggers=0
+routing critical failures=['ROUTE-001', 'ROUTE-EXEC-001', 'SAFETY-GREEN-001', 'BRAIN-001', 'HYP-001', 'BRIEF-001', 'RQ-001', 'METHOD-001', 'LIT-001', 'VENUE-001', 'EVIDENCE-001', 'EXP-DESIGN-001', 'RUN-001', 'STATS-001', 'POWER-001', 'AUDIT-001', 'CRITICAL-001', 'PEER-001', 'CODE-CHANGE-001', 'XRAY-001', 'DRAFT-001', 'FREEZE-001', 'POLISH-001', 'POLISH-ANTI-DEFENSIVE-001', 'CITATION-001', 'FIGURE-001', 'SUBMIT-001', 'RESPONSE-001', 'SAFETY-001', 'EVOLVE-001', 'GRILL-001', 'GRILL-002']
+product exact accuracy=0.000
+PRODUCT FAILURE: PRODUCT-CODE-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-CODE-001: primary_surface='governance', expected='code'
+PRODUCT FAILURE: PRODUCT-CODE-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-CODE-PLAN-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-CODE-PLAN-001: primary_surface='governance', expected='decision'
+PRODUCT FAILURE: PRODUCT-MANUSCRIPT-REVIEW-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-MANUSCRIPT-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-MANUSCRIPT-001: primary_surface='governance', expected='manuscript'
+PRODUCT FAILURE: PRODUCT-MANUSCRIPT-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-ABSTRACT-FIREWALL-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-ABSTRACT-FIREWALL-001: primary_surface='governance', expected='manuscript'
+PRODUCT FAILURE: PRODUCT-ABSTRACT-FIREWALL-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-COMPRESSION-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-COMPRESSION-001: primary_surface='governance', expected='manuscript'
+PRODUCT FAILURE: PRODUCT-COMPRESSION-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-FIGURE-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-FIGURE-001: primary_surface='governance', expected='figure'
+PRODUCT FAILURE: PRODUCT-FIGURE-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-EXPERIMENT-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-EXPERIMENT-001: primary_surface='governance', expected='experiment'
+PRODUCT FAILURE: PRODUCT-EXPERIMENT-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-ARIS-EXECUTION-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-ARIS-EXECUTION-001: primary_surface='governance', expected='experiment'
+PRODUCT FAILURE: PRODUCT-ARIS-EXECUTION-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-AUDIT-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-POLISH-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-POLISH-001: primary_surface='governance', expected='manuscript'
+PRODUCT FAILURE: PRODUCT-POLISH-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-ANTI-DEFENSIVE-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-ANTI-DEFENSIVE-001: primary_surface='governance', expected='manuscript'
+PRODUCT FAILURE: PRODUCT-ANTI-DEFENSIVE-001: product_changed=False, expected=True
+PRODUCT FAILURE: PRODUCT-EXTERNAL-001: selected_primary='none'
+PRODUCT FAILURE: PRODUCT-EXTERNAL-001: primary_surface='governance', expected='experiment'
+Canonical skills scanned: 1
+Valid canonical skills: 1
+Host-exposed canonical skills: 1 (grill-me)
+Internal-only canonical skills: 0
+Generated wrappers:
+  - claude: 1
+  - codex: 1
+Canonical skills scanned: 1
+Valid canonical skills: 1
+Host-exposed canonical skills: 1 (grill-me)
+Internal-only canonical skills: 0
+Generated wrappers:
+  - claude: 1
+  - codex: 1
+canonical internal skills: 1
+approved host entrypoints: 1 (grill-me)
+claude wrappers: 1
+codex wrappers:  1
+ERROR: /tmp/tmpi7i4lta6/.codex/skills/grill-me/SKILL.md: frontmatter drift; expected={'name': 'grill-me', 'description': 'Explicit trigger: pressure-test one decision at a time.', 'license': 'MIT', 'metadata': {'version': '2.1.0'}}, actual={'name': 'grill-me', 'description': 'Explicit trigger: summarize one decision at a time.', 'license': 'MIT', 'metadata': {'version': '2.1.0'}}
+FAILED with 1 error(s).

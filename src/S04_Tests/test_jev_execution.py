@@ -252,6 +252,32 @@ class ExecutionTests(unittest.TestCase):
         self.assertEqual(restored, cfg)
         self.assertEqual(len(execution.validate_matrix(restored, ROOT)), 6)
 
+    def test_unqualified_source_winner_stops_before_refits_without_substitution(self):
+        from jev_learning import candidates, fit_family
+        cfg = execution.read_config(ROOT / "src/S02_Configs/real/semantic.yaml")
+        family = self.run / "fits" / cfg["name"]
+        family.mkdir(parents=True)
+        preserved = {}
+        for index, parameters in enumerate(candidates(cfg)):
+            folder = family / f"trial_{index:02d}"
+            folder.mkdir()
+            result = {"parameters": parameters, "seed": cfg["seeds"][0],
+                      "source_nll": .1 + index,
+                      "qualification": "cap_reached_uncertain" if index == 0 else "bounded_source_selection_only",
+                      "file": "model.pt", "path": f"trial_{index:02d}/model.pt"}
+            (folder / "model.pt").write_bytes(b"checkpoint fixture; never loaded")
+            (folder / "result.json").write_text(json.dumps(result))
+            for path in folder.iterdir():
+                preserved[path] = path.read_bytes()
+        with patch("subprocess.run") as spawn:
+            with self.assertRaisesRegex(RuntimeError, "Source-selected trial_00 is not source-qualified"):
+                fit_family(cfg, self.run, None, ROOT)
+        spawn.assert_not_called()
+        self.assertFalse((family / "selection.json").exists())
+        self.assertFalse(any(path.name.startswith("refit_") for path in family.iterdir()))
+        for path, content in preserved.items():
+            self.assertEqual(path.read_bytes(), content)
+
     def test_verify_source_stage_is_in_existing_cli(self):
         parser = argparse.ArgumentParser()
         execution.add_subparser(parser.add_subparsers(required=True))

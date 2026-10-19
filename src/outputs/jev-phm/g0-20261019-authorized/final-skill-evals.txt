@@ -1,0 +1,3 @@
+routing definitions=36; product definitions=13; embedded skill definitions=1
+NOTE: definitions only; no Claude/Codex/LLM behavior was executed.
+PASS: routing/product case definitions are valid; behavior not executed.

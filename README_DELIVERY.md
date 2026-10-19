@@ -8,6 +8,16 @@ documented groups and uses twenty assumed MFPT experiment units. Earlier G0
 failures below remain historical; actual real-source smoke and fitting outcomes
 are reported in STATUS. Code fixtures are not PHM results.
 
+**Current outcome:** real source export and all six source interfaces passed;
+28 efficacy fits completed. The lowest-NLL semantic candidate (8.73848 on PU
+tune) hit the 2,000-update cap and remains source-unqualified. One already-started
+refit was stopped, with its original logs retained. MFPT waveforms, calibration,
+external predictions and timing remain sealed/unrun. This is an executable,
+partially exercised study, not a completed or validated external experiment.
+See the [source result table](paper/assets/tables/jev_p1_source_fit_results.csv)
+and [current stop decision](paper/STATUS.md#e-唯一下一步). No further metadata
+is currently requested. Do not restart the incomplete fit or reset its budget.
+
 The authority for population, claims and resources is the existing
 [approved P1 protocol](paper/experiments/jev_goal.md#approved-p1-continuation-pu-single-ring-source-to-mfpt-external-target).
 CWRU and explicitly CWRU-trained industrial weights are excluded. Physical GPU 2
@@ -125,6 +135,22 @@ CUDA_VISIBLE_DEVICES='' .venv/bin/python src/S03_Scripts/run_jev_study.py semant
 bash run_all.sh --check
 bash run_all.sh --status
 ```
+
+For the actual stopped study, inspect without restarting fits:
+
+```bash
+JEV_RUN=src/outputs/jev-phm/run-real-20261019-001 bash run_all.sh --status
+CUDA_VISIBLE_DEVICES='' .venv/bin/python src/S03_Scripts/run_jev_study.py semantic fit \
+  --config src/S02_Configs/real/semantic.yaml \
+  --run-root src/outputs/jev-phm/run-real-20261019-001
+```
+
+The second command reuses the six completed grid results and exits nonzero at
+the existing source-qualification gate before loading a model or starting a
+refit. It does not open target data. The original pipeline commands below remain
+documented for the protocol; they do not authorize overriding this scientific
+stop. Small configuration/result JSONs and diagnostics are retained with the
+run; waveform caches and checkpoints remain in local study storage.
 
 `--check` is CPU-only and returns a nonzero status while G0 is unbound. Commit
 reviewed scientific code/configuration before calling the Shell runner. Once

@@ -397,3 +397,56 @@ not a new family or extra efficacy fit. Preserve its five consumed CPU seconds,
 stage log and the original child log/failure under
 `fits/rf/technical_recovery_01/`. Reuse unchanged source exports and smoke; keep
 MFPT sealed. Do not present this failed infrastructure attempt as a PHM result.
+
+#### Real source-search outcome and scientific stop — 19 October 2026
+
+The current run completed 28 efficacy fits: six RF candidates, eight MobileNet1D
+fits, eight indexed-head fits and six semantic candidates. The source table is
+`paper/assets/tables/jev_p1_source_fit_results.csv`; each row points to the saved
+result and checkpoint. Six hyperparameter candidates are not six stochastic
+repetitions. RF's selected tune NLL is 1.0412393. The selected MobileNet1D seed
+101/202/303 tune NLLs are 0.6620075 / 0.8902235 / 0.6315378, and the indexed-head
+values are 0.7147418 / 0.8883961 / 0.7756704. All six selected neural fits satisfy
+the declared source early-stop criterion. These are source selection scores,
+not held-out diagnostic results.
+
+Semantic candidate tune NLLs in fixed trial order are 19.3752802, 20.6355222,
+21.0532140, 18.0205160, 11.4169437 and 8.7384838. The fixed minimum-NLL rule
+therefore chooses trial 05, lr=0.001 and weight decay=0.01. Its selected step is
+1700, its last step is 2000 and its qualification is `cap_reached_uncertain`.
+Do not substitute a worse early-stopped candidate or extend the update limit
+after seeing this result. The original executor had already started seed 202;
+that child was explicitly terminated on observing this scientific stop. Its
+partial directory and SIGTERM process failure remain unchanged. It is the 29th
+started efficacy fit, not a completed repeat or a spontaneous optimizer error.
+No technical retry was used for this administrative stop.
+
+The executor now checks the same qualification immediately after grid selection,
+before launching additional seeds. A CPU-only replay on the actual completed
+grid returned the intended source-qualification error, without another model
+call, fit or external access. Its output is
+`src/outputs/jev-phm/g0-20261019-authorized/source-gate-replay.txt`.
+The run's `execution/scientific_stop.txt` distinguishes this stop from the
+earlier pre-fit JSON parsing failure. All pipeline processes have ended.
+
+Source geometry is an **H1 diagnostic**, prompted by the large source losses:
+the saved inner/outer prototype cosine is 0.998831 and the smoke logits have
+much larger spans than indexed logits. Candidate order and fixedness were
+correct, and these observations do not establish a causal explanation or
+non-identifiability. The exact artifact-based calculation and limits are in
+`execution/semantic_geometry.txt`; no new normalization or training was run.
+
+MFPT waveforms remain unopened. Permuted/token efficacy fits, complete source
+reload/calibration, external predictions, timings and paired uncertainty
+intervals did not run. C4/C5 effects and native-granularity learning remain
+UNTESTED. The recorded pipeline intervals total 6,250 GPU-lane seconds and
+531 CPU seconds, including the four-second source-gate replay. These are
+instrumented command intervals, not a claim that all analysis/checking CPU time
+was measured. No approved ceiling, population, label or seed was expanded.
+
+The remaining research question is source fitting adequacy and the competing
+scale/geometry/representation explanations. Any further method or fitting
+revision must preserve these results, declare its source-inspired provenance
+and fair controls before additional runs, and retain MFPT's exclusion from
+development. Additional metadata is not the current prerequisite. No automatic
+resume of the partial fit or claim of a completed paper candidate is justified.

@@ -1,0 +1,142 @@
+{
+  "models": [
+    {
+      "source_nll": 0.662007532314559,
+      "selected_step": 1500,
+      "last_step": 2000,
+      "termination": "source_early_stop",
+      "seconds": 97.02393909997772,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.0003,
+        "weight_decay": 0.01
+      },
+      "seed": 101,
+      "path": "trial_03/model.pt"
+    },
+    {
+      "source_nll": 0.8902234700448213,
+      "selected_step": 500,
+      "last_step": 1000,
+      "termination": "source_early_stop",
+      "seconds": 55.66659852297744,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.0003,
+        "weight_decay": 0.01
+      },
+      "seed": 202,
+      "path": "refit_202/model.pt"
+    },
+    {
+      "source_nll": 0.6315377845197442,
+      "selected_step": 600,
+      "last_step": 1100,
+      "termination": "source_early_stop",
+      "seconds": 62.32625784602715,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.0003,
+        "weight_decay": 0.01
+      },
+      "seed": 303,
+      "path": "refit_303/model.pt"
+    }
+  ],
+  "trials": [
+    {
+      "source_nll": 0.8331903857473423,
+      "selected_step": 400,
+      "last_step": 900,
+      "termination": "source_early_stop",
+      "seconds": 52.2750566219911,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.0001,
+        "weight_decay": 0.0
+      },
+      "seed": 101,
+      "path": "trial_00/model.pt"
+    },
+    {
+      "source_nll": 0.8847847586372889,
+      "selected_step": 400,
+      "last_step": 900,
+      "termination": "source_early_stop",
+      "seconds": 53.747149670962244,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.0001,
+        "weight_decay": 0.01
+      },
+      "seed": 101,
+      "path": "trial_01/model.pt"
+    },
+    {
+      "source_nll": 0.7138959269809922,
+      "selected_step": 1100,
+      "last_step": 1600,
+      "termination": "source_early_stop",
+      "seconds": 84.24295590800466,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.0003,
+        "weight_decay": 0.0
+      },
+      "seed": 101,
+      "path": "trial_02/model.pt"
+    },
+    {
+      "source_nll": 0.662007532314559,
+      "selected_step": 1500,
+      "last_step": 2000,
+      "termination": "source_early_stop",
+      "seconds": 97.02393909997772,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.0003,
+        "weight_decay": 0.01
+      },
+      "seed": 101,
+      "path": "trial_03/model.pt"
+    },
+    {
+      "source_nll": 0.7766832219937017,
+      "selected_step": 1100,
+      "last_step": 1600,
+      "termination": "source_early_stop",
+      "seconds": 85.67317258997355,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.001,
+        "weight_decay": 0.0
+      },
+      "seed": 101,
+      "path": "trial_04/model.pt"
+    },
+    {
+      "source_nll": 0.6971839456567238,
+      "selected_step": 800,
+      "last_step": 1300,
+      "termination": "source_early_stop",
+      "seconds": 64.28000495000742,
+      "qualification": "bounded_source_selection_only",
+      "file": "model.pt",
+      "parameters": {
+        "lr": 0.001,
+        "weight_decay": 0.01
+      },
+      "seed": 101,
+      "path": "trial_05/model.pt"
+    }
+  ],
+  "scope": "Source-only bounded selection; cap and convergence limitations are explicit"
+}

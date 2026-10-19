@@ -1,0 +1,3 @@
+Derived HTML: /home/user/LQ/Q_paper/LQQL_OS/lqql_06_工作与项目/03_论文流水线/PT01-jev-phm/paper/preview/jev-phm-preview.html
+Derived PDF: /home/user/LQ/Q_paper/LQQL_OS/lqql_06_工作与项目/03_论文流水线/PT01-jev-phm/paper/preview/jev-phm-preview.pdf
+Authoritative manuscript: /home/user/LQ/Q_paper/LQQL_OS/lqql_06_工作与项目/03_论文流水线/PT01-jev-phm/paper/draft/main.md

@@ -1,0 +1,98 @@
+{
+  "models": [
+    {
+      "source_nll": 1.0412392675503077,
+      "termination": "completed",
+      "qualification": "bounded_source_selection_only",
+      "file": "model.joblib",
+      "parameters": {
+        "max_depth": 8,
+        "min_samples_leaf": 12
+      },
+      "seed": 101,
+      "path": "trial_02/model.joblib",
+      "seconds": 35.07978951500263
+    }
+  ],
+  "trials": [
+    {
+      "source_nll": 1.0517429795110114,
+      "termination": "completed",
+      "qualification": "bounded_source_selection_only",
+      "file": "model.joblib",
+      "parameters": {
+        "max_depth": 8,
+        "min_samples_leaf": 1
+      },
+      "seed": 101,
+      "path": "trial_00/model.joblib",
+      "seconds": 35.94879008299904
+    },
+    {
+      "source_nll": 1.0430113070682152,
+      "termination": "completed",
+      "qualification": "bounded_source_selection_only",
+      "file": "model.joblib",
+      "parameters": {
+        "max_depth": 8,
+        "min_samples_leaf": 4
+      },
+      "seed": 101,
+      "path": "trial_01/model.joblib",
+      "seconds": 35.584443798987195
+    },
+    {
+      "source_nll": 1.0412392675503077,
+      "termination": "completed",
+      "qualification": "bounded_source_selection_only",
+      "file": "model.joblib",
+      "parameters": {
+        "max_depth": 8,
+        "min_samples_leaf": 12
+      },
+      "seed": 101,
+      "path": "trial_02/model.joblib",
+      "seconds": 35.07978951500263
+    },
+    {
+      "source_nll": 3.2176074969698463,
+      "termination": "completed",
+      "qualification": "bounded_source_selection_only",
+      "file": "model.joblib",
+      "parameters": {
+        "max_depth": null,
+        "min_samples_leaf": 1
+      },
+      "seed": 101,
+      "path": "trial_03/model.joblib",
+      "seconds": 35.641369127028156
+    },
+    {
+      "source_nll": 1.7351248005288393,
+      "termination": "completed",
+      "qualification": "bounded_source_selection_only",
+      "file": "model.joblib",
+      "parameters": {
+        "max_depth": null,
+        "min_samples_leaf": 4
+      },
+      "seed": 101,
+      "path": "trial_04/model.joblib",
+      "seconds": 35.33359416999156
+    },
+    {
+      "source_nll": 1.4539625741264017,
+      "termination": "completed",
+      "qualification": "bounded_source_selection_only",
+      "file": "model.joblib",
+      "parameters": {
+        "max_depth": null,
+        "min_samples_leaf": 12
+      },
+      "seed": 101,
+      "path": "trial_05/model.joblib",
+      "seconds": 35.67356909299269
+    }
+  ],
+  "scope": "Source-only bounded selection; cap and convergence limitations are explicit"
+}
