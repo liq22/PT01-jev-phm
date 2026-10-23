@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -173,27 +174,96 @@ def render_wrapper(
     )
 
 
+def historical_frontmatter(
+    path: Path, canonical_file: Path, host: str, wrapper_bytes: bytes
+) -> dict[str, Any] | None:
+    """Prove unchanged tracked output using its last-changing Git commit.
+
+    No ownership marker alone is evidence. Missing or shallow history fails
+    closed; Git is only consulted when current metadata no longer matches.
+    """
+    repo_root = path.parents[3]
+
+    def git(*args: str) -> bytes:
+        return subprocess.run(
+            ["git", "--no-replace-objects", "-C", str(repo_root), *args],
+            check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            env={**os.environ, "GIT_NO_LAZY_FETCH": "1"},
+        ).stdout
+
+    def blob(commit: str, relative: str, optional: bool = False) -> bytes | None:
+        entry = git("ls-tree", commit, "--", relative)
+        if not entry and optional:
+            return None
+        # Reject symlinks, submodules, absent required files, and other modes.
+        if not entry.startswith((b"100644 blob ", b"100755 blob ")):
+            raise ValueError("historical input is not a regular tracked file")
+        return git("show", f"{commit}:{relative}")
+
+    try:
+        if repo_root.resolve() != repo_root:
+            return None
+        relative = path.relative_to(repo_root).as_posix()
+        source = canonical_file.relative_to(repo_root).as_posix()
+        if canonical_file.resolve() != canonical_file:
+            return None
+        if Path(os.fsdecode(git("rev-parse", "--show-toplevel")).strip()) != repo_root:
+            return None
+        if git("rev-parse", "--is-shallow-repository").strip() != b"false":
+            return None
+        # Older Git ignores GIT_NO_LAZY_FETCH. Reject every configuration that
+        # can register a promisor remote before any command reads Git objects.
+        keys = git("config", "--includes", "--null", "--name-only", "--list")
+        if any(re.fullmatch(
+            rb"extensions\.partialclone|remote\..*\.(promisor|partialclonefilter)",
+            key.lower(),
+        ) for key in keys.split(b"\0")):
+            return None
+        if blob("HEAD", relative) != wrapper_bytes:
+            return None
+        commit = git("log", "-1", "--format=%H", "HEAD", "--", relative).decode().strip()
+        if not commit or blob(commit, relative) != wrapper_bytes:
+            return None
+        canonical, _ = parse_frontmatter(blob(commit, source).decode("utf-8"))
+        if canonical is None or validate_canonical(path.parent.name, canonical):
+            return None
+        expected = {key: canonical[key] for key in CANONICAL_KEY_ORDER if key in canonical}
+        override_path = (canonical_file.parent / "wrappers" / f"{host}.yaml")
+        override_bytes = blob(commit, override_path.relative_to(repo_root).as_posix(), optional=True)
+        if override_bytes is not None:
+            override = yaml.safe_load(override_bytes.decode("utf-8"))
+            if not isinstance(override, dict) or set(override) - HOST_OVERRIDE_KEYS[host]:
+                return None
+            expected.update(override)
+        return expected
+    except (OSError, UnicodeError, ValueError, subprocess.CalledProcessError, yaml.YAMLError):
+        return None
+
+
 def is_generated_wrapper(path: Path, canonical_file: Path, host: str) -> bool:
-    """Recognize an unmodified wrapper against its current canonical source."""
+    """Recognize exact generated bodies with current or Git-proven metadata."""
     if path.is_symlink() or path.parent.resolve() != path.parent:
         return False
     try:
-        text = path.read_text(encoding="utf-8")
-        canonical, error = parse_frontmatter(canonical_file.read_text(encoding="utf-8"))
-        actual, actual_error = parse_frontmatter(text)
+        wrapper_bytes = path.read_bytes()
+        text = wrapper_bytes.decode("utf-8")
+        canonical, _ = parse_frontmatter(canonical_file.read_text(encoding="utf-8"))
+        actual, _ = parse_frontmatter(text)
         if canonical is None or actual is None:
             return False
-        if actual != expected_frontmatter(canonical_file, canonical, host):
+        match = FRONTMATTER_RE.match(text)
+        body = text[match.end():].strip()
+        target = os.path.relpath(canonical_file, start=path.parent)
+        if body not in {
+            f"<!-- {PROVENANCE} -->\n\n@{target}",
+            f"<!-- Generated wrapper. Canonical content lives under .agent/skills/. -->\n\n@{target}",
+        }:
             return False
+        if actual == expected_frontmatter(canonical_file, canonical, host):
+            return True
+        return actual == historical_frontmatter(path, canonical_file, host, wrapper_bytes)
     except (OSError, UnicodeError, ValueError):
         return False
-    match = FRONTMATTER_RE.match(text)
-    body = text[match.end():].strip()
-    target = os.path.relpath(canonical_file, start=path.parent)
-    return body in {
-        f"<!-- {PROVENANCE} -->\n\n@{target}",
-        f"<!-- Generated wrapper. Canonical content lives under .agent/skills/. -->\n\n@{target}",
-    }
 
 
 def remove_generated_dir(path: Path, repo_root: Path, source_dir: Path, host: str) -> None:
