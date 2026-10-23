@@ -163,6 +163,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--canonical", default=".agent/skills")
     parser.add_argument("--claude", default=".claude/skills")
     parser.add_argument("--codex", default=".codex/skills")
+    parser.add_argument("--target", choices=("both", "claude", "codex"), default="both")
     args = parser.parse_args(argv)
 
     canonical = Path(args.canonical).resolve()
@@ -183,6 +184,8 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     for host, root in roots.items():
+        if args.target != "both" and host != args.target:
+            continue
         names = skill_names(root)
         counts[host] = len(names)
         if names != expected_names:
@@ -206,8 +209,10 @@ def main(argv: list[str] | None = None) -> int:
         "approved host entrypoints: "
         f"{len(expected_names)} ({', '.join(sorted(expected_names))})"
     )
-    print(f"claude wrappers: {counts.get('claude', 0)}")
-    print(f"codex wrappers:  {counts.get('codex', 0)}")
+    if "claude" in counts:
+        print(f"claude wrappers: {counts['claude']}")
+    if "codex" in counts:
+        print(f"codex wrappers:  {counts['codex']}")
     for error in errors:
         print(f"ERROR: {error}")
     if errors:

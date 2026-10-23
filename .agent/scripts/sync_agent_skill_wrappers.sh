@@ -24,6 +24,12 @@ python "$SCRIPT_DIR/generate_agent_skill_wrappers.py" \
   --target "$TARGET" \
   $CLEAN_FLAG
 
+python "$SCRIPT_DIR/validate_agent_skill_wrappers.py" \
+  --canonical "$REPO_ROOT/.agent/skills" \
+  --claude "$REPO_ROOT/.claude/skills" \
+  --codex "$REPO_ROOT/.codex/skills" \
+  --target "$TARGET"
+
 echo
 echo "Done. Canonical internal skills: $REPO_ROOT/.agent/skills"
 echo "Host-visible allowlist: 00-router, grill-me"
