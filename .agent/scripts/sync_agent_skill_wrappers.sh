@@ -14,7 +14,7 @@ DEFAULT_REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 REPO_ROOT="${1:-$DEFAULT_REPO_ROOT}"
 TARGET="${2:-both}"
 CLEAN_FLAG=""
-if [[ "${3:-}" == "--clean" || "${CLEAN_ENV:-1}" == "1" ]]; then
+if [[ "${3:-}" == "--clean" || "${CLEAN_ENV:-0}" == "1" ]]; then
   CLEAN_FLAG="--clean"
 fi
 
