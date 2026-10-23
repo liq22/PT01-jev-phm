@@ -190,7 +190,10 @@ def is_generated_wrapper(path: Path, canonical_file: Path, host: str) -> bool:
     match = FRONTMATTER_RE.match(text)
     body = text[match.end():].strip()
     target = os.path.relpath(canonical_file, start=path.parent)
-    return body == f"<!-- {PROVENANCE} -->\n\n@{target}"
+    return body in {
+        f"<!-- {PROVENANCE} -->\n\n@{target}",
+        f"<!-- Generated wrapper. Canonical content lives under .agent/skills/. -->\n\n@{target}",
+    }
 
 
 def remove_generated_dir(path: Path, repo_root: Path, source_dir: Path, host: str) -> None:
