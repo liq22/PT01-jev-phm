@@ -20,7 +20,9 @@ Q2. What is the largest unresolved uncertainty threatening it?
 Q3. What is the smallest action whose possible outcomes could change the claim or next decision?
 ```
 
-If no plausible outcome changes the research judgment, do not perform the action.
+For scientific exploration, do not act if no plausible outcome changes the
+research judgment. For a bounded authorized task, complete the requested product
+and its direct validation without opening another research cycle.
 
 Use this adaptive loop:
 
