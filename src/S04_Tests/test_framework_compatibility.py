@@ -81,5 +81,80 @@ class DefaultSyncTests(unittest.TestCase):
             self.assertIn('description: Updated routing description', wrapper.read_text())
             self.assertIn('@../../../.agent/skills/00-router/SKILL.md', wrapper.read_text())
 
+class SymlinkDestinationTests(unittest.TestCase):
+    def fixture(self, base):
+        root = base / 'repo'
+        source = root / '.agent/skills/00-router/SKILL.md'
+        source.parent.mkdir(parents=True)
+        source.write_text('---\nname: 00-router\ndescription: Original routing\n---\n')
+        self.assertEqual(self.run_sync(root).returncode, 0)
+        return root, source
+
+    def run_sync(self, root, target='both', clean=False):
+        env = dict(os.environ)
+        env.pop('CLEAN_ENV', None)
+        args = ['bash', str(SCRIPTS / 'sync_agent_skill_wrappers.sh'), str(root), target]
+        if clean:
+            args.append('--clean')
+        return subprocess.run(args, env=env, capture_output=True, text=True)
+
+    def test_linked_destinations_fail_before_either_host_changes(self):
+        import shutil
+        for kind in ('file', 'broken_file', 'skill_directory', 'host_root', 'repo_root', 'repo_ancestor'):
+            for clean in (False, True):
+                with self.subTest(kind=kind, clean=clean), tempfile.TemporaryDirectory() as tmp:
+                    base = Path(tmp)
+                    root, source = self.fixture(base)
+                    first = root / '.claude/skills/00-router/SKILL.md'
+                    original = first.read_bytes()
+                    source.write_text(source.read_text().replace('Original routing', 'Updated routing'))
+                    external = base / 'external'
+                    external.mkdir()
+                    sentinel = external / 'SKILL.md'
+                    sentinel.write_text('Author-owned target\n')
+                    if kind in ('file', 'broken_file'):
+                        link = root / '.codex/skills/00-router/SKILL.md'
+                        link.unlink()
+                        link.symlink_to(sentinel if kind == 'file' else external / 'missing.md')
+                    elif kind in ('skill_directory', 'host_root'):
+                        link = root / ('.codex/skills/00-router' if kind == 'skill_directory' else '.codex/skills')
+                        shutil.rmtree(link)
+                        link.symlink_to(external, target_is_directory=True)
+                    elif kind == 'repo_root':
+                        link = base / 'repo_alias'
+                        link.symlink_to(root, target_is_directory=True)
+                        root = link
+                    else:
+                        link = base / 'parent_alias'
+                        link.symlink_to(base, target_is_directory=True)
+                        root = link / 'repo'
+                    result = self.run_sync(root, clean=clean)
+                    self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+                    self.assertIn('symlink', result.stderr)
+                    self.assertEqual(first.read_bytes(), original)
+                    self.assertEqual(sentinel.read_text(), 'Author-owned target\n')
+                    self.assertTrue(link.is_symlink())
+
+    def test_unselected_host_symlink_does_not_block_selected_host(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root, _ = self.fixture(Path(tmp))
+            external = Path(tmp) / 'author.md'
+            external.write_text('Author-owned target\n')
+            link = root / '.codex/skills/00-router/SKILL.md'
+            link.unlink()
+            link.symlink_to(external)
+            self.assertEqual(self.run_sync(root, target='claude').returncode, 0)
+            self.assertEqual(external.read_text(), 'Author-owned target\n')
+
+    def test_regular_explicit_clean_still_uses_original_behavior(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root, _ = self.fixture(Path(tmp))
+            extra = root / '.claude/skills/local-only/SKILL.md'
+            extra.parent.mkdir()
+            extra.write_text('Explicitly cleaned test fixture\n')
+            self.assertEqual(self.run_sync(root, target='claude', clean=True).returncode, 0)
+            self.assertFalse(extra.exists())
+
+
 if __name__ == '__main__':
     unittest.main()

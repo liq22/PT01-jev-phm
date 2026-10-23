@@ -18,6 +18,31 @@ if [[ "${3:-}" == "--clean" || "${CLEAN_ENV:-0}" == "1" ]]; then
   CLEAN_FLAG="--clean"
 fi
 
+# Refuse linked destinations before either host is changed. The generator writes
+# through existing paths, so leaving a symlink in place could overwrite its target.
+for HOST in claude codex; do
+  if [[ "$TARGET" != "both" && "$TARGET" != "$HOST" ]]; then
+    continue
+  fi
+  DESTINATION="$REPO_ROOT/.$HOST/skills"
+  ANCESTOR="$DESTINATION"
+  while [[ "$ANCESTOR" != "/" && "$ANCESTOR" != "." ]]; do
+    if [[ -L "$ANCESTOR" ]]; then
+      echo "ERROR: refusing symlink destination: $ANCESTOR" >&2
+      exit 1
+    fi
+    ANCESTOR="$(dirname "$ANCESTOR")"
+  done
+  if [[ -d "$DESTINATION" ]]; then
+    LINK="$(find -P "$DESTINATION" -type l -print -quit)"
+    if [[ -n "$LINK" ]]; then
+      echo "ERROR: refusing symlink within host skills: $LINK" >&2
+      exit 1
+    fi
+  fi
+done
+
+
 python "$SCRIPT_DIR/generate_agent_skill_wrappers.py" \
   --repo-root "$REPO_ROOT" \
   --source-dir ".agent/skills" \
