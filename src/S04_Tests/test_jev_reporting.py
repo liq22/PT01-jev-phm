@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import csv
 import json
+import subprocess
+import textwrap
 import sys
 import tempfile
 import unittest
@@ -30,6 +32,56 @@ def saved_fixture(*, singleton: bool = False) -> dict:
 
 
 class ReportingTests(unittest.TestCase):
+    def test_offline_scoring_and_summary_do_not_import_training_or_execution(self):
+        # A fresh interpreter catches function-local imports as well as module imports.
+        # These saved-array fixtures are not PHM experiment results.
+        program = textwrap.dedent("""
+            import builtins
+            import json
+            import sys
+            import tempfile
+            from pathlib import Path
+            import numpy as np
+
+            sys.path.insert(0, sys.argv[1])
+            original_import = builtins.__import__
+            forbidden = {"torch", "transformers", "jev_learning", "jev_execution", "jev_semantic"}
+            def without_training(name, *args, **kwargs):
+                if name.split(".")[0] in forbidden:
+                    raise ImportError("Offline results imported training/runtime: " + name)
+                return original_import(name, *args, **kwargs)
+            builtins.__import__ = without_training
+
+            from jev_config import read_config
+            from jev_reporting import score_saved, summarize_saved_predictions
+            root = Path(sys.argv[2])
+            cfg = read_config(root / "src/S02_Configs/real/semantic.yaml")
+            cfg["data"]["qualification_file"] = None
+            cfg["evaluation"]["semantic_variants"] = {}
+            y = np.array([0, 0, 1, 1, 2, 2])
+            saved = dict(y=y, unit=np.array(list("abcdef")), record=np.array(list("abcdef")),
+                logits=np.eye(3)[y], temperature=np.array(1.),
+                resampled_start=np.zeros(6, dtype=int), resampled_stop=np.full(6, 8192))
+            assert np.isfinite(score_saved(saved)["nll"])
+            with tempfile.TemporaryDirectory() as temporary:
+                run = Path(temporary)
+                for config_path in cfg["family_configs"]:
+                    family = read_config(root / config_path)
+                    for seed in family["seeds"]:
+                        area = run / "evaluations" / family["name"] / str(seed)
+                        area.mkdir(parents=True)
+                        for role in ("test", "external"):
+                            np.savez_compressed(area / (role + ".npz"), **saved)
+                summarize_saved_predictions(cfg, root, run)
+                effect = json.loads((run / "reporting/paired_effects.json").read_text())
+                assert effect["external_raw"]["mean_difference"] == 0.
+                assert (run / "summary.csv").is_file()
+            assert not forbidden.intersection(sys.modules)
+        """)
+        result = subprocess.run([sys.executable, "-c", program,
+            str(ROOT / "src/S01_Package"), str(ROOT)], capture_output=True, text=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_record_then_unit_weights_and_confusion_f1(self):
         saved = saved_fixture()
         result = score_saved(saved)
@@ -192,7 +244,7 @@ class ReportingTests(unittest.TestCase):
                 for role in ("test", "external"):
                     np.savez_compressed(folder / f"{role}.npz", **saved_fixture())
             cfg = {"evaluation": {"probability_floor": 1e-12}, "family_configs": ["semantic", "indexed"]}
-            with patch("jev_execution.read_config", side_effect=lambda path: {"name": path.name, "seeds": [101]}):
+            with patch("jev_config.read_config", side_effect=lambda path: {"name": path.name, "seeds": [101]}):
                 summarize_saved_predictions(cfg, run, run)
             definitions = json.loads((run / "reporting" / "definitions.json").read_text())
             for basis in definitions["unit_basis_by_role"].values():
@@ -225,7 +277,7 @@ class ReportingTests(unittest.TestCase):
             qualification = run / "qualification.csv"
             qualification.write_text("Name,physical_source,unit_basis\nRM_027_PU,native bearing table,documented_PU_bearing\nRM_007_MFPT,user assertion: one experiment is one assumed bearing,user_assumed_MFPT_experiment_bearing\n")
             cfg["data"] = {"qualification_file": str(qualification)}
-            with patch("jev_execution.read_config", side_effect=lambda path: {"name": path.name, "seeds": [101, 202]}):
+            with patch("jev_config.read_config", side_effect=lambda path: {"name": path.name, "seeds": [101, 202]}):
                 summarize_saved_predictions(cfg, run, run)
                 # Same saved outputs are safe to recompute; a changed output is not overwritten.
                 summarize_saved_predictions(cfg, run, run)

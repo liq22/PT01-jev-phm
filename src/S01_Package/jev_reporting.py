@@ -44,7 +44,7 @@ def _write_csv(path: Path, rows: list[dict]) -> None:
 
 
 def _weights(saved: dict) -> np.ndarray:
-    from jev_learning import record_unit_weights
+    from jev_metrics import record_unit_weights
     weights = record_unit_weights(saved["unit"], saved["record"])
     if "weights" in saved and not np.allclose(weights, saved["weights"], rtol=0, atol=1e-12):
         raise ValueError("Saved weights differ from record-within-physical-unit weights")
@@ -202,7 +202,7 @@ def _load_npz(path: Path) -> dict:
 
 def summarize_saved_predictions(cfg: dict, root: Path, run: Path) -> None:
     """Recompute probabilities, effects and operating curves without model calls."""
-    from jev_execution import read_config
+    from jev_config import read_config
     rows, alarms, fits, saved_by_method = [], [], [], {}
     variant_rows, variant_unit_rows = [], []
     floor = cfg["evaluation"]["probability_floor"]
