@@ -133,13 +133,13 @@ Canonicalization does not assert invariant conditional signal–fault relationsh
 
 ### 3.3 Risk, acceptance, and evaluation units
 
-Negative log-likelihood (NLL), measured with natural logarithms in nats, is the main probability endpoint. The completed compact-state pilot uses $B$ test bearings with $n_b$ exported windows each:
+Negative log-likelihood (NLL), measured with natural logarithms in nats, is the main probability endpoint. The completed compact-state pilot uses $B$ test bearings with $n_b$ exported windows each. Let $b$ index the evaluation bearing, let $i$ flatten its recordings and windows, and let $x_{bi}$ and $y_{bi}$ denote the observed window and its scored task class when available:
 
 $$
 R_{\mathrm{unit}}(p)=\frac1B\sum_{b=1}^{B}\frac1{n_b}\sum_{i=1}^{n_b}-\log p(y_{bi}\mid x_{bi}).
 $$
 
-Here $b$ indexes the evaluation bearing, $i$ flattens its recordings and windows, $x_{bi}$ is the observed window, and $y_{bi}$ is its scored task class when that class is available. This is an equal-bearing mean of window losses, not a claim that windows are independent. The implemented waveform-transfer protocol in Section 4.5 instead gives the $R_b$ original recordings within each declared unit equal weight. With $r$ indexing recordings, $i$ indexing windows within a recording, and $x_{bri},y_{bri}$ denoting the corresponding observation and scored task class, its primary estimand is
+This is an equal-bearing mean of window losses, not a claim that windows are independent. The implemented waveform-transfer protocol in Section 4.5 instead gives the $R_b$ original recordings within each declared unit equal weight. With $r$ indexing recordings, $i$ indexing windows within a recording, $n_{br}$ denoting its window count, and $x_{bri},y_{bri}$ denoting the corresponding observation and scored task class, its primary estimand is
 
 $$
 R_{\mathrm{record/unit}}(p)=\frac1B\sum_{b=1}^{B}\frac1{R_b}\sum_{r=1}^{R_b}\frac1{n_{br}}\sum_{i=1}^{n_{br}}-\log p(y_{bri}\mid x_{bri}).
