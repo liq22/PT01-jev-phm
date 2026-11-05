@@ -139,7 +139,7 @@ $$
 R_{\mathrm{unit}}(p)=\frac1B\sum_{b=1}^{B}\frac1{n_b}\sum_{i=1}^{n_b}-\log p(y_{bi}\mid x_{bi}).
 $$
 
-This is an equal-bearing mean of window losses, not a claim that windows are independent. The implemented waveform-transfer protocol in Section 4.5 instead gives the $R_b$ original recordings within each declared unit equal weight. With $r$ indexing recordings, $i$ indexing windows within a recording, $n_{br}$ denoting its window count, and $x_{bri},y_{bri}$ denoting the corresponding observation and scored task class, its primary estimand is
+This is an equal-bearing mean of window losses, not a claim that windows are independent. The implemented waveform-transfer protocol in Section 4.5 instead uses $B$ declared evaluation units and gives the $R_b$ original recordings within each unit equal weight. With $r$ indexing recordings, $i$ indexing windows within a recording, $n_{br}$ denoting its window count, and $x_{bri},y_{bri}$ denoting the corresponding observation and scored task class, its primary estimand is
 
 $$
 R_{\mathrm{record/unit}}(p)=\frac1B\sum_{b=1}^{B}\frac1{R_b}\sum_{r=1}^{R_b}\frac1{n_{br}}\sum_{i=1}^{n_{br}}-\log p(y_{bri}\mid x_{bri}).
